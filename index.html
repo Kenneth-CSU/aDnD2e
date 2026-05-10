@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AD&D 2nd Edition Character Sheet</title>
+    <style>
+        :root {
+            --parchment: #f4e4bc;
+            --parchment-dark: #e6d2a0;
+            --ink: #2b2b2b;
+            --border: #5c4033;
+            --highlight: #8b0000;
+            --panel-bg: rgba(244, 228, 188, 0.95);
+        }
+
+        * { box-sizing: border-box; user-select: none; }
+        
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background-color: var(--parchment);
+            background-image: radial-gradient(#d4c5a3 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--ink);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Header --- */
+        header {
+            height: 60px;
+            background: var(--border);
+            color: var(--parchment);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            z-index: 100;
+        }
+        h1 { margin: 0; font-size: 1.4rem; letter-spacing: 1px; text-transform: uppercase; }
+        .top-controls { display: flex; gap: 10px; }
+        
+        button {
+            background: var(--parchment-dark);
+            border: 2px solid var(--ink);
+            color: var(--ink);
+            padding: 5px 12px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 2px 2px 0px var(--ink);
+            transition: all 0.1s;
+            font-size: 0.85rem;
+        }
+        button:active { transform: translate(2px, 2px); box-shadow: none; }
+        button:hover { background: #fff; }
+        button.danger { background: #d9534f; color: white; border-color: #8b0000; }
+
+        /* --- Layout --- */
+        #main-container {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 260px 1fr 280px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel {
+            background: var(--panel-bg);
+            border-right: 2px solid var(--border);
+            border-left: 2px solid var(--border);
+            padding: 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .panel-header {
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 5px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        #center-stage {
+            padding: 10px;
+            display: grid;
+            grid-template-rows: auto auto 1fr auto;
+            gap: 10px;
+            overflow-y: auto;
+        }
+
+        /* --- Forms & Inputs --- */
+        .char-info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            background: rgba(255,255,255,0.3);
+            padding: 10px;
+            border: 2px solid var(--border);
+        }
+        .input-group { display: flex; flex-direction: column; }
+        .input-group label { font-size: 0.7rem; font-weight: bold; }
+        input, select {
+            background: rgba(255,255,255,0.6);
+            border: 1px solid var(--border);
+            padding: 4px;
+            font-family: inherit;
+            width: 100%;
+            font-size: 0.85rem;
+        }
+
+        /* --- Abilities --- */
+        .abilities-block {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 5px;
+            background: rgba(0,0,0,0.05);
+            padding: 10px;
+            border: 2px solid var(--border);
+        }
+        .ability-card {
+            border: 1px solid var(--border);
+            padding: 5px;
+            text-align: center;
+            background: #fff;
+        }
+        .ability-title { font-weight: bold; font-size: 0.75rem; }
+        .ability-score { 
+            width: 100%; height: 35px; 
+            margin: 5px 0; 
+            text-align: center; 
+            font-size: 1.3rem; 
+            border: 2px solid var(--ink);
+            font-weight: bold;
+        }
+        .ability-mod { font-size: 0.8rem; color: var(--highlight); font-weight: bold; }
+        .ability-sub { font-size: 0.7rem; margin-top: 2px; display:block; }
+
+        /* --- Combat Row --- */
+        .combat-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+        .stat-box {
+            border: 2px solid var(--border);
+            padding: 5px;
+            text-align: center;
+            background: #fff;
+        }
+        .stat-val { font-size: 1.4rem; font-weight: bold; }
+
+        /* --- Equipment --- */
+        .equipment-section {
+            border: 2px solid var(--border);
+            padding: 10px;
+            background: rgba(255,255,255,0.4);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .equip-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .wear-slot {
+            border: 1px dashed var(--border);
+            padding: 5px;
+            min-height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #fff;
+            font-size: 0.8rem;
+        }
+        .container-list {
+            max-height: 120px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            background: #fff;
+            padding: 5px;
+        }
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            border-bottom: 1px dotted #ccc;
+            padding: 2px 0;
+        }
+        .add-btn { 
+            font-size: 0.7rem; padding: 2px 5px; 
+            margin-top: 5px; width: 100%; 
+            background: #ddd;
+        }
+
+        /* --- Encumbrance --- */
+        .encumbrance-bar {
+            height: 18px;
+            background: #ddd;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+        .encumbrance-fill {
+            height: 100%;
+            background: linear-gradient(90deg, green, yellow, red);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        .encumbrance-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 0.65rem;
+            line-height: 16px;
+            text-shadow: 0 0 2px white;
+            font-weight: bold;
+        }
+
+        /* --- Modals --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: var(--parchment);
+            border: 4px double var(--border);
+            padding: 20px;
+            width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        .dice-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0; }
+        .dice-btn { padding: 15px; font-size: 1.2rem; }
+        .roll-result { font-size: 1.5rem; text-align: center; margin: 10px 0; font-weight: bold; color: var(--highlight); }
+        
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AD&D 2nd Ed. Sheet</h1>
+    <div class="top-controls">
+        <button onclick="window.open('admin.html', '_blank')">Admin</button>
+        <button onclick="saveCharacter()">Save</button>
+        <button onclick="loadCharacter()">Load</button>
+        <button class="danger" onclick="resetCharacter()">Reset</button>
+        <button onclick="toggleDiceModal()">🎲 Dice</button>
+    </div>
+</header>
+
+<div id="main-container">
+    <!-- Left Panel -->
+    <aside class="panel">
+        <div class="panel-header">Combat & Proficiencies</div>
+        <div id="weapon-profs-list" style="font-size:0.85rem;"></div>
+        
+        <div style="margin-top:10px; border-top:1px solid var(--border); padding-top:5px;">
+            <strong>Attack Matrix</strong>
+            <div id="attack-matrix" style="font-size:0.75rem; margin-top:5px; color:#555;"></div>
+        </div>
+        
+        <div style="margin-top:10px; border-top:1px solid var(--border); padding-top:5px;">
+            <strong>Saving Throws</strong>
+            <table id="saving-throws-table" style="width:100%; font-size:0.7rem; border:none;">
+                <!-- Generated -->
+            </table>
+        </div>
+    </aside>
+
+    <!-- Center -->
+    <main id="center-stage">
+        <!-- Info -->
+        <div class="char-info-grid">
+            <div class="input-group"><label>Name</label><input type="text" id="char-name"></div>
+            <div class="input-group"><label>Race</label><select id="char-race" onchange="updateCalculations()"></select></div>
+            <div class="input-group"><label>Class</label><select id="char-class" onchange="handleClassChange()"></select></div>
+            <div class="input-group"><label>Kit</label><select id="char-kit" onchange="updateCalculations()"><option value="">None</option></select></div>
+            <div class="input-group"><label>Level</label><input type="number" id="char-level" value="1" min="1" max="30" onchange="updateCalculations()"></div>
+            <div class="input-group"><label>Alignment</label><select id="char-align"><option>LG</option><option>NG</option><option>CG</option><option>LN</option><option>N</option><option>CN</option><option>LE</option><option>NE</option><option>CE</option></select></div>
+            <div class="input-group"><label>HP (Cur/Max)</label><div style="display:flex; gap:5px;"><input type="number" id="hp-cur"><input type="number" id="hp-max" readonly></div></div>
+            <div class="input-group"><label>AC</label><input type="text" id="final-ac" readonly style="font-weight:bold; text-align:center;"></div>
+        </div>
+
+        <!-- Abilities -->
+        <div class="abilities-block" id="abilities-container"></div>
+
+        <!-- Combat Stats -->
+        <div class="combat-row">
+            <div class="stat-box"><label>THAC0</label><div class="stat-val" id="val-thac0">20</div></div>
+            <div class="stat-box"><label>MV</label><div class="stat-val" id="val-mv">12</div></div>
+            <div class="stat-box"><label>Init</label><input type="number" id="val-init" value="0" style="width:100%; text-align:center; font-weight:bold;"></div>
+            <div class="stat-box"><label>Backstab</label><div class="stat-val" id="val-backstab">x1</div></div>
+            <div class="stat-box"><label>Turn</label><div class="stat-val" style="font-size:1rem;" id="val-turn">-</div></div>
+        </div>
+
+        <!-- Equipment -->
+        <div class="equipment-section">
+            <div class="panel-header">Equipment & Encumbrance</div>
+            
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <label style="font-size:0.8rem;">Mode:</label>
+                <select id="encum-mode" onchange="updateCalculations()" style="width:auto; font-size:0.8rem;">
+                    <option value="off">Off</option>
+                    <option value="limited">Limited (Extra Only)</option>
+                    <option value="full">Full (All Items)</option>
+                </select>
+            </div>
+
+            <div class="encumbrance-bar">
+                <div class="encumbrance-fill" id="encum-fill"></div>
+                <div class="encumbrance-text" id="encum-text">0 / 0 lbs</div>
+            </div>
+
+            <div class="equip-grid">
+                <div>
+                    <strong style="font-size:0.8rem;">Worn / Equipped</strong>
+                    <div id="wear-slots" style="display:flex; flex-direction:column; gap:5px; margin-top:5px;"></div>
+                </div>
+                <div>
+                    <strong style="font-size:0.8rem;">Containers</strong>
+                    <div id="containers-list" style="display:flex; flex-direction:column; gap:5px; margin-top:5px; max-height:150px; overflow-y:auto;"></div>
+                    <button class="add-btn" onclick="addContainer()">+ Add Bag/Case</button>
+                </div>
+            </div>
+            
+            <div style="margin-top:5px;">
+                <strong style="font-size:0.8rem;">Loose Inventory</strong>
+                <div id="loose-inventory" class="container-list" style="max-height:80px;"></div>
+                <button class="add-btn" onclick="addItemTo('loose')">+ Add Item</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Right Panel -->
+    <aside class="panel">
+        <div class="panel-header">Skills & Magic</div>
+        
+        <div id="thief-skills-block" class="hidden">
+            <strong style="font-size:0.85rem;">Thief Skills (%)</strong>
+            <div id="thief-skills-list" style="font-size:0.75rem; margin-top:5px;"></div>
+        </div>
+
+        <div id="spell-slots-block" class="hidden">
+            <strong style="font-size:0.85rem;">Spell Slots</strong>
+            <div id="spell-slots-list" style="font-size:0.75rem; margin-top:5px;"></div>
+        </div>
+
+        <div id="non-weapon-profs-block">
+            <strong style="font-size:0.85rem;">NWP Slots: <span id="nwp-slots-count">0</span></strong>
+            <div id="nwp-list" style="font-size:0.75rem; margin-top:5px;"></div>
+            <button class="add-btn" onclick="addNWP()">+ Add Proficiency</button>
+        </div>
+
+        <div style="margin-top:auto; border-top:2px solid var(--border); padding-top:10px;">
+            <strong style="font-size:0.85rem;">Notes / Gold</strong>
+            <textarea id="char-notes" style="width:100%; height:60px; resize:none; font-size:0.8rem;"></textarea>
+            <div style="margin-top:5px; font-size:0.85rem;">GP: <input type="number" id="char-gp" value="0" style="width:70px;"></div>
+        </div>
+    </aside>
+</div>
+
+<!-- Dice Modal -->
+<div id="dice-modal" class="modal-overlay" onclick="if(event.target===this) toggleDiceModal()">
+    <div class="modal-content">
+        <h2 style="text-align:center; margin-top:0;">Dice Roller</h2>
+        <div class="dice-grid">
+            <button class="dice-btn" onclick="rollDice(4)">d4</button>
+            <button class="dice-btn" onclick="rollDice(6)">d6</button>
+            <button class="dice-btn" onclick="rollDice(8)">d8</button>
+            <button class="dice-btn" onclick="rollDice(10)">d10</button>
+            <button class="dice-btn" onclick="rollDice(12)">d12</button>
+            <button class="dice-btn" onclick="rollDice(20)">d20</button>
+            <button class="dice-btn" onclick="rollDice(100)">d%</button>
+            <button class="dice-btn" style="background:#d9534f; color:white;" onclick="rollAbilityScores()">Roll Stats</button>
+        </div>
+        <div id="dice-result" class="roll-result">Ready</div>
+        <div id="dice-history" style="font-size:0.8rem; color:#666; text-align:center; height:40px; overflow:hidden;"></div>
+        <button onclick="toggleDiceModal()" style="width:100%; margin-top:10px;">Close</button>
+    </div>
+</div>
+
+<script>
+/** 
+ * AD&D 2nd Edition - FULL DATA & LOGIC
+ */
+
+// --- DATABASES ---
+
+const RACES = [
+    "Human", "Elf", "Half-Elf", "Dwarf", "Gnome", "Halfling", "Half-Orc"
+];
+
+const CLASSES = [
+    "Fighter", "Paladin", "Ranger", "Mage", "Cleric", "Druid", "Thief", "Bard"
+];
+
+const KITS = {
+    "Fighter": ["Myrmidon", "Swashbuckler", "Gladiator", "Cavalier", "Berserker"],
+    "Paladin": ["Inquisitor", "Cavalier", "Enforcer"],
+    "Ranger": ["Archer", "Beastmaster", "Mountain Man", "Stalker"],
+    "Mage": ["Abjurer", "Conjurer", "Diviner", "Enchanter", "Illusionist", "Invoker", "Necromancer", "Transmuter", "Elementalist", "Wild Mage"],
+    "Cleric": ["Acolyte", "Amazon", "Crusader", "Monk", "Warrior Priest"],
+    "Druid": ["Shapeshifter", "Totemic Druid"],
+    "Thief": ["Swashbuckler", "Investigator", "Acrobat", "Beggar"],
+    "Bard": ["Gallant", "Blade", "Skald", "Herald"]
+};
+
+const ARMOR_TYPES = [
+    {name: "None", base: 10, maxDex: 99, weight: 0},
+    {name: "Leather", base: 8, maxDex: 6, weight: 15},
+    {name: "Studded Leather", base: 7, maxDex: 5, weight: 20},
+    {name: "Hide", base: 6, maxDex: 4, weight: 25},
+    {name: "Chain Mail", base: 5, maxDex: 4, weight: 40},
+    {name: "Splint Mail", base: 4, maxDex: 3, weight: 40},
+    {name: "Plate Mail", base: 3, maxDex: 1, weight: 50},
+    {name: "Full Plate", base: 1, maxDex: 0, weight: 70}
+];
+
+const SHIELD_TYPES = [
+    {name: "None", bonus: 0, weight: 0},
+    {name: "Small", bonus: 1, weight: 5},
+    {name: "Medium", bonus: 1, weight: 10},
+    {name: "Body", bonus: 1, weight: 15}
+];
+
+// Full Item DB
+const ITEM_DB = [
+    {name: "Long Sword", weight: 4, type: "weapon"},
+    {name: "Short Sword", weight: 3, type: "weapon"},
+    {name: "Broad Sword", weight: 4, type: "weapon"},
+    {name: "Two-Handed Sword", weight: 7, type: "weapon"},
+    {name: "Dagger", weight: 1, type: "weapon"},
+    {name: "Dart", weight: 0.5, type: "weapon"},
+    {name: "Knife", weight: 0.5, type: "weapon"},
+    {name: "Spear", weight: 5, type: "weapon"},
+    {name: "Javelin", weight: 2, type: "weapon"},
+    {name: "Axe, Hand", weight: 2, type: "weapon"},
+    {name: "Axe, Battle", weight: 5, type: "weapon"},
+    {name: "Hammer, War", weight: 5, type: "weapon"},
+    {name: "Mace", weight: 5, type: "weapon"},
+    {name: "Club", weight: 3, type: "weapon"},
+    {name: "Staff", weight: 4, type: "weapon"},
+    {name: "Bow, Short", weight: 2, type: "weapon"},
+    {name: "Bow, Long", weight: 3, type: "weapon"},
+    {name: "Crossbow, Light", weight: 7, type: "weapon"},
+    {name: "Crossbow, Heavy", weight: 14, type: "weapon"},
+    {name: "Arrow (20)", weight: 3, type: "ammo"},
+    {name: "Bolt (20)", weight: 4, type: "ammo"},
+    {name: "Quiver", weight: 1, type: "container", capacity: 20},
+    {name: "Case, Scroll", weight: 1, type: "container", capacity: 10},
+    {name: "Backpack", weight: 2, type: "container", capacity: 40},
+    {name: "Bag, Small", weight: 0.5, type: "container", capacity: 10},
+    {name: "Bag, Large", weight: 1, type: "container", capacity: 25},
+    {name: "Pouch, Belt", weight: 0.5, type: "container", capacity: 5},
+    {name: "Rations, Iron (1 week)", weight: 14, type: "gear"},
+    {name: "Rations, Standard (1 week)", weight: 7, type: "gear"},
+    {name: "Bedroll", weight: 5, type: "gear"},
+    {name: "Blanket", weight: 3, type: "gear"},
+    {name: "Flint & Steel", weight: 0, type: "gear"},
+    {name: "Torches (3)", weight: 3, type: "gear"},
+    {name: "Lantern, Hooded", weight: 10, type: "gear"},
+    {name: "Oil (1 flask)", weight: 1, type: "gear"},
+    {name: "Waterskin", weight: 5, type: "gear"},
+    {name: "Rope, Hemp (50ft)", weight: 10, type: "gear"},
+    {name: "Rope, Silk (50ft)", weight: 5, type: "gear"},
+    {name: "Grappling Hook", weight: 4, type: "gear"},
+    {name: "Sack, Small", weight: 0.5, type: "gear"},
+    {name: "Sack, Large", weight: 1, type: "gear"},
+    {name: "Mirror, Small", weight: 0.5, type: "gear"},
+    {name: "Holy Symbol", weight: 1, type: "gear"},
+    {name: "Spellbook", weight: 3, type: "gear"},
+    {name: "Thieves' Picks", weight: 1, type: "gear"},
+    {name: "Caltrops (20)", weight: 2, type: "gear"},
+    {name: "Crowbar", weight: 5, type: "gear"},
+    {name: "Hammer, Sledge", weight: 10, type: "gear"},
+    {name: "Manacles", weight: 4, type: "gear"},
+    {name: "Chain (10ft)", weight: 10, type: "gear"},
+    {name: "Potion", weight: 0.5, type: "misc"},
+    {name: "Scroll", weight: 0, type: "misc"},
+    {name: "Ring", weight: 0, type: "misc"},
+    {name: "Wand", weight: 1, type: "misc"},
+    {name: "Robes", weight: 4, type: "armor"}
+];
+
+// Starting Kits
+const STARTING_KITS = {
+    "Fighter": [{name:"Long Sword", weight:4}, {name:"Dagger", weight:1}, {name:"Chain Mail", weight:40}, {name:"Shield, Medium", weight:10}, {name:"Backpack", weight:2}, {name:"Rations, Iron (1 week)", weight:14}],
+    "Paladin": [{name:"Long Sword", weight:4}, {name:"Plate Mail", weight:50}, {name:"Shield, Medium", weight:10}, {name:"Holy Symbol", weight:1}, {name:"Backpack", weight:2}],
+    "Ranger": [{name:"Long Sword", weight:4}, {name:"Bow, Long", weight:3}, {name:"Arrow (20)", weight:3}, {name:"Leather", weight:15}, {name:"Backpack", weight:2}],
+    "Mage": [{name:"Dagger", weight:1}, {name:"Robes", weight:4}, {name:"Spellbook", weight:3}, {name:"Backpack", weight:2}, {name:"Rations, Iron (1 week)", weight:14}],
+    "Cleric": [{name:"Mace", weight:5}, {name:"Chain Mail", weight:40}, {name:"Shield, Medium", weight:10}, {name:"Holy Symbol", weight:1}, {name:"Backpack", weight:2}],
+    "Druid": [{name:"Staff", weight:4}, {name:"Leather", weight:15}, {name:"Shield, Small", weight:5}, {name:"Holy Symbol", weight:1}, {name:"Backpack", weight:2}],
+    "Thief": [{name:"Short Sword", weight:3}, {name:"Leather", weight:15}, {name:"Thieves' Picks", weight:1}, {name:"Grappling Hook", weight:4}, {name:"Backpack", weight:2}],
+    "Bard": [{name:"Short Sword", weight:3}, {name:"Leather", weight:15}, {name:"Instrument", weight:3}, {name:"Backpack", weight:2}]
+};
+
+// THAC0 Table (Level 1-20+)
+// Index 0 = Level 1
+const THAC0_TABLE = {
+    "Warrior": [20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1],
+    "Priest": [20,20,18,18,16,16,14,14,12,12,10,10,8,8,6,6,4,4,2,2],
+    "Rogue": [20,20,19,19,18,18,17,17,16,16,15,15,14,14,13,13,12,12,11,11],
+    "Wizard": [20,20,20,19,19,19,18,18,18,17,17,17,16,16,16,15,15,15,14,14]
+};
+
+// Saving Throws Table (Simplified structure: [Paralyzation, Rod/Staff, Petrification, Breath, Spell])
+// Indexed by Level-1. Groups: Warrior, Priest, Rogue, Wizard
+const SAVE_TABLE = {
+    "Warrior": [
+        [14,16,15,17,17], [13,15,14,16,16], [12,14,13,15,15], [11,13,12,14,14], [10,12,11,13,13],
+        [9,11,10,12,12], [8,10,9,11,11], [7,9,8,10,10], [6,8,7,9,9], [5,7,6,8,8],
+        [4,6,5,7,7], [3,5,4,6,6], [2,4,3,5,5], [1,3,2,4,4], [0,2,1,3,3]
+    ],
+    "Priest": [
+        [10,14,13,16,15], [9,13,12,15,14], [8,12,11,14,13], [7,11,10,13,12], [6,10,9,12,11],
+        [5,9,8,11,10], [4,8,7,10,9], [3,7,6,9,8], [2,6,5,8,7], [1,5,4,7,6],
+        [0,4,3,6,5], [0,3,2,5,4], [0,2,1,4,3], [0,1,0,3,2], [0,0,0,2,1]
+    ],
+    "Rogue": [
+        [13,14,12,16,15], [12,13,11,15,14], [11,12,10,14,13], [10,11,9,13,12], [9,10,8,12,11],
+        [8,9,7,11,10], [7,8,6,10,9], [6,7,5,9,8], [5,6,4,8,7], [4,5,3,7,6],
+        [3,4,2,6,5], [2,3,1,5,4], [1,2,0,4,3], [0,1,0,3,2], [0,0,0,2,1]
+    ],
+    "Wizard": [
+        [14,11,15,15,12], [13,10,14,14,11], [13,9,13,13,10], [12,8,12,12,9], [11,7,11,11,8],
+        [10,6,10,10,7], [9,5,9,9,6], [8,4,8,8,5], [7,3,7,7,4], [6,2,6,6,3],
+        [5,1,5,5,2], [4,0,4,4,1], [3,0,3,3,0], [2,0,2,2,0], [1,0,1,1,0]
+    ]
+};
+
+// Thief Skills Base (Level 1)
+const THIEF_BASE = {
+    "PP": 15, "OL": 10, "FRT": 5, "MS": 10, "HS": 5, "DN": 15, "CW": 60, "RL": 0
+};
+const THIEF_INCREASE = {
+    "PP": 5, "OL": 2, "FRT": 2, "MS": 5, "HS": 5, "DN": 2, "CW": 5, "RL": 5
+};
+
+// State
+let charData = {
+    name: "", race: "Human", class: "Fighter", kit: "", level: 1,
+    stats: { STR: 10, DEX: 10, CON: 10, INT: 10, WIS: 10, CHA: 10, STR_Pct: 0 },
+    hp: { cur: 10, max: 10 },
+    equipment: {
+        armor: "None", shield: "None", magicBonus: 0,
+        worn: {}, containers: [], loose: []
+    },
+    proficiencies: { weapons: [], nwps: [] },
+    notes: "", gp: 0,
+    encumMode: "off"
+};
+
+// --- INIT ---
+function init() {
+    populateDropdowns();
+    renderAbilities();
+    loadCharacter();
+    updateCalculations();
+    setInterval(() => { if(localStorage.getItem('adsheet_autosave') === 'true') saveCharacter(); }, 30000);
+}
+
+function populateDropdowns() {
+    const raceSel = document.getElementById('char-race');
+    const classSel = document.getElementById('char-class');
+    RACES.forEach(r => raceSel.add(new Option(r, r)));
+    CLASSES.forEach(c => classSel.add(new Option(c, c)));
+    renderWearSlots();
+}
+
+function handleClassChange() {
+    const cls = document.getElementById('char-class').value;
+    const kitSel = document.getElementById('char-kit');
+    kitSel.innerHTML = '<option value="">None</option>';
+    
+    if (KITS[cls]) {
+        KITS[cls].forEach(k => kitSel.add(new Option(k, k)));
+    }
+    
+    // Auto-equip starter kit if level 1 and empty
+    if (charData.level === 1 && charData.equipment.loose.length === 0 && Object.keys(charData.equipment.worn).length === 0) {
+        applyStarterKit(cls);
+    }
+    
+    updateCalculations();
+}
+
+function applyStarterKit(cls) {
+    const kit = STARTING_KITS[cls];
+    if (!kit) return;
+    
+    kit.forEach(item => {
+        if (item.name.includes("Mail") || item.name.includes("Leather") || item.name.includes("Plate") || item.name.includes("Robes")) {
+            if(item.name === "Robes") charData.equipment.armor = "None";
+            else charData.equipment.armor = item.name.replace(" Armor", "").replace(" Chain", "Chain Mail").replace(" Plate", "Plate Mail").replace(" Leather", "Leather").replace(" Studded", "Studded Leather").replace(" Hide", "Hide").replace(" Splint", "Splint Mail");
+        } else if (item.name.includes("Shield")) {
+            charData.equipment.shield = item.name.replace("Shield, ", "");
+        } else {
+            charData.equipment.loose.push({...item, id: Date.now()+Math.random()});
+        }
+    });
+}
+
+// --- CALCULATIONS ---
+
+function getModifier(score) {
+    if (score >= 18) return 3;
+    if (score >= 16) return 2;
+    if (score >= 14) return 1;
+    if (score >= 12) return 0;
+    if (score >= 9) return 0;
+    if (score >= 8) return -1;
+    if (score >= 6) return -2;
+    if (score >= 4) return -3;
+    return -4;
+}
+
+function getReactionAdj(dex) {
+    if (dex >= 16) return -2;
+    if (dex >= 14) return -1;
+    if (dex <= 5) return 3;
+    if (dex <= 7) return 2;
+    if (dex <= 9) return 1;
+    return 0;
+}
+
+function updateCalculations() {
+    // Sync DOM
+    charData.name = document.getElementById('char-name').value;
+    charData.race = document.getElementById('char-race').value;
+    charData.class = document.getElementById('char-class').value;
+    charData.kit = document.getElementById('char-kit').value;
+    charData.level = parseInt(document.getElementById('char-level').value) || 1;
+    charData.encumMode = document.getElementById('encum-mode').value;
+    
+    const strMod = getModifier(charData.stats.STR);
+    const dexMod = getReactionAdj(charData.stats.DEX);
+    const conMod = getModifier(charData.stats.CON);
+    
+    // Update UI Modifiers
+    document.querySelectorAll('.ability-mod-display').forEach(el => {
+        const stat = el.dataset.stat;
+        let stdMod = getModifier(charData.stats[stat]);
+        el.innerText = (stdMod >= 0 ? "+" : "") + stdMod;
+    });
+
+    // THAC0
+    let group = "Wizard";
+    if (["Fighter", "Paladin", "Ranger"].includes(charData.class)) group = "Warrior";
+    else if (["Cleric", "Druid"].includes(charData.class)) group = "Priest";
+    else if (["Thief", "Bard"].includes(charData.class)) group = "Rogue";
+    
+    const thac0Row = THAC0_TABLE[group];
+    const thac0 = thac0Row[Math.min(charData.level-1, thac0Row.length-1)];
+    
+    document.getElementById('val-thac0').innerText = thac0;
+    document.getElementById('display-thac0').innerText = thac0;
+    
+    // Saves
+    renderSaves(group);
+
+    // AC
+    const armorObj = ARMOR_TYPES.find(a => a.name === charData.equipment.armor) || ARMOR_TYPES[0];
+    const shieldObj = SHIELD_TYPES.find(s => s.name === charData.equipment.shield) || SHIELD_TYPES[0];
+    const magic = parseInt(charData.equipment.magicBonus) || 0;
+    
+    let dexBonus = Math.abs(dexMod);
+    if (dexBonus > armorObj.maxDex) dexBonus = armorObj.maxDex;
+    
+    const finalAC = armorObj.base - dexBonus - shieldObj.bonus - magic;
+    document.getElementById('final-ac').value = finalAC;
+    
+    // HP
+    let hitDie = 8;
+    if (["Fighter", "Paladin", "Ranger"].includes(charData.class)) hitDie = 10;
+    if (["Cleric", "Druid", "Bard", "Thief"].includes(charData.class)) hitDie = 8;
+    if (charData.class === "Mage") hitDie = 4;
+    
+    let hpPerLevel = (hitDie / 2 + 0.5) + conMod;
+    if (hpPerLevel < 1) hpPerLevel = 1;
+    const maxHP = Math.floor(hpPerLevel * charData.level);
+    
+    document.getElementById('hp-max').value = maxHP;
+    if (charData.hp.cur > maxHP) {
+        charData.hp.cur = maxHP;
+        document.getElementById('hp-cur').value = maxHP;
+    }
+
+    calculateEncumbrance();
+    updateClassFeatures(thac0, group);
+    renderInventory();
+}
+
+function renderSaves(group) {
+    const saves = SAVE_TABLE[group][Math.min(charData.level-1, 14)];
+    const labels = ["Par/Poison", "Rod/Staff", "Petrify", "Breath", "Spell"];
+    let html = "";
+    labels.forEach((l, i) => {
+        html += `<tr><td>${l}</td><td style="text-align:right; font-weight:bold;">${saves[i]}</td></tr>`;
+    });
+    document.getElementById('saving-throws-table').innerHTML = html;
+}
+
+function updateClassFeatures(thac0, group) {
+    // Thief Skills
+    const thiefBlock = document.getElementById('thief-skills-block');
+    if (charData.class === "Thief" || charData.class === "Bard") {
+        thiefBlock.classList.remove('hidden');
+        const base = charData.class === "Thief" ? 1 : 0; // Multiplier for increase
+        const dexAdj = getReactionAdj(charData.stats.DEX) * -5; 
+        const racialAdj = 0; // Simplified
+        
+        const skills = [
+            {id:"PP", name:"Pick Pockets"}, {id:"OL", name:"Open Locks"}, 
+            {id:"FRT", name:"Find Traps"}, {id:"MS", name:"Move Silent"}, 
+            {id:"HS", name:"Hide"}, {id:"DN", name:"Detect Noise"}, 
+            {id:"CW", name:"Climb Walls"}, {id:"RL", name:"Read Lang"}
+        ];
+        
+        let html = "";
+        skills.forEach(s => {
+            let val = THIEF_BASE[s.id] + ((charData.level-1) * THIEF_INCREASE[s.id]) + dexAdj;
+            if (charData.class === "Bard") val = Math.floor(val * 0.5); // Bards are half
+            if (val > 95) val = 95;
+            if (val < 0) val = 0;
+            html += `<div class="item-row"><span>${s.name}</span><span>${val}%</span></div>`;
+        });
+        document.getElementById('thief-skills-list').innerHTML = html;
+    } else {
+        thiefBlock.classList.add('hidden');
+    }
+
+    // Spells (Simplified Table)
+    const spellBlock = document.getElementById('spell-slots-block');
+    if (["Mage", "Cleric", "Druid", "Bard"].includes(charData.class)) {
+        spellBlock.classList.remove('hidden');
+        let html = "<div style='display:grid; grid-template-columns:1fr 1fr; gap:5px;'>";
+        // Very basic progression logic for demo
+        const maxLvl = charData.class === "Mage" ? 9 : 7;
+        for(let i=1; i<=maxLvl; i++) {
+            let slots = 0;
+            if (i === 1) slots = 1 + Math.floor((charData.level-1)/2);
+            if (i === 2 && charData.level >= 3) slots = 1 + Math.floor((charData.level-3)/2);
+            if (i === 3 && charData.level >= 5) slots = 1 + Math.floor((charData.level-5)/2);
+            if (charData.class === "Mage" && i <= 3 && charData.level >= 9) slots += 1; // Bonus high level
+            
+            if (slots > 0) {
+                html += `<label>Lvl ${i}: <input type="number" value="${slots}" style="width:40px;"></label>`;
+            }
+        }
+        html += "</div>";
+        document.getElementById('spell-slots-list').innerHTML = html;
+    } else {
+        spellBlock.classList.add('hidden');
+    }
+
+    // Backstab
+    if (charData.class === "Thief") {
+        let mult = 1;
+        if (charData.level >= 5) mult = 2;
+        if (charData.level >= 9) mult = 3;
+        if (charData.level >= 13) mult = 4;
+        if (charData.level >= 17) mult = 5;
+        document.getElementById('val-backstab').innerText = "x" + mult;
+    } else {
+        document.getElementById('val-backstab').innerText = "-";
+    }
+    
+    // Turn Undead
+    if (["Cleric", "Paladin"].includes(charData.class)) {
+        document.getElementById('val-turn').innerText = "L" + Math.max(1, charData.class==="Paladin"?Math.floor((charData.level-2)/3):charData.level);
+    } else {
+        document.getElementById('val-turn').innerText = "-";
+    }
+}
+
+function calculateEncumbrance() {
+    if (charData.encumMode === "off") {
+        document.getElementById('encum-text').innerText = "Tracking Off";
+        document.getElementById('encum-fill').style.width = "0%";
+        return;
+    }
+
+    let totalWeight = 0;
+    if (charData.encumMode === "full") {
+        Object.values(charData.equipment.worn).forEach(i => totalWeight += (i.weight||0));
+        charData.equipment.loose.forEach(i => totalWeight += (i.weight||0));
+        charData.equipment.containers.forEach(c => {
+            c.items.forEach(i => totalWeight += (i.weight||0));
+            totalWeight += (c.baseWeight||0);
+        });
+    } else {
+        charData.equipment.loose.forEach(i => totalWeight += (i.weight||0));
+        charData.equipment.containers.forEach(c => {
+            c.items.forEach(i => totalWeight += (i.weight||0));
+            totalWeight += (c.baseWeight||0);
+        });
+    }
+
+    const str = charData.stats.STR;
+    let maxLoad = 30;
+    if (str >= 18) maxLoad = 130;
+    else if (str >= 16) maxLoad = 100;
+    else if (str >= 14) maxLoad = 70;
+    else if (str >= 12) maxLoad = 50;
+    
+    if (["Dwarf", "Gnome"].includes(charData.race)) maxLoad *= 1.1;
+
+    const pct = (totalWeight / maxLoad) * 100;
+    const fill = document.getElementById('encum-fill');
+    const text = document.getElementById('encum-text');
+    
+    fill.style.width = Math.min(pct, 100) + "%";
+    
+    let status = "Unencumbered";
+    let mv = 12;
+    if (pct > 33) { status = "Encumbered"; mv = 9; }
+    if (pct > 66) { status = "Severe"; mv = 6; }
+    if (pct > 100) { status = "Overloaded"; mv = 3; }
+    
+    text.innerText = `${totalWeight.toFixed(1)} / ${maxLoad} lbs (${status}, MV:${mv})`;
+    document.getElementById('val-mv').innerText = mv;
+}
+
+// --- RENDER HELPERS ---
+
+function renderAbilities() {
+    const container = document.getElementById('abilities-container');
+    const stats = ["STR", "DEX", "CON", "INT", "WIS", "CHA"];
+    let html = "";
+    
+    stats.forEach(stat => {
+        let subInput = "";
+        if (stat === "STR" && ["Fighter", "Paladin", "Ranger"].includes(charData.class)) {
+            subInput = `<input type="number" class="ability-sub" value="${charData.stats.STR_Pct}" min="0" max="100" onchange="updateStat('${stat}_Pct', this.value)" style="width:30px; text-align:center;">`;
+        }
+        
+        html += `
+        <div class="ability-card">
+            <div class="ability-title">${stat}</div>
+            <input type="number" class="ability-score" value="${charData.stats[stat]}" min="3" max="25" onchange="updateStat('${stat}', this.value)">
+            <div class="ability-mod-display" data-stat="${stat}">+0</div>
+            <div>${subInput}</div>
+        </div>`;
+    });
+    container.innerHTML = html;
+}
+
+function updateStat(stat, val) {
+    if (stat === "STR_Pct") charData.stats.STR_Pct = parseInt(val);
+    else charData.stats[stat] = parseInt(val);
+    updateCalculations();
+}
+
+function renderWearSlots() {
+    const slots = [
+        {id: "head", label: "Head"},
+        {id: "body", label: "Body (Armor)"},
+        {id: "shield", label: "Shield"},
+        {id: "hands", label: "Hands"},
+        {id: "belt", label: "Belt"}
+    ];
+    
+    let html = "";
+    slots.forEach(slot => {
+        const item = charData.equipment.worn[slot.id];
+        
+        let content = "";
+        if (slot.id === "body") {
+            content = `<select onchange="changeArmor(this.value)" style="width:100%; font-size:0.75rem;">
+                ${ARMOR_TYPES.map(a => `<option value="${a.name}" ${charData.equipment.armor === a.name ? 'selected':''}>${a.name}</option>`).join('')}
+            </select>`;
+        } else if (slot.id === "shield") {
+            content = `<select onchange="changeShield(this.value)" style="width:100%; font-size:0.75rem;">
+                ${SHIELD_TYPES.map(s => `<option value="${s.name}" ${charData.equipment.shield === s.name ? 'selected':''}>${s.name}</option>`).join('')}
+            </select>`;
+        } else {
+            content = item ? item.name : "Empty";
+        }
+
+        const btn = (slot.id !== 'body' && slot.id !== 'shield' && item) 
+            ? `<button style="padding:2px 5px; font-size:0.6rem;" onclick="unequipItem('${slot.id}')">Unequip</button>` 
+            : "";
+
+        html += `
+        <div class="wear-slot">
+            <span style="font-size:0.7rem; font-weight:bold;">${slot.label}</span>
+            <div style="flex:1; margin:0 5px; overflow:hidden; text-overflow:ellipsis;">${content}</div>
+            ${btn}
+        </div>`;
+    });
+    document.getElementById('wear-slots').innerHTML = html;
+}
+
+function changeArmor(val) { charData.equipment.armor = val; updateCalculations(); }
+function changeShield(val) { charData.equipment.shield = val; updateCalculations(); }
+
+function renderInventory() {
+    const looseDiv = document.getElementById('loose-inventory');
+    looseDiv.innerHTML = charData.equipment.loose.map((item, idx) => `
+        <div class="item-row">
+            <span>${item.name} (${item.weight}lb)</span>
+            <button style="padding:0 4px; font-size:0.7rem;" onclick="removeItem('loose', ${idx})">X</button>
+        </div>
+    `).join('');
+
+    const contDiv = document.getElementById('containers-list');
+    contDiv.innerHTML = charData.equipment.containers.map((c, cIdx) => `
+        <div style="border:1px solid #ccc; padding:5px; background:#fff;">
+            <div style="display:flex; justify-content:space-between;">
+                <strong style="font-size:0.75rem;">${c.name}</strong>
+                <button style="padding:0 4px; font-size:0.7rem;" onclick="removeContainer(${cIdx})">X</button>
+            </div>
+            <div style="font-size:0.7rem; max-height:60px; overflow-y:auto;">
+                ${c.items.map((i, iIdx) => `
+                    <div class="item-row">
+                        <span>${i.name}</span>
+                        <button style="padding:0 2px;" onclick="removeContainerItem(${cIdx}, ${iIdx})">x</button>
+                    </div>
+                `).join('')}
+            </div>
+            <button class="add-btn" onclick="addContainerItem(${cIdx})">+ Item</button>
+        </div>
+    `).join('');
+}
+
+// --- ACTIONS ---
+
+function addItemTo(location) {
+    // Simple prompt for demo, could be a modal with DB search
+    const name = prompt("Item Name (must match DB exactly or create new):");
+    if (!name) return;
+    
+    const dbItem = ITEM_DB.find(i => i.name.toLowerCase() === name.toLowerCase());
+    let item = dbItem ? {...dbItem} : {name: name, weight: parseFloat(prompt("Weight?", "1")) || 0};
+    
+    if (location === 'loose') charData.equipment.loose.push(item);
+    updateCalculations();
+}
+
+function removeItem(location, index) {
+    if (location === 'loose') charData.equipment.loose.splice(index, 1);
+    updateCalculations();
+}
+
+function addContainer() {
+    const name = prompt("Container Name:", "Bag");
+    if (!name) return;
+    charData.equipment.containers.push({ name: name, baseWeight: 1, items: [] });
+    updateCalculations();
+}
+
+function removeContainer(index) {
+    charData.equipment.containers.splice(index, 1);
+    updateCalculations();
+}
+
+function addContainerItem(cIdx) {
+    const name = prompt("Item Name:");
+    if (!name) return;
+    const dbItem = ITEM_DB.find(i => i.name.toLowerCase() === name.toLowerCase());
+    const weight = dbItem ? dbItem.weight : parseFloat(prompt("Weight?", "0.5")) || 0;
+    
+    charData.equipment.containers[cIdx].items.push({name, weight});
+    updateCalculations();
+}
+
+function removeContainerItem(cIdx, iIdx) {
+    charData.equipment.containers[cIdx].items.splice(iIdx, 1);
+    updateCalculations();
+}
+
+function unequipItem(slot) {
+    delete charData.equipment.worn[slot];
+    renderWearSlots();
+    updateCalculations();
+}
+
+function addNWP() {
+    const name = prompt("Proficiency Name:");
+    if(name) {
+        charData.proficiencies.nwps.push(name);
+        const list = document.getElementById('nwp-list');
+        list.innerHTML += `<div class="item-row"><span>${name}</span><button style="padding:0 2px;" onclick="this.parentElement.remove()">x</button></div>`;
+    }
+}
+
+// --- DICE ---
+function toggleDiceModal() {
+    const modal = document.getElementById('dice-modal');
+    modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function rollDice(sides) {
+    const result = Math.floor(Math.random() * sides) + 1;
+    displayRollResult(`d${sides}: ${result}`);
+}
+
+function rollAbilityScores() {
+    let results = [];
+    for(let i=0; i<6; i++) {
+        let rolls = [];
+        for(let j=0; j<4; j++) rolls.push(Math.floor(Math.random()*6)+1);
+        rolls.sort((a,b)=>a-b);
+        rolls.shift();
+        results.push(rolls.reduce((a,b)=>a+b, 0));
+    }
+    displayRollResult("Stats: " + results.join(", "));
+}
+
+function displayRollResult(text) {
+    document.getElementById('dice-result').innerText = text;
+    const hist = document.getElementById('dice-history');
+    hist.innerText = text + " | " + hist.innerText;
+}
+
+// --- SAVE/LOAD ---
+function saveCharacter() {
+    charData.name = document.getElementById('char-name').value;
+    charData.hp.cur = parseInt(document.getElementById('hp-cur').value) || 0;
+    charData.notes = document.getElementById('char-notes').value;
+    charData.gp = parseInt(document.getElementById('char-gp').value) || 0;
+    
+    localStorage.setItem('adnd_char_data', JSON.stringify(charData));
+    alert("Saved!");
+}
+
+function loadCharacter() {
+    const data = localStorage.getItem('adnd_char_data');
+    if (data) {
+        charData = JSON.parse(data);
+        document.getElementById('char-name').value = charData.name;
+        document.getElementById('char-race').value = charData.race;
+        document.getElementById('char-class').value = charData.class;
+        document.getElementById('char-kit').value = charData.kit || "";
+        document.getElementById('char-level').value = charData.level;
+        document.getElementById('hp-cur').value = charData.hp.cur;
+        document.getElementById('char-notes').value = charData.notes || "";
+        document.getElementById('char-gp').value = charData.gp || 0;
+        document.getElementById('encum-mode').value = charData.encumMode || "off";
+        
+        Object.keys(charData.stats).forEach(k => {
+            const el = document.querySelector(`input[onchange="updateStat('${k}', this.value)"]`);
+            if(el) el.value = charData.stats[k];
+        });
+
+        handleClassChange();
+    }
+}
+
+function resetCharacter() {
+    if(confirm("Wipe current character?")) {
+        localStorage.removeItem('adnd_char_data');
+        location.reload();
+    }
+}
+
+init();
+</script>
+</body>
+</html>

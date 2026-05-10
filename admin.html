@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AD&D Admin Panel</title>
+    <style>
+        :root {
+            --parchment: #f4e4bc;
+            --border: #5c4033;
+            --ink: #2b2b2b;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            background: var(--parchment);
+            color: var(--ink);
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        h1 { margin: 0; }
+        .nav-link {
+            text-decoration: none;
+            color: var(--ink);
+            font-weight: bold;
+            border: 2px solid var(--border);
+            padding: 5px 15px;
+            background: #e6d2a0;
+        }
+        .nav-link:hover { background: #fff; }
+        
+        .tab-container { margin-bottom: 20px; }
+        .tab-btn {
+            background: #d4c5a3;
+            border: 1px solid var(--border);
+            padding: 8px 15px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .tab-btn.active { background: var(--border); color: var(--parchment); }
+        
+        .tab-content { display: none; background: rgba(255,255,255,0.5); padding: 15px; border: 1px solid var(--border); }
+        .tab-content.active { display: block; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid var(--border); padding: 8px; text-align: left; }
+        th { background: #d4c5a3; }
+        
+        input, select, textarea { width: 100%; padding: 5px; margin: 5px 0; border: 1px solid var(--border); background: rgba(255,255,255,0.8); }
+        button.action { background: var(--border); color: var(--parchment); border: none; padding: 5px 10px; cursor: pointer; }
+        button.delete { background: #8b0000; color: white; border: none; padding: 2px 6px; cursor: pointer; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AD&D 2nd Ed. Admin</h1>
+    <a href="index.html" class="nav-link">Back to Character Sheet</a>
+</header>
+
+<div class="tab-container">
+    <button class="tab-btn active" onclick="showTab('items')">Items DB</button>
+    <button class="tab-btn" onclick="showTab('kits')">Starting Kits</button>
+    <button class="tab-btn" onclick="showTab('variables')">Game Variables</button>
+    <button class="tab-btn" onclick="showTab('data')">Raw Data</button>
+</div>
+
+<!-- ITEMS TAB -->
+<div id="items" class="tab-content active">
+    <h2>Item Database</h2>
+    <div class="grid-2">
+        <div>
+            <h3>Add New Item</h3>
+            <input type="text" id="new-item-name" placeholder="Item Name">
+            <input type="number" id="new-item-weight" placeholder="Weight (lbs)" step="0.1">
+            <select id="new-item-type">
+                <option value="gear">Gear</option>
+                <option value="weapon">Weapon</option>
+                <option value="armor">Armor</option>
+                <option value="container">Container</option>
+                <option value="misc">Misc</option>
+            </select>
+            <button class="action" onclick="addItem()">Add to Database</button>
+        </div>
+        <div>
+            <h3>Current Items</h3>
+            <div style="max-height: 400px; overflow-y: auto;">
+                <table id="items-table">
+                    <thead><tr><th>Name</th><th>Weight</th><th>Type</th><th>Action</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- KITS TAB -->
+<div id="kits" class="tab-content">
+    <h2>Starting Kits Editor</h2>
+    <p>Edit the default items given when a class is selected at Level 1.</p>
+    <select id="edit-kit-class" onchange="loadKitEditor()">
+        <option value="Fighter">Fighter</option>
+        <option value="Mage">Mage</option>
+        <option value="Cleric">Cleric</option>
+        <option value="Thief">Thief</option>
+        <option value="Paladin">Paladin</option>
+        <option value="Ranger">Ranger</option>
+        <option value="Druid">Druid</option>
+        <option value="Bard">Bard</option>
+    </select>
+    
+    <div style="margin: 10px 0;">
+        <strong>Current Items:</strong>
+        <ul id="kit-list"></ul>
+    </div>
+    
+    <div style="border-top: 1px solid var(--border); padding-top: 10px;">
+        <strong>Add Item to Kit:</strong>
+        <input type="text" id="kit-item-name" placeholder="Exact Item Name (must exist in DB)">
+        <button class="action" onclick="addToKit()">Add</button>
+    </div>
+    <button class="action" style="margin-top:10px;" onclick="saveKitConfig()">Save Kit Configuration</button>
+</div>
+
+<!-- VARIABLES TAB -->
+<div id="variables" class="tab-content">
+    <h2>Game Variables</h2>
+    <p>Adjust core mechanics (THAC0 progression, etc).</p>
+    <label>THAC0 Fighter Group (per level):</label>
+    <input type="number" id="var-thac0-fighter" value="1">
+    
+    <label>THAC0 Priest/Rogue Group (per 2 levels):</label>
+    <input type="number" id="var-thac0-priest" value="1">
+    
+    <label>THAC0 Wizard Group (per 3 levels):</label>
+    <input type="number" id="var-thac0-wizard" value="1">
+    
+    <button class="action" onclick="saveVariables()">Save Variables</button>
+</div>
+
+<!-- DATA TAB -->
+<div id="data" class="tab-content">
+    <h2>System Data</h2>
+    <button class="action" onclick="clearAllData()" style="background:red;">WIPE ALL LOCAL STORAGE</button>
+    <p>Use this if the sheet becomes corrupted.</p>
+</div>
+
+<script>
+// --- ADMIN LOGIC ---
+
+// Load existing DB from LocalStorage or use defaults
+let itemDB = JSON.parse(localStorage.getItem('adnd_item_db')) || [
+    {name: "Long Sword", weight: 4, type: "weapon"},
+    {name: "Dagger", weight: 1, type: "weapon"},
+    {name: "Backpack", weight: 2, type: "container"},
+    {name: "Rations, Iron (1 week)", weight: 14, type: "gear"},
+    {name: "Chain Mail", weight: 40, type: "armor"},
+    {name: "Shield, Medium", weight: 10, type: "armor"}
+];
+
+let kitDB = JSON.parse(localStorage.getItem('adnd_kit_db')) || {};
+
+function init() {
+    renderItems();
+    loadKitEditor();
+}
+
+function showTab(id) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+}
+
+// --- ITEM MANAGEMENT ---
+function renderItems() {
+    const tbody = document.querySelector('#items-table tbody');
+    tbody.innerHTML = itemDB.map((item, idx) => `
+        <tr>
+            <td>${item.name}</td>
+            <td>${item.weight}</td>
+            <td>${item.type}</td>
+            <td><button class="delete" onclick="deleteItem(${idx})">Del</button></td>
+        </tr>
+    `).join('');
+}
+
+function addItem() {
+    const name = document.getElementById('new-item-name').value;
+    const weight = parseFloat(document.getElementById('new-item-weight').value);
+    const type = document.getElementById('new-item-type').value;
+    
+    if (!name) return alert("Name required");
+    
+    itemDB.push({name, weight, type});
+    localStorage.setItem('adnd_item_db', JSON.stringify(itemDB));
+    renderItems();
+    
+    document.getElementById('new-item-name').value = '';
+    document.getElementById('new-item-weight').value = '';
+}
+
+function deleteItem(idx) {
+    if(confirm("Delete this item?")) {
+        itemDB.splice(idx, 1);
+        localStorage.setItem('adnd_item_db', JSON.stringify(itemDB));
+        renderItems();
+    }
+}
+
+// --- KIT MANAGEMENT ---
+function loadKitEditor() {
+    const cls = document.getElementById('edit-kit-class').value;
+    const list = document.getElementById('kit-list');
+    const currentKit = kitDB[cls] || [];
+    
+    list.innerHTML = currentKit.map((item, idx) => `
+        <li>${item.name} (${item.weight}lb) <button class="delete" onclick="removeFromKit('${cls}', ${idx})">X</button></li>
+    `).join('');
+}
+
+function addToKit() {
+    const cls = document.getElementById('edit-kit-class').value;
+    const name = document.getElementById('kit-item-name').value;
+    
+    // Find in DB
+    const item = itemDB.find(i => i.name === name);
+    if (!item) return alert("Item not found in Database. Please create it first.");
+    
+    if (!kitDB[cls]) kitDB[cls] = [];
+    kitDB[cls].push(item);
+    
+    localStorage.setItem('adnd_kit_db', JSON.stringify(kitDB));
+    loadKitEditor();
+    document.getElementById('kit-item-name').value = '';
+}
+
+function removeFromKit(cls, idx) {
+    kitDB[cls].splice(idx, 1);
+    localStorage.setItem('adnd_kit_db', JSON.stringify(kitDB));
+    loadKitEditor();
+}
+
+function saveKitConfig() {
+    alert("Kit configuration saved automatically on every change.");
+}
+
+// --- VARIABLES ---
+function saveVariables() {
+    // In a full implementation, these would update the calculation logic in index.html
+    // For now, we just store them to show persistence capability
+    const vars = {
+        thac0_fighter: document.getElementById('var-thac0-fighter').value,
+        thac0_priest: document.getElementById('var-thac0-priest').value
+    };
+    localStorage.setItem('adnd_vars', JSON.stringify(vars));
+    alert("Variables saved (Note: Main sheet logic needs update to read these dynamic vars).");
+}
+
+function clearAllData() {
+    if(confirm("CRITICAL: This will delete all characters and custom items. Continue?")) {
+        localStorage.clear();
+        location.reload();
+    }
+}
+
+init();
+</script>
+</body>
+</html>
