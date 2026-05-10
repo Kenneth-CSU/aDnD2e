@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AD&D 2e - Weapons</title>
+    <style>
+        :root { --parchment: #f4e4bc; --parchment-dark: #e6d2a0; --ink: #2b2b2b; --border: #5c4033; }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Georgia, serif; background: var(--parchment); color: var(--ink); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        nav { background: var(--border); padding: 8px 15px; display: flex; gap: 15px; flex-wrap: wrap; }
+        nav a { color: var(--parchment); text-decoration: none; font-size: 0.85rem; padding: 3px 8px; }
+        nav a:hover, nav a.current { font-weight: bold; border: 1px solid var(--parchment); }
+        header { height: 50px; background: var(--border); color: var(--parchment); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+        h1 { margin: 0; font-size: 1.2rem; }
+        button { background: var(--parchment-dark); border: 2px solid var(--ink); color: var(--ink); padding: 5px 12px; cursor: pointer; font-weight: bold; }
+        button.danger { background: #d9534f; color: white; }
+        #content { flex: 1; padding: 15px; overflow-y: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+        th, td { border: 1px solid var(--border); padding: 6px; text-align: left; }
+        th { background: var(--parchment-dark); position: sticky; top: 0; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: var(--parchment); border: 4px double var(--border); padding: 20px; width: 500px; max-height: 85vh; overflow-y: auto; }
+        .form-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .form-group { margin: 10px 0; }
+        .form-group label { font-size: 0.7rem; font-weight: bold; display: block; }
+        .form-group input, .form-group select { width: 100%; padding: 5px; border: 1px solid var(--border); }
+        .close-btn { float: right; font-size: 1.5rem; cursor: pointer; }
+    </style>
+</head>
+<body>
+<nav><a href="index.html">Character</a><a href="races.html">Races</a><a href="classes.html">Classes</a><a href="wizardSpells.html">Wizard Spells</a><a href="clericSpells.html">Cleric Spells</a><a href="weapons.html" class="current">Weapons</a><a href="armour.html">Armour</a><a href="items.html">Items</a><a href="combat.html">Combat</a><a href="crafting.html">Crafting</a><a href="campaign.html">Campaign</a></nav>
+<header><h1>Weapons Database</h1><button onclick="openModal()">+ Add Weapon</button></header>
+<div id="content"><table><thead><tr><th>Name</th><th>Dmg S/M</th><th>Dmg L</th><th>Speed</th><th>Type</th><th>Wt</th><th>Cost</th><th>Actions</th></tr></thead><tbody id="wpn-table"></tbody></table></div>
+<div id="modal" class="modal-overlay" onclick="if(event.target===this)closeModal()"><div class="modal-content"><span class="close-btn" onclick="closeModal()">&times;</span><h2 id="modal-title">Add Weapon</h2><input type="hidden" id="edit-idx"><div class="form-grid"><div class="form-group"><label>Name</label><input type="text" id="inp-name"></div><div class="form-group"><label>Damage S/M</label><input type="text" id="inp-dmgSM" placeholder="1d8"></div><div class="form-group"><label>Damage L</label><input type="text" id="inp-dmgL" placeholder="1d12"></div><div class="form-group"><label>Speed Factor</label><input type="number" id="inp-speed"></div><div class="form-group"><label>Size</label><select id="inp-size"><option>S</option><option>M</option><option>L</option></select></div><div class="form-group"><label>Type</label><select id="inp-type"><option>Bludgeoning</option><option>Piercing</option><option>Slashing</option></select></div><div class="form-group"><label>Weight (lbs)</label><input type="number" id="inp-weight"></div><div class="form-group"><label>Cost (GP)</label><input type="number" id="inp-cost"></div><div class="form-group" style="grid-column:span 2;"><label>Proficiency Group</label><input type="text" id="inp-group"></div></div><button onclick="saveWpn()">Save</button></div></div>
+<script>
+let data=[]; const DB='weaponsDB', PATH='data/weapons.json';
+async function load(){const s=localStorage.getItem(DB);if(s&&JSON.parse(s).length>0)data=JSON.parse(s);else{try{const r=await fetch(PATH);data=await r.json();localStorage.setItem(DB,JSON.stringify(data));}catch(e){}}render();}
+function render(){document.getElementById('wpn-table').innerHTML=data.map((w,i)=>`<tr><td>${w.name}</td><td>${w.damageSM}</td><td>${w.damageL}</td><td>${w.speedFactor}</td><td>${w.type}</td><td>${w.weight}</td><td>${w.costGP}</td><td><button onclick="edit(${i})">Edit</button><button class="danger" onclick="del(${i})">Del</button></td></tr>`).join('');}
+function openModal(){document.getElementById('modal').style.display='flex';clearForm();}
+function closeModal(){document.getElementById('modal').style.display='none';}
+function clearForm(){document.getElementById('edit-idx').value='';['name','dmgSM','dmgL','speed','size','type','weight','cost','group'].forEach(id=>{const el=document.getElementById('inp-'+id);if(el)el.value='';});}
+function edit(i){const w=data[i];document.getElementById('edit-idx').value=i;document.getElementById('inp-name').value=w.name;document.getElementById('inp-dmgSM').value=w.damageSM;document.getElementById('inp-dmgL').value=w.damageL;document.getElementById('inp-speed').value=w.speedFactor;document.getElementById('inp-size').value=w.size;document.getElementById('inp-type').value=w.type;document.getElementById('inp-weight').value=w.weight;document.getElementById('inp-cost').value=w.costGP;document.getElementById('inp-group').value=w.proficiencyGroup;document.getElementById('modal').style.display='flex';}
+function saveWpn(){const idx=document.getElementById('edit-idx').value;const e={name:document.getElementById('inp-name').value,damageSM:document.getElementById('inp-dmgSM').value,damageL:document.getElementById('inp-dmgL').value,speedFactor:+document.getElementById('inp-speed').value,size:document.getElementById('inp-size').value,type:document.getElementById('inp-type').value,weight:+document.getElementById('inp-weight').value,costGP:+document.getElementById('inp-cost').value,proficiencyGroup:document.getElementById('inp-group').value};if(idx==='')data.push(e);else data[idx]=e;localStorage.setItem(DB,JSON.stringify(data));closeModal();render();}
+function del(i){if(confirm('Delete?')){data.splice(i,1);localStorage.setItem(DB,JSON.stringify(data));render();}}
+load();
+</script>
+</body>
+</html>

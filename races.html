@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AD&D 2e - Races Database</title>
+    <style>
+        :root { --parchment: #f4e4bc; --parchment-dark: #e6d2a0; --ink: #2b2b2b; --border: #5c4033; }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Georgia, serif; background: var(--parchment); color: var(--ink); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        nav { background: var(--border); padding: 8px 15px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
+        nav a { color: var(--parchment); text-decoration: none; font-size: 0.85rem; padding: 3px 8px; }
+        nav a:hover, nav a.current { font-weight: bold; border: 1px solid var(--parchment); }
+        header { height: 50px; background: var(--border); color: var(--parchment); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+        h1 { margin: 0; font-size: 1.2rem; }
+        button { background: var(--parchment-dark); border: 2px solid var(--ink); color: var(--ink); padding: 5px 12px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #fff; }
+        button.danger { background: #d9534f; color: white; border-color: #8b0000; }
+        #content { flex: 1; padding: 15px; overflow-y: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+        th, td { border: 1px solid var(--border); padding: 6px; text-align: left; }
+        th { background: var(--parchment-dark); position: sticky; top: 0; }
+        tr:hover { background: rgba(255,255,255,0.5); }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: var(--parchment); border: 4px double var(--border); padding: 20px; width: 600px; max-height: 85vh; overflow-y: auto; }
+        .form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 15px 0; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label { font-size: 0.7rem; font-weight: bold; }
+        .form-group input, .form-group select, .form-group textarea { padding: 4px; border: 1px solid var(--border); background: rgba(255,255,255,0.5); font-family: inherit; }
+        .actions { display: flex; gap: 5px; }
+        .close-btn { float: right; font-size: 1.5rem; cursor: pointer; line-height: 1; }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="index.html">Character</a>
+    <a href="races.html" class="current">Races</a>
+    <a href="classes.html">Classes</a>
+    <a href="wizardSpells.html">Wizard Spells</a>
+    <a href="clericSpells.html">Cleric Spells</a>
+    <a href="weapons.html">Weapons</a>
+    <a href="armour.html">Armour</a>
+    <a href="items.html">Items</a>
+    <a href="combat.html">Combat</a>
+    <a href="crafting.html">Crafting</a>
+    <a href="campaign.html">Campaign</a>
+</nav>
+<header><h1>Races Database</h1><button onclick="openModal()">+ Add Race</button></header>
+<div id="content">
+    <table><thead><tr><th>Name</th><th>Str</th><th>Dex</th><th>Con</th><th>Int</th><th>Wis</th><th>Cha</th><th>Infravision</th><th>Allowed Classes</th><th>Actions</th></tr></thead><tbody id="race-table"></tbody></table>
+</div>
+<div id="modal" class="modal-overlay" onclick="if(event.target===this) closeModal()">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <h2 id="modal-title">Add Race</h2>
+        <input type="hidden" id="edit-index">
+        <div class="form-grid">
+            <div class="form-group"><label>Name</label><input type="text" id="inp-name"></div>
+            <div class="form-group"><label>STR Adj</label><input type="number" id="inp-strAdj" value="0"></div>
+            <div class="form-group"><label>DEX Adj</label><input type="number" id="inp-dexAdj" value="0"></div>
+            <div class="form-group"><label>CON Adj</label><input type="number" id="inp-conAdj" value="0"></div>
+            <div class="form-group"><label>INT Adj</label><input type="number" id="inp-intAdj" value="0"></div>
+            <div class="form-group"><label>WIS Adj</label><input type="number" id="inp-wisAdj" value="0"></div>
+            <div class="form-group"><label>CHA Adj</label><input type="number" id="inp-chaAdj" value="0"></div>
+            <div class="form-group"><label>Infravision (ft)</label><input type="number" id="inp-infra" value="0"></div>
+            <div class="form-group" style="grid-column: span 3;"><label>Description</label><textarea id="inp-desc" rows="2"></textarea></div>
+        </div>
+        <button onclick="saveRace()">Save</button>
+    </div>
+</div>
+<script>
+let data = [];
+const DB_KEY = 'racesDB';
+const DATA_PATH = 'data/races.json';
+
+async function load() {
+    const stored = localStorage.getItem(DB_KEY);
+    if (stored && JSON.parse(stored).length > 0) { data = JSON.parse(stored); }
+    else { try { const r = await fetch(DATA_PATH); data = await r.json(); localStorage.setItem(DB_KEY, JSON.stringify(data)); } catch(e) { console.error(e); } }
+    render();
+}
+
+function render() {
+    document.getElementById('race-table').innerHTML = data.map((r,i) => `
+        <tr>
+            <td>${r.name}</td>
+            <td>${r.strAdj>=0?'+':''}${r.strAdj}</td><td>${r.dexAdj>=0?'+':''}${r.dexAdj}</td><td>${r.conAdj>=0?'+':''}${r.conAdj}</td>
+            <td>${r.intAdj>=0?'+':''}${r.intAdj}</td><td>${r.wisAdj>=0?'+':''}${r.wisAdj}</td><td>${r.chaAdj>=0?'+':''}${r.chaAdj}</td>
+            <td>${r.infravision}'</td><td>${r.allowedClasses.join(', ')}</td>
+            <td class="actions"><button onclick="edit(${i})">Edit</button><button class="danger" onclick="del(${i})">Del</button></td>
+        </tr>
+    `).join('');
+}
+
+function openModal() { document.getElementById('modal').style.display='flex'; document.getElementById('modal-title').textContent='Add Race'; clearForm(); }
+function closeModal() { document.getElementById('modal').style.display='none'; }
+function clearForm() {
+    document.getElementById('edit-index').value = '';
+    ['name','strAdj','dexAdj','conAdj','intAdj','wisAdj','chaAdj','infra','desc'].forEach(id => {
+        const el = document.getElementById('inp-'+id);
+        if(el) el.value = el.type==='number' ? 0 : '';
+    });
+}
+
+function edit(i) {
+    const r = data[i];
+    document.getElementById('edit-index').value = i;
+    document.getElementById('modal-title').textContent = 'Edit Race';
+    document.getElementById('inp-name').value = r.name;
+    document.getElementById('inp-strAdj').value = r.strAdj;
+    document.getElementById('inp-dexAdj').value = r.dexAdj;
+    document.getElementById('inp-conAdj').value = r.conAdj;
+    document.getElementById('inp-intAdj').value = r.intAdj;
+    document.getElementById('inp-wisAdj').value = r.wisAdj;
+    document.getElementById('inp-chaAdj').value = r.chaAdj;
+    document.getElementById('inp-infra').value = r.infravision;
+    document.getElementById('inp-desc').value = r.description || '';
+    document.getElementById('modal').style.display = 'flex';
+}
+
+function saveRace() {
+    const idx = document.getElementById('edit-index').value;
+    const entry = {
+        name: document.getElementById('inp-name').value,
+        strAdj: +document.getElementById('inp-strAdj').value, dexAdj: +document.getElementById('inp-dexAdj').value,
+        conAdj: +document.getElementById('inp-conAdj').value, intAdj: +document.getElementById('inp-intAdj').value,
+        wisAdj: +document.getElementById('inp-wisAdj').value, chaAdj: +document.getElementById('inp-chaAdj').value,
+        minStr:3,maxStr:18,minDex:3,maxDex:18,minCon:3,maxCon:18,minInt:3,maxInt:18,minWis:3,maxWis:18,minCha:3,maxCha:18,
+        allowedClasses: ["Fighter","Mage","Cleric","Thief"],
+        infravision: +document.getElementById('inp-infra').value,
+        detectSecretDoors: "none",
+        savingThrowBonuses: {poison:0,rodStaffWand:0,petrification:0,breath:0,spell:0},
+        thiefSkillMods: {pickPockets:0,openLocks:0,findTraps:0,moveSilently:0,hideShadows:0,detectNoise:0,climbWalls:0,readLanguages:0},
+        description: document.getElementById('inp-desc').value
+    };
+    if (idx === '') data.push(entry); else data[idx] = entry;
+    localStorage.setItem(DB_KEY, JSON.stringify(data));
+    closeModal(); render();
+}
+
+function del(i) { if(confirm('Delete this race?')) { data.splice(i,1); localStorage.setItem(DB_KEY, JSON.stringify(data)); render(); } }
+load();
+</script>
+</body>
+</html>

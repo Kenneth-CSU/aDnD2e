@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AD&D 2e - Wizard Spells</title>
+    <style>
+        :root { --parchment: #f4e4bc; --parchment-dark: #e6d2a0; --ink: #2b2b2b; --border: #5c4033; }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Georgia, serif; background: var(--parchment); color: var(--ink); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        nav { background: var(--border); padding: 8px 15px; display: flex; gap: 15px; flex-wrap: wrap; }
+        nav a { color: var(--parchment); text-decoration: none; font-size: 0.85rem; padding: 3px 8px; }
+        nav a:hover, nav a.current { font-weight: bold; border: 1px solid var(--parchment); }
+        header { height: 50px; background: var(--border); color: var(--parchment); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+        h1 { margin: 0; font-size: 1.2rem; }
+        button { background: var(--parchment-dark); border: 2px solid var(--ink); color: var(--ink); padding: 5px 12px; cursor: pointer; font-weight: bold; }
+        button.danger { background: #d9534f; color: white; }
+        #content { flex: 1; padding: 15px; overflow-y: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+        th, td { border: 1px solid var(--border); padding: 6px; text-align: left; }
+        th { background: var(--parchment-dark); position: sticky; top: 0; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: var(--parchment); border: 4px double var(--border); padding: 20px; width: 550px; max-height: 85vh; overflow-y: auto; }
+        .form-group { margin: 10px 0; }
+        .form-group label { font-size: 0.7rem; font-weight: bold; display: block; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 5px; border: 1px solid var(--border); }
+        .close-btn { float: right; font-size: 1.5rem; cursor: pointer; }
+    </style>
+</head>
+<body>
+<nav><a href="index.html">Character</a><a href="races.html">Races</a><a href="classes.html">Classes</a><a href="wizardSpells.html" class="current">Wizard Spells</a><a href="clericSpells.html">Cleric Spells</a><a href="weapons.html">Weapons</a><a href="armour.html">Armour</a><a href="items.html">Items</a><a href="combat.html">Combat</a><a href="crafting.html">Crafting</a><a href="campaign.html">Campaign</a></nav>
+<header><h1>Wizard Spells Database</h1><button onclick="openModal()">+ Add Spell</button></header>
+<div id="content"><table><thead><tr><th>Name</th><th>Lvl</th><th>School</th><th>Range</th><th>Casting Time</th><th>Actions</th></tr></thead><tbody id="spell-table"></tbody></table></div>
+<div id="modal" class="modal-overlay" onclick="if(event.target===this)closeModal()"><div class="modal-content"><span class="close-btn" onclick="closeModal()">&times;</span><h2 id="modal-title">Add Spell</h2><input type="hidden" id="edit-idx"><div class="form-group"><label>Name</label><input type="text" id="inp-name"></div><div class="form-group"><label>Level (1-9)</label><input type="number" id="inp-level" min="1" max="9"></div><div class="form-group"><label>School</label><input type="text" id="inp-school"></div><div class="form-group"><label>Range</label><input type="text" id="inp-range"></div><div class="form-group"><label>Components</label><input type="text" id="inp-comp"></div><div class="form-group"><label>Casting Time</label><input type="text" id="inp-time"></div><div class="form-group"><label>Duration</label><input type="text" id="inp-duration"></div><div class="form-group"><label>Area of Effect</label><input type="text" id="inp-aoe"></div><div class="form-group"><label>Saving Throw</label><input type="text" id="inp-save"></div><div class="form-group"><label>Description</label><textarea id="inp-desc" rows="3"></textarea></div><button onclick="saveSpell()">Save</button></div></div>
+<script>
+let data=[]; const DB='wizardSpellsDB', PATH='data/wizardSpells.json';
+async function load(){const s=localStorage.getItem(DB);if(s&&JSON.parse(s).length>0)data=JSON.parse(s);else{try{const r=await fetch(PATH);data=await r.json();localStorage.setItem(DB,JSON.stringify(data));}catch(e){}}render();}
+function render(){document.getElementById('spell-table').innerHTML=data.map((sp,i)=>`<tr><td>${sp.name}</td><td>${sp.level}</td><td>${sp.school}</td><td>${sp.range}</td><td>${sp.castingTime}</td><td><button onclick="edit(${i})">Edit</button><button class="danger" onclick="del(${i})">Del</button></td></tr>`).join('');}
+function openModal(){document.getElementById('modal').style.display='flex';clearForm();}
+function closeModal(){document.getElementById('modal').style.display='none';}
+function clearForm(){document.getElementById('edit-idx').value='';['name','level','school','range','comp','time','duration','aoe','save','desc'].forEach(id=>{const el=document.getElementById('inp-'+id);if(el)el.value='';});}
+function edit(i){const sp=data[i];document.getElementById('edit-idx').value=i;document.getElementById('inp-name').value=sp.name;document.getElementById('inp-level').value=sp.level;document.getElementById('inp-school').value=sp.school;document.getElementById('inp-range').value=sp.range;document.getElementById('inp-comp').value=sp.components;document.getElementById('inp-time').value=sp.castingTime;document.getElementById('inp-duration').value=sp.duration;document.getElementById('inp-aoe').value=sp.areaOfEffect;document.getElementById('inp-save').value=sp.savingThrow;document.getElementById('inp-desc').value=sp.description;document.getElementById('modal').style.display='flex';}
+function saveSpell(){const idx=document.getElementById('edit-idx').value;const e={name:document.getElementById('inp-name').value,level:+document.getElementById('inp-level').value,school:document.getElementById('inp-school').value,range:document.getElementById('inp-range').value,components:document.getElementById('inp-comp').value,castingTime:document.getElementById('inp-time').value,duration:document.getElementById('inp-duration').value,areaOfEffect:document.getElementById('inp-aoe').value,savingThrow:document.getElementById('inp-save').value,description:document.getElementById('inp-desc').value};if(idx==='')data.push(e);else data[idx]=e;localStorage.setItem(DB,JSON.stringify(data));closeModal();render();}
+function del(i){if(confirm('Delete?')){data.splice(i,1);localStorage.setItem(DB,JSON.stringify(data));render();}}
+load();
+</script>
+</body>
+</html>

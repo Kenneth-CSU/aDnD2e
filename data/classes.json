@@ -1,0 +1,223 @@
+[
+  {
+    "name": "Fighter",
+    "thac0": [20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0,-1,-2,-3,-4,-5,-6,-7,-8,-9],
+    "saves": {
+      "paralyzePoisonDeath": [14,13,13,12,12,11,11,10,10,9,9,8,8,7,7,6,6,5,5,4],
+      "rodStaffWand": [16,15,15,14,14,13,13,12,12,11,11,10,10,9,9,8,8,7,7,6],
+      "petrificationPolymorph": [15,14,14,13,13,12,12,11,11,10,10,9,9,8,8,7,7,6,6,5],
+      "breathWeapon": [17,16,16,15,15,14,14,13,13,12,12,11,11,10,10,9,9,8,8,7],
+      "spell": [18,17,17,16,16,15,15,14,14,13,13,12,12,11,11,10,10,9,9,8]
+    },
+    "thiefBase": null,
+    "turnTable": null,
+    "spellSlots": [],
+    "weaponProficiencies": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    "nonweaponProficiencies": [3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,9,9],
+    "allowedArmour": "all",
+    "weaponGroups": ["all"],
+    "startingGold": "5d4x10",
+    "kits": [
+      {"name": "Myrmidon", "parentClass": "Fighter", "benefits": "Specializes in a single weapon; +1 attack/damage at 3rd, +2 at 6th, etc.", "restrictions": "Cannot use weapons outside specialty; must serve a cause or master.", "specialAbilities": "Weapon specialization progression"},
+      {"name": "Swashbuckler", "parentClass": "Fighter", "benefits": "+1 AC when unarmored; can attempt acrobatic maneuvers.", "restrictions": "Cannot wear armor heavier than chainmail; must be chaotic or neutral.", "specialAbilities": "Acrobatics, climbing"},
+      {"name": "Gladiator", "parentClass": "Fighter", "benefits": "Bonus proficiency with crowd-pleasing weapons; +1 HP/level.", "restrictions": "Must fight for entertainment; often enslaved or indebted.", "specialAbilities": "Performance combat techniques"},
+      {"name": "Cavalier", "parentClass": "Fighter", "benefits": "Horseback combat bonuses; loyal to order.", "restrictions": "Must belong to an order; cannot retreat from battle.", "specialAbilities": "Riding proficiency, warhorse bond"},
+      {"name": "Berserker", "parentClass": "Fighter", "benefits": "Can enter berserk rage: +2 attack/damage, temporary HP.", "restrictions": "Cannot wear heavy armor; must be chaotic.", "specialAbilities": "Berserk rage ability"}
+    ]
+  },
+  {
+    "name": "Paladin",
+    "thac0": [20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0,-1,-2,-3,-4,-5,-6,-7,-8,-9],
+    "saves": {
+      "paralyzePoisonDeath": [14,13,13,12,12,11,11,10,10,9,9,8,8,7,7,6,6,5,5,4],
+      "rodStaffWand": [16,15,15,14,14,13,13,12,12,11,11,10,10,9,9,8,8,7,7,6],
+      "petrificationPolymorph": [15,14,14,13,13,12,12,11,11,10,10,9,9,8,8,7,7,6,6,5],
+      "breathWeapon": [17,16,16,15,15,14,14,13,13,12,12,11,11,10,10,9,9,8,8,7],
+      "spell": [18,17,17,16,16,15,15,14,14,13,13,12,12,11,11,10,10,9,9,8]
+    },
+    "thiefBase": null,
+    "turnTable": ["-", "-", "-", "-", "T", "T", "D", "D", "D", "2D", "2D", "3D", "3D", "4D", "4D", "5D", "5D", "6D", "6D", "7D"],
+    "spellSlots": [[0],[0],[0],[0],[0],[0],[0],[0],[1],[1],[1,1],[1,1],[1,1],[1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1,1],[1,1,1,1]],
+    "weaponProficiencies": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    "nonweaponProficiencies": [3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,9,9],
+    "allowedArmour": "all",
+    "weaponGroups": ["all"],
+    "startingGold": "5d4x10",
+    "kits": [
+      {"name": "Inquisitor", "parentClass": "Paladin", "benefits": "Expert at detecting lies and rooting out evil.", "restrictions": "Must be lawful good; must pursue heretics.", "specialAbilities": "Detect lie, interrogation skills"},
+      {"name": "Cavalier", "parentClass": "Paladin", "benefits": "Mounted combat excellence; devoted to chivalric code.", "restrictions": "Must own and maintain a warhorse; cannot refuse challenge.", "specialAbilities": "Superior horsemanship"},
+      {"name": "Enforcer", "parentClass": "Paladin", "benefits": "Intimidating presence; tracks down wrongdoers.", "restrictions": "Must serve a legal authority; cannot show mercy to known criminals.", "specialAbilities": "Intimidation, tracking"}
+    ]
+  },
+  {
+    "name": "Ranger",
+    "thac0": [20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0,-1,-2,-3,-4,-5,-6,-7,-8,-9],
+    "saves": {
+      "paralyzePoisonDeath": [14,13,13,12,12,11,11,10,10,9,9,8,8,7,7,6,6,5,5,4],
+      "rodStaffWand": [16,15,15,14,14,13,13,12,12,11,11,10,10,9,9,8,8,7,7,6],
+      "petrificationPolymorph": [15,14,14,13,13,12,12,11,11,10,10,9,9,8,8,7,7,6,6,5],
+      "breathWeapon": [17,16,16,15,15,14,14,13,13,12,12,11,11,10,10,9,9,8,8,7],
+      "spell": [18,17,17,16,16,15,15,14,14,13,13,12,12,11,11,10,10,9,9,8]
+    },
+    "thiefBase": null,
+    "turnTable": null,
+    "spellSlots": [[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[1],[1],[1,1],[1,1],[1,1],[1,1,1]],
+    "weaponProficiencies": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    "nonweaponProficiencies": [3,3,3,4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,9,9],
+    "allowedArmour": "studded_leather_and_below",
+    "weaponGroups": ["all"],
+    "startingGold": "5d4x10",
+    "kits": [
+      {"name": "Archer", "parentClass": "Ranger", "benefits": "Specialized in bow combat; rapid fire capability.", "restrictions": "Must focus on missile weapons.", "specialAbilities": "Called shot, rapid shooting"},
+      {"name": "Beastmaster", "parentClass": "Ranger", "benefits": "Can communicate with and command animals.", "restrictions": "Must have animal companion.", "specialAbilities": "Animal empathy, training"},
+      {"name": "Mountain Man", "parentClass": "Ranger", "benefits": "Excellent climber and survivalist in mountainous terrain.", "restrictions": "Most effective in hills/mountains.", "specialAbilities": "Climbing, survival bonuses"},
+      {"name": "Stalker", "parentClass": "Ranger", "benefits": "Master of stealth and ambush tactics.", "restrictions": "Often operates alone.", "specialAbilities": "Hide in shadows, move silently bonuses"}
+    ]
+  },
+  {
+    "name": "Mage",
+    "thac0": [20,20,20,19,19,19,18,18,18,17,17,17,16,16,16,15,15,15,14,14,14,13,13,13,12,12,12,11,11,11],
+    "saves": {
+      "paralyzePoisonDeath": [14,14,14,13,13,13,12,12,12,11,11,11,10,10,10,9,9,9,8,8],
+      "rodStaffWand": [11,11,11,10,10,10,9,9,9,8,8,8,7,7,7,6,6,6,5,5],
+      "petrificationPolymorph": [13,13,13,12,12,12,11,11,11,10,10,10,9,9,9,8,8,8,7,7],
+      "breathWeapon": [15,15,15,14,14,14,13,13,13,12,12,12,11,11,11,10,10,10,9,9],
+      "spell": [12,12,12,11,11,11,10,10,10,9,9,9,8,8,8,7,7,7,6,6]
+    },
+    "thiefBase": null,
+    "turnTable": null,
+    "spellSlots": [[1],[2],[2,1],[3,1],[3,2],[3,2,1],[3,3,1],[3,3,2],[3,3,2,1],[3,3,3,1],[3,3,3,2],[3,3,3,2,1],[3,3,3,3,1],[3,3,3,3,2],[3,3,3,3,2,1],[3,3,3,3,3,1],[3,3,3,3,3,2],[3,3,3,3,3,2,1],[3,3,3,3,3,2,1],[3,3,3,3,3,2,1,1]],
+    "weaponProficiencies": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    "nonweaponProficiencies": [4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,9,9,9,10,10],
+    "allowedArmour": "none",
+    "weaponGroups": ["dagger", "staff", "dart", "knife"],
+    "startingGold": "4d4x10",
+    "kits": [
+      {"name": "Abjurer", "parentClass": "Mage", "benefits": "Specialist in abjuration school; extra spell slot per level.", "restrictions": "Cannot cast enchantment/charm spells.", "specialAbilities": "+15% chance to learn abjuration spells"},
+      {"name": "Conjurer", "parentClass": "Mage", "benefits": "Specialist in conjuration/summoning.", "restrictions": "Cannot cast divination spells.", "specialAbilities": "+15% chance to learn conjuration spells"},
+      {"name": "Diviner", "parentClass": "Mage", "benefits": "Specialist in divination; may receive visions.", "restrictions": "Cannot cast illusion spells.", "specialAbilities": "+15% chance to learn divination spells"},
+      {"name": "Enchanter", "parentClass": "Mage", "benefits": "Specialist in enchantment/charm.", "restrictions": "Cannot cast invocation/evocation spells.", "specialAbilities": "+15% chance to learn enchantment spells"},
+      {"name": "Illusionist", "parentClass": "Mage", "benefits": "Specialist in illusion/phantasm; illusions are harder to disbelieve.", "restrictions": "Cannot cast necromancy spells.", "specialAbilities": "+15% chance to learn illusion spells"},
+      {"name": "Invoker", "parentClass": "Mage", "benefits": "Specialist in invocation/evocation; spells do more damage.", "restrictions": "Cannot cast enchantment/charm spells.", "specialAbilities": "+15% chance to learn invocation spells"},
+      {"name": "Necromancer", "parentClass": "Mage", "benefits": "Specialist in necromancy; undead fear the mage.", "restrictions": "Cannot cast illusion spells.", "specialAbilities": "+15% chance to learn necromancy spells"},
+      {"name": "Transmuter", "parentClass": "Mage", "benefits": "Specialist in alteration/transmutation.", "restrictions": "Cannot cast abjuration spells.", "specialAbilities": "+15% chance to learn transmutation spells"},
+      {"name": "Elementalist", "parentClass": "Mage", "benefits": "Specialist in elemental magic (fire, water, earth, air).", "restrictions": "Opposing elements cannot be cast.", "specialAbilities": "Elemental resistance, bonus damage"},
+      {"name": "Wild Mage", "parentClass": "Mage", "benefits": "Casts unpredictable, chaotic magic; wild surge potential.", "restrictions": "Spells may go awry; unpredictable effects.", "specialAbilities": "Wild surge table access"}
+    ]
+  },
+  {
+    "name": "Cleric",
+    "thac0": [20,18,18,18,18,16,16,16,16,14,14,14,14,12,12,12,12,10,10,10,10,8,8,8,8,6,6,6,6,4],
+    "saves": {
+      "paralyzePoisonDeath": [10,10,10,9,9,9,8,8,8,7,7,7,6,6,6,5,5,5,4,4],
+      "rodStaffWand": [14,14,14,13,13,13,12,12,12,11,11,11,10,10,10,9,9,9,8,8],
+      "petrificationPolymorph": [13,13,13,12,12,12,11,11,11,10,10,10,9,9,9,8,8,8,7,7],
+      "breathWeapon": [16,16,16,15,15,15,14,14,14,13,13,13,12,12,12,11,11,11,10,10],
+      "spell": [15,15,15,14,14,14,13,13,13,12,12,12,11,11,11,10,10,10,9,9]
+    },
+    "thiefBase": null,
+    "turnTable": ["-", "-", "T", "T", "D", "D", "D", "2D", "2D", "3D", "3D", "4D", "4D", "5D", "5D", "6D", "6D", "7D", "7D", "8D"],
+    "spellSlots": [[1],[1],[1,1],[2,1],[2,2],[2,2,1],[2,2,2],[3,3,2,1],[3,3,3,2],[3,3,3,3],[3,3,3,3,1],[4,4,3,3,2],[4,4,4,3,3],[4,4,4,4,3],[5,5,5,4,4],[5,5,5,5,4,1],[5,5,5,5,5,2],[6,6,6,5,5,3],[6,6,6,6,6,4],[6,6,6,6,6,5,1]],
+    "weaponProficiencies": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    "nonweaponProficiencies": [4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,9,9,9,10,10],
+    "allowedArmour": "all_but_plate",
+    "weaponGroups": ["bludgeoning"],
+    "startingGold": "3d6x10",
+    "kits": [
+      {"name": "Healer", "parentClass": "Cleric", "benefits": "Enhanced healing spells; +1 caster level for curative magic.", "restrictions": "Must be good aligned; pacifist tendencies.", "specialAbilities": "Lay on hands variant"},
+      {"name": "Warrior Priest", "parentClass": "Cleric", "benefits": "May use edged weapons; better THAC0.", "restrictions": "Must serve a war deity; aggressive.", "specialAbilities": "Combat blessings"},
+      {"name": "Scholar", "parentClass": "Cleric", "benefits": "Extra languages; lore knowledge.", "restrictions": "Less combat focused.", "specialAbilities": "Ancient texts reading, translation"}
+    ]
+  },
+  {
+    "name": "Druid",
+    "thac0": [20,18,18,18,18,16,16,16,16,14,14,14,14,12,12,12,12,10,10,10,10,8,8,8,8,6,6,6,6,4],
+    "saves": {
+      "paralyzePoisonDeath": [10,10,10,9,9,9,8,8,8,7,7,7,6,6,6,5,5,5,4,4],
+      "rodStaffWand": [14,14,14,13,13,13,12,12,12,11,11,11,10,10,10,9,9,9,8,8],
+      "petrificationPolymorph": [13,13,13,12,12,12,11,11,11,10,10,10,9,9,9,8,8,8,7,7],
+      "breathWeapon": [16,16,16,15,15,15,14,14,14,13,13,13,12,12,12,11,11,11,10,10],
+      "spell": [15,15,15,14,14,14,13,13,13,12,12,12,11,11,11,10,10,10,9,9]
+    },
+    "thiefBase": null,
+    "turnTable": null,
+    "spellSlots": [[1],[1],[1,1],[2,1],[2,2],[2,2,1],[2,2,2],[3,3,2,1],[3,3,3,2],[3,3,3,3],[3,3,3,3,1],[4,4,3,3,2],[4,4,4,3,3],[4,4,4,4,3],[5,5,5,4,4],[5,5,5,5,4,1],[5,5,5,5,5,2],[6,6,6,5,5,3],[6,6,6,6,6,4],[6,6,6,6,6,5,1]],
+    "weaponProficiencies": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    "nonweaponProficiencies": [4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,9,9,9,10,10],
+    "allowedArmour": "leather_only",
+    "weaponGroups": ["club", "dagger", "sickle", "scimitar", "spear", "staff", "dart", "sling"],
+    "startingGold": "3d6x10",
+    "kits": [
+      {"name": "Shapeshifter", "parentClass": "Druid", "benefits": "Can assume animal forms more frequently.", "restrictions": "Must maintain balance of nature.", "specialAbilities": "Extra shapeshift uses per day"},
+      {"name": "Totemic Druid", "parentClass": "Druid", "benefits": "Bonded to a specific animal totem; gains its abilities.", "restrictions": "Must honor totem spirit.", "specialAbilities": "Totem spirit communication, partial transformation"}
+    ]
+  },
+  {
+    "name": "Thief",
+    "thac0": [20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0,-1,-2,-3,-4,-5,-6,-7,-8,-9],
+    "saves": {
+      "paralyzePoisonDeath": [10,10,10,9,9,9,8,8,8,7,7,7,6,6,6,5,5,5,4,4],
+      "rodStaffWand": [13,13,13,12,12,12,11,11,11,10,10,10,9,9,9,8,8,8,7,7],
+      "petrificationPolymorph": [12,12,12,11,11,11,10,10,10,9,9,9,8,8,8,7,7,7,6,6],
+      "breathWeapon": [15,15,15,14,14,14,13,13,13,12,12,12,11,11,11,10,10,10,9,9],
+      "spell": [14,14,14,13,13,13,12,12,12,11,11,11,10,10,10,9,9,9,8,8]
+    },
+    "thiefBase": {
+      "pickPockets": [10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,98,98],
+      "openLocks": [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,98],
+      "findTraps": [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,98],
+      "moveSilently": [10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,98],
+      "hideShadows": [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95],
+      "detectNoise": [15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,98,98],
+      "climbWalls": [60,65,70,75,80,85,90,95,98,98,98,98,98,98,98,98,98,98,98,98],
+      "readLanguages": [0,0,0,0,0,0,0,0,0,10,20,30,40,50,60,70,80,90,95,98]
+    },
+    "turnTable": null,
+    "spellSlots": [],
+    "weaponProficiencies": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    "nonweaponProficiencies": [4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,9,9,9,10,10],
+    "allowedArmour": "leather_only",
+    "weaponGroups": ["small_weapons"],
+    "startingGold": "2d6x10",
+    "kits": [
+      {"name": "Swashbuckler", "parentClass": "Thief", "benefits": "Acrobatic finesse; +1 AC when unarmored.", "restrictions": "Cannot wear armor heavier than leather.", "specialAbilities": "Acrobatics, flashy combat"},
+      {"name": "Investigator", "parentClass": "Thief", "benefits": "Expert at gathering information and solving mysteries.", "restrictions": "Often works with authorities.", "specialAbilities": "Disguise, deduction"},
+      {"name": "Acrobat", "parentClass": "Thief", "benefits": "Exceptional climbing and balancing abilities.", "restrictions": "Lightly equipped only.", "specialAbilities": "Tightrope walking, tumbling"},
+      {"name": "Beggar", "parentClass": "Thief", "benefits": "Expert at blending in and gathering street information.", "restrictions": "Must appear impoverished.", "specialAbilities": "Blend into crowds, disguise as beggar"}
+    ]
+  },
+  {
+    "name": "Bard",
+    "thac0": [20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1,0,-1,-2,-3,-4,-5,-6,-7,-8,-9],
+    "saves": {
+      "paralyzePoisonDeath": [13,13,13,12,12,12,11,11,11,10,10,10,9,9,9,8,8,8,7,7],
+      "rodStaffWand": [14,14,14,13,13,13,12,12,12,11,11,11,10,10,10,9,9,9,8,8],
+      "petrificationPolymorph": [13,13,13,12,12,12,11,11,11,10,10,10,9,9,9,8,8,8,7,7],
+      "breathWeapon": [16,16,16,15,15,15,14,14,14,13,13,13,12,12,12,11,11,11,10,10],
+      "spell": [15,15,15,14,14,14,13,13,13,12,12,12,11,11,11,10,10,10,9,9]
+    },
+    "thiefBase": {
+      "pickPockets": [10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,98,98],
+      "openLocks": [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,98],
+      "findTraps": [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,98],
+      "moveSilently": [10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95],
+      "hideShadows": [5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95],
+      "detectNoise": [15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,98,98],
+      "climbWalls": [60,65,70,75,80,85,90,95,98,98,98,98,98,98,98,98,98,98,98,98],
+      "readLanguages": [0,0,0,0,0,0,0,0,0,10,20,30,40,50,60,70,80,90,95,98]
+    },
+    "turnTable": null,
+    "spellSlots": [[0],[0],[0],[0],[0],[0],[1],[1],[1,1],[1,1],[1,1],[1,1,1],[1,1,1],[1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1],[1,1,1,1,1],[1,1,1,1,1],[1,1,1,1,1,1]],
+    "weaponProficiencies": [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    "nonweaponProficiencies": [4,4,4,5,5,5,6,6,6,7,7,7,8,8,8,9,9,9,10,10],
+    "allowedArmour": "leather_and_shield",
+    "weaponGroups": ["small_to_medium"],
+    "startingGold": "3d6x10",
+    "kits": [
+      {"name": "Gallant", "parentClass": "Bard", "benefits": "Charming and brave; inspires allies.", "restrictions": "Must be bold and flamboyant.", "specialAbilities": "Inspire courage"},
+      {"name": "Blade", "parentClass": "Bard", "benefits": "More combat-focused; better fighting ability.", "restrictions": "Less emphasis on magic.", "specialAbilities": "Combat inspiration, dueling"},
+      {"name": "Skald", "parentClass": "Bard", "benefits": "Warrior-poet; records history through song.", "restrictions": "Must preserve oral traditions.", "specialAbilities": "Historical knowledge, battle songs"},
+      {"name": "Herald", "parentClass": "Bard", "benefits": "Messenger and diplomat; recognized by nobility.", "restrictions": "Must serve a lord or organization.", "specialAbilities": "Diplomatic immunity, recognition"}
+    ]
+  }
+]

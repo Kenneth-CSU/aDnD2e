@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AD&D 2e - Classes Database</title>
+    <style>
+        :root { --parchment: #f4e4bc; --parchment-dark: #e6d2a0; --ink: #2b2b2b; --border: #5c4033; }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Georgia, serif; background: var(--parchment); color: var(--ink); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        nav { background: var(--border); padding: 8px 15px; display: flex; gap: 15px; flex-wrap: wrap; }
+        nav a { color: var(--parchment); text-decoration: none; font-size: 0.85rem; padding: 3px 8px; }
+        nav a:hover, nav a.current { font-weight: bold; border: 1px solid var(--parchment); }
+        header { height: 50px; background: var(--border); color: var(--parchment); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+        h1 { margin: 0; font-size: 1.2rem; }
+        button { background: var(--parchment-dark); border: 2px solid var(--ink); color: var(--ink); padding: 5px 12px; cursor: pointer; font-weight: bold; }
+        button.danger { background: #d9534f; color: white; }
+        #content { flex: 1; padding: 15px; overflow-y: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+        th, td { border: 1px solid var(--border); padding: 6px; text-align: left; }
+        th { background: var(--parchment-dark); position: sticky; top: 0; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: var(--parchment); border: 4px double var(--border); padding: 20px; width: 500px; max-height: 85vh; overflow-y: auto; }
+        .form-group { margin: 10px 0; }
+        .form-group label { font-size: 0.7rem; font-weight: bold; display: block; }
+        .form-group input, .form-group textarea { width: 100%; padding: 5px; border: 1px solid var(--border); }
+        .close-btn { float: right; font-size: 1.5rem; cursor: pointer; }
+    </style>
+</head>
+<body>
+<nav><a href="index.html">Character</a><a href="races.html">Races</a><a href="classes.html" class="current">Classes</a><a href="wizardSpells.html">Wizard Spells</a><a href="clericSpells.html">Cleric Spells</a><a href="weapons.html">Weapons</a><a href="armour.html">Armour</a><a href="items.html">Items</a><a href="combat.html">Combat</a><a href="crafting.html">Crafting</a><a href="campaign.html">Campaign</a></nav>
+<header><h1>Classes & Kits Database</h1><button onclick="openModal()">+ Add Class</button></header>
+<div id="content"><table><thead><tr><th>Class</th><th>Kits</th><th>THAC0 L1</th><th>Saves</th><th>Actions</th></tr></thead><tbody id="class-table"></tbody></table></div>
+<div id="modal" class="modal-overlay" onclick="if(event.target===this)closeModal()"><div class="modal-content"><span class="close-btn" onclick="closeModal()">&times;</span><h2 id="modal-title">Add Class</h2><input type="hidden" id="edit-idx"><div class="form-group"><label>Name</label><input type="text" id="inp-name"></div><div class="form-group"><label>Starting Gold</label><input type="text" id="inp-gold"></div><div class="form-group"><label>Allowed Armour</label><input type="text" id="inp-armour"></div><button onclick="saveClass()">Save</button></div></div>
+<script>
+let data=[]; const DB='classesDB', PATH='data/classes.json';
+async function load(){const s=localStorage.getItem(DB);if(s&&JSON.parse(s).length>0)data=JSON.parse(s);else{try{const r=await fetch(PATH);data=await r.json();localStorage.setItem(DB,JSON.stringify(data));}catch(e){}}render();}
+function render(){document.getElementById('class-table').innerHTML=data.map((c,i)=>`<tr><td>${c.name}</td><td>${c.kits?c.kits.length:0} kits</td><td>${c.thac0?c.thac0[0]:'-'}</td><td>${c.saves?'Yes':'-'}</td><td><button onclick="edit(${i})">Edit</button><button class="danger" onclick="del(${i})">Del</button></td></tr>`).join('');}
+function openModal(){document.getElementById('modal').style.display='flex';clearForm();}
+function closeModal(){document.getElementById('modal').style.display='none';}
+function clearForm(){document.getElementById('edit-idx').value='';document.getElementById('inp-name').value='';document.getElementById('inp-gold').value='';document.getElementById('inp-armour').value='';}
+function edit(i){const c=data[i];document.getElementById('edit-idx').value=i;document.getElementById('inp-name').value=c.name;document.getElementById('inp-gold').value=c.startingGold;document.getElementById('inp-armour').value=c.allowedArmour;document.getElementById('modal').style.display='flex';}
+function saveClass(){const idx=document.getElementById('edit-idx').value;const e={name:document.getElementById('inp-name').value,startingGold:document.getElementById('inp-gold').value,allowedArmour:document.getElementById('inp-armour').value,thac0:[20],saves:{},kits:[]};if(idx==='')data.push(e);else data[idx]=e;localStorage.setItem(DB,JSON.stringify(data));closeModal();render();}
+function del(i){if(confirm('Delete?')){data.splice(i,1);localStorage.setItem(DB,JSON.stringify(data));render();}}
+load();
+</script>
+</body>
+</html>

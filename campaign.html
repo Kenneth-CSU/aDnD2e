@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AD&D 2e - Campaign Notes</title>
+    <style>
+        :root { --parchment: #f4e4bc; --parchment-dark: #e6d2a0; --ink: #2b2b2b; --border: #5c4033; }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Georgia, serif; background: var(--parchment); color: var(--ink); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        nav { background: var(--border); padding: 8px 15px; display: flex; gap: 15px; flex-wrap: wrap; }
+        nav a { color: var(--parchment); text-decoration: none; font-size: 0.85rem; padding: 3px 8px; }
+        nav a:hover, nav a.current { font-weight: bold; border: 1px solid var(--parchment); }
+        header { height: 50px; background: var(--border); color: var(--parchment); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+        h1 { margin: 0; font-size: 1.2rem; }
+        #content { flex: 1; padding: 15px; overflow-y: auto; }
+        textarea { width: 100%; height: 500px; resize: vertical; font-family: inherit; padding: 10px; border: 2px solid var(--border); background: rgba(255,255,255,0.5); }
+    </style>
+</head>
+<body>
+<nav><a href="index.html">Character</a><a href="races.html">Races</a><a href="classes.html">Classes</a><a href="wizardSpells.html">Wizard Spells</a><a href="clericSpells.html">Cleric Spells</a><a href="weapons.html">Weapons</a><a href="armour.html">Armour</a><a href="items.html">Items</a><a href="combat.html">Combat</a><a href="crafting.html">Crafting</a><a href="campaign.html" class="current">Campaign</a></nav>
+<header><h1>Campaign Journal & DM Notes</h1><button onclick="save()">Save</button></header>
+<div id="content"><textarea id="camp-notes" placeholder="Session logs, NPC details, plot hooks, world lore..."></textarea></div>
+<script>
+function load(){const s=localStorage.getItem('campaignNotes');if(s)document.getElementById('camp-notes').value=s;}
+function save(){localStorage.setItem('campaignNotes',document.getElementById('camp-notes').value);alert('Campaign notes saved!');}
+load();
+</script>
+</body>
+</html>
