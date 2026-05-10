@@ -1,0 +1,49 @@
+{
+  "nonWeapon": [
+    {"name": "Alertness", "ability": "WIS", "category": "General", "slots": 1, "checkMod": 0, "description": "Notice unusual details, ambush signs, and environmental clues."},
+    {"name": "Animal Handling", "ability": "WIS", "category": "General", "slots": 1, "checkMod": 0, "description": "Calm, train, and guide domesticated or semi-trained animals."},
+    {"name": "Direction Sense", "ability": "WIS", "category": "General", "slots": 1, "checkMod": 0, "description": "Maintain orientation and avoid becoming lost."},
+    {"name": "Endurance", "ability": "CON", "category": "General", "slots": 1, "checkMod": 0, "description": "Resist fatigue from forced marches and harsh conditions."},
+    {"name": "Healing", "ability": "WIS", "category": "General", "slots": 2, "checkMod": -2, "description": "Provide first aid and improve natural recovery."},
+    {"name": "Herbalism", "ability": "INT", "category": "General", "slots": 2, "checkMod": -1, "description": "Identify, harvest, and prepare useful plants."},
+    {"name": "Language, Ancient", "ability": "INT", "category": "General", "slots": 1, "checkMod": -1, "description": "Read and interpret dead or rare written tongues."},
+    {"name": "Reading/Writing", "ability": "INT", "category": "General", "slots": 1, "checkMod": 0, "description": "Read and write known spoken languages."},
+    {"name": "Riding, Land-Based", "ability": "WIS", "category": "General", "slots": 1, "checkMod": 0, "description": "Ride horses and similar mounts safely."},
+    {"name": "Rope Use", "ability": "DEX", "category": "General", "slots": 1, "checkMod": 0, "description": "Tie knots, secure loads, and rig climbing lines."},
+    {"name": "Seamanship", "ability": "DEX", "category": "General", "slots": 1, "checkMod": 0, "description": "Operate safely aboard boats and ships."},
+    {"name": "Survival", "ability": "WIS", "category": "General", "slots": 2, "checkMod": 0, "description": "Forage, find shelter, and endure the wilds."},
+    {"name": "Swimming", "ability": "STR", "category": "General", "slots": 1, "checkMod": 0, "description": "Swim in calm and rough waters."},
+    {"name": "Weather Sense", "ability": "WIS", "category": "General", "slots": 1, "checkMod": 0, "description": "Predict near-term weather changes."},
+
+    {"name": "Armorer", "ability": "INT", "category": "Warrior", "slots": 2, "checkMod": -2, "description": "Repair armor and maintain protective gear."},
+    {"name": "Blind-fighting", "ability": "WIS", "category": "Warrior", "slots": 2, "checkMod": -2, "description": "Reduce penalties while fighting in darkness or obscurity."},
+    {"name": "Bowyer/Fletcher", "ability": "DEX", "category": "Warrior", "slots": 2, "checkMod": -1, "description": "Craft and maintain bows, arrows, and bolts."},
+    {"name": "Weaponsmithing", "ability": "INT", "category": "Warrior", "slots": 2, "checkMod": -3, "description": "Forge and repair metal weapons."},
+
+    {"name": "Ancient History", "ability": "INT", "category": "Priest", "slots": 1, "checkMod": 0, "description": "Know older empires, events, and sacred traditions."},
+    {"name": "Astronomy", "ability": "INT", "category": "Priest", "slots": 1, "checkMod": -1, "description": "Track celestial patterns for navigation and ritual timing."},
+    {"name": "Religion", "ability": "WIS", "category": "Priest", "slots": 1, "checkMod": 0, "description": "Understand rites, dogma, and holy symbols."},
+    {"name": "Spellcraft", "ability": "INT", "category": "Priest", "slots": 2, "checkMod": -2, "description": "Analyze magical effects and sacred spell structures."},
+
+    {"name": "Alchemy", "ability": "INT", "category": "Wizard", "slots": 2, "checkMod": -2, "description": "Prepare alchemical compounds and experimental mixtures."},
+    {"name": "Engineering", "ability": "INT", "category": "Wizard", "slots": 2, "checkMod": -1, "description": "Design and evaluate structural and mechanical systems."},
+    {"name": "Local History", "ability": "INT", "category": "Wizard", "slots": 1, "checkMod": 0, "description": "Know the major events and figures of nearby regions."},
+    {"name": "Planar Lore", "ability": "INT", "category": "Wizard", "slots": 2, "checkMod": -2, "description": "Identify outer planes, entities, and planar hazards."},
+
+    {"name": "Appraising", "ability": "INT", "category": "Rogue", "slots": 1, "checkMod": 0, "description": "Estimate value and spot forgeries in goods and treasure."},
+    {"name": "Disguise", "ability": "CHA", "category": "Rogue", "slots": 1, "checkMod": -1, "description": "Create convincing false identities and appearances."},
+    {"name": "Forgery", "ability": "DEX", "category": "Rogue", "slots": 2, "checkMod": -2, "description": "Produce convincing written and visual fakes."},
+    {"name": "Gaming", "ability": "CHA", "category": "Rogue", "slots": 1, "checkMod": 0, "description": "Play games of chance and infer opponents' habits."},
+    {"name": "Set Snares", "ability": "DEX", "category": "Rogue", "slots": 1, "checkMod": -1, "description": "Construct and hide simple traps and snares."}
+  ],
+  "classCategory": {
+    "Fighter": "Warrior",
+    "Paladin": "Warrior",
+    "Ranger": "Warrior",
+    "Cleric": "Priest",
+    "Druid": "Priest",
+    "Mage": "Wizard",
+    "Thief": "Rogue",
+    "Bard": "Rogue"
+  }
+}

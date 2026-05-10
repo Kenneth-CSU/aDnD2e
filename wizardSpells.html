@@ -32,6 +32,12 @@
 <div id="content"><table><thead><tr><th>Name</th><th>Lvl</th><th>School</th><th>Range</th><th>Casting Time</th><th>Actions</th></tr></thead><tbody id="spell-table"></tbody></table></div>
 <div id="modal" class="modal-overlay" onclick="if(event.target===this)closeModal()"><div class="modal-content"><span class="close-btn" onclick="closeModal()">&times;</span><h2 id="modal-title">Add Spell</h2><input type="hidden" id="edit-idx"><div class="form-group"><label>Name</label><input type="text" id="inp-name"></div><div class="form-group"><label>Level (1-9)</label><input type="number" id="inp-level" min="1" max="9"></div><div class="form-group"><label>School</label><input type="text" id="inp-school"></div><div class="form-group"><label>Range</label><input type="text" id="inp-range"></div><div class="form-group"><label>Components</label><input type="text" id="inp-comp"></div><div class="form-group"><label>Casting Time</label><input type="text" id="inp-time"></div><div class="form-group"><label>Duration</label><input type="text" id="inp-duration"></div><div class="form-group"><label>Area of Effect</label><input type="text" id="inp-aoe"></div><div class="form-group"><label>Saving Throw</label><input type="text" id="inp-save"></div><div class="form-group"><label>Description</label><textarea id="inp-desc" rows="3"></textarea></div><button onclick="saveSpell()">Save</button></div></div>
 <script>
+const CORE_DATA = [
+    {name:"Magic Missile",level:1,school:"Evocation",range:"60 yds + 10 yds/level",components:"V,S",castingTime:"1",duration:"Instant",areaOfEffect:"1+ missiles",savingThrow:"None",description:"Force missiles strike automatically."},
+    {name:"Fireball",level:3,school:"Evocation",range:"10 yds + 10 yds/level",components:"V,S,M",castingTime:"3",duration:"Instant",areaOfEffect:"20 ft radius",savingThrow:"1/2",description:"Explosive fire burst."},
+    {name:"Wish",level:9,school:"Conjuration",range:"Special",components:"V",castingTime:"9",duration:"Special",areaOfEffect:"Special",savingThrow:"None",description:"Reality-altering magic."}
+];
+
 let data=[]; const DB='wizardSpellsDB', PATH='data/wizardSpells.json';
 async function load(){
     const s=localStorage.getItem(DB);
@@ -47,7 +53,7 @@ async function load(){
         const loaded=await r.json();
         data=Array.isArray(loaded)?loaded:[];
         localStorage.setItem(DB,JSON.stringify(data));
-    }catch(e){console.error('Failed to load wizard spells data:',e);data=[];}
+    }catch(e){console.error('Failed to load wizard spells data:',e);data=CORE_DATA.map(sp=>({...sp}));}
     render();
 }
 function render(){document.getElementById('spell-table').innerHTML=data.map((sp,i)=>`<tr><td>${sp.name}</td><td>${sp.level}</td><td>${sp.school}</td><td>${sp.range}</td><td>${sp.castingTime}</td><td><button onclick="edit(${i})">Edit</button><button class="danger" onclick="del(${i})">Del</button></td></tr>`).join('');}
@@ -59,7 +65,7 @@ function saveSpell(){const idx=document.getElementById('edit-idx').value;const e
 function del(i){if(confirm('Delete?')){data.splice(i,1);localStorage.setItem(DB,JSON.stringify(data));render();}}
 function saveLocal(){localStorage.setItem(DB,JSON.stringify(data));alert('Wizard spells saved to browser cache.');}
 function loadLocal(){const s=localStorage.getItem(DB);if(!s){alert('No local wizard spell cache found.');return;}try{const parsed=JSON.parse(s);data=Array.isArray(parsed)?parsed:[];render();alert('Wizard spells loaded from browser cache.');}catch(e){console.error('Invalid local wizard spell cache:',e);alert('Local wizard spell cache is invalid.');}}
-async function refreshDefaults(){try{const r=await fetch(PATH);if(!r.ok) throw new Error(`HTTP ${r.status} loading ${PATH}`);const loaded=await r.json();data=Array.isArray(loaded)?loaded:[];localStorage.setItem(DB,JSON.stringify(data));render();alert('Wizard spells refreshed from defaults.');}catch(e){console.error('Failed to refresh wizard spell defaults:',e);alert('Refresh failed. Start server with setup.bat/setup.sh and try again.');}}
+async function refreshDefaults(){try{const r=await fetch(PATH);if(!r.ok) throw new Error(`HTTP ${r.status} loading ${PATH}`);const loaded=await r.json();data=Array.isArray(loaded)?loaded:[];localStorage.setItem(DB,JSON.stringify(data));render();alert('Wizard spells refreshed from defaults.');}catch(e){console.error('Failed to refresh wizard spell defaults:',e);data=CORE_DATA.map(sp=>({...sp}));render();alert('Fetch failed; showing built-in core wizard spell entries. Start server with setup.bat/setup.sh to load full data.');}}
 load();
 </script>
 </body>

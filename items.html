@@ -32,6 +32,12 @@
 <div id="content"><table><thead><tr><th>Name</th><th>Weight</th><th>Cost</th><th>Description</th><th>Actions</th></tr></thead><tbody id="item-table"></tbody></table></div>
 <div id="modal" class="modal-overlay" onclick="if(event.target===this)closeModal()"><div class="modal-content"><span class="close-btn" onclick="closeModal()">&times;</span><h2 id="modal-title">Add Item</h2><input type="hidden" id="edit-idx"><div class="form-group"><label>Name</label><input type="text" id="inp-name"></div><div class="form-group"><label>Weight (lbs)</label><input type="number" id="inp-weight"></div><div class="form-group"><label>Cost (GP)</label><input type="number" id="inp-cost"></div><div class="form-group"><label>Description</label><textarea id="inp-desc" rows="3"></textarea></div><button onclick="saveItem()">Save</button></div></div>
 <script>
+const CORE_DATA = [
+    {name:"Backpack",weight:2,costGP:2,description:"Carries gear and supplies."},
+    {name:"Rations, Iron (1 week)",weight:14,costGP:5,description:"Preserved travel food for one week."},
+    {name:"Torch",weight:1,costGP:0.1,description:"Provides light for exploration."}
+];
+
 let data=[]; const DB='itemsDB', PATH='data/items.json';
 async function load(){
     const s=localStorage.getItem(DB);
@@ -47,7 +53,7 @@ async function load(){
         const loaded=await r.json();
         data=Array.isArray(loaded)?loaded:[];
         localStorage.setItem(DB,JSON.stringify(data));
-    }catch(e){console.error('Failed to load items data:',e);data=[];}
+    }catch(e){console.error('Failed to load items data:',e);data=CORE_DATA.map(it=>({...it}));}
     render();
 }
 function render(){document.getElementById('item-table').innerHTML=data.map((it,i)=>`<tr><td>${it.name}</td><td>${it.weight}</td><td>${it.costGP}</td><td>${(it.description||'').substring(0,40)}...</td><td><button onclick="edit(${i})">Edit</button><button class="danger" onclick="del(${i})">Del</button></td></tr>`).join('');}
@@ -59,7 +65,7 @@ function saveItem(){const idx=document.getElementById('edit-idx').value;const e=
 function del(i){if(confirm('Delete?')){data.splice(i,1);localStorage.setItem(DB,JSON.stringify(data));render();}}
 function saveLocal(){localStorage.setItem(DB,JSON.stringify(data));alert('Items saved to browser cache.');}
 function loadLocal(){const s=localStorage.getItem(DB);if(!s){alert('No local items cache found.');return;}try{const parsed=JSON.parse(s);data=Array.isArray(parsed)?parsed:[];render();alert('Items loaded from browser cache.');}catch(e){console.error('Invalid local items cache:',e);alert('Local items cache is invalid.');}}
-async function refreshDefaults(){try{const r=await fetch(PATH);if(!r.ok) throw new Error(`HTTP ${r.status} loading ${PATH}`);const loaded=await r.json();data=Array.isArray(loaded)?loaded:[];localStorage.setItem(DB,JSON.stringify(data));render();alert('Items refreshed from defaults.');}catch(e){console.error('Failed to refresh items defaults:',e);alert('Refresh failed. Start server with setup.bat/setup.sh and try again.');}}
+async function refreshDefaults(){try{const r=await fetch(PATH);if(!r.ok) throw new Error(`HTTP ${r.status} loading ${PATH}`);const loaded=await r.json();data=Array.isArray(loaded)?loaded:[];localStorage.setItem(DB,JSON.stringify(data));render();alert('Items refreshed from defaults.');}catch(e){console.error('Failed to refresh items defaults:',e);data=CORE_DATA.map(it=>({...it}));render();alert('Fetch failed; showing built-in core item entries. Start server with setup.bat/setup.sh to load full data.');}}
 load();
 </script>
 </body>

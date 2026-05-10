@@ -32,6 +32,12 @@
 <div id="content"><table><thead><tr><th>Name</th><th>Lvl</th><th>Sphere</th><th>Range</th><th>Duration</th><th>Actions</th></tr></thead><tbody id="spell-table"></tbody></table></div>
 <div id="modal" class="modal-overlay" onclick="if(event.target===this)closeModal()"><div class="modal-content"><span class="close-btn" onclick="closeModal()">&times;</span><h2 id="modal-title">Add Spell</h2><input type="hidden" id="edit-idx"><div class="form-group"><label>Name</label><input type="text" id="inp-name"></div><div class="form-group"><label>Level (1-7)</label><input type="number" id="inp-level" min="1" max="7"></div><div class="form-group"><label>Sphere</label><input type="text" id="inp-sphere"></div><div class="form-group"><label>Range</label><input type="text" id="inp-range"></div><div class="form-group"><label>Components</label><input type="text" id="inp-comp"></div><div class="form-group"><label>Casting Time</label><input type="text" id="inp-time"></div><div class="form-group"><label>Duration</label><input type="text" id="inp-duration"></div><div class="form-group"><label>Area of Effect</label><input type="text" id="inp-aoe"></div><div class="form-group"><label>Saving Throw</label><input type="text" id="inp-save"></div><div class="form-group"><label>Description</label><textarea id="inp-desc" rows="3"></textarea></div><button onclick="saveSpell()">Save</button></div></div>
 <script>
+const CORE_DATA = [
+    {name:"Cure Light Wounds",level:1,sphere:"Healing",range:"Touch",components:"V,S",castingTime:"5",duration:"Permanent",areaOfEffect:"1 creature",savingThrow:"None",description:"Restores hit points."},
+    {name:"Hold Person",level:2,sphere:"Charm",range:"120 yds",components:"V,S,M",castingTime:"5",duration:"2 rounds/level",areaOfEffect:"1-4 persons",savingThrow:"Negates",description:"Paralyzes humanoid targets."},
+    {name:"Heal",level:6,sphere:"Healing",range:"Touch",components:"V,S",castingTime:"1 round",duration:"Permanent",areaOfEffect:"1 creature",savingThrow:"None",description:"Restores most hit points and cures conditions."}
+];
+
 let data=[]; const DB='clericSpellsDB', PATH='data/clericSpells.json';
 async function load(){
     const s=localStorage.getItem(DB);
@@ -47,7 +53,7 @@ async function load(){
         const loaded=await r.json();
         data=Array.isArray(loaded)?loaded:[];
         localStorage.setItem(DB,JSON.stringify(data));
-    }catch(e){console.error('Failed to load cleric spells data:',e);data=[];}
+    }catch(e){console.error('Failed to load cleric spells data:',e);data=CORE_DATA.map(sp=>({...sp}));}
     render();
 }
 function render(){document.getElementById('spell-table').innerHTML=data.map((sp,i)=>`<tr><td>${sp.name}</td><td>${sp.level}</td><td>${sp.sphere}</td><td>${sp.range}</td><td>${sp.duration}</td><td><button onclick="edit(${i})">Edit</button><button class="danger" onclick="del(${i})">Del</button></td></tr>`).join('');}
@@ -59,7 +65,7 @@ function saveSpell(){const idx=document.getElementById('edit-idx').value;const e
 function del(i){if(confirm('Delete?')){data.splice(i,1);localStorage.setItem(DB,JSON.stringify(data));render();}}
 function saveLocal(){localStorage.setItem(DB,JSON.stringify(data));alert('Cleric spells saved to browser cache.');}
 function loadLocal(){const s=localStorage.getItem(DB);if(!s){alert('No local cleric spell cache found.');return;}try{const parsed=JSON.parse(s);data=Array.isArray(parsed)?parsed:[];render();alert('Cleric spells loaded from browser cache.');}catch(e){console.error('Invalid local cleric spell cache:',e);alert('Local cleric spell cache is invalid.');}}
-async function refreshDefaults(){try{const r=await fetch(PATH);if(!r.ok) throw new Error(`HTTP ${r.status} loading ${PATH}`);const loaded=await r.json();data=Array.isArray(loaded)?loaded:[];localStorage.setItem(DB,JSON.stringify(data));render();alert('Cleric spells refreshed from defaults.');}catch(e){console.error('Failed to refresh cleric spell defaults:',e);alert('Refresh failed. Start server with setup.bat/setup.sh and try again.');}}
+async function refreshDefaults(){try{const r=await fetch(PATH);if(!r.ok) throw new Error(`HTTP ${r.status} loading ${PATH}`);const loaded=await r.json();data=Array.isArray(loaded)?loaded:[];localStorage.setItem(DB,JSON.stringify(data));render();alert('Cleric spells refreshed from defaults.');}catch(e){console.error('Failed to refresh cleric spell defaults:',e);data=CORE_DATA.map(sp=>({...sp}));render();alert('Fetch failed; showing built-in core cleric spell entries. Start server with setup.bat/setup.sh to load full data.');}}
 load();
 </script>
 </body>

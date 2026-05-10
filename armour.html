@@ -32,6 +32,13 @@
 <div id="content"><table><thead><tr><th>Name</th><th>Base AC</th><th>Weight</th><th>Cost</th><th>Category</th><th>Shield?</th><th>Actions</th></tr></thead><tbody id="arm-table"></tbody></table></div>
 <div id="modal" class="modal-overlay" onclick="if(event.target===this)closeModal()"><div class="modal-content"><span class="close-btn" onclick="closeModal()">&times;</span><h2 id="modal-title">Add Armour</h2><input type="hidden" id="edit-idx"><div class="form-group"><label>Name</label><input type="text" id="inp-name"></div><div class="form-group"><label>Base AC (THAC0 style, e.g. 5 for AC 5)</label><input type="number" id="inp-ac"></div><div class="form-group"><label>Max Dex Bonus</label><input type="text" id="inp-dex" placeholder="unlimited or number"></div><div class="form-group"><label>Weight (lbs)</label><input type="number" id="inp-weight"></div><div class="form-group"><label>Cost (GP)</label><input type="number" id="inp-cost"></div><div class="form-group"><label>Category</label><select id="inp-cat"><option>Leather</option><option>Chain</option><option>Plate</option><option>Shield</option></select></div><div class="form-group"><label>Is Shield?</label><select id="inp-shield"><option value="false">No</option><option value="true">Yes</option></select></div><button onclick="saveArm()">Save</button></div></div>
 <script>
+const CORE_DATA = [
+    {name:"Leather Armor",baseAC:8,maxDexBonus:null,weight:15,costGP:5,category:"Leather",isShield:false},
+    {name:"Chainmail",baseAC:5,maxDexBonus:null,weight:40,costGP:75,category:"Chain",isShield:false},
+    {name:"Plate Mail",baseAC:3,maxDexBonus:null,weight:70,costGP:400,category:"Plate",isShield:false},
+    {name:"Medium Shield",baseAC:1,maxDexBonus:null,weight:10,costGP:10,category:"Shield",isShield:true}
+];
+
 let data=[]; const DB='armourDB', PATH='data/armour.json';
 async function load(){
     const s=localStorage.getItem(DB);
@@ -47,7 +54,7 @@ async function load(){
         const loaded=await r.json();
         data=Array.isArray(loaded)?loaded:[];
         localStorage.setItem(DB,JSON.stringify(data));
-    }catch(e){console.error('Failed to load armour data:',e);data=[];}
+    }catch(e){console.error('Failed to load armour data:',e);data=CORE_DATA.map(a=>({...a}));}
     render();
 }
 function render(){document.getElementById('arm-table').innerHTML=data.map((a,i)=>`<tr><td>${a.name}</td><td>${a.baseAC}</td><td>${a.weight}</td><td>${a.costGP}</td><td>${a.category}</td><td>${a.isShield?'Yes':'No'}</td><td><button onclick="edit(${i})">Edit</button><button class="danger" onclick="del(${i})">Del</button></td></tr>`).join('');}
@@ -59,7 +66,7 @@ function saveArm(){const idx=document.getElementById('edit-idx').value;const e={
 function del(i){if(confirm('Delete?')){data.splice(i,1);localStorage.setItem(DB,JSON.stringify(data));render();}}
 function saveLocal(){localStorage.setItem(DB,JSON.stringify(data));alert('Armour saved to browser cache.');}
 function loadLocal(){const s=localStorage.getItem(DB);if(!s){alert('No local armour cache found.');return;}try{const parsed=JSON.parse(s);data=Array.isArray(parsed)?parsed:[];render();alert('Armour loaded from browser cache.');}catch(e){console.error('Invalid local armour cache:',e);alert('Local armour cache is invalid.');}}
-async function refreshDefaults(){try{const r=await fetch(PATH);if(!r.ok) throw new Error(`HTTP ${r.status} loading ${PATH}`);const loaded=await r.json();data=Array.isArray(loaded)?loaded:[];localStorage.setItem(DB,JSON.stringify(data));render();alert('Armour refreshed from defaults.');}catch(e){console.error('Failed to refresh armour defaults:',e);alert('Refresh failed. Start server with setup.bat/setup.sh and try again.');}}
+async function refreshDefaults(){try{const r=await fetch(PATH);if(!r.ok) throw new Error(`HTTP ${r.status} loading ${PATH}`);const loaded=await r.json();data=Array.isArray(loaded)?loaded:[];localStorage.setItem(DB,JSON.stringify(data));render();alert('Armour refreshed from defaults.');}catch(e){console.error('Failed to refresh armour defaults:',e);data=CORE_DATA.map(a=>({...a}));render();alert('Fetch failed; showing built-in core armour entries. Start server with setup.bat/setup.sh to load full data.');}}
 load();
 </script>
 </body>

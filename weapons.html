@@ -33,6 +33,12 @@
 <div id="content"><table><thead><tr><th>Name</th><th>Dmg S/M</th><th>Dmg L</th><th>Speed</th><th>Type</th><th>Wt</th><th>Cost</th><th>Actions</th></tr></thead><tbody id="wpn-table"></tbody></table></div>
 <div id="modal" class="modal-overlay" onclick="if(event.target===this)closeModal()"><div class="modal-content"><span class="close-btn" onclick="closeModal()">&times;</span><h2 id="modal-title">Add Weapon</h2><input type="hidden" id="edit-idx"><div class="form-grid"><div class="form-group"><label>Name</label><input type="text" id="inp-name"></div><div class="form-group"><label>Damage S/M</label><input type="text" id="inp-dmgSM" placeholder="1d8"></div><div class="form-group"><label>Damage L</label><input type="text" id="inp-dmgL" placeholder="1d12"></div><div class="form-group"><label>Speed Factor</label><input type="number" id="inp-speed"></div><div class="form-group"><label>Size</label><select id="inp-size"><option>S</option><option>M</option><option>L</option></select></div><div class="form-group"><label>Type</label><select id="inp-type"><option>Bludgeoning</option><option>Piercing</option><option>Slashing</option></select></div><div class="form-group"><label>Weight (lbs)</label><input type="number" id="inp-weight"></div><div class="form-group"><label>Cost (GP)</label><input type="number" id="inp-cost"></div><div class="form-group" style="grid-column:span 2;"><label>Proficiency Group</label><input type="text" id="inp-group"></div></div><button onclick="saveWpn()">Save</button></div></div>
 <script>
+const CORE_DATA = [
+    {name:"Long Sword",damageSM:"1d8",damageL:"1d12",speedFactor:5,size:"M",type:"Slashing",weight:4,costGP:15,proficiencyGroup:"Long Sword"},
+    {name:"Mace",damageSM:"1d6",damageL:"1d6",speedFactor:7,size:"M",type:"Bludgeoning",weight:5,costGP:8,proficiencyGroup:"Mace"},
+    {name:"Dagger",damageSM:"1d4",damageL:"1d3",speedFactor:2,size:"S",type:"Piercing",weight:1,costGP:2,proficiencyGroup:"Dagger"}
+];
+
 let data=[]; const DB='weaponsDB', PATH='data/weapons.json';
 async function load(){
     const s=localStorage.getItem(DB);
@@ -48,7 +54,7 @@ async function load(){
         const loaded=await r.json();
         data=Array.isArray(loaded)?loaded:[];
         localStorage.setItem(DB,JSON.stringify(data));
-    }catch(e){console.error('Failed to load weapons data:',e);data=[];}
+    }catch(e){console.error('Failed to load weapons data:',e);data=CORE_DATA.map(w=>({...w}));}
     render();
 }
 function render(){document.getElementById('wpn-table').innerHTML=data.map((w,i)=>`<tr><td>${w.name}</td><td>${w.damageSM}</td><td>${w.damageL}</td><td>${w.speedFactor}</td><td>${w.type}</td><td>${w.weight}</td><td>${w.costGP}</td><td><button onclick="edit(${i})">Edit</button><button class="danger" onclick="del(${i})">Del</button></td></tr>`).join('');}
@@ -60,7 +66,7 @@ function saveWpn(){const idx=document.getElementById('edit-idx').value;const e={
 function del(i){if(confirm('Delete?')){data.splice(i,1);localStorage.setItem(DB,JSON.stringify(data));render();}}
 function saveLocal(){localStorage.setItem(DB,JSON.stringify(data));alert('Weapons saved to browser cache.');}
 function loadLocal(){const s=localStorage.getItem(DB);if(!s){alert('No local weapons cache found.');return;}try{const parsed=JSON.parse(s);data=Array.isArray(parsed)?parsed:[];render();alert('Weapons loaded from browser cache.');}catch(e){console.error('Invalid local weapons cache:',e);alert('Local weapons cache is invalid.');}}
-async function refreshDefaults(){try{const r=await fetch(PATH);if(!r.ok) throw new Error(`HTTP ${r.status} loading ${PATH}`);const loaded=await r.json();data=Array.isArray(loaded)?loaded:[];localStorage.setItem(DB,JSON.stringify(data));render();alert('Weapons refreshed from defaults.');}catch(e){console.error('Failed to refresh weapons defaults:',e);alert('Refresh failed. Start server with setup.bat/setup.sh and try again.');}}
+async function refreshDefaults(){try{const r=await fetch(PATH);if(!r.ok) throw new Error(`HTTP ${r.status} loading ${PATH}`);const loaded=await r.json();data=Array.isArray(loaded)?loaded:[];localStorage.setItem(DB,JSON.stringify(data));render();alert('Weapons refreshed from defaults.');}catch(e){console.error('Failed to refresh weapons defaults:',e);data=CORE_DATA.map(w=>({...w}));render();alert('Fetch failed; showing built-in core weapon entries. Start server with setup.bat/setup.sh to load full data.');}}
 load();
 </script>
 </body>

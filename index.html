@@ -411,10 +411,22 @@
             <div id="spell-slots-list" style="font-size:0.75rem; margin-top:5px;"></div>
         </div>
 
+        <div id="weapon-profs-block">
+            <strong style="font-size:0.85rem;">Weapon Slots: <span id="wp-slots-count">0/0</span></strong>
+            <div id="wp-list" style="font-size:0.75rem; margin-top:5px;"></div>
+            <select id="wp-choice" style="width:100%; margin-top:5px; font-size:0.75rem;"></select>
+            <div style="display:flex; gap:6px; align-items:center; margin-top:4px;">
+                <label style="font-size:0.72rem;">Slots:</label>
+                <input id="wp-slot-invest" type="number" min="1" value="1" style="width:55px; font-size:0.75rem;">
+            </div>
+            <button class="add-btn" onclick="addWeaponProficiency()">+ Add Weapon Proficiency</button>
+        </div>
+
         <div id="non-weapon-profs-block">
-            <strong style="font-size:0.85rem;">NWP Slots: <span id="nwp-slots-count">0</span></strong>
+            <strong style="font-size:0.85rem;">NWP Slots: <span id="nwp-slots-count">0/0</span></strong>
             <div id="nwp-list" style="font-size:0.75rem; margin-top:5px;"></div>
-            <button class="add-btn" onclick="addNWP()">+ Add Proficiency</button>
+            <select id="nwp-choice" style="width:100%; margin-top:5px; font-size:0.75rem;"></select>
+            <button class="add-btn" onclick="addNWP()">+ Add Non-Weapon Proficiency</button>
         </div>
 
         <div style="margin-top:auto; border-top:2px solid var(--border); padding-top:10px;">
@@ -452,15 +464,15 @@
 
 // --- DATABASES ---
 
-const RACES = [
+const CORE_RACES = [
     "Human", "Elf", "Half-Elf", "Dwarf", "Gnome", "Halfling", "Half-Orc"
 ];
 
-const CLASSES = [
+const CORE_CLASSES = [
     "Fighter", "Paladin", "Ranger", "Mage", "Cleric", "Druid", "Thief", "Bard"
 ];
 
-const KITS = {
+const CORE_KITS = {
     "Fighter": ["Myrmidon", "Swashbuckler", "Gladiator", "Cavalier", "Berserker"],
     "Paladin": ["Inquisitor", "Cavalier", "Enforcer"],
     "Ranger": ["Archer", "Beastmaster", "Mountain Man", "Stalker"],
@@ -470,6 +482,10 @@ const KITS = {
     "Thief": ["Swashbuckler", "Investigator", "Acrobat", "Beggar"],
     "Bard": ["Gallant", "Blade", "Skald", "Herald"]
 };
+
+let raceList = [...CORE_RACES];
+let classList = [...CORE_CLASSES];
+let kitsByClass = { ...CORE_KITS };
 
 const RACE_CLASS_RULES_FALLBACK = {
     "Human": ["Fighter", "Paladin", "Ranger", "Mage", "Cleric", "Druid", "Thief", "Bard"],
@@ -595,7 +611,47 @@ const ITEM_DB_FALLBACK = [
     {name: "Robes", weight: 4, type: "armor"}
 ];
 let itemDb = [...ITEM_DB_FALLBACK];
+const CORE_WEAPON_DB = [
+    {name: 'Dagger', type: 'Piercing', size: 'S', proficiencyGroup: 'Dagger'},
+    {name: 'Club', type: 'Bludgeoning', size: 'S', proficiencyGroup: 'Club'},
+    {name: 'Mace', type: 'Bludgeoning', size: 'M', proficiencyGroup: 'Mace'},
+    {name: 'Staff', type: 'Bludgeoning', size: 'M', proficiencyGroup: 'Staff'},
+    {name: 'Spear', type: 'Piercing', size: 'M', proficiencyGroup: 'Spear'},
+    {name: 'Long Sword', type: 'Slashing', size: 'M', proficiencyGroup: 'Long Sword'},
+    {name: 'Short Sword', type: 'Piercing', size: 'S', proficiencyGroup: 'Short Sword'},
+    {name: 'Axe, Battle', type: 'Slashing', size: 'M', proficiencyGroup: 'Battle Axe'},
+    {name: 'Hammer, War', type: 'Bludgeoning', size: 'S', proficiencyGroup: 'War Hammer'},
+    {name: 'Bow, Short', type: 'Piercing', size: 'M', proficiencyGroup: 'Short Bow'},
+    {name: 'Bow, Long', type: 'Piercing', size: 'M', proficiencyGroup: 'Long Bow'},
+    {name: 'Sling', type: 'Bludgeoning', size: 'S', proficiencyGroup: 'Sling'}
+];
+let weaponDb = [];
 let classData = {};
+const PROFICIENCIES_FALLBACK = {
+    nonWeapon: [
+        {name: "Alertness", ability: "WIS", category: "General", slots: 1, checkMod: 0},
+        {name: "Direction Sense", ability: "WIS", category: "General", slots: 1, checkMod: 0},
+        {name: "Endurance", ability: "CON", category: "General", slots: 1, checkMod: 0},
+        {name: "Healing", ability: "WIS", category: "General", slots: 2, checkMod: -2},
+        {name: "Riding, Land-Based", ability: "WIS", category: "General", slots: 1, checkMod: 0},
+        {name: "Survival", ability: "WIS", category: "General", slots: 2, checkMod: 0},
+        {name: "Weaponsmithing", ability: "INT", category: "Warrior", slots: 2, checkMod: -3},
+        {name: "Religion", ability: "WIS", category: "Priest", slots: 1, checkMod: 0},
+        {name: "Alchemy", ability: "INT", category: "Wizard", slots: 2, checkMod: -2},
+        {name: "Disguise", ability: "CHA", category: "Rogue", slots: 1, checkMod: -1}
+    ],
+    classCategory: {
+        Fighter: "Warrior",
+        Paladin: "Warrior",
+        Ranger: "Warrior",
+        Cleric: "Priest",
+        Druid: "Priest",
+        Mage: "Wizard",
+        Thief: "Rogue",
+        Bard: "Rogue"
+    }
+};
+let proficiencyData = { ...PROFICIENCIES_FALLBACK };
 const STARTING_KITS = {
     "Fighter": [{name:"Long Sword", weight:4}, {name:"Dagger", weight:1}, {name:"Chainmail", weight:40}, {name:"Medium Shield", weight:10}, {name:"Backpack", weight:2}, {name:"Rations, Iron (1 week)", weight:14}],
     "Paladin": [{name:"Long Sword", weight:4}, {name:"Plate Mail", weight:70}, {name:"Medium Shield", weight:10}, {name:"Holy Symbol", weight:1}, {name:"Backpack", weight:2}],
@@ -665,7 +721,7 @@ let charData = {
 
 // --- INIT ---
 function init() {
-    Promise.all([loadRaceClassRules(), loadArmourData(), loadClassData(), loadItemDatabase()]).finally(() => {
+    Promise.all([loadRaceClassRules(), loadArmourData(), loadClassData(), loadItemDatabase(), loadProficiencyData()]).finally(() => {
         populateDropdowns();
         renderAbilities();
         loadCharacter();
@@ -749,14 +805,30 @@ async function loadClassData() {
         }
     }
 
-    if (!source) return;
+    if (!source) {
+        classList = [...CORE_CLASSES];
+        kitsByClass = { ...CORE_KITS };
+        return;
+    }
 
     const mapped = {};
     source.forEach(c => {
         if (!c || typeof c.name !== 'string') return;
         mapped[c.name] = c;
     });
-    if (Object.keys(mapped).length > 0) classData = mapped;
+    if (Object.keys(mapped).length > 0) {
+        classData = mapped;
+        classList = Object.keys(mapped);
+
+        const loadedKits = {};
+        classList.forEach(clsName => {
+            const rec = mapped[clsName];
+            loadedKits[clsName] = Array.isArray(rec.kits)
+                ? rec.kits.map(k => (k && k.name ? k.name : null)).filter(Boolean)
+                : [];
+        });
+        kitsByClass = loadedKits;
+    }
 }
 
 async function loadItemDatabase() {
@@ -792,6 +864,11 @@ async function loadItemDatabase() {
         loadArray('weaponsDB', 'data/weapons.json')
     ]);
 
+    weaponDb = Array.isArray(weapons) ? weapons.filter(w => w && typeof w.name === 'string') : [];
+    if (weaponDb.length === 0) {
+        weaponDb = CORE_WEAPON_DB.map(w => ({ ...w }));
+    }
+
     items.forEach(it => {
         if (!it || typeof it.name !== 'string') return;
         merged.set(it.name.toLowerCase(), {
@@ -811,6 +888,41 @@ async function loadItemDatabase() {
     });
 
     itemDb = [...merged.values()];
+}
+
+async function loadProficiencyData() {
+    let source = null;
+
+    const cached = localStorage.getItem('proficienciesDB');
+    if (cached) {
+        try {
+            const parsed = JSON.parse(cached);
+            if (parsed && Array.isArray(parsed.nonWeapon)) source = parsed;
+        } catch (e) {
+            console.error('Failed to parse cached proficienciesDB, trying data file:', e);
+        }
+    }
+
+    if (!source) {
+        try {
+            const r = await fetch('data/proficiencies.json');
+            if (!r.ok) throw new Error(`HTTP ${r.status} loading proficiencies.json`);
+            const loaded = await r.json();
+            if (loaded && Array.isArray(loaded.nonWeapon)) source = loaded;
+        } catch (e) {
+            console.error('Failed to load proficiency data from data/proficiencies.json:', e);
+        }
+    }
+
+    if (!source) {
+        proficiencyData = { ...PROFICIENCIES_FALLBACK };
+        return;
+    }
+
+    proficiencyData = {
+        nonWeapon: source.nonWeapon,
+        classCategory: source.classCategory || { ...PROFICIENCIES_FALLBACK.classCategory }
+    };
 }
 
 async function loadRaceClassRules() {
@@ -847,18 +959,26 @@ async function loadRaceClassRules() {
     const raceMapped = {};
     source.forEach(r => {
         if (!r || typeof r.name !== 'string') return;
-        const allowed = Array.isArray(r.allowedClasses) ? r.allowedClasses.filter(c => CLASSES.includes(c)) : [];
-        mapped[r.name] = allowed.length > 0 ? allowed : [...CLASSES];
+        const allowed = Array.isArray(r.allowedClasses) ? r.allowedClasses.filter(c => classList.includes(c)) : [];
+        mapped[r.name] = allowed.length > 0 ? allowed : [...classList];
         raceMapped[r.name] = r;
     });
 
     raceClassRules = Object.keys(mapped).length > 0 ? mapped : { ...RACE_CLASS_RULES_FALLBACK };
     raceData = raceMapped;
+    raceList = Object.keys(raceMapped).length > 0 ? Object.keys(raceMapped) : [...CORE_RACES];
 }
 
 function populateDropdowns() {
     const raceSel = document.getElementById('char-race');
-    RACES.forEach(r => raceSel.add(new Option(r, r)));
+    raceSel.innerHTML = '';
+    raceList.forEach(r => raceSel.add(new Option(r, r)));
+
+    if (!raceList.includes(charData.race)) {
+        charData.race = raceList[0] || "Human";
+    }
+    raceSel.value = charData.race;
+
     enforceRaceClassRules(false);
     renderWearSlots();
 }
@@ -886,8 +1006,8 @@ function showRulesBanner(message) {
 }
 
 function getAllowedClassesForRace(race) {
-    const allowed = raceClassRules[race] || CLASSES;
-    return CLASSES.filter(cls => allowed.includes(cls));
+    const allowed = raceClassRules[race] || classList;
+    return classList.filter(cls => allowed.includes(cls));
 }
 
 function getCurrentRaceRecord() {
@@ -1026,8 +1146,8 @@ function handleClassChange() {
     const kitSel = document.getElementById('char-kit');
     kitSel.innerHTML = '<option value="">None</option>';
     
-    if (KITS[cls]) {
-        KITS[cls].forEach(k => kitSel.add(new Option(k, k)));
+    if (kitsByClass[cls]) {
+        kitsByClass[cls].forEach(k => kitSel.add(new Option(k, k)));
     }
     
     // Auto-equip starter kit if level 1 and empty
@@ -1386,6 +1506,8 @@ function updateClassFeatures(thac0, group) {
     } else {
         document.getElementById('val-turn').innerText = "-";
     }
+
+    renderProficiencies();
 }
 
 function calculateEncumbrance() {
@@ -1599,13 +1721,289 @@ function unequipItem(slot) {
     updateCalculations();
 }
 
-function addNWP() {
-    const name = prompt("Proficiency Name:");
-    if(name) {
-        charData.proficiencies.nwps.push(name);
-        const list = document.getElementById('nwp-list');
-        list.innerHTML += `<div class="item-row"><span>${name}</span><button style="padding:0 2px;" onclick="this.parentElement.remove()">x</button></div>`;
+function normalizeToken(text) {
+    return String(text || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function normalizeProficienciesShape() {
+    if (!charData.proficiencies || typeof charData.proficiencies !== 'object') {
+        charData.proficiencies = { weapons: [], nwps: [] };
     }
+    if (!Array.isArray(charData.proficiencies.weapons)) charData.proficiencies.weapons = [];
+    if (!Array.isArray(charData.proficiencies.nwps)) charData.proficiencies.nwps = [];
+
+    charData.proficiencies.weapons = charData.proficiencies.weapons.map(entry => {
+        if (typeof entry === 'string') return { name: entry, slots: 1 };
+        return {
+            name: entry && entry.name ? entry.name : 'Unknown Weapon',
+            slots: Math.max(1, parseInt(entry && entry.slots, 10) || 1)
+        };
+    });
+
+    charData.proficiencies.nwps = charData.proficiencies.nwps.map(entry => {
+        if (typeof entry === 'string') return { name: entry, slots: 1, ability: 'INT', checkMod: 0, category: 'General' };
+        return {
+            name: entry && entry.name ? entry.name : 'Unknown Proficiency',
+            slots: Math.max(1, parseInt(entry && entry.slots, 10) || 1),
+            ability: (entry && entry.ability) || 'INT',
+            checkMod: parseInt(entry && entry.checkMod, 10) || 0,
+            category: (entry && entry.category) || 'General'
+        };
+    });
+}
+
+function getClassRecord() {
+    return classData[charData.class] || null;
+}
+
+function getClassCategory() {
+    const map = (proficiencyData && proficiencyData.classCategory) ? proficiencyData.classCategory : {};
+    return map[charData.class] || 'General';
+}
+
+function getSlotCap(row, level) {
+    if (!Array.isArray(row) || row.length === 0) return 0;
+    const idx = Math.max(0, Math.min(level - 1, row.length - 1));
+    return parseInt(row[idx], 10) || 0;
+}
+
+function getUsedSlots(list) {
+    return (Array.isArray(list) ? list : []).reduce((sum, p) => sum + (Math.max(1, parseInt(p.slots, 10) || 1)), 0);
+}
+
+function weaponMatchesClassGroups(weapon, groups) {
+    if (!weapon || !Array.isArray(groups) || groups.length === 0) return false;
+    if (groups.includes('all')) return true;
+
+    const typeToken = normalizeToken(weapon.type);
+    const nameToken = normalizeToken(weapon.name);
+    const profToken = normalizeToken(weapon.proficiencyGroup);
+    const size = String(weapon.size || '').toUpperCase();
+
+    for (const groupRaw of groups) {
+        const group = normalizeToken(groupRaw);
+
+        if (group === 'bludgeoning' && typeToken.includes('bludgeoning')) return true;
+        if (group === 'smalltomedium' && (size === 'S' || size === 'M')) return true;
+
+        if (group === 'smallweapons') {
+            const smallWhitelist = ['dagger', 'dart', 'knife', 'club', 'sling', 'shortsword', 'handcrossbow', 'staff'];
+            if (size === 'S') return true;
+            if (smallWhitelist.some(t => nameToken.includes(t) || profToken.includes(t))) return true;
+            continue;
+        }
+
+        if (nameToken.includes(group) || profToken.includes(group)) return true;
+    }
+
+    return false;
+}
+
+function getAllowedWeaponProficiencies() {
+    const rec = getClassRecord();
+    const classGroups = (rec && Array.isArray(rec.weaponGroups) && rec.weaponGroups.length > 0) ? rec.weaponGroups : ['all'];
+    if (!Array.isArray(weaponDb) || weaponDb.length === 0) return [];
+
+    return weaponDb
+        .filter(w => weaponMatchesClassGroups(w, classGroups))
+        .map(w => w.name)
+        .sort((a, b) => a.localeCompare(b));
+}
+
+function getAllowedNWProficiencies() {
+    const ownCategory = getClassCategory();
+    const all = (proficiencyData && Array.isArray(proficiencyData.nonWeapon)) ? proficiencyData.nonWeapon : [];
+    return all.filter(p => p && typeof p.name === 'string' && (p.category === 'General' || p.category === ownCategory));
+}
+
+function renderProficiencies() {
+    normalizeProficienciesShape();
+
+    const rec = getClassRecord();
+    const weaponCap = getSlotCap(rec && rec.weaponProficiencies, charData.level);
+    const nwpCap = getSlotCap(rec && rec.nonweaponProficiencies, charData.level);
+    const usedWeapon = getUsedSlots(charData.proficiencies.weapons);
+    const usedNwp = getUsedSlots(charData.proficiencies.nwps);
+
+    const wpCount = document.getElementById('wp-slots-count');
+    const nwpCount = document.getElementById('nwp-slots-count');
+    if (wpCount) wpCount.textContent = `${usedWeapon}/${weaponCap}`;
+    if (nwpCount) nwpCount.textContent = `${usedNwp}/${nwpCap}`;
+
+    const allowedWeapons = new Set(getAllowedWeaponProficiencies().map(w => w.toLowerCase()));
+    const availableWeapons = getAllowedWeaponProficiencies().filter(w =>
+        !charData.proficiencies.weapons.some(p => String(p.name || '').toLowerCase() === w.toLowerCase())
+    );
+    const wpList = document.getElementById('wp-list');
+    if (wpList) {
+        if (charData.proficiencies.weapons.length === 0) {
+            wpList.innerHTML = '<div style="font-size:0.72rem; color:#444;">No weapon proficiencies selected.</div>';
+        } else {
+            wpList.innerHTML = charData.proficiencies.weapons.map((p, idx) => {
+                const allowed = allowedWeapons.has(String(p.name || '').toLowerCase());
+                const marker = allowed ? '' : ' <em style="color:#8b0000;">(class restricted)</em>';
+                return `<div class="item-row"><span>${p.name} [${p.slots}]${marker}</span><button style="padding:0 2px;" onclick="removeWeaponProficiency(${idx})">x</button></div>`;
+            }).join('');
+        }
+    }
+
+    const wpChoice = document.getElementById('wp-choice');
+    if (wpChoice) {
+        if (availableWeapons.length === 0) {
+            wpChoice.innerHTML = '<option value="">No weapon options available</option>';
+            wpChoice.disabled = true;
+        } else {
+            wpChoice.disabled = false;
+            wpChoice.innerHTML = ['<option value="">Select weapon proficiency...</option>']
+                .concat(availableWeapons.map(w => `<option value="${w}">${w}</option>`))
+                .join('');
+        }
+    }
+
+    const wpSlotInput = document.getElementById('wp-slot-invest');
+    if (wpSlotInput) {
+        const remaining = Math.max(0, weaponCap - usedWeapon);
+        const cur = Math.max(1, parseInt(wpSlotInput.value, 10) || 1);
+        wpSlotInput.max = String(Math.max(1, remaining));
+        wpSlotInput.value = String(Math.min(cur, Math.max(1, remaining)));
+        wpSlotInput.disabled = remaining <= 0;
+    }
+
+    const allowedNwp = new Set(getAllowedNWProficiencies().map(p => p.name.toLowerCase()));
+    const availableNwp = getAllowedNWProficiencies().filter(p =>
+        !charData.proficiencies.nwps.some(n => String(n.name || '').toLowerCase() === p.name.toLowerCase())
+    );
+    const nwpList = document.getElementById('nwp-list');
+    if (nwpList) {
+        if (charData.proficiencies.nwps.length === 0) {
+            nwpList.innerHTML = '<div style="font-size:0.72rem; color:#444;">No non-weapon proficiencies selected.</div>';
+        } else {
+            nwpList.innerHTML = charData.proficiencies.nwps.map((p, idx) => {
+                const allowed = allowedNwp.has(String(p.name || '').toLowerCase());
+                const marker = allowed ? '' : ' <em style="color:#8b0000;">(class restricted)</em>';
+                const sign = p.checkMod >= 0 ? '+' : '';
+                return `<div class="item-row"><span>${p.name} [${p.slots}] (${p.ability}${sign}${p.checkMod})${marker}</span><span><button style="padding:0 2px; margin-right:2px;" onclick="rollNWPCheck(${idx})">chk</button><button style="padding:0 2px;" onclick="removeNWP(${idx})">x</button></span></div>`;
+            }).join('');
+        }
+    }
+
+    const nwpChoice = document.getElementById('nwp-choice');
+    if (nwpChoice) {
+        if (availableNwp.length === 0) {
+            nwpChoice.innerHTML = '<option value="">No non-weapon options available</option>';
+            nwpChoice.disabled = true;
+        } else {
+            nwpChoice.disabled = false;
+            nwpChoice.innerHTML = ['<option value="">Select non-weapon proficiency...</option>']
+                .concat(availableNwp.map(p => {
+                    const sign = (p.checkMod || 0) >= 0 ? '+' : '';
+                    return `<option value="${p.name}">${p.name} [${p.slots}] (${p.ability}${sign}${p.checkMod || 0})</option>`;
+                }))
+                .join('');
+        }
+    }
+}
+
+function rollNWPCheck(index) {
+    normalizeProficienciesShape();
+    const prof = charData.proficiencies.nwps[index];
+    if (!prof) return;
+
+    const ability = String(prof.ability || 'INT').toUpperCase();
+    const abilityScore = getAdjustedStat(ability);
+    const checkMod = parseInt(prof.checkMod, 10) || 0;
+    const target = Math.max(1, Math.min(20, abilityScore + checkMod));
+    const roll = Math.floor(Math.random() * 20) + 1;
+    const ok = roll <= target;
+    displayRollResult(`${prof.name} check (${ability}${checkMod >= 0 ? '+' : ''}${checkMod} => ${target}): d20=${roll} ${ok ? 'SUCCESS' : 'FAIL'}`);
+}
+
+function addWeaponProficiency() {
+    normalizeProficienciesShape();
+    const rec = getClassRecord();
+    const cap = getSlotCap(rec && rec.weaponProficiencies, charData.level);
+    const used = getUsedSlots(charData.proficiencies.weapons);
+    if (used >= cap) {
+        alert(`No weapon slots available (${used}/${cap}).`);
+        return;
+    }
+
+    const options = getAllowedWeaponProficiencies().filter(w =>
+        !charData.proficiencies.weapons.some(p => String(p.name || '').toLowerCase() === w.toLowerCase())
+    );
+    if (options.length === 0) {
+        alert('No allowed weapons found for current class rules.');
+        return;
+    }
+
+    const wpChoice = document.getElementById('wp-choice');
+    const chosen = wpChoice ? wpChoice.value : '';
+    if (!chosen) {
+        alert('Select a weapon proficiency from the list first.');
+        return;
+    }
+
+    const remaining = cap - used;
+    const wpSlotInput = document.getElementById('wp-slot-invest');
+    const slots = Math.max(1, Math.min(remaining, parseInt(wpSlotInput && wpSlotInput.value, 10) || 1));
+
+    charData.proficiencies.weapons.push({ name: chosen, slots });
+    updateCalculations();
+}
+
+function removeWeaponProficiency(index) {
+    normalizeProficienciesShape();
+    if (index < 0 || index >= charData.proficiencies.weapons.length) return;
+    charData.proficiencies.weapons.splice(index, 1);
+    updateCalculations();
+}
+
+function addNWP() {
+    normalizeProficienciesShape();
+    const rec = getClassRecord();
+    const cap = getSlotCap(rec && rec.nonweaponProficiencies, charData.level);
+    const used = getUsedSlots(charData.proficiencies.nwps);
+    if (used >= cap) {
+        alert(`No non-weapon slots available (${used}/${cap}).`);
+        return;
+    }
+
+    const options = getAllowedNWProficiencies().filter(p =>
+        !charData.proficiencies.nwps.some(n => String(n.name || '').toLowerCase() === p.name.toLowerCase())
+    );
+    if (options.length === 0) {
+        alert('No allowed non-weapon proficiencies found for current class.');
+        return;
+    }
+
+    const nwpChoice = document.getElementById('nwp-choice');
+    const selectedName = nwpChoice ? nwpChoice.value : '';
+    const selected = options.find(p => p.name.toLowerCase() === selectedName.toLowerCase());
+    if (!selected) {
+        alert('Select a non-weapon proficiency from the list first.');
+        return;
+    }
+
+    if ((used + selected.slots) > cap) {
+        alert(`Not enough slots for ${selected.name} (needs ${selected.slots}, has ${cap - used}).`);
+        return;
+    }
+
+    charData.proficiencies.nwps.push({
+        name: selected.name,
+        slots: selected.slots,
+        ability: selected.ability,
+        checkMod: selected.checkMod || 0,
+        category: selected.category || 'General'
+    });
+    updateCalculations();
+}
+
+function removeNWP(index) {
+    normalizeProficienciesShape();
+    if (index < 0 || index >= charData.proficiencies.nwps.length) return;
+    charData.proficiencies.nwps.splice(index, 1);
+    updateCalculations();
 }
 
 // --- DICE ---
@@ -1659,6 +2057,7 @@ function loadCharacter() {
             return;
         }
         charData.equipment = charData.equipment || { armor: "None", shield: "None", magicBonus: 0, worn: {}, containers: [], loose: [] };
+        normalizeProficienciesShape();
         charData.equipment.armor = normalizeArmorName(charData.equipment.armor);
         charData.equipment.shield = normalizeShieldName(charData.equipment.shield);
         document.getElementById('char-name').value = charData.name;

@@ -32,6 +32,17 @@
 <div id="content"><table><thead><tr><th>Class</th><th>Kits</th><th>THAC0 L1</th><th>Saves</th><th>Actions</th></tr></thead><tbody id="class-table"></tbody></table></div>
 <div id="modal" class="modal-overlay" onclick="if(event.target===this)closeModal()"><div class="modal-content"><span class="close-btn" onclick="closeModal()">&times;</span><h2 id="modal-title">Add Class</h2><input type="hidden" id="edit-idx"><div class="form-group"><label>Name</label><input type="text" id="inp-name"></div><div class="form-group"><label>Starting Gold</label><input type="text" id="inp-gold"></div><div class="form-group"><label>Allowed Armour</label><input type="text" id="inp-armour"></div><button onclick="saveClass()">Save</button></div></div>
 <script>
+const CORE_DATA = [
+    {name:"Fighter",startingGold:"5d4x10",allowedArmour:"all",thac0:[20],saves:{},kits:[]},
+    {name:"Paladin",startingGold:"5d4x10",allowedArmour:"all",thac0:[20],saves:{},kits:[]},
+    {name:"Ranger",startingGold:"5d4x10",allowedArmour:"chainmail_and_below",thac0:[20],saves:{},kits:[]},
+    {name:"Mage",startingGold:"4d4x10",allowedArmour:"none",thac0:[20],saves:{},kits:[]},
+    {name:"Cleric",startingGold:"3d6x10",allowedArmour:"all",thac0:[20],saves:{},kits:[]},
+    {name:"Druid",startingGold:"3d6x10",allowedArmour:"leather_only",thac0:[20],saves:{},kits:[]},
+    {name:"Thief",startingGold:"2d6x10",allowedArmour:"leather_only",thac0:[20],saves:{},kits:[]},
+    {name:"Bard",startingGold:"3d6x10",allowedArmour:"leather_and_shield",thac0:[20],saves:{},kits:[]}
+];
+
 let data=[]; const DB='classesDB', PATH='data/classes.json';
 async function load(){
     const s=localStorage.getItem(DB);
@@ -47,7 +58,10 @@ async function load(){
         const loaded=await r.json();
         data=Array.isArray(loaded)?loaded:[];
         localStorage.setItem(DB,JSON.stringify(data));
-    }catch(e){console.error('Failed to load classes data:',e);data=[];}
+    }catch(e){
+        console.error('Failed to load classes data:',e);
+        data = CORE_DATA.map(c => ({...c}));
+    }
     render();
 }
 function render(){document.getElementById('class-table').innerHTML=data.map((c,i)=>`<tr><td>${c.name}</td><td>${c.kits?c.kits.length:0} kits</td><td>${c.thac0?c.thac0[0]:'-'}</td><td>${c.saves?'Yes':'-'}</td><td><button onclick="edit(${i})">Edit</button><button class="danger" onclick="del(${i})">Del</button></td></tr>`).join('');}
@@ -59,7 +73,7 @@ function saveClass(){const idx=document.getElementById('edit-idx').value;const e
 function del(i){if(confirm('Delete?')){data.splice(i,1);localStorage.setItem(DB,JSON.stringify(data));render();}}
 function saveLocal(){localStorage.setItem(DB,JSON.stringify(data));alert('Classes saved to browser cache.');}
 function loadLocal(){const s=localStorage.getItem(DB);if(!s){alert('No local classes cache found.');return;}try{const parsed=JSON.parse(s);data=Array.isArray(parsed)?parsed:[];render();alert('Classes loaded from browser cache.');}catch(e){console.error('Invalid local classes cache:',e);alert('Local classes cache is invalid.');}}
-async function refreshDefaults(){try{const r=await fetch(PATH);if(!r.ok) throw new Error(`HTTP ${r.status} loading ${PATH}`);const loaded=await r.json();data=Array.isArray(loaded)?loaded:[];localStorage.setItem(DB,JSON.stringify(data));render();alert('Classes refreshed from defaults.');}catch(e){console.error('Failed to refresh classes defaults:',e);alert('Refresh failed. Start server with setup.bat/setup.sh and try again.');}}
+async function refreshDefaults(){try{const r=await fetch(PATH);if(!r.ok) throw new Error(`HTTP ${r.status} loading ${PATH}`);const loaded=await r.json();data=Array.isArray(loaded)?loaded:[];localStorage.setItem(DB,JSON.stringify(data));render();alert('Classes refreshed from defaults.');}catch(e){console.error('Failed to refresh classes defaults:',e);data=CORE_DATA.map(c=>({...c}));render();alert('Fetch failed; showing built-in core class entries. Start server with setup.bat/setup.sh to load full data.');}}
 load();
 </script>
 </body>
