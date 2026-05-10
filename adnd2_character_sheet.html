@@ -1,0 +1,2883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AD&D 2nd Edition Character Sheet</title>
+    <style>
+        :root {
+            --parchment: #f4e4bc;
+            --parchment-dark: #e6d5a7;
+            --ink: #2b1810;
+            --ink-light: #4a3428;
+            --accent: #8b4513;
+            --border: #5c4033;
+            --line: #d4c5a3;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #f4e4bc 0%, #e6d5a7 100%);
+            color: var(--ink);
+            height: 100vh;
+            overflow: hidden;
+            font-size: 11px;
+            line-height: 1.3;
+        }
+
+        .sheet-container {
+            display: grid;
+            grid-template-columns: 220px 1fr 220px;
+            grid-template-rows: auto 1fr auto;
+            height: 100vh;
+            padding: 8px;
+            gap: 8px;
+            max-width: 1920px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+            background: var(--parchment-dark);
+            border: 2px solid var(--border);
+            padding: 6px;
+            border-radius: 3px;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field-group label {
+            font-weight: bold;
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 2px;
+        }
+
+        .field-group input, .field-group select {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--ink);
+            font-family: inherit;
+            font-size: 11px;
+            color: var(--ink);
+            padding: 2px 4px;
+        }
+
+        .field-group input:focus, .field-group select:focus {
+            outline: none;
+            border-bottom: 2px solid var(--accent);
+            background: rgba(139, 69, 19, 0.1);
+        }
+
+        /* Main Content Areas */
+        .panel {
+            background: var(--parchment);
+            border: 2px solid var(--border);
+            border-radius: 3px;
+            padding: 6px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .panel-header {
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 4px;
+            margin-bottom: 6px;
+            font-size: 12px;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        /* Ability Scores - Official Style */
+        .abilities-section {
+            display: grid;
+            grid-template-rows: auto auto;
+            gap: 6px;
+        }
+
+        .ability-row {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 4px;
+        }
+
+        .ability-box {
+            border: 2px solid var(--border);
+            background: var(--parchment-dark);
+            padding: 4px;
+            text-align: center;
+        }
+
+        .ability-label {
+            font-weight: bold;
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 2px;
+        }
+
+        .ability-score {
+            font-size: 18px;
+            font-weight: bold;
+            border: 1px solid var(--ink);
+            background: #fff8dc;
+            width: 100%;
+            text-align: center;
+            padding: 2px;
+        }
+
+        .ability-mod {
+            font-size: 10px;
+            color: var(--ink-light);
+            margin-top: 2px;
+        }
+
+        .ability-percent {
+            font-size: 10px;
+            border: 1px solid var(--line);
+            background: var(--parchment);
+            width: 100%;
+            text-align: center;
+            padding: 1px;
+            margin-top: 2px;
+        }
+
+        .ability-info {
+            font-size: 8px;
+            color: var(--ink-light);
+            margin-top: 2px;
+            line-height: 1.2;
+        }
+
+        /* Combat Stats */
+        .combat-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        .stat-box {
+            border: 2px solid var(--border);
+            background: var(--parchment-dark);
+            padding: 4px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 9px;
+            text-transform: uppercase;
+        }
+
+        /* Saving Throws */
+        .saving-throws {
+            margin-top: 6px;
+        }
+
+        .save-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 4px;
+            align-items: center;
+            padding: 2px 0;
+            border-bottom: 1px dotted var(--line);
+        }
+
+        .save-name {
+            font-size: 9px;
+        }
+
+        .save-value {
+            font-weight: bold;
+            min-width: 30px;
+            text-align: right;
+        }
+
+        /* Equipment Section */
+        .equipment-section {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .equip-category {
+            border: 1px solid var(--border);
+            background: var(--parchment-dark);
+            padding: 4px;
+        }
+
+        .equip-category-title {
+            font-weight: bold;
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--accent);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2px;
+            margin-bottom: 4px;
+        }
+
+        .item-slot {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 4px;
+            align-items: center;
+            padding: 2px;
+            border-bottom: 1px dotted var(--line);
+        }
+
+        .item-slot input {
+            border: 1px solid var(--line);
+            background: #fff8dc;
+            font-size: 10px;
+            padding: 2px;
+        }
+
+        .item-slot select {
+            border: 1px solid var(--line);
+            background: #fff8dc;
+            font-size: 10px;
+            padding: 2px;
+        }
+
+        .btn-small {
+            background: var(--accent);
+            color: white;
+            border: 1px solid var(--border);
+            padding: 2px 6px;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
+        .btn-small:hover {
+            background: var(--ink);
+        }
+
+        /* Containers (Bags, Backpack, etc.) */
+        .container {
+            border: 2px solid var(--border);
+            background: var(--parchment);
+            margin: 4px 0;
+            padding: 4px;
+        }
+
+        .container-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--accent);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2px;
+            margin-bottom: 4px;
+        }
+
+        .container-contents {
+            max-height: 100px;
+            overflow-y: auto;
+        }
+
+        .container-item {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 4px;
+            padding: 2px;
+            border-bottom: 1px dotted var(--line);
+            font-size: 10px;
+        }
+
+        /* Body Locations */
+        .body-locations {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4px;
+        }
+
+        .location-slot {
+            border: 1px solid var(--line);
+            padding: 4px;
+            background: var(--parchment-dark);
+            font-size: 9px;
+        }
+
+        .location-name {
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 2px;
+        }
+
+        .location-item {
+            font-size: 10px;
+        }
+
+        /* Thief Skills */
+        .thief-skills {
+            margin-top: 6px;
+        }
+
+        .skill-row {
+            display: grid;
+            grid-template-columns: 1fr auto auto auto;
+            gap: 4px;
+            align-items: center;
+            padding: 2px 0;
+            border-bottom: 1px dotted var(--line);
+            font-size: 10px;
+        }
+
+        .skill-name {
+            text-transform: uppercase;
+        }
+
+        .skill-base, .skill-racial, .skill-dex, .skill-final {
+            text-align: right;
+            min-width: 35px;
+        }
+
+        .skill-input {
+            width: 50px;
+            border: 1px solid var(--line);
+            background: #fff8dc;
+            font-size: 10px;
+            padding: 2px;
+            text-align: right;
+        }
+
+        /* Spell Slots */
+        .spell-slots {
+            margin-top: 6px;
+        }
+
+        .spell-level-row {
+            display: grid;
+            grid-template-columns: auto repeat(9, 1fr);
+            gap: 2px;
+            align-items: center;
+            padding: 2px 0;
+            border-bottom: 1px dotted var(--line);
+        }
+
+        .spell-level-label {
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .spell-slot-checkbox {
+            width: 16px;
+            height: 16px;
+            border: 1px solid var(--ink);
+            background: #fff8dc;
+        }
+
+        /* Buttons */
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: 2px solid var(--border);
+            padding: 4px 8px;
+            font-family: inherit;
+            font-size: 11px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--ink);
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-float {
+            position: fixed;
+            bottom: 20px;
+            right: 240px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 24px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+
+        /* Panels Toggle */
+        .panel-toggle {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--accent);
+            color: white;
+            border: 2px solid var(--border);
+            padding: 8px 4px;
+            cursor: pointer;
+            font-size: 10px;
+            writing-mode: vertical-rl;
+            z-index: 10;
+        }
+
+        .panel-toggle.left {
+            left: -30px;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .panel-toggle.right {
+            right: -30px;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .panel.collapsed {
+            display: none;
+        }
+
+        /* Modal/Popup */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(43, 24, 16, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            background: var(--parchment);
+            border: 3px solid var(--border);
+            border-radius: 5px;
+            padding: 16px;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
+
+        .modal-header {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 8px;
+        }
+
+        .modal-close {
+            float: right;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--ink);
+        }
+
+        /* Dice Roller */
+        .dice-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .dice-btn {
+            background: var(--parchment-dark);
+            border: 2px solid var(--border);
+            padding: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .dice-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .dice-result {
+            background: var(--parchment-dark);
+            border: 2px solid var(--border);
+            padding: 12px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .dice-total {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .dice-individual {
+            font-size: 12px;
+            color: var(--ink-light);
+            margin-top: 4px;
+        }
+
+        .roll-history {
+            background: var(--parchment-dark);
+            border: 1px solid var(--border);
+            padding: 8px;
+            max-height: 100px;
+            overflow-y: auto;
+            font-size: 10px;
+        }
+
+        .history-entry {
+            padding: 2px 0;
+            border-bottom: 1px dotted var(--line);
+        }
+
+        /* Kit Selection */
+        .kit-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .kit-option {
+            background: var(--parchment-dark);
+            border: 2px solid var(--border);
+            padding: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        .kit-option:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .kit-option.selected {
+            background: var(--accent);
+            color: white;
+            border-color: var(--ink);
+        }
+
+        /* Encumbrance */
+        .encumbrance-display {
+            background: var(--parchment-dark);
+            border: 2px solid var(--border);
+            padding: 6px;
+            margin-top: 6px;
+        }
+
+        .encumbrance-bar {
+            height: 20px;
+            background: var(--parchment);
+            border: 1px solid var(--border);
+            position: relative;
+            margin-top: 4px;
+        }
+
+        .encumbrance-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #22c55e, #eab308, #ef4444);
+            transition: width 0.3s;
+        }
+
+        .encumbrance-marker {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--ink);
+        }
+
+        .encumbrance-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--parchment-dark);
+            border: 1px solid var(--border);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border: 1px solid var(--border);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ink);
+        }
+
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .section-divider {
+            border-top: 2px solid var(--border);
+            margin: 8px 0;
+            padding-top: 4px;
+        }
+
+        /* HP Tracker */
+        .hp-tracker {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        .hp-box {
+            border: 2px solid var(--border);
+            background: var(--parchment-dark);
+            padding: 4px;
+            text-align: center;
+        }
+
+        .hp-current {
+            font-size: 24px;
+            font-weight: bold;
+            color: #c41e3a;
+        }
+
+        .hp-max {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        /* AC Calculator */
+        .ac-calculator {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+            margin-top: 6px;
+        }
+
+        .ac-component {
+            border: 1px solid var(--line);
+            padding: 4px;
+            background: var(--parchment-dark);
+            font-size: 9px;
+        }
+
+        .ac-component select, .ac-component input {
+            width: 100%;
+            border: 1px solid var(--line);
+            background: #fff8dc;
+            font-size: 10px;
+            padding: 2px;
+            margin-top: 2px;
+        }
+
+        /* Proficiencies */
+        .proficiency-list {
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .proficiency-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2px 0;
+            border-bottom: 1px dotted var(--line);
+            font-size: 10px;
+        }
+
+        .proficiency-slots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .slot-dot {
+            width: 12px;
+            height: 12px;
+            border: 1px solid var(--ink);
+            border-radius: 50%;
+            background: var(--parchment);
+        }
+
+        .slot-dot.filled {
+            background: var(--accent);
+        }
+
+        /* Turning Undead */
+        .turning-undead {
+            margin-top: 6px;
+        }
+
+        .turning-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 2px;
+            text-align: center;
+            font-size: 9px;
+        }
+
+        .turning-header {
+            font-weight: bold;
+            color: var(--accent);
+            padding: 2px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .turning-cell {
+            border: 1px solid var(--line);
+            padding: 2px;
+            background: var(--parchment-dark);
+        }
+
+        /* Class/Kit Display */
+        .class-kit-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px;
+        }
+
+        .class-kit-box {
+            border: 2px solid var(--border);
+            background: var(--parchment-dark);
+            padding: 4px;
+            text-align: center;
+        }
+
+        .class-kit-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .class-kit-value {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Race Restrictions Display */
+        .race-info {
+            font-size: 8px;
+            color: var(--ink-light);
+            margin-top: 2px;
+            padding: 2px;
+            background: var(--parchment-dark);
+            border: 1px solid var(--line);
+        }
+
+        /* Auto-save indicator */
+        .auto-save-indicator {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-size: 10px;
+            color: var(--ink-light);
+            background: var(--parchment);
+            padding: 4px 8px;
+            border: 1px solid var(--border);
+            border-radius: 3px;
+        }
+
+        .auto-save-indicator.saved {
+            color: #22c55e;
+        }
+    </style>
+</head>
+<body>
+    <div class="sheet-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="field-group">
+                <label>Character Name</label>
+                <input type="text" id="charName" placeholder="Enter name">
+            </div>
+            <div class="field-group">
+                <label>Race</label>
+                <select id="raceSelect">
+                    <option value="">Select Race</option>
+                    <option value="human">Human</option>
+                    <option value="elf">Elf</option>
+                    <option value="half-elf">Half-Elf</option>
+                    <option value="dwarf">Dwarf</option>
+                    <option value="gnome">Gnome</option>
+                    <option value="halfling">Halfling</option>
+                    <option value="half-orc">Half-Orc</option>
+                </select>
+                <div id="raceInfo" class="race-info"></div>
+            </div>
+            <div class="field-group">
+                <label>Class</label>
+                <select id="classSelect">
+                    <option value="">Select Class</option>
+                    <option value="fighter">Fighter</option>
+                    <option value="paladin">Paladin</option>
+                    <option value="ranger">Ranger</option>
+                    <option value="mage">Mage</option>
+                    <option value="cleric">Cleric</option>
+                    <option value="druid">Druid</option>
+                    <option value="thief">Thief</option>
+                    <option value="bard">Bard</option>
+                </select>
+            </div>
+            <div class="field-group">
+                <label>Kit</label>
+                <div style="display: flex; gap: 4px;">
+                    <select id="kitSelect" style="flex: 1;">
+                        <option value="">Select Kit</option>
+                    </select>
+                    <button class="btn-small" onclick="openKitModal()">▼</button>
+                </div>
+            </div>
+            <div class="field-group">
+                <label>Level</label>
+                <input type="number" id="levelInput" min="1" max="99" value="1">
+            </div>
+            <div class="field-group">
+                <label>Experience</label>
+                <input type="number" id="xpInput" value="0">
+            </div>
+        </div>
+
+        <!-- Left Panel - Weapons & Combat -->
+        <div class="panel" id="leftPanel">
+            <button class="panel-toggle left" onclick="togglePanel('leftPanel')">◀</button>
+            <div class="panel-header">Arms & Combat</div>
+            
+            <div class="combat-stats">
+                <div class="stat-box">
+                    <div class="stat-value" id="thacoValue">20</div>
+                    <div class="stat-label">THAC0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="armorClassValue">10</div>
+                    <div class="stat-label">Armor Class</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="movementValue">12</div>
+                    <div class="stat-label">Movement</div>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+            <div class="panel-header">Hit Points</div>
+            <div class="hp-tracker">
+                <div class="hp-box">
+                    <div class="hp-label">Current</div>
+                    <input type="number" id="hpCurrent" class="hp-current" value="10" style="width: 100%; border: none; background: transparent; text-align: center; font-size: 24px; font-weight: bold; color: #c41e3a;">
+                </div>
+                <div class="hp-box">
+                    <div class="hp-label">Maximum</div>
+                    <div class="hp-max" id="hpMaxValue">10</div>
+                </div>
+            </div>
+            <div style="margin-top: 4px;">
+                <label style="font-size: 9px;">Hit Dice:</label>
+                <div id="hitDiceValue" style="font-weight: bold; font-size: 11px;">1d10</div>
+            </div>
+
+            <div class="section-divider"></div>
+            <div class="panel-header">Saving Throws</div>
+            <div class="saving-throws" id="savingThrowsContainer">
+                <!-- Populated by JS -->
+            </div>
+
+            <div class="section-divider"></div>
+            <div class="panel-header">Weapon Proficiencies</div>
+            <div style="font-size: 9px; margin-bottom: 4px;">
+                Slots: <span id="weaponSlotsTotal">0</span> 
+                (<span id="weaponSlotsUsed">0</span> used)
+            </div>
+            <div class="proficiency-list" id="weaponProficiencies">
+                <!-- Populated by JS -->
+            </div>
+            <button class="btn-small" style="width: 100%; margin-top: 4px;" onclick="addWeaponProficiency()">+ Add Weapon</button>
+
+            <div class="section-divider"></div>
+            <div class="panel-header">Equipped Items</div>
+            <div class="body-locations" id="bodyLocations">
+                <div class="location-slot">
+                    <div class="location-name">Head</div>
+                    <div class="location-item" id="equipHead">-</div>
+                </div>
+                <div class="location-slot">
+                    <div class="location-name">Body</div>
+                    <div class="location-item" id="equipBody">-</div>
+                </div>
+                <div class="location-slot">
+                    <div class="location-name">Shield</div>
+                    <div class="location-item" id="equipShield">-</div>
+                </div>
+                <div class="location-slot">
+                    <div class="location-name">Main Hand</div>
+                    <div class="location-item" id="equipMainHand">-</div>
+                </div>
+                <div class="location-slot">
+                    <div class="location-name">Off Hand</div>
+                    <div class="location-item" id="equipOffHand">-</div>
+                </div>
+                <div class="location-slot">
+                    <div class="location-name">Belt</div>
+                    <div class="location-item" id="equipBelt">-</div>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+            <div class="panel-header">Attack Matrix</div>
+            <div id="attackMatrix" style="font-size: 9px;">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+
+        <!-- Center Panel - Abilities & Core Stats -->
+        <div class="panel">
+            <div class="abilities-section">
+                <div class="ability-row">
+                    <div class="ability-box">
+                        <div class="ability-label">Strength</div>
+                        <input type="number" id="strScore" class="ability-score" min="3" max="25" value="9">
+                        <div class="ability-mod" id="strMod">+0</div>
+                        <input type="number" id="strPercent" class="ability-percent" min="0" max="100" value="0" placeholder="%">
+                        <div class="ability-info" id="strInfo">To Hit: +0<br>Damage: +0</div>
+                    </div>
+                    <div class="ability-box">
+                        <div class="ability-label">Dexterity</div>
+                        <input type="number" id="dexScore" class="ability-score" min="3" max="25" value="9">
+                        <div class="ability-mod" id="dexMod">+0</div>
+                        <div class="ability-info" id="dexInfo">AC: +0<br>Reaction: +0</div>
+                    </div>
+                    <div class="ability-box">
+                        <div class="ability-label">Constitution</div>
+                        <input type="number" id="conScore" class="ability-score" min="3" max="25" value="9">
+                        <div class="ability-mod" id="conMod">+0</div>
+                        <div class="ability-info" id="conInfo">HP: +0<br>Poison Save: +0</div>
+                    </div>
+                    <div class="ability-box">
+                        <div class="ability-label">Intelligence</div>
+                        <input type="number" id="intScore" class="ability-score" min="3" max="25" value="9">
+                        <div class="ability-mod" id="intMod">+0</div>
+                        <div class="ability-info" id="intInfo">Languages: 0<br>NWP Slots: +0</div>
+                    </div>
+                    <div class="ability-box">
+                        <div class="ability-label">Wisdom</div>
+                        <input type="number" id="wisScore" class="ability-score" min="3" max="25" value="9">
+                        <div class="ability-mod" id="wisMod">+0</div>
+                        <div class="ability-info" id="wisInfo">Spell Bonus: +0<br>Mental Save: +0</div>
+                    </div>
+                    <div class="ability-box">
+                        <div class="ability-label">Charisma</div>
+                        <input type="number" id="chaScore" class="ability-score" min="3" max="25" value="9">
+                        <div class="ability-mod" id="chaMod">+0</div>
+                        <div class="ability-info" id="chaInfo">Reaction: +0<br>Loyalty: +0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+            
+            <div class="ac-calculator">
+                <div class="ac-component">
+                    <label>Armor Type</label>
+                    <select id="armorType" onchange="calculateAC()">
+                        <option value="none">None</option>
+                        <option value="leather">Leather (AC 8)</option>
+                        <option value="studded">Studded Leather (AC 7)</option>
+                        <option value="hide">Hide (AC 6)</option>
+                        <option value="chainmail">Chain Mail (AC 5)</option>
+                        <option value="splint">Splint Mail (AC 4)</option>
+                        <option value="banded">Banded Mail (AC 4)</option>
+                        <option value="plate">Plate Mail (AC 3)</option>
+                        <option value="fullplate">Full Plate (AC 1)</option>
+                    </select>
+                </div>
+                <div class="ac-component">
+                    <label>Shield</label>
+                    <select id="shieldType" onchange="calculateAC()">
+                        <option value="none">None</option>
+                        <option value="small">Small (-1 AC)</option>
+                        <option value="medium">Medium (-1 AC)</option>
+                        <option value="body">Body Shield (-2 AC)</option>
+                    </select>
+                </div>
+                <div class="ac-component">
+                    <label>Magic Bonus</label>
+                    <input type="number" id="acMagicBonus" value="0" min="-5" max="5" onchange="calculateAC()">
+                </div>
+                <div class="ac-component">
+                    <label>Max DEX Bonus</label>
+                    <div id="maxDexBonus" style="font-weight: bold;">∞</div>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="panel-header">Thief Skills</div>
+            <div class="thief-skills" id="thiefSkillsContainer">
+                <div class="skill-row">
+                    <div class="skill-name">Pick Pockets</div>
+                    <div class="skill-base" id="ppBase">15</div>
+                    <div class="skill-racial"><input type="number" class="skill-input" id="ppRacial" value="0" onchange="updateThiefSkill('pp')"></div>
+                    <div class="skill-dex" id="ppDex">+0</div>
+                    <div class="skill-final"><input type="number" class="skill-input" id="ppFinal" onchange="manualThiefSkill('pp')"></div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-name">Open Locks</div>
+                    <div class="skill-base" id="olBase">10</div>
+                    <div class="skill-racial"><input type="number" class="skill-input" id="olRacial" value="0" onchange="updateThiefSkill('ol')"></div>
+                    <div class="skill-dex" id="olDex">+0</div>
+                    <div class="skill-final"><input type="number" class="skill-input" id="olFinal" onchange="manualThiefSkill('ol')"></div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-name">Find/Remove Traps</div>
+                    <div class="skill-base" id="frtBase">5</div>
+                    <div class="skill-racial"><input type="number" class="skill-input" id="frtRacial" value="0" onchange="updateThiefSkill('frt')"></div>
+                    <div class="skill-dex" id="frtDex">+0</div>
+                    <div class="skill-final"><input type="number" class="skill-input" id="frtFinal" onchange="manualThiefSkill('frt')"></div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-name">Move Silently</div>
+                    <div class="skill-base" id="msBase">10</div>
+                    <div class="skill-racial"><input type="number" class="skill-input" id="msRacial" value="0" onchange="updateThiefSkill('ms')"></div>
+                    <div class="skill-dex" id="msDex">+0</div>
+                    <div class="skill-final"><input type="number" class="skill-input" id="msFinal" onchange="manualThiefSkill('ms')"></div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-name">Hide in Shadows</div>
+                    <div class="skill-base" id="hsBase">5</div>
+                    <div class="skill-racial"><input type="number" class="skill-input" id="hsRacial" value="0" onchange="updateThiefSkill('hs')"></div>
+                    <div class="skill-dex" id="hsDex">+0</div>
+                    <div class="skill-final"><input type="number" class="skill-input" id="hsFinal" onchange="manualThiefSkill('hs')"></div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-name">Detect Noise</div>
+                    <div class="skill-base" id="dnBase">15</div>
+                    <div class="skill-racial"><input type="number" class="skill-input" id="dnRacial" value="0" onchange="updateThiefSkill('dn')"></div>
+                    <div class="skill-dex" id="dnDex">+0</div>
+                    <div class="skill-final"><input type="number" class="skill-input" id="dnFinal" onchange="manualThiefSkill('dn')"></div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-name">Climb Walls</div>
+                    <div class="skill-base" id="cwBase">60</div>
+                    <div class="skill-racial"><input type="number" class="skill-input" id="cwRacial" value="0" onchange="updateThiefSkill('cw')"></div>
+                    <div class="skill-dex" id="cwDex">+0</div>
+                    <div class="skill-final"><input type="number" class="skill-input" id="cwFinal" onchange="manualThiefSkill('cw')"></div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-name">Read Languages</div>
+                    <div class="skill-base" id="rlBase">0</div>
+                    <div class="skill-racial"><input type="number" class="skill-input" id="rlRacial" value="0" onchange="updateThiefSkill('rl')"></div>
+                    <div class="skill-dex" id="rlDex">+0</div>
+                    <div class="skill-final"><input type="number" class="skill-input" id="rlFinal" onchange="manualThiefSkill('rl')"></div>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="panel-header">Turning Undead</div>
+            <div class="turning-undead" id="turningUndeadContainer">
+                <div class="turning-grid">
+                    <div class="turning-header">HD</div>
+                    <div class="turning-header">1</div>
+                    <div class="turning-header">2</div>
+                    <div class="turning-header">3</div>
+                    <div class="turning-header">4</div>
+                    <div class="turning-header">5</div>
+                    <div class="turning-header">6</div>
+                    <div class="turning-header">7+</div>
+                </div>
+                <div class="turning-grid" id="turningGrid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel - Inventory & Spells -->
+        <div class="panel" id="rightPanel">
+            <button class="panel-toggle right" onclick="togglePanel('rightPanel')">▶</button>
+            <div class="panel-header">Inventory & Gear</div>
+
+            <div class="encumbrance-display">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <label style="font-size: 10px; font-weight: bold;">Encumbrance</label>
+                    <select id="encumbranceMode" onchange="updateEncumbrance()" style="font-size: 10px;">
+                        <option value="off">Off</option>
+                        <option value="limited">Limited</option>
+                        <option value="full">Full</option>
+                    </select>
+                </div>
+                <div class="encumbrance-bar">
+                    <div class="encumbrance-fill" id="encumbranceFill" style="width: 0%;"></div>
+                    <div class="encumbrance-marker" id="encumbranceMarker" style="left: 0%;"></div>
+                </div>
+                <div class="encumbrance-info">
+                    <span>Carried: <span id="carriedWeight">0</span> lbs</span>
+                    <span>Category: <span id="encumbranceCategory">None</span></span>
+                    <span>MV: <span id="movementRate">12</span></span>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="panel-header">Starting Equipment Kit</div>
+            <button class="btn-small" style="width: 100%; margin-bottom: 4px;" onclick="applyStartingKit()">Apply Starting Kit</button>
+            <div id="startingKitList" style="font-size: 9px; max-height: 100px; overflow-y: auto;">
+                <!-- Populated by JS -->
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="panel-header">Backpack</div>
+            <div class="container" id="backpackContainer">
+                <div class="container-header">
+                    <span>Main Pack</span>
+                    <button class="btn-small" onclick="addItemToContainer('backpack')">+ Item</button>
+                </div>
+                <div class="container-contents" id="backpackContents">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="panel-header">Belt Pouches & Bags</div>
+            <div class="container" id="bag1Container">
+                <div class="container-header">
+                    <input type="text" id="bag1Label" value="Bag 1" style="border: none; background: transparent; font-weight: bold; width: 100px;" onchange="saveData()">
+                    <button class="btn-small" onclick="addItemToContainer('bag1')">+ Item</button>
+                </div>
+                <div class="container-contents" id="bag1Contents">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="container" id="bag2Container">
+                <div class="container-header">
+                    <input type="text" id="bag2Label" value="Bag 2" style="border: none; background: transparent; font-weight: bold; width: 100px;" onchange="saveData()">
+                    <button class="btn-small" onclick="addItemToContainer('bag2')">+ Item</button>
+                </div>
+                <div class="container-contents" id="bag2Contents">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="container" id="quiverContainer">
+                <div class="container-header">
+                    <span>Quiver/Case</span>
+                    <button class="btn-small" onclick="addItemToContainer('quiver')">+ Ammo</button>
+                </div>
+                <div class="container-contents" id="quiverContents">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="panel-header">Non-Weapon Proficiencies</div>
+            <div style="font-size: 9px; margin-bottom: 4px;">
+                Slots: <span id="nwpSlotsTotal">0</span> 
+                (<span id="nwpSlotsUsed">0</span> used)
+            </div>
+            <div class="proficiency-list" id="nwpProficiencies">
+                <!-- Populated by JS -->
+            </div>
+            <button class="btn-small" style="width: 100%; margin-top: 4px;" onclick="addNWP()">+ Add NWP</button>
+
+            <div class="section-divider"></div>
+
+            <div class="panel-header">Spell Slots</div>
+            <div class="spell-slots" id="spellSlotsContainer">
+                <!-- Populated by JS -->
+            </div>
+
+            <div class="section-divider"></div>
+
+            <div class="panel-header">Special Abilities</div>
+            <div id="specialAbilities" style="font-size: 10px; max-height: 150px; overflow-y: auto;">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Dice Roller Button -->
+    <button class="btn btn-float" onclick="openDiceModal()">🎲</button>
+
+    <!-- Auto-save Indicator -->
+    <div class="auto-save-indicator" id="autoSaveIndicator">Auto-save: OFF</div>
+
+    <!-- Dice Roller Modal -->
+    <div class="modal-overlay" id="diceModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('diceModal')">×</button>
+            <div class="modal-header">Dice Roller</div>
+            
+            <div class="dice-buttons">
+                <button class="dice-btn" onclick="rollDice(4)">d4</button>
+                <button class="dice-btn" onclick="rollDice(6)">d6</button>
+                <button class="dice-btn" onclick="rollDice(8)">d8</button>
+                <button class="dice-btn" onclick="rollDice(10)">d10</button>
+                <button class="dice-btn" onclick="rollDice(12)">d12</button>
+                <button class="dice-btn" onclick="rollDice(20)">d20</button>
+                <button class="dice-btn" onclick="rollDice(100)">d100</button>
+                <button class="dice-btn" onclick="rollAbilityScores()">Roll Stats</button>
+            </div>
+
+            <div class="dice-buttons">
+                <button class="dice-btn" onclick="rollAbilityMethod('3d6')">3d6</button>
+                <button class="dice-btn" onclick="rollAbilityMethod('4d6dl')">4d6 drop lowest</button>
+                <button class="dice-btn" onclick="rollAllStats('3d6')">Roll All (3d6)</button>
+                <button class="dice-btn" onclick="rollAllStats('4d6dl')">Roll All (4d6dl)</button>
+            </div>
+
+            <div class="dice-result">
+                <div class="dice-total" id="diceTotal">-</div>
+                <div class="dice-individual" id="diceIndividual">-</div>
+            </div>
+
+            <div class="roll-history" id="rollHistory">
+                <div class="history-entry">Roll history will appear here...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kit Selection Modal -->
+    <div class="modal-overlay" id="kitModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('kitModal')">×</button>
+            <div class="modal-header">Select Kit</div>
+            <div class="kit-options" id="kitOptions">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== DATA STRUCTURES ====================
+        
+        const characterData = {
+            name: '',
+            race: '',
+            class: '',
+            kit: '',
+            level: 1,
+            xp: 0,
+            abilities: {
+                str: 9, strPercent: 0,
+                dex: 9,
+                con: 9,
+                int: 9,
+                wis: 9,
+                cha: 9
+            },
+            hp: { current: 10, max: 10 },
+            ac: {
+                armorType: 'none',
+                shieldType: 'none',
+                magicBonus: 0
+            },
+            equipment: {
+                weapons: [],
+                nwps: [],
+                backpack: [],
+                bag1: { label: 'Bag 1', items: [] },
+                bag2: { label: 'Bag 2', items: [] },
+                quiver: [],
+                equipped: {
+                    head: '', body: '', shield: '',
+                    mainHand: '', offHand: '', belt: ''
+                }
+            },
+            thiefSkills: {
+                pp: { racial: 0, final: null },
+                ol: { racial: 0, final: null },
+                frt: { racial: 0, final: null },
+                ms: { racial: 0, final: null },
+                hs: { racial: 0, final: null },
+                dn: { racial: 0, final: null },
+                cw: { racial: 0, final: null },
+                rl: { racial: 0, final: null }
+            },
+            encumbranceMode: 'off',
+            spellSlots: {},
+            autoSave: false
+        };
+
+        // ==================== AD&D 2e RULES DATA ====================
+
+        const raceData = {
+            human: {
+                adjustments: {},
+                infravision: 0,
+                languages: 1,
+                thiefMods: {},
+                saveBonuses: {},
+                restrictions: {}
+            },
+            elf: {
+                adjustments: { dex: 1, con: -1 },
+                infravision: 60,
+                languages: 2,
+                thiefMods: { search: 1 },
+                saveBonuses: { magic: 1 },
+                restrictions: { classes: ['fighter', 'mage', 'thief', 'bard'] }
+            },
+            'half-elf': {
+                adjustments: {},
+                infravision: 60,
+                languages: 2,
+                thiefMods: {},
+                saveBonuses: { magic: 1 },
+                restrictions: {}
+            },
+            dwarf: {
+                adjustments: { con: 1, cha: -1 },
+                infravision: 60,
+                languages: 2,
+                thiefMods: {},
+                saveBonuses: { poison: 4, magic: 4 },
+                restrictions: { classes: ['fighter', 'thief', 'cleric'] }
+            },
+            gnome: {
+                adjustments: { int: 1, wis: -1 },
+                infravision: 60,
+                languages: 2,
+                thiefMods: {},
+                saveBonuses: { magic: 3, illusions: 3 },
+                restrictions: { classes: ['fighter', 'mage', 'thief', 'cleric', 'illusionist'] }
+            },
+            halfling: {
+                adjustments: { dex: 1, str: -1 },
+                infravision: 0,
+                languages: 2,
+                thiefMods: {},
+                saveBonuses: { magic: 3, poison: 3 },
+                restrictions: { classes: ['fighter', 'thief', 'cleric'] }
+            },
+            'half-orc': {
+                adjustments: { str: 1, int: -1, cha: -1 },
+                infravision: 60,
+                languages: 1,
+                thiefMods: {},
+                saveBonuses: {},
+                restrictions: { classes: ['fighter', 'cleric', 'thief'] }
+            }
+        };
+
+        const classData = {
+            fighter: {
+                hitDie: 10,
+                thacoBase: 20,
+                thacoImprovement: 1, // improves every level
+                saves: {
+                    1: [13, 15, 14, 16, 15],
+                    2: [12, 14, 13, 15, 14],
+                    3: [11, 13, 12, 14, 13],
+                    4: [10, 12, 11, 13, 12],
+                    5: [9, 11, 10, 12, 11],
+                    6: [8, 10, 9, 11, 10],
+                    7: [7, 9, 8, 10, 9],
+                    8: [6, 8, 7, 9, 8],
+                    9: [5, 7, 6, 8, 7],
+                    10: [4, 6, 5, 7, 6],
+                    11: [3, 5, 4, 6, 5],
+                    12: [2, 4, 3, 5, 4],
+                    13: [1, 3, 2, 4, 3],
+                    14: [0, 2, 1, 3, 2],
+                    15: [-1, 1, 0, 2, 1],
+                    16: [-2, 0, -1, 1, 0],
+                    17: [-3, -1, -2, 0, -1],
+                    18: [-4, -2, -3, -1, -2],
+                    19: [-5, -3, -4, -2, -3],
+                    20: [-6, -4, -5, -3, -4]
+                },
+                weaponSlots: { 1: 2, 4: 3, 7: 4, 10: 5, 13: 6, 16: 7, 19: 8 },
+                nwpSlots: { 1: 3, 3: 4, 6: 5, 9: 6, 12: 7, 15: 8, 18: 9 },
+                kits: ['Myrmidon', 'Swashbuckler', 'Gladiator', 'Cavalier', 'Berserker'],
+                startingGear: [
+                    { name: 'Long Sword', weight: 4, location: 'mainHand' },
+                    { name: 'Dagger', weight: 1, location: 'belt' },
+                    { name: 'Chain Mail', weight: 40, location: 'body' },
+                    { name: 'Shield (Medium)', weight: 5, location: 'shield' },
+                    { name: 'Backpack', weight: 2, container: 'backpack' },
+                    { name: 'Bedroll', weight: 5, container: 'backpack' },
+                    { name: 'Rations (3 days)', weight: 3, container: 'backpack' },
+                    { name: 'Waterskin', weight: 5, container: 'backpack' },
+                    { name: 'Flint & Steel', weight: 0, container: 'backpack' },
+                    { name: 'Torch (2)', weight: 2, container: 'backpack' }
+                ]
+            },
+            paladin: {
+                hitDie: 10,
+                thacoBase: 20,
+                thacoImprovement: 1,
+                saves: {
+                    1: [13, 15, 14, 16, 15],
+                    2: [12, 14, 13, 15, 14],
+                    3: [11, 13, 12, 14, 13],
+                    4: [10, 12, 11, 13, 12],
+                    5: [9, 11, 10, 12, 11],
+                    6: [8, 10, 9, 11, 10],
+                    7: [7, 9, 8, 10, 9],
+                    8: [6, 8, 7, 9, 8],
+                    9: [5, 7, 6, 8, 7],
+                    10: [4, 6, 5, 7, 6]
+                },
+                weaponSlots: { 1: 2, 4: 3, 7: 4, 10: 5, 13: 6, 16: 7, 19: 8 },
+                nwpSlots: { 1: 3, 3: 4, 6: 5, 9: 6, 12: 7, 15: 8, 18: 9 },
+                kits: ['Inquisitor', 'Cavalier', 'Enforcer'],
+                startingGear: [
+                    { name: 'Long Sword', weight: 4, location: 'mainHand' },
+                    { name: 'Holy Symbol', weight: 0, location: 'belt' },
+                    { name: 'Plate Mail', weight: 50, location: 'body' },
+                    { name: 'Shield (Medium)', weight: 5, location: 'shield' },
+                    { name: 'Backpack', weight: 2, container: 'backpack' },
+                    { name: 'Bedroll', weight: 5, container: 'backpack' },
+                    { name: 'Rations (3 days)', weight: 3, container: 'backpack' }
+                ],
+                special: ['Turn Undead (as Cleric -2)', 'Immune to Disease', 'Lay on Hands']
+            },
+            ranger: {
+                hitDie: 10,
+                thacoBase: 20,
+                thacoImprovement: 1,
+                saves: {
+                    1: [13, 15, 14, 16, 15],
+                    2: [12, 14, 13, 15, 14],
+                    3: [11, 13, 12, 14, 13],
+                    4: [10, 12, 11, 13, 12],
+                    5: [9, 11, 10, 12, 11],
+                    6: [8, 10, 9, 11, 10],
+                    7: [7, 9, 8, 10, 9],
+                    8: [6, 8, 7, 9, 8],
+                    9: [5, 7, 6, 8, 7],
+                    10: [4, 6, 5, 7, 6]
+                },
+                weaponSlots: { 1: 2, 4: 3, 7: 4, 10: 5, 13: 6, 16: 7, 19: 8 },
+                nwpSlots: { 1: 3, 3: 4, 6: 5, 9: 6, 12: 7, 15: 8, 18: 9 },
+                kits: ['Archer', 'Beastmaster', 'Mountain Man', 'Stalker'],
+                startingGear: [
+                    { name: 'Long Bow', weight: 3, location: 'mainHand' },
+                    { name: 'Arrows (20)', weight: 3, container: 'quiver' },
+                    { name: 'Short Sword', weight: 3, location: 'belt' },
+                    { name: 'Studded Leather', weight: 20, location: 'body' },
+                    { name: 'Backpack', weight: 2, container: 'backpack' },
+                    { name: 'Bedroll', weight: 5, container: 'backpack' },
+                    { name: 'Rations (3 days)', weight: 3, container: 'backpack' }
+                ],
+                special: ['Track Wilderness', 'Surprise Bonus', 'Two-Weapon Fighting']
+            },
+            mage: {
+                hitDie: 4,
+                thacoBase: 20,
+                thacoImprovement: 1,
+                saves: {
+                    1: [14, 11, 13, 15, 12],
+                    2: [13, 10, 12, 14, 11],
+                    3: [12, 9, 11, 13, 10],
+                    4: [11, 8, 10, 12, 9],
+                    5: [10, 7, 9, 11, 8],
+                    6: [9, 6, 8, 10, 7],
+                    7: [8, 5, 7, 9, 6],
+                    8: [7, 4, 6, 8, 5],
+                    9: [6, 3, 5, 7, 4],
+                    10: [5, 2, 4, 6, 3]
+                },
+                weaponSlots: { 1: 1, 4: 2, 8: 3, 12: 4, 16: 5, 20: 6 },
+                nwpSlots: { 1: 3, 3: 4, 6: 5, 9: 6, 12: 7, 15: 8, 18: 9 },
+                kits: ['Abjurer', 'Conjurer', 'Diviner', 'Enchanter', 'Illusionist', 'Invoker', 'Necromancer', 'Transmuter', 'Elementalist', 'Wild Mage'],
+                startingGear: [
+                    { name: 'Dagger', weight: 1, location: 'belt' },
+                    { name: 'Robes', weight: 4, location: 'body' },
+                    { name: 'Spellbook', weight: 3, container: 'backpack' },
+                    { name: 'Backpack', weight: 2, container: 'backpack' },
+                    { name: 'Bedroll', weight: 5, container: 'backpack' },
+                    { name: 'Rations (3 days)', weight: 3, container: 'backpack' },
+                    { name: 'Ink & Quill', weight: 0, container: 'backpack' },
+                    { name: 'Parchment (10)', weight: 0, container: 'backpack' }
+                ],
+                spellProgression: {
+                    1: [1], 2: [2], 3: [2, 1], 4: [3, 2], 5: [4, 2, 1],
+                    6: [4, 2, 2], 7: [4, 3, 2, 1], 8: [4, 3, 3, 2],
+                    9: [4, 3, 3, 2, 1], 10: [4, 4, 3, 2, 2],
+                    11: [5, 4, 4, 3, 3], 12: [5, 4, 4, 3, 3, 1],
+                    13: [5, 5, 4, 4, 4, 2], 14: [5, 5, 5, 4, 4, 3],
+                    15: [5, 5, 5, 5, 5, 3, 1], 16: [5, 5, 5, 5, 5, 4, 2],
+                    17: [5, 5, 5, 5, 5, 4, 3], 18: [5, 5, 5, 5, 5, 4, 3, 1],
+                    19: [5, 5, 5, 5, 5, 5, 4, 2], 20: [5, 5, 5, 5, 5, 5, 4, 3]
+                }
+            },
+            cleric: {
+                hitDie: 8,
+                thacoBase: 20,
+                thacoImprovement: 1,
+                saves: {
+                    1: [10, 14, 13, 16, 15],
+                    2: [9, 13, 12, 15, 14],
+                    3: [8, 12, 11, 14, 13],
+                    4: [7, 11, 10, 13, 12],
+                    5: [6, 10, 9, 12, 11],
+                    6: [5, 9, 8, 11, 10],
+                    7: [4, 8, 7, 10, 9],
+                    8: [3, 7, 6, 9, 8],
+                    9: [2, 6, 5, 8, 7],
+                    10: [1, 5, 4, 7, 6]
+                },
+                weaponSlots: { 1: 2, 4: 3, 7: 4, 10: 5, 13: 6, 16: 7, 19: 8 },
+                nwpSlots: { 1: 3, 3: 4, 6: 5, 9: 6, 12: 7, 15: 8, 18: 9 },
+                kits: ['Agriculture', 'Animals', 'Combat', 'Crafts', 'Divination', 'Elements', 'Guardian', 'Healing', 'Light', 'Nature', 'Protection', 'Sun', 'Travel', 'War', 'Wisdom'],
+                startingGear: [
+                    { name: 'Mace', weight: 5, location: 'mainHand' },
+                    { name: 'Holy Symbol', weight: 0, location: 'belt' },
+                    { name: 'Chain Mail', weight: 40, location: 'body' },
+                    { name: 'Shield (Small)', weight: 3, location: 'shield' },
+                    { name: 'Backpack', weight: 2, container: 'backpack' },
+                    { name: 'Bedroll', weight: 5, container: 'backpack' },
+                    { name: 'Rations (3 days)', weight: 3, container: 'backpack' }
+                ],
+                spellProgression: {
+                    1: [1], 2: [2], 3: [2, 1], 4: [3, 2], 5: [3, 3, 1],
+                    6: [3, 3, 2], 7: [3, 3, 2, 1], 8: [3, 3, 3, 2],
+                    9: [4, 4, 3, 2, 1], 10: [4, 4, 3, 3, 2],
+                    11: [5, 4, 4, 3, 2, 1], 12: [6, 5, 5, 3, 3, 2],
+                    13: [6, 6, 6, 4, 4, 3], 14: [6, 6, 6, 5, 5, 3, 1],
+                    15: [6, 6, 6, 6, 6, 4, 2], 16: [7, 7, 7, 6, 6, 5, 3],
+                    17: [7, 7, 7, 7, 7, 6, 4], 18: [8, 8, 8, 8, 8, 6, 5],
+                    19: [9, 9, 8, 8, 8, 7, 6], 20: [9, 9, 9, 8, 8, 8, 6]
+                }
+            },
+            druid: {
+                hitDie: 8,
+                thacoBase: 20,
+                thacoImprovement: 1,
+                saves: {
+                    1: [10, 14, 13, 16, 15],
+                    2: [9, 13, 12, 15, 14],
+                    3: [8, 12, 11, 14, 13],
+                    4: [7, 11, 10, 13, 12],
+                    5: [6, 10, 9, 12, 11],
+                    6: [5, 9, 8, 11, 10],
+                    7: [4, 8, 7, 10, 9],
+                    8: [3, 7, 6, 9, 8],
+                    9: [2, 6, 5, 8, 7],
+                    10: [1, 5, 4, 7, 6]
+                },
+                weaponSlots: { 1: 2, 4: 3, 7: 4, 10: 5, 13: 6, 16: 7, 19: 8 },
+                nwpSlots: { 1: 3, 3: 4, 6: 5, 9: 6, 12: 7, 15: 8, 18: 9 },
+                kits: ['Shapeshifter', 'Totemic Druid'],
+                startingGear: [
+                    { name: 'Sickle', weight: 2, location: 'belt' },
+                    { name: 'Wooden Staff', weight: 4, location: 'mainHand' },
+                    { name: 'Leather Armor', weight: 15, location: 'body' },
+                    { name: 'Backpack', weight: 2, container: 'backpack' },
+                    { name: 'Bedroll', weight: 5, container: 'backpack' },
+                    { name: 'Rations (3 days)', weight: 3, container: 'backpack' },
+                    { name: 'Holy Symbol (Mistletoe)', weight: 0, container: 'backpack' }
+                ],
+                spellProgression: {
+                    1: [1], 2: [2], 3: [2, 1], 4: [3, 2], 5: [3, 3, 1],
+                    6: [3, 3, 2], 7: [3, 3, 2, 1], 8: [3, 3, 3, 2],
+                    9: [4, 4, 3, 2, 1], 10: [4, 4, 3, 3, 2],
+                    11: [5, 4, 4, 3, 2, 1], 12: [6, 5, 5, 3, 3, 2],
+                    13: [6, 6, 6, 4, 4, 3], 14: [6, 6, 6, 5, 5, 3, 1],
+                    15: [6, 6, 6, 6, 6, 4, 2], 16: [7, 7, 7, 6, 6, 5, 3],
+                    17: [7, 7, 7, 7, 7, 6, 4], 18: [8, 8, 8, 8, 8, 6, 5],
+                    19: [9, 9, 8, 8, 8, 7, 6], 20: [9, 9, 9, 8, 8, 8, 6]
+                }
+            },
+            thief: {
+                hitDie: 6,
+                thacoBase: 20,
+                thacoImprovement: 1,
+                saves: {
+                    1: [10, 14, 13, 16, 15],
+                    2: [9, 13, 12, 15, 14],
+                    3: [8, 12, 11, 14, 13],
+                    4: [7, 11, 10, 13, 12],
+                    5: [6, 10, 9, 12, 11],
+                    6: [5, 9, 8, 11, 10],
+                    7: [4, 8, 7, 10, 9],
+                    8: [3, 7, 6, 9, 8],
+                    9: [2, 6, 5, 8, 7],
+                    10: [1, 5, 4, 7, 6]
+                },
+                weaponSlots: { 1: 2, 4: 3, 7: 4, 10: 5, 13: 6, 16: 7, 19: 8 },
+                nwpSlots: { 1: 3, 3: 4, 6: 5, 9: 6, 12: 7, 15: 8, 18: 9 },
+                kits: ['Swashbuckler', 'Investigator', 'Acrobat', 'Beggar'],
+                startingGear: [
+                    { name: 'Short Sword', weight: 3, location: 'mainHand' },
+                    { name: 'Dagger (2)', weight: 2, location: 'belt' },
+                    { name: 'Leather Armor', weight: 15, location: 'body' },
+                    { name: 'Backpack', weight: 2, container: 'backpack' },
+                    { name: 'Bedroll', weight: 5, container: 'backpack' },
+                    { name: 'Rations (3 days)', weight: 3, container: 'backpack' },
+                    { name: 'Thieves\' Tools', weight: 1, container: 'backpack' },
+                    { name: 'Grappling Hook', weight: 4, container: 'backpack' },
+                    { name: 'Rope (50ft)', weight: 5, container: 'backpack' }
+                ],
+                backstabMultiplier: { 1: 2, 5: 3, 9: 4, 13: 5 },
+                thiefSkillBases: {
+                    pp: 15, ol: 10, frt: 5, ms: 10, hs: 5, dn: 15, cw: 60, rl: 0
+                },
+                thiefSkillIncreases: {
+                    pp: 5, ol: 5, frt: 5, ms: 5, hs: 5, dn: 5, cw: 0, rl: 5
+                }
+            },
+            bard: {
+                hitDie: 6,
+                thacoBase: 20,
+                thacoImprovement: 1,
+                saves: {
+                    1: [10, 14, 13, 16, 15],
+                    2: [9, 13, 12, 15, 14],
+                    3: [8, 12, 11, 14, 13],
+                    4: [7, 11, 10, 13, 12],
+                    5: [6, 10, 9, 12, 11],
+                    6: [5, 9, 8, 11, 10],
+                    7: [4, 8, 7, 10, 9],
+                    8: [3, 7, 6, 9, 8],
+                    9: [2, 6, 5, 8, 7],
+                    10: [1, 5, 4, 7, 6]
+                },
+                weaponSlots: { 1: 2, 4: 3, 7: 4, 10: 5, 13: 6, 16: 7, 19: 8 },
+                nwpSlots: { 1: 3, 3: 4, 6: 5, 9: 6, 12: 7, 15: 8, 18: 9 },
+                kits: ['Gallant', 'Blade', 'Skald', 'Herald'],
+                startingGear: [
+                    { name: 'Short Sword', weight: 3, location: 'mainHand' },
+                    { name: 'Dagger', weight: 1, location: 'belt' },
+                    { name: 'Leather Armor', weight: 15, location: 'body' },
+                    { name: 'Musical Instrument', weight: 3, container: 'backpack' },
+                    { name: 'Backpack', weight: 2, container: 'backpack' },
+                    { name: 'Bedroll', weight: 5, container: 'backpack' },
+                    { name: 'Rations (3 days)', weight: 3, container: 'backpack' }
+                ],
+                spellProgression: {
+                    1: [0], 2: [0], 3: [1], 4: [2], 5: [2, 1],
+                    6: [2, 2], 7: [2, 2, 1], 8: [3, 2, 1],
+                    9: [3, 2, 2], 10: [3, 3, 2],
+                    11: [3, 3, 2, 1], 12: [3, 3, 3, 2],
+                    13: [4, 3, 3, 2], 14: [4, 4, 3, 3],
+                    15: [4, 4, 4, 3], 16: [5, 4, 4, 3],
+                    17: [5, 5, 4, 4], 18: [5, 5, 5, 4],
+                    19: [5, 5, 5, 5], 20: [5, 5, 5, 5]
+                }
+            }
+        };
+
+        // ==================== INITIALIZATION ====================
+
+        let rollHistory = [];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            setupEventListeners();
+            updateAll();
+            
+            // Auto-save timer
+            setInterval(() => {
+                if (characterData.autoSave) {
+                    saveData();
+                    showAutoSaveIndicator(true);
+                }
+            }, 30000);
+        });
+
+        function setupEventListeners() {
+            // Ability scores
+            ['str', 'dex', 'con', 'int', 'wis', 'cha'].forEach(ability => {
+                document.getElementById(`${ability}Score`).addEventListener('input', (e) => {
+                    characterData.abilities[ability] = parseInt(e.target.value) || 9;
+                    updateAbility(ability);
+                    updateAll();
+                    saveData();
+                });
+            });
+
+            // Strength percentile
+            document.getElementById('strPercent').addEventListener('input', (e) => {
+                characterData.abilities.strPercent = parseInt(e.target.value) || 0;
+                updateAbility('str');
+                updateAll();
+                saveData();
+            });
+
+            // Race, Class, Level
+            document.getElementById('raceSelect').addEventListener('change', (e) => {
+                characterData.race = e.target.value;
+                applyRaceAdjustments();
+                updateAll();
+                saveData();
+            });
+
+            document.getElementById('classSelect').addEventListener('change', (e) => {
+                characterData.class = e.target.value;
+                characterData.kit = '';
+                updateKitDropdown();
+                updateAll();
+                saveData();
+            });
+
+            document.getElementById('kitSelect').addEventListener('change', (e) => {
+                characterData.kit = e.target.value;
+                updateAll();
+                saveData();
+            });
+
+            document.getElementById('levelInput').addEventListener('input', (e) => {
+                characterData.level = parseInt(e.target.value) || 1;
+                updateAll();
+                saveData();
+            });
+
+            document.getElementById('xpInput').addEventListener('input', (e) => {
+                characterData.xp = parseInt(e.target.value) || 0;
+                saveData();
+            });
+
+            // HP
+            document.getElementById('hpCurrent').addEventListener('input', (e) => {
+                characterData.hp.current = parseInt(e.target.value) || 0;
+                saveData();
+            });
+
+            // Character name
+            document.getElementById('charName').addEventListener('input', (e) => {
+                characterData.name = e.target.value;
+                saveData();
+            });
+        }
+
+        // ==================== CORE UPDATE FUNCTIONS ====================
+
+        function updateAll() {
+            updateName();
+            updateRaceInfo();
+            updateKitDropdown();
+            
+            // Update all abilities
+            ['str', 'dex', 'con', 'int', 'wis', 'cha'].forEach(ability => {
+                updateAbility(ability);
+            });
+
+            updateTHAC0();
+            updateSavingThrows();
+            updateHP();
+            calculateAC();
+            updateThiefSkills();
+            updateTurningUndead();
+            updateSpellSlots();
+            updateProficiencies();
+            updateSpecialAbilities();
+            updateEquipmentDisplay();
+            updateEncumbrance();
+            updateAttackMatrix();
+        }
+
+        function updateName() {
+            document.getElementById('charName').value = characterData.name;
+        }
+
+        function updateRaceInfo() {
+            const race = characterData.race;
+            const info = document.getElementById('raceInfo');
+            
+            if (!race || !raceData[race]) {
+                info.innerHTML = '';
+                return;
+            }
+
+            const r = raceData[race];
+            let html = '';
+            
+            if (Object.keys(r.adjustments).length > 0) {
+                const adj = Object.entries(r.adjustments).map(([stat, val]) => 
+                    `${val > 0 ? '+' : ''}${val} ${stat.toUpperCase()}`
+                ).join(', ');
+                html += `<div>Adjustments: ${adj}</div>`;
+            }
+            
+            if (r.infravision > 0) {
+                html += `<div>Infravision: ${r.infravision}'</div>`;
+            }
+            
+            if (r.saveBonuses && Object.keys(r.saveBonuses).length > 0) {
+                const saves = Object.entries(r.saveBonuses).map(([type, val]) => 
+                    `+${val} vs ${type}`
+                ).join(', ');
+                html += `<div>Saves: ${saves}</div>`;
+            }
+
+            info.innerHTML = html;
+            document.getElementById('raceSelect').value = race;
+        }
+
+        function applyRaceAdjustments() {
+            const race = characterData.race;
+            if (!race || !raceData[race]) return;
+
+            const adjustments = raceData[race].adjustments;
+            
+            // Reset base scores first (remove previous racial adjustments)
+            // For simplicity, we'll just apply the adjustments directly
+            // In a full implementation, you'd track base vs adjusted separately
+            
+            for (const [ability, adjustment] of Object.entries(adjustments)) {
+                const currentScore = characterData.abilities[ability];
+                // This is simplified - ideally you'd store base scores separately
+            }
+        }
+
+        function updateKitDropdown() {
+            const classSelect = document.getElementById('classSelect');
+            const kitSelect = document.getElementById('kitSelect');
+            const className = classSelect.value;
+
+            kitSelect.innerHTML = '<option value="">Select Kit</option>';
+
+            if (!className || !classData[className]) {
+                return;
+            }
+
+            const kits = classData[className].kits || [];
+            kits.forEach(kit => {
+                const option = document.createElement('option');
+                option.value = kit;
+                option.textContent = kit;
+                if (kit === characterData.kit) {
+                    option.selected = true;
+                }
+                kitSelect.appendChild(option);
+            });
+        }
+
+        function updateAbility(ability) {
+            const score = characterData.abilities[ability];
+            const percent = ability === 'str' ? characterData.abilities.strPercent : 0;
+            
+            // Update display
+            document.getElementById(`${ability}Score`).value = score;
+            if (ability === 'str') {
+                document.getElementById('strPercent').value = percent;
+            }
+
+            // Calculate modifier and info
+            const modInfo = calculateAbilityModifier(ability, score, percent);
+            
+            document.getElementById(`${ability}Mod`).textContent = 
+                modInfo.modifier >= 0 ? `+${modInfo.modifier}` : modInfo.modifier;
+            
+            document.getElementById(`${ability}Info`).innerHTML = modInfo.info;
+        }
+
+        function calculateAbilityModifier(ability, score, percent = 0) {
+            let modifier = 0;
+            let info = '';
+
+            // Base modifier table (PHB p.16)
+            const modTable = {
+                3: -3, 4: -2, 5: -1, 6: -1, 7: -1, 8: 0, 9: 0, 10: 0,
+                11: 0, 12: 0, 13: 0, 14: 0, 15: +1, 16: +1, 17: +1,
+                18: +2, 19: +3, 20: +3, 21: +4, 22: +4, 23: +5, 24: +5, 25: +6
+            };
+
+            switch (ability) {
+                case 'str':
+                    modifier = modTable[score] || 0;
+                    if (score === 18 && characterData.class === 'fighter') {
+                        // Exceptional Strength
+                        const exceptionalMods = {
+                            '01-50': { toHit: 0, damage: 1 },
+                            '51-75': { toHit: 0, damage: 2 },
+                            '76-90': { toHit: 1, damage: 2 },
+                            '91-99': { toHit: 1, damage: 3 },
+                            '00': { toHit: 2, damage: 4 }
+                        };
+                        
+                        let range = '01-50';
+                        if (percent >= 1 && percent <= 50) range = '01-50';
+                        else if (percent >= 51 && percent <= 75) range = '51-75';
+                        else if (percent >= 76 && percent <= 90) range = '76-90';
+                        else if (percent >= 91 && percent <= 99) range = '91-99';
+                        else if (percent === 100) range = '00';
+                        
+                        const excMod = exceptionalMods[range];
+                        modifier = 3; // Base 18 STR modifier
+                        info = `To Hit: +${excMod.toHit}<br>Damage: +${excMod.damage}`;
+                    } else {
+                        const toHit = modifier >= 0 ? modifier : 0;
+                        const damage = modifier;
+                        info = `To Hit: ${toHit >= 0 ? '+' : ''}${toHit}<br>Damage: ${damage >= 0 ? '+' : ''}${damage}`;
+                    }
+                    break;
+
+                case 'dex':
+                    modifier = modTable[score] || 0;
+                    const acMod = modifier >= 0 ? modifier : 0;
+                    const reactMod = modifier;
+                    info = `AC: ${acMod >= 0 ? '+' : ''}${acMod}<br>Reaction: ${reactMod >= 0 ? '+' : ''}${reactMod}`;
+                    break;
+
+                case 'con':
+                    modifier = modTable[score] || 0;
+                    const hpMod = modifier;
+                    const poisonMod = modifier >= 0 ? modifier : 0;
+                    info = `HP: ${hpMod >= 0 ? '+' : ''}${hpMod}/lvl<br>Poison Save: ${poisonMod >= 0 ? '+' : ''}${poisonMod}`;
+                    break;
+
+                case 'int':
+                    modifier = modTable[score] || 0;
+                    const langCount = Math.max(1, Math.floor((score - 1) / 2));
+                    const nwpBonus = score >= 13 ? 1 : 0;
+                    info = `Languages: ${langCount}<br>NWP Slots: +${nwpBonus}`;
+                    break;
+
+                case 'wis':
+                    modifier = modTable[score] || 0;
+                    const spellBonus = modifier >= 0 ? modifier : 0;
+                    const mentalSave = modifier >= 0 ? modifier : 0;
+                    info = `Spell Bonus: +${spellBonus}<br>Mental Save: +${mentalSave}`;
+                    break;
+
+                case 'cha':
+                    modifier = modTable[score] || 0;
+                    const reactBonus = modifier;
+                    const loyaltyBonus = modifier >= 0 ? modifier : 0;
+                    info = `Reaction: ${reactBonus >= 0 ? '+' : ''}${reactBonus}<br>Loyalty: +${loyaltyBonus}`;
+                    break;
+            }
+
+            return { modifier, info };
+        }
+
+        function updateTHAC0() {
+            const className = characterData.class;
+            const level = characterData.level;
+            
+            if (!className || !classData[className]) {
+                document.getElementById('thacoValue').textContent = '20';
+                return;
+            }
+
+            const classInfo = classData[className];
+            const thaco = classInfo.thacoBase - ((level - 1) * classInfo.thacoImprovement);
+            document.getElementById('thacoValue').textContent = thaco;
+        }
+
+        function updateSavingThrows() {
+            const className = characterData.class;
+            const level = characterData.level;
+            const race = characterData.race;
+            
+            const container = document.getElementById('savingThrowsContainer');
+            container.innerHTML = '';
+
+            if (!className || !classData[className]) {
+                return;
+            }
+
+            const classInfo = classData[className];
+            const saves = classInfo.saves;
+            
+            // Find the appropriate save values for this level
+            let saveValues = saves[1];
+            for (let lvl = 1; lvl <= level && saves[lvl]; lvl++) {
+                saveValues = saves[lvl];
+            }
+
+            const saveNames = [
+                'Paralyzation/Poison/Death',
+                'Rod/Staff/Wand',
+                'Petrification/Polymorph',
+                'Breath Weapon',
+                'Spell'
+            ];
+
+            // Apply racial bonuses
+            let racialBonuses = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0 };
+            if (race && raceData[race] && raceData[race].saveBonuses) {
+                const bonuses = raceData[race].saveBonuses;
+                // Simplified mapping - in full implementation would be more specific
+                if (bonuses.magic) racialBonuses[1] += bonuses.magic;
+                if (bonuses.poison) racialBonuses[0] += bonuses.poison;
+            }
+
+            saveNames.forEach((name, index) => {
+                const value = saveValues[index] - racialBonuses[index];
+                const row = document.createElement('div');
+                row.className = 'save-row';
+                row.innerHTML = `
+                    <div class="save-name">${name}</div>
+                    <div class="save-value">${value}</div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function updateHP() {
+            const className = characterData.class;
+            const level = characterData.level;
+            const conMod = getAbilityModifier('con');
+
+            if (!className || !classData[className]) {
+                document.getElementById('hpMaxValue').textContent = '10';
+                return;
+            }
+
+            const hitDie = classData[className].hitDie;
+            const maxHP = (hitDie * level) + (conMod * level);
+            
+            document.getElementById('hpMaxValue').textContent = maxHP;
+            document.getElementById('hitDiceValue').textContent = `${level}d${hitDie}`;
+            
+            // Don't override current HP if already set
+            if (characterData.hp.current === 0) {
+                characterData.hp.current = maxHP;
+                document.getElementById('hpCurrent').value = maxHP;
+            }
+        }
+
+        function calculateAC() {
+            const armorType = document.getElementById('armorType').value;
+            const shieldType = document.getElementById('shieldType').value;
+            const magicBonus = parseInt(document.getElementById('acMagicBonus').value) || 0;
+            const dexMod = getAbilityModifier('dex');
+
+            characterData.ac.armorType = armorType;
+            characterData.ac.shieldType = shieldType;
+            characterData.ac.magicBonus = magicBonus;
+
+            // Base AC
+            let baseAC = 10;
+            let maxDex = 99; // No limit
+
+            const armorACs = {
+                'none': { ac: 0, maxDex: 99 },
+                'leather': { ac: 2, maxDex: 99 },
+                'studded': { ac: 3, maxDex: 6 },
+                'hide': { ac: 4, maxDex: 5 },
+                'chainmail': { ac: 5, maxDex: 4 },
+                'splint': { ac: 6, maxDex: 3 },
+                'banded': { ac: 6, maxDex: 3 },
+                'plate': { ac: 7, maxDex: 2 },
+                'fullplate': { ac: 9, maxDex: 1 }
+            };
+
+            if (armorACs[armorType]) {
+                baseAC -= armorACs[armorType].ac;
+                maxDex = armorACs[armorType].maxDex;
+            }
+
+            // Shield bonus
+            const shieldBonuses = {
+                'none': 0,
+                'small': 1,
+                'medium': 1,
+                'body': 2
+            };
+
+            if (shieldBonuses[shieldType]) {
+                baseAC -= shieldBonuses[shieldType];
+            }
+
+            // Apply Dexterity (respecting max)
+            const appliedDex = Math.min(dexMod, maxDex);
+            baseAC -= appliedDex;
+
+            // Magic bonus
+            baseAC -= magicBonus;
+
+            // Update display
+            document.getElementById('armorClassValue').textContent = baseAC;
+            document.getElementById('maxDexBonus').textContent = maxDex === 99 ? '∞' : maxDex;
+
+            // Update equipment display
+            updateEquipmentDisplay();
+        }
+
+        function updateThiefSkills() {
+            const className = characterData.class;
+            const level = characterData.level;
+            const dexMod = getAbilityModifier('dex');
+            const race = characterData.race;
+
+            if (className !== 'thief') {
+                document.getElementById('thiefSkillsContainer').classList.add('hidden');
+                return;
+            }
+
+            document.getElementById('thiefSkillsContainer').classList.remove('hidden');
+
+            if (!classData.thief.thiefSkillBases) return;
+
+            const bases = classData.thief.thiefSkillBases;
+            const increases = classData.thief.thiefSkillIncreases;
+
+            const skills = ['pp', 'ol', 'frt', 'ms', 'hs', 'dn', 'cw', 'rl'];
+            
+            skills.forEach(skill => {
+                const base = bases[skill] + ((level - 1) * (increases[skill] || 0));
+                const racial = characterData.thiefSkills[skill].racial || 0;
+                const dexBonus = skill !== 'cw' && skill !== 'rl' ? dexMod : 0;
+                
+                let final = base + racial + dexBonus;
+                
+                // Check for manual override
+                if (characterData.thiefSkills[skill].final !== null) {
+                    final = characterData.thiefSkills[skill].final;
+                }
+
+                // Clamp to 0-95 (or 0-99 for some skills)
+                final = Math.max(0, Math.min(95, final));
+
+                document.getElementById(`${skill}Base`).textContent = base;
+                document.getElementById(`${skill}Racial`).value = racial;
+                document.getElementById(`${skill}Dex`).textContent = dexBonus >= 0 ? `+${dexBonus}` : dexBonus;
+                document.getElementById(`${skill}Final`).value = final;
+            });
+        }
+
+        function updateThiefSkill(skill) {
+            const racial = parseInt(document.getElementById(`${skill}Racial`).value) || 0;
+            characterData.thiefSkills[skill].racial = racial;
+            updateThiefSkills();
+            saveData();
+        }
+
+        function manualThiefSkill(skill) {
+            const final = parseInt(document.getElementById(`${skill}Final`).value) || 0;
+            characterData.thiefSkills[skill].final = final;
+            saveData();
+        }
+
+        function updateTurningUndead() {
+            const className = characterData.class;
+            const level = characterData.level;
+            const container = document.getElementById('turningUndeadContainer');
+            const grid = document.getElementById('turningGrid');
+
+            if (className !== 'cleric' && className !== 'paladin') {
+                container.classList.add('hidden');
+                return;
+            }
+
+            container.classList.remove('hidden');
+            grid.innerHTML = '';
+
+            // Turning matrix (PHB p.64)
+            const turningMatrix = {
+                cleric: {
+                    1: ['T', '-', '-', '-', '-', '-', '-', '-'],
+                    2: ['T', 'T', '-', '-', '-', '-', '-', '-'],
+                    3: ['T', 'T', 'T', '-', '-', '-', '-', '-'],
+                    4: ['T', 'T', 'T', 'T', '-', '-', '-', '-'],
+                    5: ['T', 'T', 'T', 'T', 'T', '-', '-', '-'],
+                    6: ['T', 'T', 'T', 'T', 'T', 'T', '-', '-'],
+                    7: ['T', 'T', 'T', 'T', 'T', 'T', 'T', '-'],
+                    8: ['T', 'T', 'T', 'T', 'T', 'T', 'T', 'T'],
+                    9: ['D', 'T', 'T', 'T', 'T', 'T', 'T', 'T'],
+                    10: ['D', 'D', 'T', 'T', 'T', 'T', 'T', 'T'],
+                    11: ['D', 'D', 'D', 'T', 'T', 'T', 'T', 'T'],
+                    12: ['D', 'D', 'D', 'D', 'T', 'T', 'T', 'T'],
+                    13: ['D', 'D', 'D', 'D', 'D', 'T', 'T', 'T'],
+                    14: ['D', 'D', 'D', 'D', 'D', 'D', 'T', 'T'],
+                    15: ['D', 'D', 'D', 'D', 'D', 'D', 'D', 'T'],
+                    16: ['D', 'D', 'D', 'D', 'D', 'D', 'D', 'D'],
+                    17: ['X', 'D', 'D', 'D', 'D', 'D', 'D', 'D'],
+                    18: ['X', 'X', 'D', 'D', 'D', 'D', 'D', 'D'],
+                    19: ['X', 'X', 'X', 'D', 'D', 'D', 'D', 'D'],
+                    20: ['X', 'X', 'X', 'X', 'D', 'D', 'D', 'D']
+                },
+                paladin: {
+                    1: ['-', '-', '-', '-', '-', '-', '-', '-'],
+                    2: ['-', '-', '-', '-', '-', '-', '-', '-'],
+                    3: ['-', '-', '-', '-', '-', '-', '-', '-'],
+                    4: ['T', '-', '-', '-', '-', '-', '-', '-'],
+                    5: ['T', 'T', '-', '-', '-', '-', '-', '-'],
+                    6: ['T', 'T', 'T', '-', '-', '-', '-', '-'],
+                    7: ['T', 'T', 'T', 'T', '-', '-', '-', '-'],
+                    8: ['T', 'T', 'T', 'T', 'T', '-', '-', '-'],
+                    9: ['T', 'T', 'T', 'T', 'T', 'T', '-', '-'],
+                    10: ['T', 'T', 'T', 'T', 'T', 'T', 'T', '-'],
+                    11: ['T', 'T', 'T', 'T', 'T', 'T', 'T', 'T'],
+                    12: ['D', 'T', 'T', 'T', 'T', 'T', 'T', 'T'],
+                    13: ['D', 'D', 'T', 'T', 'T', 'T', 'T', 'T'],
+                    14: ['D', 'D', 'D', 'T', 'T', 'T', 'T', 'T'],
+                    15: ['D', 'D', 'D', 'D', 'T', 'T', 'T', 'T'],
+                    16: ['D', 'D', 'D', 'D', 'D', 'T', 'T', 'T'],
+                    17: ['D', 'D', 'D', 'D', 'D', 'D', 'T', 'T'],
+                    18: ['D', 'D', 'D', 'D', 'D', 'D', 'D', 'T'],
+                    19: ['D', 'D', 'D', 'D', 'D', 'D', 'D', 'D'],
+                    20: ['X', 'D', 'D', 'D', 'D', 'D', 'D', 'D']
+                }
+            };
+
+            const effectiveLevel = className === 'paladin' ? Math.max(0, level - 2) : level;
+            const matrix = turningMatrix[className];
+            const row = matrix[Math.min(20, effectiveLevel)] || matrix[1];
+
+            const hdLabels = ['1', '2', '3', '4', '5', '6', '7', '8+'];
+            
+            hdLabels.forEach((hd, index) => {
+                const cell = document.createElement('div');
+                cell.className = 'turning-cell';
+                cell.textContent = row[index] || '-';
+                grid.appendChild(cell);
+            });
+        }
+
+        function updateSpellSlots() {
+            const className = characterData.class;
+            const level = characterData.level;
+            const container = document.getElementById('spellSlotsContainer');
+            container.innerHTML = '';
+
+            const casterClasses = ['mage', 'cleric', 'druid', 'bard'];
+            
+            // Paladin and Ranger get spells at higher levels
+            if (className === 'paladin' && level < 9) return;
+            if (className === 'ranger' && level < 8) return;
+
+            if (!casterClasses.includes(className) && className !== 'paladin' && className !== 'ranger') {
+                return;
+            }
+
+            let progression = null;
+            
+            if (className === 'paladin') {
+                progression = {
+                    9: [1], 10: [2], 11: [2, 1], 12: [2, 2], 13: [2, 2, 1],
+                    14: [3, 2, 1], 15: [3, 2, 2], 16: [3, 3, 2], 17: [3, 3, 3],
+                    18: [3, 3, 3], 19: [3, 3, 3], 20: [3, 3, 3]
+                };
+            } else if (className === 'ranger') {
+                progression = {
+                    8: [1], 9: [2], 10: [2, 1], 11: [2, 2], 12: [2, 2, 1],
+                    13: [3, 2, 1], 14: [3, 2, 2], 15: [3, 3, 2], 16: [3, 3, 3],
+                    17: [3, 3, 3], 18: [3, 3, 3], 19: [3, 3, 3], 20: [3, 3, 3]
+                };
+            } else {
+                progression = classData[className]?.spellProgression;
+            }
+
+            if (!progression) return;
+
+            const slots = progression[Math.min(20, level)] || progression[1] || [];
+
+            slots.forEach((count, spellLevel) => {
+                const row = document.createElement('div');
+                row.className = 'spell-level-row';
+                
+                const label = document.createElement('div');
+                label.className = 'spell-level-label';
+                label.textContent = `Level ${spellLevel + 1}:`;
+                row.appendChild(label);
+
+                for (let i = 0; i < count; i++) {
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'spell-slot-checkbox';
+                    checkbox.checked = false; // Could persist this in characterData
+                    row.appendChild(checkbox);
+                }
+
+                container.appendChild(row);
+            });
+        }
+
+        function updateProficiencies() {
+            const className = characterData.class;
+            const level = characterData.level;
+            const intScore = characterData.abilities.int;
+
+            if (!className || !classData[className]) return;
+
+            const classInfo = classData[className];
+            
+            // Weapon proficiency slots
+            let weaponSlots = classInfo.weaponSlots[1] || 2;
+            for (let lvl = 1; lvl <= level; lvl++) {
+                if (classInfo.weaponSlots[lvl]) {
+                    weaponSlots = classInfo.weaponSlots[lvl];
+                }
+            }
+
+            // Non-weapon proficiency slots
+            let nwpSlots = classInfo.nwpSlots[1] || 3;
+            for (let lvl = 1; lvl <= level; lvl++) {
+                if (classInfo.nwpSlots[lvl]) {
+                    nwpSlots = classInfo.nwpSlots[lvl];
+                }
+            }
+
+            // Intelligence bonus
+            const intBonus = intScore >= 13 ? 1 : 0;
+            nwpSlots += intBonus;
+
+            document.getElementById('weaponSlotsTotal').textContent = weaponSlots;
+            document.getElementById('weaponSlotsUsed').textContent = characterData.equipment.weapons.length;
+            document.getElementById('nwpSlotsTotal').textContent = nwpSlots;
+            document.getElementById('nwpSlotsUsed').textContent = characterData.equipment.nwps.length;
+        }
+
+        function updateSpecialAbilities() {
+            const className = characterData.class;
+            const container = document.getElementById('specialAbilities');
+            container.innerHTML = '';
+
+            if (!className || !classData[className]) return;
+
+            const special = classData[className].special || [];
+            
+            // Add class-specific abilities based on level
+            if (className === 'thief') {
+                const backstabMult = classData.thief.backstabMultiplier;
+                let multiplier = 2;
+                for (const [lvl, mult] of Object.entries(backstabMult)) {
+                    if (characterData.level >= parseInt(lvl)) {
+                        multiplier = mult;
+                    }
+                }
+                special.push(`Backstab x${multiplier}`);
+            }
+
+            if (className === 'fighter' && characterData.level >= 7) {
+                special.push('Multiple Attacks (1 attack per round extra)');
+            }
+
+            special.forEach(ability => {
+                const div = document.createElement('div');
+                div.style.padding = '2px 0';
+                div.style.borderBottom = '1px dotted var(--line)';
+                div.textContent = ability;
+                container.appendChild(div);
+            });
+        }
+
+        function updateEquipmentDisplay() {
+            // Update body locations
+            document.getElementById('equipHead').textContent = characterData.equipment.equipped.head || '-';
+            document.getElementById('equipBody').textContent = characterData.equipment.equipped.body || '-';
+            document.getElementById('equipShield').textContent = characterData.equipment.equipped.shield || '-';
+            document.getElementById('equipMainHand').textContent = characterData.equipment.equipped.mainHand || '-';
+            document.getElementById('equipOffHand').textContent = characterData.equipment.equipped.offHand || '-';
+            document.getElementById('equipBelt').textContent = characterData.equipment.equipped.belt || '-';
+
+            // Update containers
+            renderContainer('backpack', characterData.equipment.backpack);
+            renderContainer('bag1', characterData.equipment.bag1.items);
+            renderContainer('bag2', characterData.equipment.bag2.items);
+            renderContainer('quiver', characterData.equipment.quiver);
+        }
+
+        function renderContainer(containerId, items) {
+            const container = document.getElementById(`${containerId}Contents`);
+            container.innerHTML = '';
+
+            items.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'container-item';
+                div.innerHTML = `
+                    <span>${item.name}</span>
+                    <span>${item.weight} lbs</span>
+                    <button class="btn-small" onclick="removeItemFromContainer('${containerId}', ${index})">×</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function updateEncumbrance() {
+            const mode = document.getElementById('encumbranceMode').value;
+            characterData.encumbranceMode = mode;
+
+            if (mode === 'off') {
+                document.getElementById('encumbranceFill').style.width = '0%';
+                document.getElementById('encumbranceCategory').textContent = 'None';
+                document.getElementById('movementRate').textContent = '12';
+                return;
+            }
+
+            // Calculate total weight
+            let totalWeight = 0;
+            
+            // Count items in containers
+            const allItems = [
+                ...characterData.equipment.backpack,
+                ...characterData.equipment.bag1.items,
+                ...characterData.equipment.bag2.items,
+                ...characterData.equipment.quiver
+            ];
+
+            allItems.forEach(item => {
+                totalWeight += item.weight || 0;
+            });
+
+            // Add equipped items weight (simplified)
+            const armorWeights = {
+                'none': 0, 'leather': 15, 'studded': 20, 'hide': 25,
+                'chainmail': 40, 'splint': 45, 'banded': 45,
+                'plate': 50, 'fullplate': 70
+            };
+
+            const armorWeight = armorWeights[characterData.ac.armorType] || 0;
+            const shieldWeights = { 'none': 0, 'small': 3, 'medium': 5, 'body': 8 };
+            const shieldWeight = shieldWeights[characterData.ac.shieldType] || 0;
+
+            if (mode === 'full') {
+                totalWeight += armorWeight + shieldWeight;
+            }
+
+            document.getElementById('carriedWeight').textContent = totalWeight;
+
+            // Encumbrance categories (PHB p.77)
+            let category = 'None';
+            let movement = 12;
+            const strScore = characterData.abilities.str;
+            
+            // Simplified encumbrance based on Strength
+            const thresholds = {
+                3: [3, 6, 10, 15, 25],
+                4: [6, 13, 20, 33, 53],
+                5: [10, 20, 33, 53, 86],
+                6: [13, 26, 43, 70, 113],
+                7: [17, 33, 56, 90, 146],
+                8: [20, 40, 66, 106, 173],
+                9: [23, 46, 76, 123, 199],
+                10: [26, 53, 86, 140, 226],
+                11: [30, 60, 99, 160, 259],
+                12: [33, 66, 109, 176, 286],
+                13: [36, 73, 120, 193, 312],
+                14: [40, 80, 133, 213, 346],
+                15: [43, 86, 143, 230, 372],
+                16: [46, 93, 153, 246, 399],
+                17: [50, 100, 166, 266, 432],
+                18: [53, 106, 176, 283, 459],
+                19: [60, 120, 199, 319, 519],
+                20: [66, 133, 219, 353, 572],
+                21: [73, 146, 243, 390, 632],
+                22: [80, 160, 266, 426, 692],
+                23: [86, 173, 286, 459, 745],
+                24: [93, 186, 309, 496, 805],
+                25: [100, 200, 333, 533, 865]
+            };
+
+            const limits = thresholds[strScore] || thresholds[10];
+            
+            if (totalWeight <= limits[0]) {
+                category = 'None';
+                movement = 12;
+            } else if (totalWeight <= limits[1]) {
+                category = 'Light';
+                movement = 12;
+            } else if (totalWeight <= limits[2]) {
+                category = 'Moderate';
+                movement = 9;
+            } else if (totalWeight <= limits[3]) {
+                category = 'Heavy';
+                movement = 6;
+            } else if (totalWeight <= limits[4]) {
+                category = 'Severe';
+                movement = 3;
+            } else {
+                category = 'Overloaded';
+                movement = 0;
+            }
+
+            document.getElementById('encumbranceCategory').textContent = category;
+            document.getElementById('movementRate').textContent = movement;
+            document.getElementById('movementValue').textContent = movement;
+
+            // Update bar
+            const maxCapacity = limits[4] || 100;
+            const percentage = Math.min(100, (totalWeight / maxCapacity) * 100);
+            document.getElementById('encumbranceFill').style.width = `${percentage}%`;
+        }
+
+        function updateAttackMatrix() {
+            const container = document.getElementById('attackMatrix');
+            const thaco = parseInt(document.getElementById('thacoValue').textContent) || 20;
+            
+            container.innerHTML = `
+                <div style="padding: 2px 0; border-bottom: 1px dotted var(--line);">
+                    To hit AC 10: <strong>${thaco}</strong>
+                </div>
+            `;
+
+            for (let ac = 9; ac >= -10; ac--) {
+                const toHit = thaco - ac;
+                container.innerHTML += `
+                    <div style="padding: 2px 0; border-bottom: 1px dotted var(--line); font-size: 9px;">
+                        To hit AC ${ac}: <strong>${toHit}</strong>
+                    </div>
+                `;
+            }
+        }
+
+        // ==================== EQUIPMENT MANAGEMENT ====================
+
+        function addWeaponProficiency() {
+            const weapon = prompt('Enter weapon name:');
+            if (weapon) {
+                characterData.equipment.weapons.push({ name: weapon, proficient: true });
+                updateProficiencies();
+                saveData();
+            }
+        }
+
+        function addNWP() {
+            const nwp = prompt('Enter non-weapon proficiency name:');
+            if (nwp) {
+                characterData.equipment.nwps.push({ name: nwp });
+                updateProficiencies();
+                saveData();
+            }
+        }
+
+        function addItemToContainer(containerId) {
+            const itemName = prompt('Enter item name:');
+            if (!itemName) return;
+            
+            const itemWeight = parseFloat(prompt('Enter item weight (lbs):', '1')) || 1;
+            
+            const item = { name: itemName, weight: itemWeight };
+            
+            if (containerId === 'backpack') {
+                characterData.equipment.backpack.push(item);
+            } else if (containerId === 'bag1') {
+                characterData.equipment.bag1.items.push(item);
+            } else if (containerId === 'bag2') {
+                characterData.equipment.bag2.items.push(item);
+            } else if (containerId === 'quiver') {
+                characterData.equipment.quiver.push(item);
+            }
+
+            updateEquipmentDisplay();
+            updateEncumbrance();
+            saveData();
+        }
+
+        function removeItemFromContainer(containerId, index) {
+            if (containerId === 'backpack') {
+                characterData.equipment.backpack.splice(index, 1);
+            } else if (containerId === 'bag1') {
+                characterData.equipment.bag1.items.splice(index, 1);
+            } else if (containerId === 'bag2') {
+                characterData.equipment.bag2.items.splice(index, 1);
+            } else if (containerId === 'quiver') {
+                characterData.equipment.quiver.splice(index, 1);
+            }
+
+            updateEquipmentDisplay();
+            updateEncumbrance();
+            saveData();
+        }
+
+        function applyStartingKit() {
+            const className = characterData.class;
+            if (!className || !classData[className]) {
+                alert('Please select a class first.');
+                return;
+            }
+
+            const startingGear = classData[className].startingGear || [];
+            
+            startingGear.forEach(item => {
+                const newItem = { name: item.name, weight: item.weight };
+                
+                if (item.location) {
+                    // Equip the item
+                    characterData.equipment.equipped[item.location] = item.name;
+                }
+                
+                if (item.container === 'backpack') {
+                    characterData.equipment.backpack.push(newItem);
+                } else if (item.container === 'quiver') {
+                    characterData.equipment.quiver.push(newItem);
+                }
+            });
+
+            updateAll();
+            saveData();
+            alert('Starting equipment kit applied!');
+        }
+
+        // ==================== PANEL TOGGLES ====================
+
+        function togglePanel(panelId) {
+            const panel = document.getElementById(panelId);
+            panel.classList.toggle('collapsed');
+            
+            const toggle = panel.querySelector('.panel-toggle');
+            if (panel.classList.contains('collapsed')) {
+                toggle.textContent = panelId === 'leftPanel' ? '▶' : '◀';
+            } else {
+                toggle.textContent = panelId === 'leftPanel' ? '◀' : '▶';
+            }
+        }
+
+        // ==================== MODALS ====================
+
+        function openDiceModal() {
+            document.getElementById('diceModal').style.display = 'flex';
+        }
+
+        function openKitModal() {
+            const className = characterData.class;
+            const container = document.getElementById('kitOptions');
+            container.innerHTML = '';
+
+            if (!className || !classData[className]) {
+                container.innerHTML = '<div style="padding: 20px; text-align: center;">Please select a class first.</div>';
+            } else {
+                const kits = classData[className].kits || [];
+                kits.forEach(kit => {
+                    const div = document.createElement('div');
+                    div.className = 'kit-option';
+                    if (kit === characterData.kit) {
+                        div.classList.add('selected');
+                    }
+                    div.textContent = kit;
+                    div.onclick = () => selectKit(kit);
+                    container.appendChild(div);
+                });
+            }
+
+            document.getElementById('kitModal').style.display = 'flex';
+        }
+
+        function selectKit(kit) {
+            characterData.kit = kit;
+            document.getElementById('kitSelect').value = kit;
+            closeModal('kitModal');
+            updateAll();
+            saveData();
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.style.display = 'none';
+            }
+        }
+
+        // ==================== DICE ROLLER ====================
+
+        function rollDice(sides) {
+            const result = Math.floor(Math.random() * sides) + 1;
+            displayDiceResult(result, [result]);
+            addToHistory(`${sides > 10 ? 'd' : ''}${sides}`, result);
+        }
+
+        function rollAbilityScores() {
+            const scores = [];
+            for (let i = 0; i < 6; i++) {
+                const dice = [];
+                for (let j = 0; j < 4; j++) {
+                    dice.push(Math.floor(Math.random() * 6) + 1);
+                }
+                dice.sort((a, b) => a - b);
+                const sum = dice[1] + dice[2] + dice[3]; // Drop lowest
+                scores.push(sum);
+            }
+            displayDiceResult(scores.reduce((a, b) => a + b, 0), scores);
+            addToHistory('Stats (4d6dl)', scores.join(', '));
+        }
+
+        function rollAbilityMethod(method) {
+            const dice = [];
+            let total = 0;
+
+            if (method === '3d6') {
+                for (let i = 0; i < 3; i++) {
+                    const roll = Math.floor(Math.random() * 6) + 1;
+                    dice.push(roll);
+                    total += roll;
+                }
+            } else if (method === '4d6dl') {
+                for (let i = 0; i < 4; i++) {
+                    dice.push(Math.floor(Math.random() * 6) + 1);
+                }
+                dice.sort((a, b) => a - b);
+                total = dice[1] + dice[2] + dice[3];
+            }
+
+            displayDiceResult(total, dice);
+            addToHistory(method, total);
+        }
+
+        function rollAllStats(method) {
+            const scores = [];
+            for (let i = 0; i < 6; i++) {
+                const dice = [];
+                let total = 0;
+
+                if (method === '3d6') {
+                    for (let j = 0; j < 3; j++) {
+                        const roll = Math.floor(Math.random() * 6) + 1;
+                        dice.push(roll);
+                        total += roll;
+                    }
+                } else if (method === '4d6dl') {
+                    for (let j = 0; j < 4; j++) {
+                        dice.push(Math.floor(Math.random() * 6) + 1);
+                    }
+                    dice.sort((a, b) => a - b);
+                    total = dice[1] + dice[2] + dice[3];
+                }
+
+                scores.push(total);
+            }
+
+            const grandTotal = scores.reduce((a, b) => a + b, 0);
+            displayDiceResult(grandTotal, scores);
+            addToHistory(`All Stats (${method})`, scores.join(', '));
+        }
+
+        function displayDiceResult(total, individual) {
+            document.getElementById('diceTotal').textContent = total;
+            document.getElementById('diceIndividual').textContent = 
+                Array.isArray(individual) ? individual.join(', ') : individual;
+        }
+
+        function addToHistory(rollType, result) {
+            rollHistory.unshift({ type: rollType, result: result, time: new Date().toLocaleTimeString() });
+            if (rollHistory.length > 5) rollHistory.pop();
+
+            const historyContainer = document.getElementById('rollHistory');
+            historyContainer.innerHTML = '';
+            
+            rollHistory.forEach(entry => {
+                const div = document.createElement('div');
+                div.className = 'history-entry';
+                div.textContent = `[${entry.time}] ${entry.type}: ${entry.result}`;
+                historyContainer.appendChild(div);
+            });
+        }
+
+        // ==================== UTILITY FUNCTIONS ====================
+
+        function getAbilityModifier(ability) {
+            const score = characterData.abilities[ability];
+            const modTable = {
+                3: -3, 4: -2, 5: -1, 6: -1, 7: -1, 8: 0, 9: 0, 10: 0,
+                11: 0, 12: 0, 13: 0, 14: 0, 15: +1, 16: +1, 17: +1,
+                18: +2, 19: +3, 20: +3, 21: +4, 22: +4, 23: +5, 24: +5, 25: +6
+            };
+            return modTable[score] || 0;
+        }
+
+        function showAutoSaveIndicator(saved) {
+            const indicator = document.getElementById('autoSaveIndicator');
+            indicator.textContent = saved ? '✓ Saved' : 'Auto-save: ON';
+            indicator.classList.add('saved');
+            
+            setTimeout(() => {
+                indicator.classList.remove('saved');
+                indicator.textContent = 'Auto-save: ON';
+            }, 2000);
+        }
+
+        // ==================== DATA PERSISTENCE ====================
+
+        function saveData() {
+            // Update characterData from form inputs
+            characterData.name = document.getElementById('charName').value;
+            characterData.race = document.getElementById('raceSelect').value;
+            characterData.class = document.getElementById('classSelect').value;
+            characterData.kit = document.getElementById('kitSelect').value;
+            characterData.level = parseInt(document.getElementById('levelInput').value) || 1;
+            characterData.xp = parseInt(document.getElementById('xpInput').value) || 0;
+            
+            characterData.abilities.str = parseInt(document.getElementById('strScore').value) || 9;
+            characterData.abilities.strPercent = parseInt(document.getElementById('strPercent').value) || 0;
+            characterData.abilities.dex = parseInt(document.getElementById('dexScore').value) || 9;
+            characterData.abilities.con = parseInt(document.getElementById('conScore').value) || 9;
+            characterData.abilities.int = parseInt(document.getElementById('intScore').value) || 9;
+            characterData.abilities.wis = parseInt(document.getElementById('wisScore').value) || 9;
+            characterData.abilities.cha = parseInt(document.getElementById('chaScore').value) || 9;
+
+            characterData.hp.current = parseInt(document.getElementById('hpCurrent').value) || 0;
+
+            characterData.equipment.bag1.label = document.getElementById('bag1Label').value;
+            characterData.equipment.bag2.label = document.getElementById('bag2Label').value;
+
+            localStorage.setItem('adnd2_character', JSON.stringify(characterData));
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('adnd2_character');
+            if (saved) {
+                const loaded = JSON.parse(saved);
+                Object.assign(characterData, loaded);
+
+                // Restore form values
+                document.getElementById('charName').value = characterData.name || '';
+                document.getElementById('raceSelect').value = characterData.race || '';
+                document.getElementById('classSelect').value = characterData.class || '';
+                document.getElementById('levelInput').value = characterData.level || 1;
+                document.getElementById('xpInput').value = characterData.xp || 0;
+
+                document.getElementById('strScore').value = characterData.abilities.str || 9;
+                document.getElementById('strPercent').value = characterData.abilities.strPercent || 0;
+                document.getElementById('dexScore').value = characterData.abilities.dex || 9;
+                document.getElementById('conScore').value = characterData.abilities.con || 9;
+                document.getElementById('intScore').value = characterData.abilities.int || 9;
+                document.getElementById('wisScore').value = characterData.abilities.wis || 9;
+                document.getElementById('chaScore').value = characterData.abilities.cha || 9;
+
+                document.getElementById('hpCurrent').value = characterData.hp.current || 10;
+
+                document.getElementById('bag1Label').value = characterData.equipment.bag1?.label || 'Bag 1';
+                document.getElementById('bag2Label').value = characterData.equipment.bag2?.label || 'Bag 2';
+
+                document.getElementById('encumbranceMode').value = characterData.encumbranceMode || 'off';
+            }
+        }
+    </script>
+</body>
+</html>
