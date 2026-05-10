@@ -29,6 +29,26 @@
             flex-direction: column;
         }
 
+        nav {
+            background: var(--border);
+            padding: 8px 15px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: var(--parchment);
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 3px 8px;
+            border: 1px solid transparent;
+        }
+        nav a:hover,
+        nav a.current {
+            border-color: var(--parchment);
+            background: rgba(255,255,255,0.12);
+        }
+
         /* --- Header --- */
         header {
             height: 60px;
@@ -247,22 +267,52 @@
         .dice-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0; }
         .dice-btn { padding: 15px; font-size: 1.2rem; }
         .roll-result { font-size: 1.5rem; text-align: center; margin: 10px 0; font-weight: bold; color: var(--highlight); }
+
+        .rules-banner {
+            min-height: 28px;
+            padding: 6px 20px;
+            background: #fff3cd;
+            color: #5c4033;
+            border-bottom: 2px solid #d5b16a;
+            font-size: 0.82rem;
+            font-weight: bold;
+            display: none;
+            align-items: center;
+        }
+        .rules-banner.show { display: flex; }
         
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
+<nav>
+    <a href="index.html" class="current">Character</a>
+    <a href="races.html">Races</a>
+    <a href="classes.html">Classes</a>
+    <a href="wizardSpells.html">Wizard Spells</a>
+    <a href="clericSpells.html">Cleric Spells</a>
+    <a href="weapons.html">Weapons</a>
+    <a href="armour.html">Armour</a>
+    <a href="items.html">Items</a>
+    <a href="combat.html">Combat</a>
+    <a href="crafting.html">Crafting</a>
+    <a href="campaign.html">Campaign</a>
+    <a href="admin.html">Admin</a>
+</nav>
+
 <header>
     <h1>AD&D 2nd Ed. Sheet</h1>
     <div class="top-controls">
-        <button onclick="window.open('admin.html', '_blank')">Admin</button>
         <button onclick="saveCharacter()">Save</button>
         <button onclick="loadCharacter()">Load</button>
+        <button onclick="location.reload()">Refresh</button>
         <button class="danger" onclick="resetCharacter()">Reset</button>
         <button onclick="toggleDiceModal()">🎲 Dice</button>
     </div>
 </header>
+
+<div id="rules-banner" class="rules-banner"></div>
 
 <div id="main-container">
     <!-- Left Panel -->
@@ -288,7 +338,7 @@
         <!-- Info -->
         <div class="char-info-grid">
             <div class="input-group"><label>Name</label><input type="text" id="char-name"></div>
-            <div class="input-group"><label>Race</label><select id="char-race" onchange="updateCalculations()"></select></div>
+            <div class="input-group"><label>Race</label><select id="char-race" onchange="handleRaceChange()"></select></div>
             <div class="input-group"><label>Class</label><select id="char-class" onchange="handleClassChange()"></select></div>
             <div class="input-group"><label>Kit</label><select id="char-kit" onchange="updateCalculations()"><option value="">None</option></select></div>
             <div class="input-group"><label>Level</label><input type="number" id="char-level" value="1" min="1" max="30" onchange="updateCalculations()"></div>
@@ -421,26 +471,73 @@ const KITS = {
     "Bard": ["Gallant", "Blade", "Skald", "Herald"]
 };
 
-const ARMOR_TYPES = [
+const RACE_CLASS_RULES_FALLBACK = {
+    "Human": ["Fighter", "Paladin", "Ranger", "Mage", "Cleric", "Druid", "Thief", "Bard"],
+    "Elf": ["Fighter", "Mage", "Cleric", "Thief"],
+    "Half-Elf": ["Fighter", "Mage", "Cleric", "Druid", "Thief", "Ranger", "Bard"],
+    "Dwarf": ["Fighter", "Cleric", "Thief"],
+    "Gnome": ["Fighter", "Mage", "Cleric", "Thief"],
+    "Halfling": ["Fighter", "Cleric", "Thief"],
+    "Half-Orc": ["Fighter", "Cleric", "Thief"]
+};
+
+let raceClassRules = { ...RACE_CLASS_RULES_FALLBACK };
+let raceData = {};
+
+const ARMOR_TYPES_FALLBACK = [
     {name: "None", base: 10, maxDex: 99, weight: 0},
-    {name: "Leather", base: 8, maxDex: 6, weight: 15},
-    {name: "Studded Leather", base: 7, maxDex: 5, weight: 20},
-    {name: "Hide", base: 6, maxDex: 4, weight: 25},
-    {name: "Chain Mail", base: 5, maxDex: 4, weight: 40},
-    {name: "Splint Mail", base: 4, maxDex: 3, weight: 40},
-    {name: "Plate Mail", base: 3, maxDex: 1, weight: 50},
-    {name: "Full Plate", base: 1, maxDex: 0, weight: 70}
+    {name: "Leather Armor", base: 8, maxDex: 99, weight: 15},
+    {name: "Studded Leather", base: 7, maxDex: 99, weight: 20},
+    {name: "Hide Armor", base: 6, maxDex: 99, weight: 35},
+    {name: "Chainmail", base: 5, maxDex: 99, weight: 40},
+    {name: "Splint Mail", base: 4, maxDex: 99, weight: 50},
+    {name: "Plate Mail", base: 3, maxDex: 99, weight: 70},
+    {name: "Full Plate", base: 1, maxDex: 99, weight: 70}
 ];
 
-const SHIELD_TYPES = [
+const SHIELD_TYPES_FALLBACK = [
     {name: "None", bonus: 0, weight: 0},
-    {name: "Small", bonus: 1, weight: 5},
-    {name: "Medium", bonus: 1, weight: 10},
-    {name: "Body", bonus: 1, weight: 15}
+    {name: "Small Shield", bonus: 1, weight: 5},
+    {name: "Medium Shield", bonus: 1, weight: 10},
+    {name: "Body Shield (Tower)", bonus: 1, weight: 15}
 ];
+
+let armorTypes = [...ARMOR_TYPES_FALLBACK];
+let shieldTypes = [...SHIELD_TYPES_FALLBACK];
+
+const ARMOR_NAME_MAP = {
+    "none": "None",
+    "leather": "Leather Armor",
+    "leather armor": "Leather Armor",
+    "studded leather": "Studded Leather",
+    "hide": "Hide Armor",
+    "hide armor": "Hide Armor",
+    "chain mail": "Chainmail",
+    "chainmail": "Chainmail",
+    "splint": "Splint Mail",
+    "splint mail": "Splint Mail",
+    "plate": "Plate Mail",
+    "plate mail": "Plate Mail",
+    "full plate": "Full Plate",
+    "robes": "None"
+};
+
+const SHIELD_NAME_MAP = {
+    "none": "None",
+    "small": "Small Shield",
+    "small shield": "Small Shield",
+    "shield, small": "Small Shield",
+    "medium": "Medium Shield",
+    "medium shield": "Medium Shield",
+    "shield, medium": "Medium Shield",
+    "body": "Body Shield (Tower)",
+    "body shield": "Body Shield (Tower)",
+    "body shield (tower)": "Body Shield (Tower)",
+    "shield, body": "Body Shield (Tower)"
+};
 
 // Full Item DB
-const ITEM_DB = [
+const ITEM_DB_FALLBACK = [
     {name: "Long Sword", weight: 4, type: "weapon"},
     {name: "Short Sword", weight: 3, type: "weapon"},
     {name: "Broad Sword", weight: 4, type: "weapon"},
@@ -497,17 +594,17 @@ const ITEM_DB = [
     {name: "Wand", weight: 1, type: "misc"},
     {name: "Robes", weight: 4, type: "armor"}
 ];
-
-// Starting Kits
+let itemDb = [...ITEM_DB_FALLBACK];
+let classData = {};
 const STARTING_KITS = {
-    "Fighter": [{name:"Long Sword", weight:4}, {name:"Dagger", weight:1}, {name:"Chain Mail", weight:40}, {name:"Shield, Medium", weight:10}, {name:"Backpack", weight:2}, {name:"Rations, Iron (1 week)", weight:14}],
-    "Paladin": [{name:"Long Sword", weight:4}, {name:"Plate Mail", weight:50}, {name:"Shield, Medium", weight:10}, {name:"Holy Symbol", weight:1}, {name:"Backpack", weight:2}],
-    "Ranger": [{name:"Long Sword", weight:4}, {name:"Bow, Long", weight:3}, {name:"Arrow (20)", weight:3}, {name:"Leather", weight:15}, {name:"Backpack", weight:2}],
+    "Fighter": [{name:"Long Sword", weight:4}, {name:"Dagger", weight:1}, {name:"Chainmail", weight:40}, {name:"Medium Shield", weight:10}, {name:"Backpack", weight:2}, {name:"Rations, Iron (1 week)", weight:14}],
+    "Paladin": [{name:"Long Sword", weight:4}, {name:"Plate Mail", weight:70}, {name:"Medium Shield", weight:10}, {name:"Holy Symbol", weight:1}, {name:"Backpack", weight:2}],
+    "Ranger": [{name:"Long Sword", weight:4}, {name:"Bow, Long", weight:3}, {name:"Arrow (20)", weight:3}, {name:"Leather Armor", weight:15}, {name:"Backpack", weight:2}],
     "Mage": [{name:"Dagger", weight:1}, {name:"Robes", weight:4}, {name:"Spellbook", weight:3}, {name:"Backpack", weight:2}, {name:"Rations, Iron (1 week)", weight:14}],
-    "Cleric": [{name:"Mace", weight:5}, {name:"Chain Mail", weight:40}, {name:"Shield, Medium", weight:10}, {name:"Holy Symbol", weight:1}, {name:"Backpack", weight:2}],
-    "Druid": [{name:"Staff", weight:4}, {name:"Leather", weight:15}, {name:"Shield, Small", weight:5}, {name:"Holy Symbol", weight:1}, {name:"Backpack", weight:2}],
-    "Thief": [{name:"Short Sword", weight:3}, {name:"Leather", weight:15}, {name:"Thieves' Picks", weight:1}, {name:"Grappling Hook", weight:4}, {name:"Backpack", weight:2}],
-    "Bard": [{name:"Short Sword", weight:3}, {name:"Leather", weight:15}, {name:"Instrument", weight:3}, {name:"Backpack", weight:2}]
+    "Cleric": [{name:"Mace", weight:5}, {name:"Chainmail", weight:40}, {name:"Medium Shield", weight:10}, {name:"Holy Symbol", weight:1}, {name:"Backpack", weight:2}],
+    "Druid": [{name:"Staff", weight:4}, {name:"Leather Armor", weight:15}, {name:"Small Shield", weight:5}, {name:"Holy Symbol", weight:1}, {name:"Backpack", weight:2}],
+    "Thief": [{name:"Short Sword", weight:3}, {name:"Leather Armor", weight:15}, {name:"Thieves' Picks", weight:1}, {name:"Grappling Hook", weight:4}, {name:"Backpack", weight:2}],
+    "Bard": [{name:"Short Sword", weight:3}, {name:"Leather Armor", weight:15}, {name:"Musical Instrument", weight:3}, {name:"Backpack", weight:2}]
 };
 
 // THAC0 Table (Level 1-20+)
@@ -568,22 +665,363 @@ let charData = {
 
 // --- INIT ---
 function init() {
-    populateDropdowns();
-    renderAbilities();
-    loadCharacter();
-    updateCalculations();
+    Promise.all([loadRaceClassRules(), loadArmourData(), loadClassData(), loadItemDatabase()]).finally(() => {
+        populateDropdowns();
+        renderAbilities();
+        loadCharacter();
+        updateCalculations();
+    });
     setInterval(() => { if(localStorage.getItem('adsheet_autosave') === 'true') saveCharacter(); }, 30000);
+}
+
+async function loadArmourData() {
+    let source = null;
+
+    const cachedArmour = localStorage.getItem('armourDB');
+    if (cachedArmour) {
+        try {
+            const parsed = JSON.parse(cachedArmour);
+            if (Array.isArray(parsed) && parsed.length > 0) source = parsed;
+        } catch (e) {
+            console.error('Failed to parse cached armourDB, trying data file:', e);
+        }
+    }
+
+    if (!source) {
+        try {
+            const r = await fetch('data/armour.json');
+            if (!r.ok) throw new Error(`HTTP ${r.status} loading armour.json`);
+            const loaded = await r.json();
+            if (Array.isArray(loaded) && loaded.length > 0) source = loaded;
+        } catch (e) {
+            console.error('Failed to load armour data from data/armour.json:', e);
+        }
+    }
+
+    if (!source) return; // keep fallbacks
+
+    const armors = [{name: "None", base: 10, maxDex: 99, weight: 0}];
+    const shields = [{name: "None", bonus: 0, weight: 0}];
+
+    source.forEach(entry => {
+        if (!entry || typeof entry.name !== 'string') return;
+        if (entry.isShield) {
+            shields.push({
+                name: entry.name,
+                bonus: entry.baseAC != null ? entry.baseAC : 1,
+                weight: entry.weight || 0
+            });
+        } else {
+            armors.push({
+                name: entry.name,
+                base: entry.baseAC != null ? entry.baseAC : 10,
+                maxDex: entry.maxDexBonus != null ? entry.maxDexBonus : 99,
+                weight: entry.weight || 0
+            });
+        }
+    });
+
+    armorTypes = armors;
+    shieldTypes = shields;
+}
+
+async function loadClassData() {
+    let source = null;
+
+    const cachedClasses = localStorage.getItem('classesDB');
+    if (cachedClasses) {
+        try {
+            const parsed = JSON.parse(cachedClasses);
+            if (Array.isArray(parsed) && parsed.length > 0) source = parsed;
+        } catch (e) {
+            console.error('Failed to parse cached classesDB, trying data file:', e);
+        }
+    }
+
+    if (!source) {
+        try {
+            const r = await fetch('data/classes.json');
+            if (!r.ok) throw new Error(`HTTP ${r.status} loading classes.json`);
+            const loaded = await r.json();
+            if (Array.isArray(loaded) && loaded.length > 0) source = loaded;
+        } catch (e) {
+            console.error('Failed to load class data from data/classes.json:', e);
+        }
+    }
+
+    if (!source) return;
+
+    const mapped = {};
+    source.forEach(c => {
+        if (!c || typeof c.name !== 'string') return;
+        mapped[c.name] = c;
+    });
+    if (Object.keys(mapped).length > 0) classData = mapped;
+}
+
+async function loadItemDatabase() {
+    const merged = new Map();
+    ITEM_DB_FALLBACK.forEach(item => {
+        if (item && typeof item.name === 'string') merged.set(item.name.toLowerCase(), item);
+    });
+
+    const loadArray = async (storageKey, path) => {
+        const cached = localStorage.getItem(storageKey);
+        if (cached) {
+            try {
+                const parsed = JSON.parse(cached);
+                if (Array.isArray(parsed)) return parsed;
+            } catch (e) {
+                console.error(`Failed to parse cached ${storageKey}, trying data file:`, e);
+            }
+        }
+
+        try {
+            const r = await fetch(path);
+            if (!r.ok) throw new Error(`HTTP ${r.status} loading ${path}`);
+            const loaded = await r.json();
+            if (Array.isArray(loaded)) return loaded;
+        } catch (e) {
+            console.error(`Failed to load ${path}:`, e);
+        }
+        return [];
+    };
+
+    const [items, weapons] = await Promise.all([
+        loadArray('itemsDB', 'data/items.json'),
+        loadArray('weaponsDB', 'data/weapons.json')
+    ]);
+
+    items.forEach(it => {
+        if (!it || typeof it.name !== 'string') return;
+        merged.set(it.name.toLowerCase(), {
+            name: it.name,
+            weight: typeof it.weight === 'number' ? it.weight : 0,
+            type: 'gear'
+        });
+    });
+
+    weapons.forEach(w => {
+        if (!w || typeof w.name !== 'string') return;
+        merged.set(w.name.toLowerCase(), {
+            name: w.name,
+            weight: typeof w.weight === 'number' ? w.weight : 0,
+            type: 'weapon'
+        });
+    });
+
+    itemDb = [...merged.values()];
+}
+
+async function loadRaceClassRules() {
+    let source = null;
+
+    const cachedRaces = localStorage.getItem('racesDB');
+    if (cachedRaces) {
+        try {
+            const parsed = JSON.parse(cachedRaces);
+            if (Array.isArray(parsed) && parsed.length > 0) source = parsed;
+        } catch (e) {
+            console.error('Failed to parse cached racesDB, trying data file:', e);
+        }
+    }
+
+    if (!source) {
+        try {
+            const r = await fetch('data/races.json');
+            if (!r.ok) throw new Error(`HTTP ${r.status} loading races.json`);
+            const loaded = await r.json();
+            if (Array.isArray(loaded) && loaded.length > 0) source = loaded;
+        } catch (e) {
+            console.error('Failed to load race class rules from data/races.json:', e);
+        }
+    }
+
+    if (!source) {
+        raceClassRules = { ...RACE_CLASS_RULES_FALLBACK };
+        raceData = {};
+        return;
+    }
+
+    const mapped = {};
+    const raceMapped = {};
+    source.forEach(r => {
+        if (!r || typeof r.name !== 'string') return;
+        const allowed = Array.isArray(r.allowedClasses) ? r.allowedClasses.filter(c => CLASSES.includes(c)) : [];
+        mapped[r.name] = allowed.length > 0 ? allowed : [...CLASSES];
+        raceMapped[r.name] = r;
+    });
+
+    raceClassRules = Object.keys(mapped).length > 0 ? mapped : { ...RACE_CLASS_RULES_FALLBACK };
+    raceData = raceMapped;
 }
 
 function populateDropdowns() {
     const raceSel = document.getElementById('char-race');
-    const classSel = document.getElementById('char-class');
     RACES.forEach(r => raceSel.add(new Option(r, r)));
-    CLASSES.forEach(c => classSel.add(new Option(c, c)));
+    enforceRaceClassRules(false);
     renderWearSlots();
 }
 
+function normalizeArmorName(name) {
+    const key = String(name || "None").trim().toLowerCase();
+    return ARMOR_NAME_MAP[key] || "None";
+}
+
+function normalizeShieldName(name) {
+    const key = String(name || "None").trim().toLowerCase();
+    return SHIELD_NAME_MAP[key] || "None";
+}
+
+function showRulesBanner(message) {
+    const banner = document.getElementById('rules-banner');
+    if (!banner) return;
+    if (message) {
+        banner.textContent = message;
+        banner.classList.add('show');
+    } else {
+        banner.textContent = '';
+        banner.classList.remove('show');
+    }
+}
+
+function getAllowedClassesForRace(race) {
+    const allowed = raceClassRules[race] || CLASSES;
+    return CLASSES.filter(cls => allowed.includes(cls));
+}
+
+function getCurrentRaceRecord() {
+    return raceData[charData.race] || null;
+}
+
+function getRaceStatAdj(stat) {
+    const race = getCurrentRaceRecord();
+    if (!race) return 0;
+    const map = {
+        STR: 'strAdj',
+        DEX: 'dexAdj',
+        CON: 'conAdj',
+        INT: 'intAdj',
+        WIS: 'wisAdj',
+        CHA: 'chaAdj'
+    };
+    const key = map[stat];
+    return key ? (race[key] || 0) : 0;
+}
+
+function getAdjustedStat(stat) {
+    const base = parseInt(charData.stats[stat], 10) || 0;
+    const adjusted = base + getRaceStatAdj(stat);
+    return Math.max(1, Math.min(25, adjusted));
+}
+
+function getRacialStatBounds(stat) {
+    const race = getCurrentRaceRecord();
+    if (!race) return { min: 3, max: 25 };
+
+    const map = {
+        STR: ['minStr', 'maxStr'],
+        DEX: ['minDex', 'maxDex'],
+        CON: ['minCon', 'maxCon'],
+        INT: ['minInt', 'maxInt'],
+        WIS: ['minWis', 'maxWis'],
+        CHA: ['minCha', 'maxCha']
+    };
+
+    const keys = map[stat];
+    if (!keys) return { min: 3, max: 25 };
+
+    const min = typeof race[keys[0]] === 'number' ? race[keys[0]] : 3;
+    const max = typeof race[keys[1]] === 'number' ? race[keys[1]] : 25;
+    return { min, max };
+}
+
+function getRacialStatViolations() {
+    const stats = ["STR", "DEX", "CON", "INT", "WIS", "CHA"];
+    const violations = [];
+
+    stats.forEach(stat => {
+        const adjusted = getAdjustedStat(stat);
+        const bounds = getRacialStatBounds(stat);
+        if (adjusted < bounds.min || adjusted > bounds.max) {
+            violations.push(`${stat} ${adjusted} (allowed ${bounds.min}-${bounds.max})`);
+        }
+    });
+
+    return violations;
+}
+
+function updateRacialStatWarning() {
+    const violations = getRacialStatViolations();
+    const raceName = charData.race || 'Current race';
+    const statMsg = violations.length > 0
+        ? `Stat bounds: ${raceName} requires ${violations.join('; ')}`
+        : '';
+
+    const banner = document.getElementById('rules-banner');
+    const current = banner && banner.classList.contains('show') ? (banner.textContent || '').trim() : '';
+    const marker = ' | Stat bounds:';
+
+    if (statMsg) {
+        if (!current) {
+            showRulesBanner(statMsg);
+            return;
+        }
+
+        if (current.startsWith('Stat bounds:')) {
+            showRulesBanner(statMsg);
+            return;
+        }
+
+        const markerIdx = current.indexOf(marker);
+        if (markerIdx >= 0) {
+            showRulesBanner(`${current.slice(0, markerIdx)}${marker}${statMsg.slice('Stat bounds:'.length)}`);
+            return;
+        }
+
+        showRulesBanner(`${current}${marker}${statMsg.slice('Stat bounds:'.length)}`);
+        return;
+    }
+
+    if (!current) return;
+    if (current.startsWith('Stat bounds:')) {
+        showRulesBanner('');
+        return;
+    }
+
+    const markerIdx = current.indexOf(marker);
+    if (markerIdx >= 0) {
+        showRulesBanner(current.slice(0, markerIdx));
+    }
+}
+
+function enforceRaceClassRules(showNotice) {
+    const classSel = document.getElementById('char-class');
+    const race = document.getElementById('char-race').value;
+    const allowedClasses = getAllowedClassesForRace(race);
+    const previousClass = classSel.value || charData.class;
+
+    classSel.innerHTML = '';
+    allowedClasses.forEach(cls => classSel.add(new Option(cls, cls)));
+
+    const nextClass = allowedClasses.includes(previousClass) ? previousClass : (allowedClasses[0] || "");
+    classSel.value = nextClass;
+    charData.class = nextClass;
+
+    if (showNotice && previousClass && previousClass !== nextClass) {
+        showRulesBanner(`${race} cannot be ${previousClass}. Class changed to ${nextClass}.`);
+    } else if (!showNotice || previousClass === nextClass) {
+        showRulesBanner('');
+    }
+}
+
+function handleRaceChange() {
+    enforceRaceClassRules(true);
+    handleClassChange();
+}
+
 function handleClassChange() {
+    enforceRaceClassRules(false);
     const cls = document.getElementById('char-class').value;
     const kitSel = document.getElementById('char-kit');
     kitSel.innerHTML = '<option value="">None</option>';
@@ -597,6 +1035,7 @@ function handleClassChange() {
         applyStarterKit(cls);
     }
     
+    renderAbilities();
     updateCalculations();
 }
 
@@ -605,11 +1044,12 @@ function applyStarterKit(cls) {
     if (!kit) return;
     
     kit.forEach(item => {
-        if (item.name.includes("Mail") || item.name.includes("Leather") || item.name.includes("Plate") || item.name.includes("Robes")) {
-            if(item.name === "Robes") charData.equipment.armor = "None";
-            else charData.equipment.armor = item.name.replace(" Armor", "").replace(" Chain", "Chain Mail").replace(" Plate", "Plate Mail").replace(" Leather", "Leather").replace(" Studded", "Studded Leather").replace(" Hide", "Hide").replace(" Splint", "Splint Mail");
-        } else if (item.name.includes("Shield")) {
-            charData.equipment.shield = item.name.replace("Shield, ", "");
+        const armor = normalizeArmorName(item.name);
+        const shield = normalizeShieldName(item.name);
+        if (armor !== "None" || item.name === "Robes") {
+            charData.equipment.armor = armor;
+        } else if (shield !== "None") {
+            charData.equipment.shield = shield;
         } else {
             charData.equipment.loose.push({...item, id: Date.now()+Math.random()});
         }
@@ -618,25 +1058,145 @@ function applyStarterKit(cls) {
 
 // --- CALCULATIONS ---
 
+// General stat modifier (2e CON/standard table)
 function getModifier(score) {
-    if (score >= 18) return 3;
+    if (score >= 18) return 4;
+    if (score >= 17) return 3;
     if (score >= 16) return 2;
-    if (score >= 14) return 1;
-    if (score >= 12) return 0;
-    if (score >= 9) return 0;
-    if (score >= 8) return -1;
-    if (score >= 6) return -2;
-    if (score >= 4) return -3;
-    return -4;
+    if (score >= 15) return 1;
+    if (score >= 7)  return 0;
+    if (score >= 4)  return -1;
+    return -2;
 }
 
-function getReactionAdj(dex) {
+// DEX defensive adj for AC (negative = good/lowers AC, positive = bad/raises AC)
+function getDexDefensiveAdj(dex) {
+    if (dex >= 18) return -4;
+    if (dex >= 17) return -3;
     if (dex >= 16) return -2;
-    if (dex >= 14) return -1;
-    if (dex <= 5) return 3;
-    if (dex <= 7) return 2;
-    if (dex <= 9) return 1;
-    return 0;
+    if (dex >= 15) return -1;
+    if (dex >= 7)  return 0;
+    if (dex >= 6)  return 1;
+    if (dex >= 5)  return 2;
+    if (dex >= 4)  return 3;
+    return 4;
+}
+
+// DEX reaction adj for missile attacks / initiative bonus
+function getDexReactionAdj(dex) {
+    if (dex >= 19) return 3;
+    if (dex >= 17) return 2;
+    if (dex >= 16) return 1;
+    if (dex >= 6)  return 0;
+    if (dex >= 5)  return -1;
+    if (dex >= 4)  return -2;
+    return -3;
+}
+
+// STR to-hit bonus (PHB Table 1)
+function getStrToHit(str, strPct) {
+    if (str > 18) return 3;
+    if (str === 18) {
+        if (strPct >= 100) return 3; // 18/00
+        if (strPct >= 51)  return 2; // 18/51-99
+        return 1;                    // 18/01-50 and plain 18
+    }
+    if (str === 17) return 1;
+    if (str >= 8)   return 0;
+    if (str >= 6)   return -1;
+    if (str >= 4)   return -2;
+    return -3;
+}
+
+// STR damage bonus (PHB Table 1)
+function getStrDamage(str, strPct) {
+    if (str > 18) return 7;
+    if (str === 18) {
+        if (strPct >= 100) return 6; // 18/00
+        if (strPct >= 91)  return 5; // 18/91-99
+        if (strPct >= 76)  return 4; // 18/76-90
+        if (strPct >= 51)  return 3; // 18/51-75
+        if (strPct >= 1)   return 3; // 18/01-50
+        return 2;                    // plain 18
+    }
+    if (str === 17 || str === 16) return 1;
+    if (str >= 6)  return 0;
+    return -1;
+}
+
+// WIS bonus spell slots for divine casters: index = WIS score, value = [+1st,+2nd,+3rd,+4th,+5th,+6th,+7th]
+const WIS_BONUS_SPELLS = [
+    [],[],[],[],[],[],[],[],[],[],[],[],[],
+    [1,0,0,0,0,0,0],
+    [2,0,0,0,0,0,0],
+    [2,1,0,0,0,0,0],
+    [2,2,0,0,0,0,0],
+    [2,2,1,0,0,0,0],
+    [2,2,2,0,0,0,0],
+    [3,2,2,1,0,0,0],
+    [3,2,3,2,0,0,0],
+    [3,2,3,3,0,0,0],
+    [3,2,3,3,1,0,0],
+    [3,2,3,3,2,0,0],
+    [3,2,3,3,2,1,0],
+    [3,2,3,3,2,2,0],
+];
+
+function getBaseMovement(race) {
+    return ["Dwarf", "Gnome", "Halfling"].includes(race) ? 6 : 12;
+}
+
+function enforceClassRestrictions() {
+    const cls = charData.class;
+    let changed = false;
+    let classWarnings = [];
+    const adjSTR = getAdjustedStat('STR');
+    const adjWIS = getAdjustedStat('WIS');
+    const adjCHA = getAdjustedStat('CHA');
+
+    const armor = charData.equipment.armor;
+    const shield = charData.equipment.shield;
+
+    if (cls === "Mage" && armor !== "None") {
+        charData.equipment.armor = "None";
+        changed = true;
+    }
+    if (cls === "Thief" && !["None", "Leather Armor", "Studded Leather", "Padded Armor"].includes(armor)) {
+        charData.equipment.armor = "None";
+        changed = true;
+    }
+    if (cls === "Ranger" && !["None", "Leather Armor", "Studded Leather", "Padded Armor", "Hide Armor", "Chainmail"].includes(armor)) {
+        charData.equipment.armor = "None";
+        changed = true;
+    }
+    if (cls === "Druid" && !["None", "Leather Armor", "Studded Leather", "Padded Armor", "Hide Armor"].includes(armor)) {
+        charData.equipment.armor = "None";
+        changed = true;
+    }
+    if (cls === "Druid" && !["None", "Small Shield"].includes(shield)) {
+        charData.equipment.shield = "None";
+        changed = true;
+    }
+
+    if (cls === "Paladin") {
+        const align = document.getElementById('char-align').value;
+        if (align !== "LG" || adjSTR < 12 || adjWIS < 13 || adjCHA < 17) {
+            classWarnings.push("Paladin requires LG alignment and STR 12 / WIS 13 / CHA 17.");
+        }
+    }
+    if (cls === "Druid") {
+        const align = document.getElementById('char-align').value;
+        if (align !== "N") {
+            classWarnings.push("Druid requires True Neutral alignment.");
+        }
+    }
+
+    if (changed) {
+        showRulesBanner("Class restrictions adjusted equipment/class to valid AD&D 2e values.");
+        renderWearSlots();
+    } else if (classWarnings.length > 0) {
+        showRulesBanner(classWarnings.join(" "));
+    }
 }
 
 function updateCalculations() {
@@ -647,15 +1207,24 @@ function updateCalculations() {
     charData.kit = document.getElementById('char-kit').value;
     charData.level = parseInt(document.getElementById('char-level').value) || 1;
     charData.encumMode = document.getElementById('encum-mode').value;
-    
-    const strMod = getModifier(charData.stats.STR);
-    const dexMod = getReactionAdj(charData.stats.DEX);
-    const conMod = getModifier(charData.stats.CON);
-    
+
+    enforceClassRestrictions();
+
+    const adjSTR = getAdjustedStat('STR');
+    const adjDEX = getAdjustedStat('DEX');
+    const adjCON = getAdjustedStat('CON');
+    const strMod = getModifier(adjSTR);
+    const dexDefAdj = getDexDefensiveAdj(adjDEX);
+    const conMod = getModifier(adjCON);
+    const dexReaction = getDexReactionAdj(adjDEX);
+    const strHit = getStrToHit(adjSTR, charData.stats.STR_Pct || 0);
+    const strDmg = getStrDamage(adjSTR, charData.stats.STR_Pct || 0);
+
     // Update UI Modifiers
     document.querySelectorAll('.ability-mod-display').forEach(el => {
         const stat = el.dataset.stat;
-        let stdMod = getModifier(charData.stats[stat]);
+        let adjusted = getAdjustedStat(stat);
+        let stdMod = getModifier(adjusted);
         el.innerText = (stdMod >= 0 ? "+" : "") + stdMod;
     });
 
@@ -664,37 +1233,34 @@ function updateCalculations() {
     if (["Fighter", "Paladin", "Ranger"].includes(charData.class)) group = "Warrior";
     else if (["Cleric", "Druid"].includes(charData.class)) group = "Priest";
     else if (["Thief", "Bard"].includes(charData.class)) group = "Rogue";
-    
+
     const thac0Row = THAC0_TABLE[group];
-    const thac0 = thac0Row[Math.min(charData.level-1, thac0Row.length-1)];
-    
+    const thac0 = thac0Row[Math.min(charData.level - 1, thac0Row.length - 1)];
+
     document.getElementById('val-thac0').innerText = thac0;
-    document.getElementById('display-thac0').innerText = thac0;
-    
+    document.getElementById('attack-matrix').innerHTML = `THAC0: ${thac0}<br>STR To-Hit: ${strHit >= 0 ? '+' : ''}${strHit}<br>STR Damage: ${strDmg >= 0 ? '+' : ''}${strDmg}<br>DEX Reaction: ${dexReaction >= 0 ? '+' : ''}${dexReaction}`;
+
     // Saves
     renderSaves(group);
 
     // AC
-    const armorObj = ARMOR_TYPES.find(a => a.name === charData.equipment.armor) || ARMOR_TYPES[0];
-    const shieldObj = SHIELD_TYPES.find(s => s.name === charData.equipment.shield) || SHIELD_TYPES[0];
+    const armorObj = armorTypes.find(a => a.name === charData.equipment.armor) || armorTypes[0];
+    const shieldObj = shieldTypes.find(s => s.name === charData.equipment.shield) || shieldTypes[0];
     const magic = parseInt(charData.equipment.magicBonus) || 0;
-    
-    let dexBonus = Math.abs(dexMod);
-    if (dexBonus > armorObj.maxDex) dexBonus = armorObj.maxDex;
-    
-    const finalAC = armorObj.base - dexBonus - shieldObj.bonus - magic;
+    const finalAC = armorObj.base + dexDefAdj - shieldObj.bonus - magic;
     document.getElementById('final-ac').value = finalAC;
-    
+
     // HP
     let hitDie = 8;
     if (["Fighter", "Paladin", "Ranger"].includes(charData.class)) hitDie = 10;
-    if (["Cleric", "Druid", "Bard", "Thief"].includes(charData.class)) hitDie = 8;
+    if (["Cleric", "Druid"].includes(charData.class)) hitDie = 8;
+    if (["Thief", "Bard"].includes(charData.class)) hitDie = 6;
     if (charData.class === "Mage") hitDie = 4;
-    
+
     let hpPerLevel = (hitDie / 2 + 0.5) + conMod;
     if (hpPerLevel < 1) hpPerLevel = 1;
     const maxHP = Math.floor(hpPerLevel * charData.level);
-    
+
     document.getElementById('hp-max').value = maxHP;
     if (charData.hp.cur > maxHP) {
         charData.hp.cur = maxHP;
@@ -703,15 +1269,25 @@ function updateCalculations() {
 
     calculateEncumbrance();
     updateClassFeatures(thac0, group);
+    updateRacialStatWarning();
     renderInventory();
 }
 
 function renderSaves(group) {
-    const saves = SAVE_TABLE[group][Math.min(charData.level-1, 14)];
+    const saves = [...SAVE_TABLE[group][Math.min(charData.level - 1, 14)]];
+    const race = getCurrentRaceRecord();
+    const bonuses = (race && race.savingThrowBonuses) ? race.savingThrowBonuses : {};
+    const adjusted = [
+        Math.max(0, saves[0] - (bonuses.poison || 0)),
+        Math.max(0, saves[1] - (bonuses.rodStaffWand || 0)),
+        Math.max(0, saves[2] - (bonuses.petrification || 0)),
+        Math.max(0, saves[3] - (bonuses.breath || 0)),
+        Math.max(0, saves[4] - (bonuses.spell || 0)),
+    ];
     const labels = ["Par/Poison", "Rod/Staff", "Petrify", "Breath", "Spell"];
     let html = "";
     labels.forEach((l, i) => {
-        html += `<tr><td>${l}</td><td style="text-align:right; font-weight:bold;">${saves[i]}</td></tr>`;
+        html += `<tr><td>${l}</td><td style="text-align:right; font-weight:bold;">${adjusted[i]}</td></tr>`;
     });
     document.getElementById('saving-throws-table').innerHTML = html;
 }
@@ -721,21 +1297,31 @@ function updateClassFeatures(thac0, group) {
     const thiefBlock = document.getElementById('thief-skills-block');
     if (charData.class === "Thief" || charData.class === "Bard") {
         thiefBlock.classList.remove('hidden');
-        const base = charData.class === "Thief" ? 1 : 0; // Multiplier for increase
-        const dexAdj = getReactionAdj(charData.stats.DEX) * -5; 
-        const racialAdj = 0; // Simplified
-        
+        const race = getCurrentRaceRecord();
+        const raceMods = (race && race.thiefSkillMods) ? race.thiefSkillMods : {};
+        const cls = classData[charData.class] || null;
+        const thiefBase = (cls && cls.thiefBase) ? cls.thiefBase : null;
+        const levelIdx = Math.max(0, Math.min(charData.level - 1, 19));
         const skills = [
-            {id:"PP", name:"Pick Pockets"}, {id:"OL", name:"Open Locks"}, 
-            {id:"FRT", name:"Find Traps"}, {id:"MS", name:"Move Silent"}, 
-            {id:"HS", name:"Hide"}, {id:"DN", name:"Detect Noise"}, 
-            {id:"CW", name:"Climb Walls"}, {id:"RL", name:"Read Lang"}
+            {id:"PP", name:"Pick Pockets", classKey:"pickPockets", raceKey:"pickPockets"},
+            {id:"OL", name:"Open Locks", classKey:"openLocks", raceKey:"openLocks"},
+            {id:"FRT", name:"Find Traps", classKey:"findTraps", raceKey:"findTraps"},
+            {id:"MS", name:"Move Silent", classKey:"moveSilently", raceKey:"moveSilently"},
+            {id:"HS", name:"Hide", classKey:"hideShadows", raceKey:"hideShadows"},
+            {id:"DN", name:"Detect Noise", classKey:"detectNoise", raceKey:"detectNoise"},
+            {id:"CW", name:"Climb Walls", classKey:"climbWalls", raceKey:"climbWalls"},
+            {id:"RL", name:"Read Lang", classKey:"readLanguages", raceKey:"readLanguages"}
         ];
-        
+
         let html = "";
         skills.forEach(s => {
-            let val = THIEF_BASE[s.id] + ((charData.level-1) * THIEF_INCREASE[s.id]) + dexAdj;
-            if (charData.class === "Bard") val = Math.floor(val * 0.5); // Bards are half
+            let val = 0;
+            if (thiefBase && Array.isArray(thiefBase[s.classKey])) {
+                val = thiefBase[s.classKey][Math.min(levelIdx, thiefBase[s.classKey].length - 1)] || 0;
+            } else {
+                val = THIEF_BASE[s.id] + ((charData.level - 1) * THIEF_INCREASE[s.id]);
+            }
+            val += (raceMods[s.raceKey] || 0);
             if (val > 95) val = 95;
             if (val < 0) val = 0;
             html += `<div class="item-row"><span>${s.name}</span><span>${val}%</span></div>`;
@@ -745,23 +1331,31 @@ function updateClassFeatures(thac0, group) {
         thiefBlock.classList.add('hidden');
     }
 
-    // Spells (Simplified Table)
+    // Spells from class data
     const spellBlock = document.getElementById('spell-slots-block');
-    if (["Mage", "Cleric", "Druid", "Bard"].includes(charData.class)) {
+    if (["Mage", "Cleric", "Druid", "Bard", "Paladin", "Ranger"].includes(charData.class)) {
         spellBlock.classList.remove('hidden');
-        let html = "<div style='display:grid; grid-template-columns:1fr 1fr; gap:5px;'>";
-        // Very basic progression logic for demo
-        const maxLvl = charData.class === "Mage" ? 9 : 7;
-        for(let i=1; i<=maxLvl; i++) {
-            let slots = 0;
-            if (i === 1) slots = 1 + Math.floor((charData.level-1)/2);
-            if (i === 2 && charData.level >= 3) slots = 1 + Math.floor((charData.level-3)/2);
-            if (i === 3 && charData.level >= 5) slots = 1 + Math.floor((charData.level-5)/2);
-            if (charData.class === "Mage" && i <= 3 && charData.level >= 9) slots += 1; // Bonus high level
-            
-            if (slots > 0) {
-                html += `<label>Lvl ${i}: <input type="number" value="${slots}" style="width:40px;"></label>`;
+        const rec = classData[charData.class];
+        const row = rec && Array.isArray(rec.spellSlots) ? rec.spellSlots[Math.min(charData.level - 1, rec.spellSlots.length - 1)] : null;
+        let slots = Array.isArray(row) ? [...row] : [];
+
+        if (["Cleric", "Druid"].includes(charData.class)) {
+            const wis = Math.max(0, Math.min(25, getAdjustedStat('WIS') || 0));
+            const bonus = WIS_BONUS_SPELLS[wis] || [];
+            const count = Math.max(slots.length, bonus.length);
+            for (let i = 0; i < count; i++) {
+                slots[i] = (slots[i] || 0) + (bonus[i] || 0);
             }
+        }
+
+        let html = "<div style='display:grid; grid-template-columns:1fr 1fr; gap:5px;'>";
+        slots.forEach((n, idx) => {
+            if ((n || 0) > 0) {
+                html += `<label>Lvl ${idx + 1}: <input type="number" value="${n}" style="width:40px;"></label>`;
+            }
+        });
+        if (html === "<div style='display:grid; grid-template-columns:1fr 1fr; gap:5px;'>") {
+            html += "<span style='grid-column:1/-1; font-size:0.75rem;'>No spells at this level.</span>";
         }
         html += "</div>";
         document.getElementById('spell-slots-list').innerHTML = html;
@@ -771,19 +1365,24 @@ function updateClassFeatures(thac0, group) {
 
     // Backstab
     if (charData.class === "Thief") {
-        let mult = 1;
-        if (charData.level >= 5) mult = 2;
-        if (charData.level >= 9) mult = 3;
-        if (charData.level >= 13) mult = 4;
-        if (charData.level >= 17) mult = 5;
+        let mult = 2;
+        if (charData.level >= 5) mult = 3;
+        if (charData.level >= 9) mult = 4;
+        if (charData.level >= 13) mult = 5;
         document.getElementById('val-backstab').innerText = "x" + mult;
     } else {
         document.getElementById('val-backstab').innerText = "-";
     }
-    
+
     // Turn Undead
     if (["Cleric", "Paladin"].includes(charData.class)) {
-        document.getElementById('val-turn').innerText = "L" + Math.max(1, charData.class==="Paladin"?Math.floor((charData.level-2)/3):charData.level);
+        const rec = classData[charData.class];
+        const turnRow = rec && Array.isArray(rec.turnTable) ? rec.turnTable : null;
+        if (turnRow && turnRow.length > 0) {
+            document.getElementById('val-turn').innerText = turnRow[Math.min(charData.level - 1, turnRow.length - 1)] || "-";
+        } else {
+            document.getElementById('val-turn').innerText = "-";
+        }
     } else {
         document.getElementById('val-turn').innerText = "-";
     }
@@ -812,7 +1411,7 @@ function calculateEncumbrance() {
         });
     }
 
-    const str = charData.stats.STR;
+    const str = getAdjustedStat('STR');
     let maxLoad = 30;
     if (str >= 18) maxLoad = 130;
     else if (str >= 16) maxLoad = 100;
@@ -828,10 +1427,11 @@ function calculateEncumbrance() {
     fill.style.width = Math.min(pct, 100) + "%";
     
     let status = "Unencumbered";
-    let mv = 12;
-    if (pct > 33) { status = "Encumbered"; mv = 9; }
-    if (pct > 66) { status = "Severe"; mv = 6; }
-    if (pct > 100) { status = "Overloaded"; mv = 3; }
+    const baseMv = getBaseMovement(charData.race);
+    let mv = baseMv;
+    if (pct > 33) { status = "Encumbered"; mv = Math.max(1, baseMv - 3); }
+    if (pct > 66) { status = "Severe"; mv = Math.max(1, baseMv - 6); }
+    if (pct > 100) { status = "Overloaded"; mv = Math.max(1, baseMv - 9); }
     
     text.innerText = `${totalWeight.toFixed(1)} / ${maxLoad} lbs (${status}, MV:${mv})`;
     document.getElementById('val-mv').innerText = mv;
@@ -853,7 +1453,7 @@ function renderAbilities() {
         html += `
         <div class="ability-card">
             <div class="ability-title">${stat}</div>
-            <input type="number" class="ability-score" value="${charData.stats[stat]}" min="3" max="25" onchange="updateStat('${stat}', this.value)">
+            <input type="number" class="ability-score" value="${getAdjustedStat(stat)}" min="3" max="25" onchange="updateStat('${stat}', this.value)">
             <div class="ability-mod-display" data-stat="${stat}">+0</div>
             <div>${subInput}</div>
         </div>`;
@@ -862,8 +1462,16 @@ function renderAbilities() {
 }
 
 function updateStat(stat, val) {
-    if (stat === "STR_Pct") charData.stats.STR_Pct = parseInt(val);
-    else charData.stats[stat] = parseInt(val);
+    if (stat === "STR_Pct") {
+        charData.stats.STR_Pct = parseInt(val, 10) || 0;
+    } else {
+        const entered = parseInt(val, 10);
+        if (Number.isFinite(entered)) {
+            // Inputs show race-adjusted scores; store base score so race changes are reversible.
+            const base = entered - getRaceStatAdj(stat);
+            charData.stats[stat] = Math.max(1, Math.min(25, base));
+        }
+    }
     updateCalculations();
 }
 
@@ -883,11 +1491,11 @@ function renderWearSlots() {
         let content = "";
         if (slot.id === "body") {
             content = `<select onchange="changeArmor(this.value)" style="width:100%; font-size:0.75rem;">
-                ${ARMOR_TYPES.map(a => `<option value="${a.name}" ${charData.equipment.armor === a.name ? 'selected':''}>${a.name}</option>`).join('')}
+                ${armorTypes.map(a => `<option value="${a.name}" ${charData.equipment.armor === a.name ? 'selected':''}>${a.name}</option>`).join('')}
             </select>`;
         } else if (slot.id === "shield") {
             content = `<select onchange="changeShield(this.value)" style="width:100%; font-size:0.75rem;">
-                ${SHIELD_TYPES.map(s => `<option value="${s.name}" ${charData.equipment.shield === s.name ? 'selected':''}>${s.name}</option>`).join('')}
+                ${shieldTypes.map(s => `<option value="${s.name}" ${charData.equipment.shield === s.name ? 'selected':''}>${s.name}</option>`).join('')}
             </select>`;
         } else {
             content = item ? item.name : "Empty";
@@ -946,7 +1554,7 @@ function addItemTo(location) {
     const name = prompt("Item Name (must match DB exactly or create new):");
     if (!name) return;
     
-    const dbItem = ITEM_DB.find(i => i.name.toLowerCase() === name.toLowerCase());
+    const dbItem = itemDb.find(i => i.name.toLowerCase() === name.toLowerCase());
     let item = dbItem ? {...dbItem} : {name: name, weight: parseFloat(prompt("Weight?", "1")) || 0};
     
     if (location === 'loose') charData.equipment.loose.push(item);
@@ -973,7 +1581,7 @@ function removeContainer(index) {
 function addContainerItem(cIdx) {
     const name = prompt("Item Name:");
     if (!name) return;
-    const dbItem = ITEM_DB.find(i => i.name.toLowerCase() === name.toLowerCase());
+    const dbItem = itemDb.find(i => i.name.toLowerCase() === name.toLowerCase());
     const weight = dbItem ? dbItem.weight : parseFloat(prompt("Weight?", "0.5")) || 0;
     
     charData.equipment.containers[cIdx].items.push({name, weight});
@@ -1043,7 +1651,16 @@ function saveCharacter() {
 function loadCharacter() {
     const data = localStorage.getItem('adnd_char_data');
     if (data) {
-        charData = JSON.parse(data);
+        try {
+            charData = JSON.parse(data);
+        } catch (e) {
+            console.error('Failed to parse saved character data:', e);
+            localStorage.removeItem('adnd_char_data');
+            return;
+        }
+        charData.equipment = charData.equipment || { armor: "None", shield: "None", magicBonus: 0, worn: {}, containers: [], loose: [] };
+        charData.equipment.armor = normalizeArmorName(charData.equipment.armor);
+        charData.equipment.shield = normalizeShieldName(charData.equipment.shield);
         document.getElementById('char-name').value = charData.name;
         document.getElementById('char-race').value = charData.race;
         document.getElementById('char-class').value = charData.class;

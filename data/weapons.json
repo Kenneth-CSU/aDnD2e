@@ -48,5 +48,10 @@
   {"name": "Scimitar", "damageSM": "1d8", "damageL": "1d12", "speedFactor": 5, "size": "M", "type": "Slashing", "weight": 4, "costGP": 20, "proficiencyGroup": "Scimitar"},
   {"name": "Khopesh", "damageSM": "1d8", "damageL": "1d10", "speedFactor": 6, "size": "M", "type": "Slashing", "weight": 5, "costGP": 25, "proficiencyGroup": "Scimitar"},
   {"name": "Katana", "damageSM": "1d8", "damageL": "1d10", "speedFactor": 4, "size": "M", "type": "Slashing", "weight": 3, "costGP": 50, "proficiencyGroup": "Katana"},
-  {"name": "Wakizashi", "damageSM": "1d6", "damageL": "1d8", "speedFactor": 3, "size": "S", "type": "Slashing", "weight": 2, "costGP": 30, "proficiencyGroup": "Short Sword"}
+  {"name": "Wakizashi", "damageSM": "1d6", "damageL": "1d8", "speedFactor": 3, "size": "S", "type": "Slashing", "weight": 2, "costGP": 30, "proficiencyGroup": "Short Sword"},
+  {"name": "Hand Crossbow", "damageSM": "1d3", "damageL": "1d2", "speedFactor": 7, "size": "S", "type": "Piercing", "weight": 3, "costGP": 200, "proficiencyGroup": "Crossbow"},
+  {"name": "Sling Staff", "damageSM": "1d4+1", "damageL": "1d6+1", "speedFactor": 8, "size": "L", "type": "Bludgeoning", "weight": 3, "costGP": 5, "proficiencyGroup": "Sling"},
+  {"name": "Pick, Horseman's", "damageSM": "1d6", "damageL": "1d4", "speedFactor": 7, "size": "M", "type": "Piercing", "weight": 4, "costGP": 5, "proficiencyGroup": "Pick"},
+  {"name": "Pick, Military", "damageSM": "1d8", "damageL": "1d6", "speedFactor": 7, "size": "M", "type": "Piercing", "weight": 6, "costGP": 8, "proficiencyGroup": "Pick"},
+  {"name": "Truncheon", "damageSM": "1d2", "damageL": "1", "speedFactor": 2, "size": "S", "type": "Bludgeoning", "weight": 1, "costGP": 1, "proficiencyGroup": "Club"}
 ]

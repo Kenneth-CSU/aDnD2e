@@ -13,7 +13,9 @@
     "detectSecretDoors": "none",
     "savingThrowBonuses": {"poison": 0, "rodStaffWand": 0, "petrification": 0, "breath": 0, "spell": 0},
     "thiefSkillMods": {"pickPockets": 0, "openLocks": 0, "findTraps": 0, "moveSilently": 0, "hideShadows": 0, "detectNoise": 0, "climbWalls": 0, "readLanguages": 0},
-    "description": "Humans are versatile and ambitious, able to pursue any class without restriction."
+    "languages": ["Common"],
+    "racialFeats": ["Bonus feat at 1st level", "Extra skill points (1 per level)", "Ability to learn any class abilities", "Ability score increases at levels 4, 8, 12, 16, 20"],
+    "description": "Humans are versatile and ambitious, able to pursue any class without restriction. They gain bonus feat at 1st level and extra skill points throughout careers."
   },
   {
     "name": "Elf",
@@ -29,7 +31,9 @@
     "detectSecretDoors": "1 in 6 (on a d6 roll of 1)",
     "savingThrowBonuses": {"poison": 0, "rodStaffWand": 1, "petrification": 0, "breath": 0, "spell": 1},
     "thiefSkillMods": {"pickPockets": 0, "openLocks": 0, "findTraps": 0, "moveSilently": 0, "hideShadows": 0, "detectNoise": 15, "climbWalls": 0, "readLanguages": 0},
-    "description": "Elves are graceful and magical, with keen senses and resistance to enchantments."
+    "languages": ["Common", "Elvish", "Gnome", "Halfling", "Draconic"],
+    "racialFeats": ["Keen eyes (see fine details at 2x distance)", "+1 bonus with swords and bows", "Magic resistance +1% per level", "Sleep immunity", "Cannot be surprised while in forest"],
+    "description": "Elves are graceful and magical, with keen senses and resistance to enchantments. They speak multiple languages and never sleep, meditating instead."
   },
   {
     "name": "Half-Elf",
@@ -40,12 +44,14 @@
     "minInt": 4, "maxInt": 18,
     "minWis": 3, "maxWis": 18,
     "minCha": 3, "maxCha": 18,
-    "allowedClasses": ["Fighter", "Mage", "Cleric", "Druid", "Thief", "Ranger"],
-    "infravision": 0,
+    "allowedClasses": ["Fighter", "Mage", "Cleric", "Druid", "Thief", "Ranger", "Bard"],
+    "infravision": 60,
     "detectSecretDoors": "1 in 6 (on a d6 roll of 1)",
     "savingThrowBonuses": {"poison": 0, "rodStaffWand": 0, "petrification": 0, "breath": 0, "spell": 0},
     "thiefSkillMods": {"pickPockets": 0, "openLocks": 0, "findTraps": 0, "moveSilently": 0, "hideShadows": 0, "detectNoise": 10, "climbWalls": 0, "readLanguages": 0},
-    "description": "Half-elves combine human adaptability with elven grace, able to multiclass."
+    "languages": ["Common", "Elvish"],
+    "racialFeats": ["Accepted by both humans and elves", "Can multiclass without XP penalty", "Keen eyes (see fine details)", "Detect secret doors 1 in 6", "Enhanced charisma in social situations"],
+    "description": "Half-elves combine human adaptability with elven grace, able to multiclass and gain acceptance in both societies. They serve as natural diplomats and bridge cultures."
   },
   {
     "name": "Dwarf",
@@ -61,7 +67,9 @@
     "detectSecretDoors": "1 in 6 (on a d6 roll of 1), 1 in 3 for stonework",
     "savingThrowBonuses": {"poison": 4, "rodStaffWand": 1, "petrification": 3, "breath": 4, "spell": 2},
     "thiefSkillMods": {"pickPockets": -5, "openLocks": 0, "findTraps": 5, "moveSilently": -5, "hideShadows": -5, "detectNoise": 0, "climbWalls": -10, "readLanguages": 0},
-    "description": "Dwarves are stout, hardy, and skilled in mining and stonework, with great resilience."
+    "languages": ["Common", "Dwarvish", "Gnome", "Goblin", "Orc", "Giant"],
+    "racialFeats": ["Stonecunning (detect stonework construction)", "Damage resistance to poisons and magical effects", "Battle axe and hammer mastery", "Can identify dwarven metalwork quality", "Excellent underground navigation", "Alcohol resistance"],
+    "description": "Dwarves are stout, hardy, and skilled in mining and stonework, with great resilience to poison and magic. They speak multiple languages and navigate underground with ease."
   },
   {
     "name": "Gnome",
@@ -72,12 +80,14 @@
     "minInt": 6, "maxInt": 18,
     "minWis": 3, "maxWis": 17,
     "minCha": 3, "maxCha": 18,
-    "allowedClasses": ["Fighter", "Mage", "Cleric", "Thief", "Illusionist"],
+    "allowedClasses": ["Fighter", "Mage", "Cleric", "Thief"],
     "infravision": 60,
     "detectSecretDoors": "1 in 6 (on a d6 roll of 1), 1 in 3 for stonework",
     "savingThrowBonuses": {"poison": 3, "rodStaffWand": 1, "petrification": 2, "breath": 3, "spell": 2},
     "thiefSkillMods": {"pickPockets": -5, "openLocks": 0, "findTraps": 5, "moveSilently": -5, "hideShadows": 0, "detectNoise": 0, "climbWalls": -10, "readLanguages": 5},
-    "description": "Gnomes are clever illusionists and miners, related to dwarves but more magical."
+    "languages": ["Common", "Dwarvish", "Gnome", "Halfling", "Goblin", "Kobold"],
+    "racialFeats": ["Gnome illusions (1 minute duration, once per day per 2 levels)", "Stonecunning", "Escape artist specialization", "+1 bonus to saving throws vs. magical effects", "Tinker and craftsman abilities", "Excellent memory for detail"],
+    "description": "Gnomes are clever illusionists and miners, related to dwarves but more magical. They command strong illusion magic and possess excellent hands for intricate work."
   },
   {
     "name": "Halfling",
@@ -93,7 +103,9 @@
     "detectSecretDoors": "none",
     "savingThrowBonuses": {"poison": 3, "rodStaffWand": 2, "petrification": 2, "breath": 3, "spell": 2},
     "thiefSkillMods": {"pickPockets": 5, "openLocks": 0, "findTraps": 5, "moveSilently": 5, "hideShadows": 5, "detectNoise": 10, "climbWalls": -15, "readLanguages": 0},
-    "description": "Halflings are small, lucky folk with excellent aim and stealth in natural settings."
+    "languages": ["Common", "Halfling"],
+    "racialFeats": ["Small size AC bonus (+1)", "Excellent missile weapon accuracy (+1 attack bonus)", "Luck ability (reroll 1/day ability check)", "Incredible agility and balance", "Resistance to drugs and poisons", "Expert at unarmed combat"],
+    "description": "Halflings are small, lucky folk with excellent aim and stealth in natural settings. They possess uncanny luck and can reroll failed abilities once per day."
   },
   {
     "name": "Half-Orc",
@@ -109,6 +121,8 @@
     "detectSecretDoors": "none",
     "savingThrowBonuses": {"poison": 1, "rodStaffWand": 0, "petrification": 1, "breath": 1, "spell": 1},
     "thiefSkillMods": {"pickPockets": 0, "openLocks": 0, "findTraps": 0, "moveSilently": 0, "hideShadows": 0, "detectNoise": 0, "climbWalls": 0, "readLanguages": 0},
-    "description": "Half-orcs are strong and tough but often shunned by society."
+    "languages": ["Common", "Orc"],
+    "racialFeats": ["Innate aggression (+1 damage in melee)", "Powerful build (carry 10% more)", "Darkvision 60 ft", "Orc weapon mastery", "Intimidating presence", "Cannot be frightened"],
+    "description": "Half-orcs are strong and tough but often shunned by society. They inherit orc strength and aggression but suffer social prejudice. Many become mercenaries or tribal warriors."
   }
 ]

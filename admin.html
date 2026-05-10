@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AD&D 2e - Admin</title>
+    <style>
+        :root { --parchment: #f4e4bc; --parchment-dark: #e6d2a0; --ink: #2b2b2b; --border: #5c4033; }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Georgia, serif; background: var(--parchment); color: var(--ink); min-height: 100vh; }
+        nav { background: var(--border); padding: 8px 15px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+        nav a { color: var(--parchment); text-decoration: none; font-size: 0.9rem; padding: 4px 8px; border: 1px solid transparent; }
+        nav a:hover, nav a.current { border-color: var(--parchment); background: rgba(255,255,255,0.12); }
+        main { max-width: 1000px; margin: 0 auto; padding: 16px; }
+        h1 { margin: 0 0 8px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .card { border: 2px solid var(--border); background: rgba(255,255,255,0.45); padding: 12px; }
+        .card h2 { margin-top: 0; font-size: 1.1rem; }
+        button { background: var(--parchment-dark); border: 2px solid var(--ink); color: var(--ink); padding: 6px 10px; cursor: pointer; font-weight: bold; margin: 4px 6px 4px 0; }
+        button.danger { background: #d9534f; color: #fff; border-color: #8b0000; }
+        textarea { width: 100%; min-height: 220px; resize: vertical; padding: 8px; border: 1px solid var(--border); background: rgba(255,255,255,0.7); font-family: Consolas, monospace; font-size: 0.8rem; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        th, td { border: 1px solid var(--border); padding: 6px; text-align: left; }
+        th { background: var(--parchment-dark); }
+        .status { font-size: 0.85rem; min-height: 1.2em; margin-top: 8px; }
+        @media (max-width: 900px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="index.html">Character</a>
+    <a href="races.html">Races</a>
+    <a href="classes.html">Classes</a>
+    <a href="wizardSpells.html">Wizard Spells</a>
+    <a href="clericSpells.html">Cleric Spells</a>
+    <a href="weapons.html">Weapons</a>
+    <a href="armour.html">Armour</a>
+    <a href="items.html">Items</a>
+    <a href="combat.html">Combat</a>
+    <a href="crafting.html">Crafting</a>
+    <a href="campaign.html">Campaign</a>
+    <a href="admin.html" class="current">Admin</a>
+</nav>
+<main>
+    <h1>Admin Console</h1>
+    <p style="margin-top:0;">Manage saved localStorage data for this AD&D 2e app.</p>
+
+    <div class="grid">
+        <section class="card">
+            <h2>Storage Status</h2>
+            <table>
+                <thead><tr><th>Key</th><th>Bytes</th></tr></thead>
+                <tbody id="status-table"></tbody>
+            </table>
+            <div style="margin-top:8px;">
+                <button onclick="refreshStatus()">Refresh</button>
+                <button onclick="resetCharacterData()">Reset Character Only</button>
+                <button class="danger" onclick="clearAllAppData()">Clear All App Data</button>
+            </div>
+            <div id="status-msg" class="status"></div>
+        </section>
+
+        <section class="card">
+            <h2>Backup / Restore</h2>
+            <textarea id="backup-json" placeholder="Exported JSON appears here..."></textarea>
+            <div style="margin-top:8px;">
+                <button onclick="exportData()">Export</button>
+                <button onclick="importData()">Import</button>
+            </div>
+            <div id="backup-msg" class="status"></div>
+        </section>
+    </div>
+</main>
+
+<script>
+const APP_KEYS = [
+    'adnd_char_data',
+    'adsheet_autosave',
+    'combatNotes',
+    'craftingNotes',
+    'campaignNotes',
+    'racesDB',
+    'classesDB',
+    'wizardSpellsDB',
+    'clericSpellsDB',
+    'weaponsDB',
+    'armourDB',
+    'itemsDB'
+];
+
+function getKeySize(value) {
+    return new Blob([String(value || '')]).size;
+}
+
+function refreshStatus() {
+    const tbody = document.getElementById('status-table');
+    let rows = '';
+    APP_KEYS.forEach(key => {
+        const value = localStorage.getItem(key);
+        const bytes = value === null ? 0 : getKeySize(value);
+        rows += `<tr><td>${key}</td><td>${bytes}</td></tr>`;
+    });
+    tbody.innerHTML = rows;
+    setStatus('status-msg', 'Status refreshed.');
+}
+
+function resetCharacterData() {
+    localStorage.removeItem('adnd_char_data');
+    setStatus('status-msg', 'Character save removed.');
+    refreshStatus();
+}
+
+function clearAllAppData() {
+    if (!confirm('Delete all AD&D app data from localStorage?')) return;
+    APP_KEYS.forEach(key => localStorage.removeItem(key));
+    setStatus('status-msg', 'All app keys cleared.');
+    refreshStatus();
+}
+
+function exportData() {
+    const payload = {
+        exportedAt: new Date().toISOString(),
+        keys: {}
+    };
+
+    APP_KEYS.forEach(key => {
+        const value = localStorage.getItem(key);
+        if (value !== null) payload.keys[key] = value;
+    });
+
+    document.getElementById('backup-json').value = JSON.stringify(payload, null, 2);
+    setStatus('backup-msg', 'Export complete.');
+}
+
+function importData() {
+    const raw = document.getElementById('backup-json').value.trim();
+    if (!raw) {
+        setStatus('backup-msg', 'Paste exported JSON before importing.', true);
+        return;
+    }
+
+    let parsed;
+    try {
+        parsed = JSON.parse(raw);
+    } catch (e) {
+        setStatus('backup-msg', 'Invalid JSON.', true);
+        return;
+    }
+
+    if (!parsed || typeof parsed !== 'object' || !parsed.keys || typeof parsed.keys !== 'object') {
+        setStatus('backup-msg', 'Import format is invalid.', true);
+        return;
+    }
+
+    Object.entries(parsed.keys).forEach(([key, value]) => {
+        if (APP_KEYS.includes(key)) {
+            localStorage.setItem(key, String(value));
+        }
+    });
+
+    setStatus('backup-msg', 'Import complete.');
+    refreshStatus();
+}
+
+function setStatus(id, text, isError) {
+    const el = document.getElementById(id);
+    el.textContent = text;
+    el.style.color = isError ? '#8b0000' : '#2b2b2b';
+}
+
+refreshStatus();
+</script>
+</body>
+</html>

@@ -48,5 +48,11 @@
   {"name": "Musical Instrument", "weight": 3, "costGP": 5, "description": "Lute, flute, or similar instrument."},
   {"name": "Playing Cards", "weight": 0.25, "costGP": 1, "description": "Deck of cards for gambling."},
   {"name": "Dice Set", "weight": 0.25, "costGP": 0.5, "description": "Polyhedral dice for gaming."},
-  {"name": "Fishing Tackle", "weight": 2, "costGP": 3, "description": "Line, hooks, and sinkers."}
+  {"name": "Fishing Tackle", "weight": 2, "costGP": 3, "description": "Line, hooks, and sinkers."},
+  {"name": "Spell Component Pouch", "weight": 2, "costGP": 5, "description": "Pouch containing common material components for arcane spells."},
+  {"name": "Healer's Kit", "weight": 3, "costGP": 10, "description": "Bandages, salves, and basic medical tools for first aid."},
+  {"name": "Spellbook", "weight": 3, "costGP": 50, "description": "Bound magical text used by wizards to record known spells."},
+  {"name": "Robes", "weight": 4, "costGP": 2, "description": "Simple layered robes favored by mages and scholars."},
+  {"name": "Riding Saddle", "weight": 25, "costGP": 10, "description": "Standard riding saddle with straps and saddlebags."},
+  {"name": "Crowbar, Heavy", "weight": 8, "costGP": 4, "description": "Long iron bar for forcing doors, chests, and stonework."}
 ]

@@ -9,8 +9,8 @@
         * { box-sizing: border-box; }
         body { margin: 0; font-family: Georgia, serif; background: var(--parchment); color: var(--ink); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
         nav { background: var(--border); padding: 8px 15px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
-        nav a { color: var(--parchment); text-decoration: none; font-size: 0.85rem; padding: 3px 8px; }
-        nav a:hover, nav a.current { font-weight: bold; border: 1px solid var(--parchment); }
+        nav a { color: var(--parchment); text-decoration: none; font-size: 0.85rem; padding: 3px 8px; border: 1px solid transparent; }
+        nav a:hover, nav a.current { border-color: var(--parchment); background: rgba(255,255,255,0.12); }
         header { height: 50px; background: var(--border); color: var(--parchment); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
         h1 { margin: 0; font-size: 1.2rem; }
         button { background: var(--parchment-dark); border: 2px solid var(--ink); color: var(--ink); padding: 5px 12px; cursor: pointer; font-weight: bold; }
@@ -45,7 +45,7 @@
     <a href="crafting.html">Crafting</a>
     <a href="campaign.html">Campaign</a>
 </nav>
-<header><h1>Races Database</h1><button onclick="openModal()">+ Add Race</button></header>
+<header><h1>Races Database</h1><div><button onclick="saveLocal()">Save</button><button onclick="loadLocal()">Load</button><button onclick="refreshDefaults()">Refresh</button><button onclick="openModal()">+ Add Race</button></div></header>
 <div id="content">
     <table><thead><tr><th>Name</th><th>Str</th><th>Dex</th><th>Con</th><th>Int</th><th>Wis</th><th>Cha</th><th>Infravision</th><th>Allowed Classes</th><th>Actions</th></tr></thead><tbody id="race-table"></tbody></table>
 </div>
@@ -75,8 +75,30 @@ const DATA_PATH = 'data/races.json';
 
 async function load() {
     const stored = localStorage.getItem(DB_KEY);
-    if (stored && JSON.parse(stored).length > 0) { data = JSON.parse(stored); }
-    else { try { const r = await fetch(DATA_PATH); data = await r.json(); localStorage.setItem(DB_KEY, JSON.stringify(data)); } catch(e) { console.error(e); } }
+    if (stored) {
+        try {
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed) && parsed.length > 0) {
+                data = parsed;
+                render();
+                return;
+            }
+        } catch (e) {
+            console.error('Invalid cached races data, reloading from file:', e);
+            localStorage.removeItem(DB_KEY);
+        }
+    }
+
+    try {
+        const r = await fetch(DATA_PATH);
+        if (!r.ok) throw new Error(`HTTP ${r.status} loading ${DATA_PATH}`);
+        const loaded = await r.json();
+        data = Array.isArray(loaded) ? loaded : [];
+        localStorage.setItem(DB_KEY, JSON.stringify(data));
+    } catch (e) {
+        console.error('Failed to load races data:', e);
+        data = [];
+    }
     render();
 }
 
@@ -139,6 +161,34 @@ function saveRace() {
 }
 
 function del(i) { if(confirm('Delete this race?')) { data.splice(i,1); localStorage.setItem(DB_KEY, JSON.stringify(data)); render(); } }
+function saveLocal() { localStorage.setItem(DB_KEY, JSON.stringify(data)); alert('Races saved to browser cache.'); }
+function loadLocal() {
+    const s = localStorage.getItem(DB_KEY);
+    if (!s) { alert('No local races cache found.'); return; }
+    try {
+        const parsed = JSON.parse(s);
+        data = Array.isArray(parsed) ? parsed : [];
+        render();
+        alert('Races loaded from browser cache.');
+    } catch (e) {
+        console.error('Invalid local races cache:', e);
+        alert('Local races cache is invalid.');
+    }
+}
+async function refreshDefaults() {
+    try {
+        const r = await fetch(DATA_PATH);
+        if (!r.ok) throw new Error(`HTTP ${r.status} loading ${DATA_PATH}`);
+        const loaded = await r.json();
+        data = Array.isArray(loaded) ? loaded : [];
+        localStorage.setItem(DB_KEY, JSON.stringify(data));
+        render();
+        alert('Races refreshed from defaults.');
+    } catch (e) {
+        console.error('Failed to refresh races defaults:', e);
+        alert('Refresh failed. Start server with setup.bat/setup.sh and try again.');
+    }
+}
 load();
 </script>
 </body>

@@ -8,8 +8,8 @@
         * { box-sizing: border-box; }
         body { margin: 0; font-family: Georgia, serif; background: var(--parchment); color: var(--ink); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
         nav { background: var(--border); padding: 8px 15px; display: flex; gap: 15px; flex-wrap: wrap; }
-        nav a { color: var(--parchment); text-decoration: none; font-size: 0.85rem; padding: 3px 8px; }
-        nav a:hover, nav a.current { font-weight: bold; border: 1px solid var(--parchment); }
+        nav a { color: var(--parchment); text-decoration: none; font-size: 0.85rem; padding: 3px 8px; border: 1px solid transparent; }
+        nav a:hover, nav a.current { border-color: var(--parchment); background: rgba(255,255,255,0.12); }
         header { height: 50px; background: var(--border); color: var(--parchment); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
         h1 { margin: 0; font-size: 1.2rem; }
         #content { flex: 1; padding: 15px; overflow-y: auto; }
@@ -18,11 +18,13 @@
 </head>
 <body>
 <nav><a href="index.html">Character</a><a href="races.html">Races</a><a href="classes.html">Classes</a><a href="wizardSpells.html">Wizard Spells</a><a href="clericSpells.html">Cleric Spells</a><a href="weapons.html">Weapons</a><a href="armour.html">Armour</a><a href="items.html">Items</a><a href="combat.html">Combat</a><a href="crafting.html">Crafting</a><a href="campaign.html" class="current">Campaign</a></nav>
-<header><h1>Campaign Journal & DM Notes</h1><button onclick="save()">Save</button></header>
+<header><h1>Campaign Journal & DM Notes</h1><div><button onclick="save()">Save</button><button onclick="loadFromStore()">Load</button><button onclick="refreshPage()">Refresh</button></div></header>
 <div id="content"><textarea id="camp-notes" placeholder="Session logs, NPC details, plot hooks, world lore..."></textarea></div>
 <script>
 function load(){const s=localStorage.getItem('campaignNotes');if(s)document.getElementById('camp-notes').value=s;}
 function save(){localStorage.setItem('campaignNotes',document.getElementById('camp-notes').value);alert('Campaign notes saved!');}
+function loadFromStore(){load();alert('Campaign notes loaded from browser cache.');}
+function refreshPage(){location.reload();}
 load();
 </script>
 </body>
