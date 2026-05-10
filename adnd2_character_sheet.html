@@ -828,9 +828,59 @@
         .auto-save-indicator.saved {
             color: #22c55e;
         }
+
+        /* Top-right control buttons */
+        .control-buttons {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 6px;
+            z-index: 200;
+        }
+
+        .control-btn {
+            background: var(--accent);
+            color: white;
+            border: 2px solid var(--border);
+            padding: 6px 12px;
+            font-family: inherit;
+            font-size: 11px;
+            cursor: pointer;
+            border-radius: 3px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .control-btn:hover {
+            background: var(--ink);
+        }
+
+        .control-btn.admin {
+            background: #4a3428;
+        }
+
+        .control-btn.save {
+            background: #228b22;
+        }
+
+        .control-btn.load {
+            background: #4169e1;
+        }
+
+        .control-btn.reset {
+            background: #dc143c;
+        }
     </style>
 </head>
 <body>
+    <!-- Top-right control buttons -->
+    <div class="control-buttons">
+        <button class="control-btn admin" onclick="openAdminPage()">Admin</button>
+        <button class="control-btn save" onclick="saveCharacter()">Save</button>
+        <button class="control-btn load" onclick="loadCharacter()">Load</button>
+        <button class="control-btn reset" onclick="resetCharacter()">Reset</button>
+    </div>
     <div class="sheet-container">
         <!-- Header -->
         <div class="header">
@@ -2847,6 +2897,29 @@
             characterData.equipment.bag2.label = document.getElementById('bag2Label').value;
 
             localStorage.setItem('adnd2_character', JSON.stringify(characterData));
+        }
+
+        // New wrapper functions for control buttons
+        function saveCharacter() {
+            saveData();
+            alert('Character saved successfully!');
+        }
+
+        function loadCharacter() {
+            loadData();
+            updateAllDisplays();
+            alert('Character loaded successfully!');
+        }
+
+        function resetCharacter() {
+            if (confirm('Are you sure you want to reset the character? This will clear all data.')) {
+                localStorage.removeItem('adnd2_character');
+                location.reload();
+            }
+        }
+
+        function openAdminPage() {
+            window.open('admin.html', '_blank');
         }
 
         function loadData() {

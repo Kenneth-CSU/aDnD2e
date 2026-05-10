@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AD&D 2nd Edition - Admin Panel</title>
+    <style>
+        :root {
+            --parchment: #f4e4bc;
+            --parchment-dark: #e6d5a7;
+            --ink: #2b1810;
+            --ink-light: #4a3428;
+            --accent: #8b4513;
+            --border: #5c4033;
+            --line: #d4c5a3;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(135deg, #f4e4bc 0%, #e6d5a7 100%);
+            color: var(--ink);
+            min-height: 100vh;
+            padding: 20px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--parchment-dark);
+            border: 2px solid var(--border);
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            border-radius: 3px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: var(--accent);
+            letter-spacing: 2px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            background: var(--accent);
+            color: white;
+            border: 2px solid var(--border);
+            padding: 6px 12px;
+            font-family: inherit;
+            font-size: 11px;
+            cursor: pointer;
+            border-radius: 3px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: var(--ink);
+        }
+
+        .btn-primary {
+            background: #228b22;
+        }
+
+        .btn-danger {
+            background: #dc143c;
+        }
+
+        .btn-info {
+            background: #4169e1;
+        }
+
+        /* Tab System */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 0;
+            border-bottom: 2px solid var(--border);
+            padding: 0 8px;
+            background: var(--parchment-dark);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-btn {
+            background: transparent;
+            color: var(--ink);
+            border: none;
+            border-bottom: 2px solid transparent;
+            padding: 10px 16px;
+            font-family: inherit;
+            font-size: 12px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .tab-btn:hover {
+            background: rgba(139, 69, 19, 0.1);
+        }
+
+        .tab-btn.active {
+            background: var(--parchment);
+            border-bottom-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--parchment);
+            border: 2px solid var(--border);
+            border-top: none;
+            padding: 16px;
+            border-radius: 0 0 3px 3px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Section Styling */
+        .admin-section {
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            background: var(--parchment-dark);
+            padding: 12px;
+            border-radius: 3px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: var(--accent);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 6px;
+            margin-bottom: 12px;
+        }
+
+        /* Form Elements */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            background: #fff8dc;
+            border: 1px solid var(--border);
+            padding: 6px 8px;
+            font-family: inherit;
+            font-size: 11px;
+            color: var(--ink);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: #fff;
+        }
+
+        /* Item Lists */
+        .item-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            background: #fff8dc;
+            padding: 8px;
+        }
+
+        .item-entry {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 8px;
+            align-items: center;
+            padding: 6px;
+            border-bottom: 1px dotted var(--line);
+        }
+
+        .item-entry:last-child {
+            border-bottom: none;
+        }
+
+        .item-entry input {
+            background: #fff;
+            border: 1px solid var(--line);
+            padding: 4px;
+            font-size: 10px;
+        }
+
+        /* Tables */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+
+        .data-table th,
+        .data-table td {
+            border: 1px solid var(--border);
+            padding: 6px 8px;
+            text-align: left;
+        }
+
+        .data-table th {
+            background: var(--parchment-dark);
+            font-weight: bold;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .data-table tr:nth-child(even) {
+            background: rgba(139, 69, 19, 0.05);
+        }
+
+        .data-table input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: 11px;
+        }
+
+        /* Starting Kits */
+        .kit-section {
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+            background: #fff8dc;
+            padding: 10px;
+        }
+
+        .kit-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .kit-name {
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .kit-items {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .kit-item-row {
+            display: grid;
+            grid-template-columns: 2fr 80px auto;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .kit-item-row input {
+            background: #fff;
+            border: 1px solid var(--line);
+            padding: 4px;
+            font-size: 10px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--parchment-dark);
+            border: 1px solid var(--border);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border: 1px solid var(--border);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--ink);
+        }
+
+        /* Messages */
+        .message {
+            padding: 10px 14px;
+            border-radius: 3px;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Header Bar -->
+        <div class="header-bar">
+            <div class="header-title">⚔️ AD&D 2nd Edition - Admin Panel ⚔️</div>
+            <div class="nav-buttons">
+                <button class="btn btn-info" onclick="openCharacterSheet()">← Character Sheet</button>
+                <button class="btn btn-primary" onclick="saveAllData()">Save All Changes</button>
+                <button class="btn btn-danger" onclick="resetToDefaults()">Reset to Defaults</button>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('items')">Equipment Items</button>
+            <button class="tab-btn" onclick="switchTab('weapons')">Weapons</button>
+            <button class="tab-btn" onclick="switchTab('armor')">Armor & Shields</button>
+            <button class="tab-btn" onclick="switchTab('kits')">Starting Kits</button>
+            <button class="tab-btn" onclick="switchTab('variables')">Game Variables</button>
+            <button class="tab-btn" onclick="switchTab('classes')">Class Settings</button>
+        </div>
+
+        <!-- Tab: Equipment Items -->
+        <div id="tab-items" class="tab-content active">
+            <div class="admin-section">
+                <div class="section-title">Add New Equipment Item</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Item Name</label>
+                        <input type="text" id="newItemName" placeholder="e.g., Rope (50 ft)">
+                    </div>
+                    <div class="form-group">
+                        <label>Weight (lbs)</label>
+                        <input type="number" id="newItemWeight" step="0.1" min="0" placeholder="0.0">
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="newItemCategory">
+                            <option value="general">General</option>
+                            <option value="adventuring">Adventuring Gear</option>
+                            <option value="container">Container</option>
+                            <option value="food">Food & Drink</option>
+                            <option value="light">Light Source</option>
+                            <option value="rope">Rope & Cord</option>
+                            <option value="tool">Tools</option>
+                            <option value="medical">Medical</option>
+                            <option value="misc">Miscellaneous</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="justify-content: flex-end;">
+                        <button class="btn btn-primary" onclick="addNewItem()">Add Item</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <div class="section-title">Equipment Item Database</div>
+                <div class="item-list" id="equipmentList">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Weapons -->
+        <div id="tab-weapons" class="tab-content">
+            <div class="admin-section">
+                <div class="section-title">Add New Weapon</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Weapon Name</label>
+                        <input type="text" id="newWeaponName" placeholder="e.g., Longsword">
+                    </div>
+                    <div class="form-group">
+                        <label>Damage (S/M)</label>
+                        <input type="number" id="newWeaponDamageS" min="1" placeholder="1d8">
+                    </div>
+                    <div class="form-group">
+                        <label>Damage (L)</label>
+                        <input type="number" id="newWeaponDamageL" min="1" placeholder="1d8">
+                    </div>
+                    <div class="form-group">
+                        <label>Weight (lbs)</label>
+                        <input type="number" id="newWeaponWeight" step="0.1" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <select id="newWeaponType">
+                            <option value="slash">Slashing</option>
+                            <option value="pierce">Piercing</option>
+                            <option value="bludgeon">Bludgeoning</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="justify-content: flex-end;">
+                        <button class="btn btn-primary" onclick="addNewWeapon()">Add Weapon</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-section">
+                <div class="section-title">Weapon Database</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Damage S/M</th>
+                            <th>Damage L</th>
+                            <th>Weight</th>
+                            <th>Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="weaponTableBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab: Armor & Shields -->
+        <div id="tab-armor" class="tab-content">
+            <div class="admin-section">
+                <div class="section-title">Armor Types</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Armor Name</th>
+                            <th>Base AC</th>
+                            <th>Max DEX Bonus</th>
+                            <th>Weight (lbs)</th>
+                            <th>Cost (gp)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="armorTableBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <div class="section-title">Shield Types</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Shield Name</th>
+                            <th>AC Bonus</th>
+                            <th>Weight (lbs)</th>
+                            <th>Cost (gp)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="shieldTableBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab: Starting Kits -->
+        <div id="tab-kits" class="tab-content">
+            <div class="admin-section">
+                <div class="section-title">Manage Starting Equipment Kits</div>
+                <p style="margin-bottom: 12px; font-style: italic;">Configure the default equipment each class receives at character creation.</p>
+                <div id="kitsContainer">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Game Variables -->
+        <div id="tab-variables" class="tab-content">
+            <div class="admin-section">
+                <div class="section-title">THAC0 Progression by Class</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Base THAC0 (Level 1)</th>
+                            <th>Improvement Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody id="thacoTableBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <div class="section-title">Saving Throw Base Values</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Paralyzation/Poison/Death</th>
+                            <th>Rod/Staff/Wand</th>
+                            <th>Petrification/Polymorph</th>
+                            <th>Breath Weapon</th>
+                            <th>Spell</th>
+                        </tr>
+                    </thead>
+                    <tbody id="savingThrowTableBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <div class="section-title">Thief Skill Base Percentages (Level 1)</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Skill</th>
+                            <th>Base %</th>
+                            <th>Points per Level</th>
+                        </tr>
+                    </thead>
+                    <tbody id="thiefSkillsTableBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <div class="section-title">Encumbrance Thresholds</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>None (0%)</label>
+                        <input type="number" id="encNone" value="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Light (≤25%)</label>
+                        <input type="number" id="encLight" value="25">
+                    </div>
+                    <div class="form-group">
+                        <label>Moderate (≤50%)</label>
+                        <input type="number" id="encModerate" value="50">
+                    </div>
+                    <div class="form-group">
+                        <label>Heavy (≤75%)</label>
+                        <input type="number" id="encHeavy" value="75">
+                    </div>
+                    <div class="form-group">
+                        <label>Severe (≤100%)</label>
+                        <input type="number" id="encSevere" value="100">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Class Settings -->
+        <div id="tab-classes" class="tab-content">
+            <div class="admin-section">
+                <div class="section-title">Class Configuration</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Class</th>
+                            <th>Hit Die</th>
+                            <th>Weapon Slots</th>
+                            <th>NWP Slots</th>
+                            <th>Proficiency Points/Level</th>
+                        </tr>
+                    </thead>
+                    <tbody id="classConfigTableBody">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="admin-section">
+                <div class="section-title">Kit Definitions</div>
+                <div id="kitsDefinitionsContainer">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Message Area -->
+        <div id="messageArea"></div>
+    </div>
+
+    <script>
+        // ==================== DATA STRUCTURES ====================
+        
+        let adminData = {
+            equipment: [],
+            weapons: [],
+            armor: [],
+            shields: [],
+            kits: {},
+            thacoProgression: {},
+            savingThrows: {},
+            thiefSkills: {},
+            encumbrance: {
+                none: 0,
+                light: 25,
+                moderate: 50,
+                heavy: 75,
+                severe: 100
+            },
+            classConfig: {}
+        };
+
+        // ==================== INITIALIZATION ====================
+        
+        function init() {
+            loadAdminData();
+            renderAllTables();
+        }
+
+        function loadAdminData() {
+            const saved = localStorage.getItem('adnd2_admin_data');
+            if (saved) {
+                adminData = JSON.parse(saved);
+            } else {
+                // Initialize with defaults
+                initializeDefaultData();
+            }
+        }
+
+        function initializeDefaultData() {
+            // Default equipment
+            adminData.equipment = [
+                { name: "Backpack", weight: 2, category: "container" },
+                { name: "Bedroll", weight: 3, category: "adventuring" },
+                { name: "Flint & Steel", weight: 0, category: "light" },
+                { name: "Torch", weight: 1, category: "light" },
+                { name: "Rations (1 week)", weight: 14, category: "food" },
+                { name: "Waterskin", weight: 5, category: "general" },
+                { name: "Rope (50 ft)", weight: 5, category: "rope" },
+                { name: "Small Sack", weight: 0.5, category: "container" },
+                { name: "Large Sack", weight: 1, category: "container" },
+                { name: "Pouch (belt)", weight: 0.5, category: "container" },
+                { name: "Scroll Case", weight: 1, category: "container" },
+                { name: "Quiver", weight: 1, category: "container" },
+                { name: "Hammer", weight: 2, category: "tool" },
+                { name: "Spike (iron)", weight: 1, category: "tool" },
+                { name: "Crowbar", weight: 3, category: "tool" },
+                { name: "Mirror (small steel)", weight: 0.5, category: "general" },
+                { name: "Chalk (piece)", weight: 0, category: "general" },
+                { name: "Ink (1 oz vial)", weight: 0.1, category: "general" },
+                { name: "Pen (quill)", weight: 0, category: "general" },
+                { name: "Parchment (sheet)", weight: 0, category: "general" },
+                { name: "Sealing Wax", weight: 0.5, category: "general" },
+                { name: "Soap (1 lb)", weight: 1, category: "general" },
+                { name: "Whetstone", weight: 1, category: "tool" },
+                { name: "Fishing Tackle", weight: 2, category: "general" },
+                { name: "Healer's Kit", weight: 3, category: "medical" },
+                { name: "Holy Symbol", weight: 0, category: "general" },
+                { name: "Thieves' Picks", weight: 1, category: "tool" },
+                { name: "Grappling Hook", weight: 4, category: "adventuring" },
+                { name: "Ladder (10 ft)", weight: 20, category: "adventuring" },
+                { name: "Pole (10 ft)", weight: 3, category: "adventuring" }
+            ];
+
+            // Default weapons
+            adminData.weapons = [
+                { name: "Dagger", damageS: 1, damageL: 1, weight: 1, type: "pierce" },
+                { name: "Short Sword", damageS: 1, damageL: 1, weight: 2, type: "pierce" },
+                { name: "Long Sword", damageS: 1, damageL: 1, weight: 3, type: "slash" },
+                { name: "Two-Handed Sword", damageS: 1, damageL: 1, weight: 7, type: "slash" },
+                { name: "Battle Axe", damageS: 1, damageL: 1, weight: 4, type: "slash" },
+                { name: "Hand Axe", damageS: 1, damageL: 1, weight: 2, type: "slash" },
+                { name: "Mace", damageS: 1, damageL: 1, weight: 3, type: "bludgeon" },
+                { name: "War Hammer", damageS: 1, damageL: 1, weight: 3, type: "bludgeon" },
+                { name: "Spear", damageS: 1, damageL: 1, weight: 3, type: "pierce" },
+                { name: "Club", damageS: 1, damageL: 1, weight: 2, type: "bludgeon" },
+                { name: "Staff", damageS: 1, damageL: 1, weight: 3, type: "bludgeon" },
+                { name: "Dart", damageS: 1, damageL: 1, weight: 0.25, type: "pierce" },
+                { name: "Javelin", damageS: 1, damageL: 1, weight: 2, type: "pierce" },
+                { name: "Sling", damageS: 1, damageL: 1, weight: 0, type: "bludgeon" },
+                { name: "Short Bow", damageS: 1, damageL: 1, weight: 2, type: "pierce" },
+                { name: "Long Bow", damageS: 1, damageL: 1, weight: 3, type: "pierce" },
+                { name: "Crossbow (Light)", damageS: 1, damageL: 1, weight: 5, type: "pierce" },
+                { name: "Crossbow (Heavy)", damageS: 1, damageL: 1, weight: 8, type: "pierce" },
+                { name: "Polearm", damageS: 1, damageL: 1, weight: 7, type: "slash" },
+                { name: "Halberd", damageS: 1, damageL: 1, weight: 6, type: "slash" },
+                { name: "Quarterstaff", damageS: 1, damageL: 1, weight: 3, type: "bludgeon" },
+                { name: "Scimitar", damageS: 1, damageL: 1, weight: 3, type: "slash" },
+                { name: "Trident", damageS: 1, damageL: 1, weight: 4, type: "pierce" },
+                { name: "Pick (Military)", damageS: 1, damageL: 1, weight: 5, type: "pierce" },
+                { name: "Morning Star", damageS: 1, damageL: 1, weight: 4, type: "bludgeon" }
+            ];
+
+            // Default armor
+            adminData.armor = [
+                { name: "None", baseAC: 10, maxDex: 99, weight: 0, cost: 0 },
+                { name: "Leather Armor", baseAC: 8, maxDex: 99, weight: 15, cost: 5 },
+                { name: "Studded Leather", baseAC: 7, maxDex: 99, weight: 20, cost: 15 },
+                { name: "Hide Armor", baseAC: 6, maxDex: 99, weight: 25, cost: 10 },
+                { name: "Chain Mail", baseAC: 5, maxDex: 99, weight: 40, cost: 75 },
+                { name: "Splint Mail", baseAC: 4, maxDex: 99, weight: 40, cost: 80 },
+                { name: "Banded Mail", baseAC: 4, maxDex: 99, weight: 35, cost: 90 },
+                { name: "Plate Mail", baseAC: 3, maxDex: 99, weight: 50, cost: 400 },
+                { name: "Bronze Plate", baseAC: 3, maxDex: 99, weight: 45, cost: 350 },
+                { name: "Full Plate", baseAC: 2, maxDex: 99, weight: 70, cost: 2000 }
+            ];
+
+            // Default shields
+            adminData.shields = [
+                { name: "None", acBonus: 0, weight: 0, cost: 0 },
+                { name: "Small Shield", acBonus: 1, weight: 3, cost: 5 },
+                { name: "Medium Shield", acBonus: 1, weight: 5, cost: 7 },
+                { name: "Body Shield", acBonus: 2, weight: 10, cost: 15 }
+            ];
+
+            // Default starting kits
+            adminData.kits = {
+                fighter: [
+                    { name: "Long Sword", weight: 3 },
+                    { name: "Dagger", weight: 1 },
+                    { name: "Leather Armor", weight: 15 },
+                    { name: "Backpack", weight: 2 },
+                    { name: "Bedroll", weight: 3 },
+                    { name: "Rations (1 week)", weight: 14 },
+                    { name: "Waterskin", weight: 5 },
+                    { name: "Flint & Steel", weight: 0 },
+                    { name: "Rope (50 ft)", weight: 5 }
+                ],
+                paladin: [
+                    { name: "Long Sword", weight: 3 },
+                    { name: "Dagger", weight: 1 },
+                    { name: "Chain Mail", weight: 40 },
+                    { name: "Medium Shield", weight: 5 },
+                    { name: "Backpack", weight: 2 },
+                    { name: "Bedroll", weight: 3 },
+                    { name: "Rations (1 week)", weight: 14 },
+                    { name: "Waterskin", weight: 5 },
+                    { name: "Holy Symbol", weight: 0 }
+                ],
+                ranger: [
+                    { name: "Long Sword", weight: 3 },
+                    { name: "Short Bow", weight: 2 },
+                    { name: "Arrows (20)", weight: 2 },
+                    { name: "Leather Armor", weight: 15 },
+                    { name: "Backpack", weight: 2 },
+                    { name: "Bedroll", weight: 3 },
+                    { name: "Rations (1 week)", weight: 14 },
+                    { name: "Waterskin", weight: 5 }
+                ],
+                mage: [
+                    { name: "Dagger", weight: 1 },
+                    { name: "Staff", weight: 3 },
+                    { name: "Backpack", weight: 2 },
+                    { name: "Spellbook", weight: 3 },
+                    { name: "Ink (1 oz vial)", weight: 0.1 },
+                    { name: "Pen (quill)", weight: 0 },
+                    { name: "Parchment (10 sheets)", weight: 0 },
+                    { name: "Rations (1 week)", weight: 14 },
+                    { name: "Waterskin", weight: 5 }
+                ],
+                cleric: [
+                    { name: "Mace", weight: 3 },
+                    { name: "Hammer", weight: 2 },
+                    { name: "Chain Mail", weight: 40 },
+                    { name: "Small Shield", weight: 3 },
+                    { name: "Backpack", weight: 2 },
+                    { name: "Bedroll", weight: 3 },
+                    { name: "Rations (1 week)", weight: 14 },
+                    { name: "Waterskin", weight: 5 },
+                    { name: "Holy Symbol", weight: 0 },
+                    { name: "Healer's Kit", weight: 3 }
+                ],
+                druid: [
+                    { name: "Staff", weight: 3 },
+                    { name: "Sickle", weight: 1 },
+                    { name: "Leather Armor", weight: 15 },
+                    { name: "Wooden Shield", weight: 3 },
+                    { name: "Backpack", weight: 2 },
+                    { name: "Bedroll", weight: 3 },
+                    { name: "Rations (1 week)", weight: 14 },
+                    { name: "Waterskin", weight: 5 },
+                    { name: "Holy Symbol", weight: 0 }
+                ],
+                thief: [
+                    { name: "Short Sword", weight: 2 },
+                    { name: "Dagger", weight: 1 },
+                    { name: "Dart", weight: 0.25 },
+                    { name: "Leather Armor", weight: 15 },
+                    { name: "Backpack", weight: 2 },
+                    { name: "Thieves' Picks", weight: 1 },
+                    { name: "Grappling Hook", weight: 4 },
+                    { name: "Rope (50 ft)", weight: 5 },
+                    { name: "Rations (1 week)", weight: 14 },
+                    { name: "Waterskin", weight: 5 }
+                ],
+                bard: [
+                    { name: "Short Sword", weight: 2 },
+                    { name: "Dagger", weight: 1 },
+                    { name: "Leather Armor", weight: 15 },
+                    { name: "Backpack", weight: 2 },
+                    { name: "Musical Instrument", weight: 3 },
+                    { name: "Rations (1 week)", weight: 14 },
+                    { name: "Waterskin", weight: 5 },
+                    { name: "Ink (1 oz vial)", weight: 0.1 },
+                    { name: "Parchment (10 sheets)", weight: 0 }
+                ]
+            };
+
+            // THAC0 progression
+            adminData.thacoProgression = {
+                fighter: { base: 20, improvement: 1 },
+                paladin: { base: 20, improvement: 1 },
+                ranger: { base: 20, improvement: 1 },
+                cleric: { base: 20, improvement: 2 },
+                druid: { base: 20, improvement: 2 },
+                thief: { base: 20, improvement: 2 },
+                bard: { base: 20, improvement: 2 },
+                mage: { base: 20, improvement: 3 }
+            };
+
+            // Saving throws (level 1 base)
+            adminData.savingThrows = {
+                fighter: [14, 16, 15, 17, 17],
+                paladin: [12, 14, 13, 15, 15],
+                ranger: [13, 15, 14, 16, 16],
+                cleric: [10, 14, 13, 16, 15],
+                druid: [10, 14, 13, 16, 15],
+                thief: [13, 14, 12, 15, 13],
+                bard: [13, 15, 14, 17, 16],
+                mage: [14, 11, 15, 15, 13]
+            };
+
+            // Thief skills
+            adminData.thiefSkills = {
+                pickPockets: { base: 15, perLevel: 5 },
+                openLocks: { base: 10, perLevel: 5 },
+                findTraps: { base: 5, perLevel: 5 },
+                moveSilently: { base: 10, perLevel: 5 },
+                hideShadows: { base: 5, perLevel: 5 },
+                detectNoise: { base: 15, perLevel: 5 },
+                climbWalls: { base: 60, perLevel: 1 },
+                readLanguages: { base: 0, perLevel: 5 }
+            };
+
+            // Class config
+            adminData.classConfig = {
+                fighter: { hitDie: 10, weaponSlots: 4, nwpSlots: 3, profPerLevel: 0.5 },
+                paladin: { hitDie: 10, weaponSlots: 4, nwpSlots: 3, profPerLevel: 0.5 },
+                ranger: { hitDie: 10, weaponSlots: 4, nwpSlots: 3, profPerLevel: 0.5 },
+                cleric: { hitDie: 8, weaponSlots: 2, nwpSlots: 3, profPerLevel: 0.5 },
+                druid: { hitDie: 8, weaponSlots: 2, nwpSlots: 3, profPerLevel: 0.5 },
+                thief: { hitDie: 6, weaponSlots: 2, nwpSlots: 3, profPerLevel: 0.5 },
+                bard: { hitDie: 6, weaponSlots: 2, nwpSlots: 3, profPerLevel: 0.5 },
+                mage: { hitDie: 4, weaponSlots: 1, nwpSlots: 2, profPerLevel: 0.5 }
+            };
+        }
+
+        // ==================== TAB SWITCHING ====================
+        
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // ==================== RENDER FUNCTIONS ====================
+        
+        function renderAllTables() {
+            renderEquipmentList();
+            renderWeaponTable();
+            renderArmorTable();
+            renderShieldTable();
+            renderKitsSection();
+            renderTHACOTable();
+            renderSavingThrowsTable();
+            renderThiefSkillsTable();
+            renderClassConfigTable();
+        }
+
+        function renderEquipmentList() {
+            const container = document.getElementById('equipmentList');
+            container.innerHTML = '';
+
+            adminData.equipment.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'item-entry';
+                div.innerHTML = `
+                    <input type="text" value="${item.name}" onchange="updateEquipment(${index}, 'name', this.value)">
+                    <input type="number" step="0.1" value="${item.weight}" onchange="updateEquipment(${index}, 'weight', this.value)">
+                    <select onchange="updateEquipment(${index}, 'category', this.value)">
+                        <option value="general" ${item.category === 'general' ? 'selected' : ''}>General</option>
+                        <option value="adventuring" ${item.category === 'adventuring' ? 'selected' : ''}>Adventuring</option>
+                        <option value="container" ${item.category === 'container' ? 'selected' : ''}>Container</option>
+                        <option value="food" ${item.category === 'food' ? 'selected' : ''}>Food</option>
+                        <option value="light" ${item.category === 'light' ? 'selected' : ''}>Light</option>
+                        <option value="rope" ${item.category === 'rope' ? 'selected' : ''}>Rope</option>
+                        <option value="tool" ${item.category === 'tool' ? 'selected' : ''}>Tool</option>
+                        <option value="medical" ${item.category === 'medical' ? 'selected' : ''}>Medical</option>
+                        <option value="misc" ${item.category === 'misc' ? 'selected' : ''}>Misc</option>
+                    </select>
+                    <button class="btn btn-danger" onclick="deleteEquipment(${index})">Delete</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function renderWeaponTable() {
+            const tbody = document.getElementById('weaponTableBody');
+            tbody.innerHTML = '';
+
+            adminData.weapons.forEach((weapon, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><input type="text" value="${weapon.name}" onchange="updateWeapon(${index}, 'name', this.value)"></td>
+                    <td><input type="number" value="${weapon.damageS}" onchange="updateWeapon(${index}, 'damageS', this.value)"></td>
+                    <td><input type="number" value="${weapon.damageL}" onchange="updateWeapon(${index}, 'damageL', this.value)"></td>
+                    <td><input type="number" step="0.1" value="${weapon.weight}" onchange="updateWeapon(${index}, 'weight', this.value)"></td>
+                    <td>
+                        <select onchange="updateWeapon(${index}, 'type', this.value)">
+                            <option value="slash" ${weapon.type === 'slash' ? 'selected' : ''}>Slashing</option>
+                            <option value="pierce" ${weapon.type === 'pierce' ? 'selected' : ''}>Piercing</option>
+                            <option value="bludgeon" ${weapon.type === 'bludgeon' ? 'selected' : ''}>Bludgeoning</option>
+                        </select>
+                    </td>
+                    <td><button class="btn btn-danger" onclick="deleteWeapon(${index})">Delete</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderArmorTable() {
+            const tbody = document.getElementById('armorTableBody');
+            tbody.innerHTML = '';
+
+            adminData.armor.forEach((armor, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><input type="text" value="${armor.name}" onchange="updateArmor(${index}, 'name', this.value)"></td>
+                    <td><input type="number" value="${armor.baseAC}" onchange="updateArmor(${index}, 'baseAC', this.value)"></td>
+                    <td><input type="number" value="${armor.maxDex}" onchange="updateArmor(${index}, 'maxDex', this.value)"></td>
+                    <td><input type="number" step="0.1" value="${armor.weight}" onchange="updateArmor(${index}, 'weight', this.value)"></td>
+                    <td><input type="number" value="${armor.cost}" onchange="updateArmor(${index}, 'cost', this.value)"></td>
+                    <td><button class="btn btn-danger" onclick="deleteArmor(${index})">Delete</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderShieldTable() {
+            const tbody = document.getElementById('shieldTableBody');
+            tbody.innerHTML = '';
+
+            adminData.shields.forEach((shield, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><input type="text" value="${shield.name}" onchange="updateShield(${index}, 'name', this.value)"></td>
+                    <td><input type="number" value="${shield.acBonus}" onchange="updateShield(${index}, 'acBonus', this.value)"></td>
+                    <td><input type="number" step="0.1" value="${shield.weight}" onchange="updateShield(${index}, 'weight', this.value)"></td>
+                    <td><input type="number" value="${shield.cost}" onchange="updateShield(${index}, 'cost', this.value)"></td>
+                    <td><button class="btn btn-danger" onclick="deleteShield(${index})">Delete</button></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderKitsSection() {
+            const container = document.getElementById('kitsContainer');
+            container.innerHTML = '';
+
+            const classNames = {
+                fighter: 'Fighter',
+                paladin: 'Paladin',
+                ranger: 'Ranger',
+                mage: 'Mage',
+                cleric: 'Cleric',
+                druid: 'Druid',
+                thief: 'Thief',
+                bard: 'Bard'
+            };
+
+            Object.keys(classNames).forEach(className => {
+                const kitDiv = document.createElement('div');
+                kitDiv.className = 'kit-section';
+                
+                const items = adminData.kits[className] || [];
+                let itemsHtml = '';
+                items.forEach((item, idx) => {
+                    itemsHtml += `
+                        <div class="kit-item-row">
+                            <input type="text" value="${item.name}" onchange="updateKitItem('${className}', ${idx}, 'name', this.value)">
+                            <input type="number" step="0.1" value="${item.weight}" onchange="updateKitItem('${className}', ${idx}, 'weight', this.value)">
+                            <button class="btn btn-danger" onclick="deleteKitItem('${className}', ${idx})">Remove</button>
+                        </div>
+                    `;
+                });
+
+                kitDiv.innerHTML = `
+                    <div class="kit-header">
+                        <span class="kit-name">${classNames[className]} Starting Kit</span>
+                        <button class="btn btn-primary" onclick="addKitItem('${className}')">+ Add Item</button>
+                    </div>
+                    <div class="kit-items">
+                        ${itemsHtml}
+                    </div>
+                `;
+                container.appendChild(kitDiv);
+            });
+        }
+
+        function renderTHACOTable() {
+            const tbody = document.getElementById('thacoTableBody');
+            tbody.innerHTML = '';
+
+            const classNames = {
+                fighter: 'Fighter',
+                paladin: 'Paladin',
+                ranger: 'Ranger',
+                cleric: 'Cleric',
+                druid: 'Druid',
+                thief: 'Thief',
+                bard: 'Bard',
+                mage: 'Mage'
+            };
+
+            Object.keys(classNames).forEach(className => {
+                const tr = document.createElement('tr');
+                const data = adminData.thacoProgression[className] || { base: 20, improvement: 2 };
+                tr.innerHTML = `
+                    <td>${classNames[className]}</td>
+                    <td><input type="number" value="${data.base}" onchange="updateTHACO('${className}', 'base', this.value)"></td>
+                    <td>
+                        <select onchange="updateTHACO('${className}', 'improvement', this.value)">
+                            <option value="1" ${data.improvement === 1 ? 'selected' : ''}>Every Level (+1)</option>
+                            <option value="2" ${data.improvement === 2 ? 'selected' : ''}>Every 2 Levels (+1)</option>
+                            <option value="3" ${data.improvement === 3 ? 'selected' : ''}>Every 3 Levels (+1)</option>
+                        </select>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderSavingThrowsTable() {
+            const tbody = document.getElementById('savingThrowTableBody');
+            tbody.innerHTML = '';
+
+            const classNames = {
+                fighter: 'Fighter',
+                paladin: 'Paladin',
+                ranger: 'Ranger',
+                cleric: 'Cleric',
+                druid: 'Druid',
+                thief: 'Thief',
+                bard: 'Bard',
+                mage: 'Mage'
+            };
+
+            const saveNames = ['PPD', 'RSW', 'PP', 'BW', 'S'];
+
+            Object.keys(classNames).forEach(className => {
+                const tr = document.createElement('tr');
+                const saves = adminData.savingThrows[className] || [14, 16, 15, 17, 17];
+                let cells = `<td>${classNames[className]}</td>`;
+                saves.forEach((save, idx) => {
+                    cells += `<td><input type="number" value="${save}" onchange="updateSavingThrow('${className}', ${idx}, this.value)"></td>`;
+                });
+                tr.innerHTML = cells;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderThiefSkillsTable() {
+            const tbody = document.getElementById('thiefSkillsTableBody');
+            tbody.innerHTML = '';
+
+            const skillNames = {
+                pickPockets: 'Pick Pockets',
+                openLocks: 'Open Locks',
+                findTraps: 'Find/Remove Traps',
+                moveSilently: 'Move Silently',
+                hideShadows: 'Hide in Shadows',
+                detectNoise: 'Detect Noise',
+                climbWalls: 'Climb Walls',
+                readLanguages: 'Read Languages'
+            };
+
+            Object.keys(skillNames).forEach(skillKey => {
+                const tr = document.createElement('tr');
+                const data = adminData.thiefSkills[skillKey] || { base: 10, perLevel: 5 };
+                tr.innerHTML = `
+                    <td>${skillNames[skillKey]}</td>
+                    <td><input type="number" value="${data.base}" onchange="updateThiefSkill('${skillKey}', 'base', this.value)"></td>
+                    <td><input type="number" value="${data.perLevel}" onchange="updateThiefSkill('${skillKey}', 'perLevel', this.value)"></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderClassConfigTable() {
+            const tbody = document.getElementById('classConfigTableBody');
+            tbody.innerHTML = '';
+
+            const classNames = {
+                fighter: 'Fighter',
+                paladin: 'Paladin',
+                ranger: 'Ranger',
+                cleric: 'Cleric',
+                druid: 'Druid',
+                thief: 'Thief',
+                bard: 'Bard',
+                mage: 'Mage'
+            };
+
+            Object.keys(classNames).forEach(className => {
+                const tr = document.createElement('tr');
+                const data = adminData.classConfig[className] || { hitDie: 8, weaponSlots: 2, nwpSlots: 3, profPerLevel: 0.5 };
+                tr.innerHTML = `
+                    <td>${classNames[className]}</td>
+                    <td>
+                        <select onchange="updateClassConfig('${className}', 'hitDie', this.value)">
+                            <option value="4" ${data.hitDie === 4 ? 'selected' : ''}>d4</option>
+                            <option value="6" ${data.hitDie === 6 ? 'selected' : ''}>d6</option>
+                            <option value="8" ${data.hitDie === 8 ? 'selected' : ''}>d8</option>
+                            <option value="10" ${data.hitDie === 10 ? 'selected' : ''}>d10</option>
+                            <option value="12" ${data.hitDie === 12 ? 'selected' : ''}>d12</option>
+                        </select>
+                    </td>
+                    <td><input type="number" value="${data.weaponSlots}" onchange="updateClassConfig('${className}', 'weaponSlots', this.value)"></td>
+                    <td><input type="number" value="${data.nwpSlots}" onchange="updateClassConfig('${className}', 'nwpSlots', this.value)"></td>
+                    <td><input type="number" step="0.5" value="${data.profPerLevel}" onchange="updateClassConfig('${className}', 'profPerLevel', this.value)"></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // ==================== UPDATE FUNCTIONS ====================
+        
+        function updateEquipment(index, field, value) {
+            if (field === 'weight') {
+                adminData.equipment[index][field] = parseFloat(value) || 0;
+            } else {
+                adminData.equipment[index][field] = value;
+            }
+        }
+
+        function deleteEquipment(index) {
+            if (confirm('Delete this item?')) {
+                adminData.equipment.splice(index, 1);
+                renderEquipmentList();
+            }
+        }
+
+        function addNewItem() {
+            const name = document.getElementById('newItemName').value.trim();
+            const weight = parseFloat(document.getElementById('newItemWeight').value) || 0;
+            const category = document.getElementById('newItemCategory').value;
+
+            if (!name) {
+                showMessage('Please enter an item name.', 'error');
+                return;
+            }
+
+            adminData.equipment.push({ name, weight, category });
+            renderEquipmentList();
+            
+            document.getElementById('newItemName').value = '';
+            document.getElementById('newItemWeight').value = '';
+            showMessage('Item added successfully!', 'success');
+        }
+
+        function updateWeapon(index, field, value) {
+            if (['damageS', 'damageL', 'weight'].includes(field)) {
+                adminData.weapons[index][field] = parseFloat(value) || 0;
+            } else {
+                adminData.weapons[index][field] = value;
+            }
+        }
+
+        function deleteWeapon(index) {
+            if (confirm('Delete this weapon?')) {
+                adminData.weapons.splice(index, 1);
+                renderWeaponTable();
+            }
+        }
+
+        function addNewWeapon() {
+            const name = document.getElementById('newWeaponName').value.trim();
+            const damageS = parseFloat(document.getElementById('newWeaponDamageS').value) || 1;
+            const damageL = parseFloat(document.getElementById('newWeaponDamageL').value) || 1;
+            const weight = parseFloat(document.getElementById('newWeaponWeight').value) || 0;
+            const type = document.getElementById('newWeaponType').value;
+
+            if (!name) {
+                showMessage('Please enter a weapon name.', 'error');
+                return;
+            }
+
+            adminData.weapons.push({ name, damageS, damageL, weight, type });
+            renderWeaponTable();
+            
+            document.getElementById('newWeaponName').value = '';
+            document.getElementById('newWeaponDamageS').value = '';
+            document.getElementById('newWeaponDamageL').value = '';
+            document.getElementById('newWeaponWeight').value = '';
+            showMessage('Weapon added successfully!', 'success');
+        }
+
+        function updateArmor(index, field, value) {
+            adminData.armor[index][field] = parseFloat(value) || 0;
+            if (field === 'name') {
+                adminData.armor[index][field] = value;
+            }
+        }
+
+        function deleteArmor(index) {
+            if (confirm('Delete this armor?')) {
+                adminData.armor.splice(index, 1);
+                renderArmorTable();
+            }
+        }
+
+        function updateShield(index, field, value) {
+            adminData.shields[index][field] = parseFloat(value) || 0;
+            if (field === 'name') {
+                adminData.shields[index][field] = value;
+            }
+        }
+
+        function deleteShield(index) {
+            if (confirm('Delete this shield?')) {
+                adminData.shields.splice(index, 1);
+                renderShieldTable();
+            }
+        }
+
+        function updateKitItem(className, index, field, value) {
+            if (field === 'weight') {
+                adminData.kits[className][index][field] = parseFloat(value) || 0;
+            } else {
+                adminData.kits[className][index][field] = value;
+            }
+        }
+
+        function deleteKitItem(className, index) {
+            if (confirm('Remove this item from the kit?')) {
+                adminData.kits[className].splice(index, 1);
+                renderKitsSection();
+            }
+        }
+
+        function addKitItem(className) {
+            if (!adminData.kits[className]) {
+                adminData.kits[className] = [];
+            }
+            adminData.kits[className].push({ name: 'New Item', weight: 0 });
+            renderKitsSection();
+        }
+
+        function updateTHACO(className, field, value) {
+            if (!adminData.thacoProgression[className]) {
+                adminData.thacoProgression[className] = {};
+            }
+            adminData.thacoProgression[className][field] = parseInt(value) || 2;
+        }
+
+        function updateSavingThrow(className, index, value) {
+            if (!adminData.savingThrows[className]) {
+                adminData.savingThrows[className] = [14, 16, 15, 17, 17];
+            }
+            adminData.savingThrows[className][index] = parseInt(value) || 10;
+        }
+
+        function updateThiefSkill(skillKey, field, value) {
+            if (!adminData.thiefSkills[skillKey]) {
+                adminData.thiefSkills[skillKey] = { base: 10, perLevel: 5 };
+            }
+            adminData.thiefSkills[skillKey][field] = parseInt(value) || 0;
+        }
+
+        function updateClassConfig(className, field, value) {
+            if (!adminData.classConfig[className]) {
+                adminData.classConfig[className] = { hitDie: 8, weaponSlots: 2, nwpSlots: 3, profPerLevel: 0.5 };
+            }
+            if (field === 'profPerLevel') {
+                adminData.classConfig[className][field] = parseFloat(value) || 0.5;
+            } else {
+                adminData.classConfig[className][field] = parseInt(value) || 8;
+            }
+        }
+
+        // ==================== SAVE/LOAD/RESET ====================
+        
+        function saveAllData() {
+            localStorage.setItem('adnd2_admin_data', JSON.stringify(adminData));
+            showMessage('All admin data saved successfully!', 'success');
+        }
+
+        function resetToDefaults() {
+            if (confirm('Are you sure you want to reset ALL admin data to defaults? This cannot be undone!')) {
+                initializeDefaultData();
+                saveAllData();
+                renderAllTables();
+                showMessage('All data reset to defaults.', 'info');
+            }
+        }
+
+        function openCharacterSheet() {
+            window.open('adnd2_character_sheet.html', '_blank');
+        }
+
+        // ==================== MESSAGING ====================
+        
+        function showMessage(text, type) {
+            const messageArea = document.getElementById('messageArea');
+            messageArea.innerHTML = `<div class="message ${type}">${text}</div>`;
+            setTimeout(() => {
+                messageArea.innerHTML = '';
+            }, 3000);
+        }
+
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>
