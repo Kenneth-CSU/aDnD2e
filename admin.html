@@ -38,6 +38,7 @@
     <a href="weapons.html">Weapons</a>
     <a href="armour.html">Armour</a>
     <a href="items.html">Items</a>
+    <a href="proficiencies.html">Proficiencies</a>
     <a href="combat.html">Combat</a>
     <a href="crafting.html">Crafting</a>
     <a href="campaign.html">Campaign</a>
@@ -83,6 +84,8 @@ const APP_KEYS = [
     'campaignNotes',
     'racesDB',
     'classesDB',
+    'proficienciesDB',
+    'weaponProficienciesDB',
     'wizardSpellsDB',
     'clericSpellsDB',
     'weaponsDB',
@@ -134,7 +137,8 @@ function exportData() {
     setStatus('backup-msg', 'Export complete.');
 }
 
-function importData() {
+        'itemsDB',
+        'itemClassificationsDB'
     const raw = document.getElementById('backup-json').value.trim();
     if (!raw) {
         setStatus('backup-msg', 'Paste exported JSON before importing.', true);
@@ -145,6 +149,12 @@ function importData() {
     try {
         parsed = JSON.parse(raw);
     } catch (e) {
+            <section class="card" style="grid-column: 1 / -1;">
+                <h2>Classification Tools</h2>
+                <p style="margin-top:0; margin-bottom:8px; font-size:0.9rem;">Open the Character sheet directly into the batch classification editor.</p>
+                <button onclick="openBatchClassifier()">Open Batch Classifier</button>
+                <div id="classify-msg" class="status"></div>
+            </section>
         setStatus('backup-msg', 'Invalid JSON.', true);
         return;
     }
@@ -168,6 +178,11 @@ function setStatus(id, text, isError) {
     const el = document.getElementById(id);
     el.textContent = text;
     el.style.color = isError ? '#8b0000' : '#2b2b2b';
+}
+
+function openBatchClassifier() {
+    setStatus('classify-msg', 'Opening batch classifier on Character sheet...');
+    window.location.href = 'index.html#batch-classify';
 }
 
 refreshStatus();

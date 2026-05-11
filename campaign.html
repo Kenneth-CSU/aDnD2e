@@ -13,18 +13,474 @@
         header { height: 50px; background: var(--border); color: var(--parchment); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
         h1 { margin: 0; font-size: 1.2rem; }
         #content { flex: 1; padding: 15px; overflow-y: auto; }
-        textarea { width: 100%; height: 500px; resize: vertical; font-family: inherit; padding: 10px; border: 2px solid var(--border); background: rgba(255,255,255,0.5); }
+        textarea { width: 100%; height: 320px; resize: vertical; font-family: inherit; padding: 10px; border: 2px solid var(--border); background: rgba(255,255,255,0.5); }
+        .panel { border: 2px solid var(--border); background: rgba(255,255,255,0.45); padding: 10px; margin-bottom: 12px; }
+        .item-row { display:flex; justify-content:space-between; align-items:center; border-bottom:1px dotted #b79f84; padding:4px 0; font-size:0.82rem; }
+        .item-row input, .item-row select { font-size:0.78rem; }
+        .small-note { font-size:0.75rem; color:#5d463a; }
+        .form-grid { display:grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap:8px; }
+        .form-grid label { font-size:0.75rem; font-weight:bold; display:block; margin-bottom:2px; }
+        .form-grid input, .form-grid select { width:100%; }
+        .stats-grid { display:grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap:6px; margin-top:8px; }
+        .stats-grid label { font-size:0.72rem; font-weight:bold; display:block; margin-bottom:2px; }
+        @media (max-width: 920px) {
+            .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .stats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
     </style>
 </head>
 <body>
-<nav><a href="index.html">Character</a><a href="races.html">Races</a><a href="classes.html">Classes</a><a href="wizardSpells.html">Wizard Spells</a><a href="clericSpells.html">Cleric Spells</a><a href="weapons.html">Weapons</a><a href="armour.html">Armour</a><a href="items.html">Items</a><a href="combat.html">Combat</a><a href="crafting.html">Crafting</a><a href="campaign.html" class="current">Campaign</a></nav>
+<nav><a href="index.html">Character</a><a href="races.html">Races</a><a href="classes.html">Classes</a><a href="wizardSpells.html">Wizard Spells</a><a href="clericSpells.html">Cleric Spells</a><a href="weapons.html">Weapons</a><a href="armour.html">Armour</a><a href="items.html">Items</a><a href="proficiencies.html">Proficiencies</a><a href="combat.html">Combat</a><a href="crafting.html">Crafting</a><a href="campaign.html" class="current">Campaign</a></nav>
 <header><h1>Campaign Journal & DM Notes</h1><div><button onclick="save()">Save</button><button onclick="loadFromStore()">Load</button><button onclick="refreshPage()">Refresh</button></div></header>
-<div id="content"><textarea id="camp-notes" placeholder="Session logs, NPC details, plot hooks, world lore..."></textarea></div>
+<div id="content">
+    <section class="panel">
+        <h2 style="margin:0 0 8px; font-size:1rem;">Character Progression Editor</h2>
+        <div class="small-note">Edit class/race/kit/level and ability scores here. Character sheet displays these values read-only.</div>
+        <div class="form-grid" style="margin-top:8px;">
+            <div><label>Name</label><input id="camp-char-name" type="text"></div>
+            <div><label>Race</label><select id="camp-char-race"></select></div>
+            <div><label>Class</label><select id="camp-char-class"></select></div>
+            <div><label>Kit</label><input id="camp-char-kit" type="text"></div>
+            <div><label>Level</label><input id="camp-char-level" type="number" min="1" max="30"></div>
+            <div><label>HP Current</label><input id="camp-char-hp-cur" type="number" min="0"></div>
+            <div><label>Gold (GP)</label><input id="camp-char-gp" type="number" min="0"></div>
+        </div>
+        <div class="stats-grid">
+            <div><label>STR</label><input id="camp-str" type="number" min="1" max="25"></div>
+            <div><label>DEX</label><input id="camp-dex" type="number" min="1" max="25"></div>
+            <div><label>CON</label><input id="camp-con" type="number" min="1" max="25"></div>
+            <div><label>INT</label><input id="camp-int" type="number" min="1" max="25"></div>
+            <div><label>WIS</label><input id="camp-wis" type="number" min="1" max="25"></div>
+            <div><label>CHA</label><input id="camp-cha" type="number" min="1" max="25"></div>
+            <div><label>STR %</label><input id="camp-str-pct" type="number" min="0" max="100"></div>
+        </div>
+        <div style="margin-top:8px;">
+            <button type="button" onclick="saveCampaignProgression()">Save Progression</button>
+            <button type="button" onclick="splitCampaignHoards()">Split Hoards</button>
+            <span id="camp-prog-msg" class="small-note" style="margin-left:8px;"></span>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h2 style="margin:0 0 8px; font-size:1rem;">Proficiency Editor (Character)</h2>
+        <div class="small-note">These controls edit the active character save used by the Character sheet.</div>
+
+        <h3 style="margin:8px 0 4px; font-size:0.92rem;">Weapon Proficiencies</h3>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin:8px 0;">
+            <select id="camp-wp-choice" style="min-width:220px;"></select>
+            <label style="font-size:0.8rem; align-self:center;">Slots:</label>
+            <input id="camp-wp-slots" type="number" min="1" value="1" style="width:60px;">
+            <button type="button" onclick="addCampaignWeaponProficiency()">+ Add Weapon Proficiency</button>
+        </div>
+        <div id="camp-wp-list"></div>
+
+        <h3 style="margin:10px 0 4px; font-size:0.92rem;">Non-Weapon Proficiencies</h3>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin:8px 0;">
+            <select id="camp-nwp-choice" style="min-width:260px;"></select>
+            <button type="button" onclick="addCampaignNwp()">+ Add NWP</button>
+            <button type="button" onclick="saveCampaignProficiencies()">Save Proficiencies</button>
+        </div>
+        <div id="camp-nwp-list"></div>
+
+        <div id="camp-wp-msg" class="small-note" style="margin-top:6px;"></div>
+    </section>
+    <textarea id="camp-notes" placeholder="Session logs, NPC details, plot hooks, world lore..."></textarea>
+</div>
 <script>
-function load(){const s=localStorage.getItem('campaignNotes');if(s)document.getElementById('camp-notes').value=s;}
+let campaignCharData = null;
+let campaignWeaponChoices = [];
+let campaignNwpChoices = [];
+let campaignRaces = ['Human', 'Elf', 'Half-Elf', 'Dwarf', 'Gnome', 'Halfling', 'Half-Orc'];
+let campaignClasses = ['Fighter', 'Paladin', 'Ranger', 'Mage', 'Cleric', 'Druid', 'Thief', 'Bard'];
+let campaignRaceClassMap = {};
+
+function normalizeProfShape() {
+    if (!campaignCharData.proficiencies || typeof campaignCharData.proficiencies !== 'object') {
+        campaignCharData.proficiencies = { weapons: [], nwps: [] };
+    }
+    if (!Array.isArray(campaignCharData.proficiencies.weapons)) campaignCharData.proficiencies.weapons = [];
+    if (!Array.isArray(campaignCharData.proficiencies.nwps)) campaignCharData.proficiencies.nwps = [];
+    campaignCharData.proficiencies.weapons = campaignCharData.proficiencies.weapons.map(entry => {
+        if (typeof entry === 'string') return { name: entry, slots: 1 };
+        return { name: (entry && entry.name) ? entry.name : 'Unknown Weapon', slots: Math.max(1, parseInt(entry && entry.slots, 10) || 1) };
+    });
+    campaignCharData.proficiencies.nwps = campaignCharData.proficiencies.nwps.map(entry => {
+        if (typeof entry === 'string') return { name: entry, slots: 1, ability: 'INT', checkMod: 0, category: 'General' };
+        return {
+            name: (entry && entry.name) ? entry.name : 'Unknown Proficiency',
+            slots: Math.max(1, parseInt(entry && entry.slots, 10) || 1),
+            ability: (entry && entry.ability) ? String(entry.ability).toUpperCase() : 'INT',
+            checkMod: parseInt(entry && entry.checkMod, 10) || 0,
+            category: (entry && entry.category) ? String(entry.category) : 'General'
+        };
+    });
+}
+
+function normalizeCharacterShape() {
+    if (!campaignCharData || typeof campaignCharData !== 'object') {
+        campaignCharData = {};
+    }
+    campaignCharData.name = String(campaignCharData.name || '');
+    campaignCharData.race = String(campaignCharData.race || 'Human');
+    campaignCharData.class = String(campaignCharData.class || 'Fighter');
+    campaignCharData.kit = String(campaignCharData.kit || '');
+    campaignCharData.level = Math.max(1, parseInt(campaignCharData.level, 10) || 1);
+    if (!campaignCharData.hp || typeof campaignCharData.hp !== 'object') {
+        campaignCharData.hp = { cur: 10, max: 10 };
+    }
+    campaignCharData.hp.cur = Math.max(0, parseInt(campaignCharData.hp.cur, 10) || 0);
+    campaignCharData.gp = Math.max(0, parseInt(campaignCharData.gp, 10) || 0);
+    if (!campaignCharData.stats || typeof campaignCharData.stats !== 'object') {
+        campaignCharData.stats = { STR: 10, DEX: 10, CON: 10, INT: 10, WIS: 10, CHA: 10, STR_Pct: 0 };
+    }
+    ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'].forEach(stat => {
+        campaignCharData.stats[stat] = Math.max(1, Math.min(25, parseInt(campaignCharData.stats[stat], 10) || 10));
+    });
+    campaignCharData.stats.STR_Pct = Math.max(0, Math.min(100, parseInt(campaignCharData.stats.STR_Pct, 10) || 0));
+}
+
+async function loadReferenceLists() {
+    const racesDbRaw = localStorage.getItem('racesDB');
+    if (racesDbRaw) {
+        try {
+            const parsed = JSON.parse(racesDbRaw);
+            if (Array.isArray(parsed) && parsed.length) {
+                campaignRaces = parsed.map(r => r && r.name).filter(Boolean);
+                campaignRaceClassMap = {};
+                parsed.forEach(r => {
+                    if (!r || !r.name) return;
+                    const allowed = Array.isArray(r.classes) ? r.classes.filter(Boolean) : [];
+                    if (allowed.length) campaignRaceClassMap[String(r.name)] = allowed;
+                });
+            }
+        } catch (e) {}
+    }
+    if (!campaignRaces.length) {
+        try {
+            const r = await fetch('data/races.json');
+            if (r.ok) {
+                const parsed = await r.json();
+                if (Array.isArray(parsed) && parsed.length) {
+                    campaignRaces = parsed.map(v => v && v.name).filter(Boolean);
+                    if (!Object.keys(campaignRaceClassMap).length) {
+                        campaignRaceClassMap = {};
+                        parsed.forEach(v => {
+                            if (!v || !v.name) return;
+                            const allowed = Array.isArray(v.classes) ? v.classes.filter(Boolean) : [];
+                            if (allowed.length) campaignRaceClassMap[String(v.name)] = allowed;
+                        });
+                    }
+                }
+            }
+        } catch (e) {}
+    }
+
+    const classesDbRaw = localStorage.getItem('classesDB');
+    if (classesDbRaw) {
+        try {
+            const parsed = JSON.parse(classesDbRaw);
+            if (Array.isArray(parsed) && parsed.length) {
+                campaignClasses = parsed.map(c => c && c.name).filter(Boolean);
+            }
+        } catch (e) {}
+    }
+    if (!campaignClasses.length) {
+        try {
+            const r = await fetch('data/classes.json');
+            if (r.ok) {
+                const parsed = await r.json();
+                if (Array.isArray(parsed) && parsed.length) {
+                    campaignClasses = parsed.map(v => v && v.name).filter(Boolean);
+                }
+            }
+        } catch (e) {}
+    }
+
+    const profDbRaw = localStorage.getItem('proficienciesDB');
+    if (profDbRaw) {
+        try {
+            const parsed = JSON.parse(profDbRaw);
+            if (parsed && Array.isArray(parsed.nonWeapon)) {
+                campaignNwpChoices = parsed.nonWeapon.map(v => v && v.name).filter(Boolean);
+            }
+        } catch (e) {}
+    }
+    if (!campaignNwpChoices.length) {
+        try {
+            const r = await fetch('data/proficiencies.json');
+            if (r.ok) {
+                const parsed = await r.json();
+                if (parsed && Array.isArray(parsed.nonWeapon)) {
+                    campaignNwpChoices = parsed.nonWeapon.map(v => v && v.name).filter(Boolean);
+                }
+            }
+        } catch (e) {}
+    }
+
+    campaignRaces = [...new Set(campaignRaces)].sort((a, b) => a.localeCompare(b));
+    campaignClasses = [...new Set(campaignClasses)].sort((a, b) => a.localeCompare(b));
+    campaignNwpChoices = [...new Set(campaignNwpChoices)].sort((a, b) => a.localeCompare(b));
+}
+
+async function loadCampaignWeaponProficiencies() {
+    const raw = localStorage.getItem('adnd_char_data');
+    campaignCharData = raw ? JSON.parse(raw) : { name: '', class: 'Fighter', level: 1, proficiencies: { weapons: [], nwps: [] } };
+    normalizeCharacterShape();
+    normalizeProfShape();
+    await loadReferenceLists();
+
+    const dbRaw = localStorage.getItem('weaponProficienciesDB');
+    if (dbRaw) {
+        try {
+            campaignWeaponChoices = JSON.parse(dbRaw);
+        } catch (e) {
+            campaignWeaponChoices = [];
+        }
+    }
+
+    if (!Array.isArray(campaignWeaponChoices) || campaignWeaponChoices.length === 0) {
+        try {
+            const r = await fetch('data/weaponProficiencies.json');
+            if (r.ok) {
+                const loaded = await r.json();
+                if (Array.isArray(loaded)) campaignWeaponChoices = loaded;
+            }
+        } catch (e) {
+            campaignWeaponChoices = [];
+        }
+    }
+
+    campaignWeaponChoices = [...new Set((campaignWeaponChoices || []).filter(v => typeof v === 'string' && v.trim()).map(v => v.trim()))].sort((a, b) => a.localeCompare(b));
+    renderCampaignProgression();
+    renderCampaignWeaponProficiencies();
+}
+
+function renderCampaignProgression() {
+    const raceSel = document.getElementById('camp-char-race');
+    const classSel = document.getElementById('camp-char-class');
+    raceSel.innerHTML = campaignRaces.map(r => `<option value="${r}" ${campaignCharData.race === r ? 'selected' : ''}>${r}</option>`).join('');
+    const allowedClasses = campaignRaceClassMap[campaignCharData.race] || campaignClasses;
+    const classOptions = (Array.isArray(allowedClasses) && allowedClasses.length) ? allowedClasses : campaignClasses;
+    if (!classOptions.includes(campaignCharData.class)) {
+        campaignCharData.class = classOptions[0] || campaignClasses[0] || 'Fighter';
+    }
+    classSel.innerHTML = classOptions.map(c => `<option value="${c}" ${campaignCharData.class === c ? 'selected' : ''}>${c}</option>`).join('');
+
+    document.getElementById('camp-char-name').value = campaignCharData.name || '';
+    document.getElementById('camp-char-kit').value = campaignCharData.kit || '';
+    document.getElementById('camp-char-level').value = campaignCharData.level;
+    document.getElementById('camp-char-hp-cur').value = campaignCharData.hp.cur;
+    document.getElementById('camp-char-gp').value = campaignCharData.gp;
+    document.getElementById('camp-str').value = campaignCharData.stats.STR;
+    document.getElementById('camp-dex').value = campaignCharData.stats.DEX;
+    document.getElementById('camp-con').value = campaignCharData.stats.CON;
+    document.getElementById('camp-int').value = campaignCharData.stats.INT;
+    document.getElementById('camp-wis').value = campaignCharData.stats.WIS;
+    document.getElementById('camp-cha').value = campaignCharData.stats.CHA;
+    document.getElementById('camp-str-pct').value = campaignCharData.stats.STR_Pct;
+}
+
+function saveCampaignProgression() {
+    campaignCharData.name = String(document.getElementById('camp-char-name').value || '').trim();
+    campaignCharData.race = String(document.getElementById('camp-char-race').value || 'Human');
+    campaignCharData.class = String(document.getElementById('camp-char-class').value || 'Fighter');
+    campaignCharData.kit = String(document.getElementById('camp-char-kit').value || '').trim();
+    campaignCharData.level = Math.max(1, Math.min(30, parseInt(document.getElementById('camp-char-level').value, 10) || 1));
+    campaignCharData.hp.cur = Math.max(0, parseInt(document.getElementById('camp-char-hp-cur').value, 10) || 0);
+    campaignCharData.gp = Math.max(0, parseInt(document.getElementById('camp-char-gp').value, 10) || 0);
+
+    campaignCharData.stats.STR = Math.max(1, Math.min(25, parseInt(document.getElementById('camp-str').value, 10) || 10));
+    campaignCharData.stats.DEX = Math.max(1, Math.min(25, parseInt(document.getElementById('camp-dex').value, 10) || 10));
+    campaignCharData.stats.CON = Math.max(1, Math.min(25, parseInt(document.getElementById('camp-con').value, 10) || 10));
+    campaignCharData.stats.INT = Math.max(1, Math.min(25, parseInt(document.getElementById('camp-int').value, 10) || 10));
+    campaignCharData.stats.WIS = Math.max(1, Math.min(25, parseInt(document.getElementById('camp-wis').value, 10) || 10));
+    campaignCharData.stats.CHA = Math.max(1, Math.min(25, parseInt(document.getElementById('camp-cha').value, 10) || 10));
+    campaignCharData.stats.STR_Pct = Math.max(0, Math.min(100, parseInt(document.getElementById('camp-str-pct').value, 10) || 0));
+
+    localStorage.setItem('adnd_char_data', JSON.stringify(campaignCharData));
+    document.getElementById('camp-prog-msg').textContent = 'Progression saved to character data.';
+}
+
+function splitCampaignHoards() {
+    const raw = localStorage.getItem('adnd_char_data');
+    if (!raw) {
+        document.getElementById('camp-prog-msg').textContent = 'No character data found to split.';
+        return;
+    }
+
+    let data = null;
+    try {
+        data = JSON.parse(raw);
+    } catch (e) {
+        document.getElementById('camp-prog-msg').textContent = 'Character data is invalid JSON.';
+        return;
+    }
+
+    let changed = false;
+    let splitCount = 0;
+    const makeId = () => `itm-${Date.now()}-${Math.floor(Math.random() * 1000000)}`;
+
+    const hoards = Array.isArray(data && data.treasureHoards) ? data.treasureHoards : [];
+    hoards.forEach(hoard => {
+        const containers = Array.isArray(hoard && hoard.containers) ? hoard.containers : [];
+        containers.forEach(container => {
+            const items = Array.isArray(container && container.items) ? container.items : [];
+            const nextItems = [];
+            items.forEach(item => {
+                const qty = Math.max(1, parseInt(item && item.quantity, 10) || 1);
+                if (qty <= 1) {
+                    nextItems.push(item);
+                    return;
+                }
+                changed = true;
+                splitCount += (qty - 1);
+                for (let i = 0; i < qty; i += 1) {
+                    nextItems.push({
+                        ...item,
+                        id: makeId(),
+                        quantity: 1,
+                        isStackable: false
+                    });
+                }
+            });
+            container.items = nextItems;
+        });
+    });
+
+    if (!changed) {
+        document.getElementById('camp-prog-msg').textContent = 'No stacked hoard items found to split.';
+        return;
+    }
+
+    localStorage.setItem('adnd_char_data', JSON.stringify(data));
+    campaignCharData = data;
+    normalizeCharacterShape();
+    normalizeProfShape();
+    renderCampaignProgression();
+    renderCampaignWeaponProficiencies();
+    document.getElementById('camp-prog-msg').textContent = `Split hoards complete (${splitCount} extra item records created).`;
+}
+
+function onCampaignRaceChanged() {
+    campaignCharData.race = String(document.getElementById('camp-char-race').value || 'Human');
+    renderCampaignProgression();
+}
+
+function renderCampaignWeaponProficiencies() {
+    const choice = document.getElementById('camp-wp-choice');
+    const current = campaignCharData.proficiencies.weapons.map(p => String(p.name || '').toLowerCase());
+    const available = campaignWeaponChoices.filter(name => !current.includes(name.toLowerCase()));
+    choice.innerHTML = available.length === 0
+        ? '<option value="">No weapon options available</option>'
+        : ['<option value="">Select weapon proficiency...</option>'].concat(available.map(name => `<option value="${name}">${name}</option>`)).join('');
+    choice.disabled = available.length === 0;
+
+    const list = document.getElementById('camp-wp-list');
+    if (campaignCharData.proficiencies.weapons.length === 0) {
+        list.innerHTML = '<div class="small-note">No weapon proficiencies selected.</div>';
+    } else {
+        list.innerHTML = campaignCharData.proficiencies.weapons.map((entry, idx) => `
+            <div class="item-row">
+                <span>${entry.name}</span>
+                <span style="display:flex; gap:6px; align-items:center;">
+                    <label style="font-size:0.75rem;">Slots:</label>
+                    <input type="number" min="1" value="${entry.slots}" onchange="updateCampaignWeaponSlots(${idx}, this.value)" style="width:56px;">
+                    <button type="button" onclick="removeCampaignWeaponProficiency(${idx})">Remove</button>
+                </span>
+            </div>
+        `).join('');
+    }
+
+    const nwpChoice = document.getElementById('camp-nwp-choice');
+    const nwpCurrent = campaignCharData.proficiencies.nwps.map(p => String(p.name || '').toLowerCase());
+    const nwpAvailable = campaignNwpChoices.filter(name => !nwpCurrent.includes(name.toLowerCase()));
+    nwpChoice.innerHTML = nwpAvailable.length === 0
+        ? '<option value="">No NWP options available</option>'
+        : ['<option value="">Select non-weapon proficiency...</option>'].concat(nwpAvailable.map(name => `<option value="${name}">${name}</option>`)).join('');
+    nwpChoice.disabled = nwpAvailable.length === 0;
+
+    const nwpList = document.getElementById('camp-nwp-list');
+    if (campaignCharData.proficiencies.nwps.length === 0) {
+        nwpList.innerHTML = '<div class="small-note">No non-weapon proficiencies selected.</div>';
+    } else {
+        nwpList.innerHTML = campaignCharData.proficiencies.nwps.map((entry, idx) => `
+            <div class="item-row">
+                <span>${entry.name}</span>
+                <span style="display:flex; gap:6px; align-items:center;">
+                    <label style="font-size:0.75rem;">Slots:</label>
+                    <input type="number" min="1" value="${entry.slots}" onchange="updateCampaignNwpField(${idx}, 'slots', this.value)" style="width:56px;">
+                    <label style="font-size:0.75rem;">Ability:</label>
+                    <select onchange="updateCampaignNwpField(${idx}, 'ability', this.value)">
+                        ${['STR','DEX','CON','INT','WIS','CHA'].map(ab => `<option value="${ab}" ${entry.ability === ab ? 'selected' : ''}>${ab}</option>`).join('')}
+                    </select>
+                    <label style="font-size:0.75rem;">Mod:</label>
+                    <input type="number" value="${entry.checkMod}" onchange="updateCampaignNwpField(${idx}, 'checkMod', this.value)" style="width:56px;">
+                    <button type="button" onclick="removeCampaignNwp(${idx})">Remove</button>
+                </span>
+            </div>
+        `).join('');
+    }
+
+    document.getElementById('camp-wp-msg').textContent = `Current character: ${(campaignCharData.name || 'Unnamed')} (${campaignCharData.class || 'Class Unknown'})`;
+}
+
+function addCampaignWeaponProficiency() {
+    const name = document.getElementById('camp-wp-choice').value;
+    if (!name) return;
+    const slots = Math.max(1, parseInt(document.getElementById('camp-wp-slots').value, 10) || 1);
+    campaignCharData.proficiencies.weapons.push({ name, slots });
+    renderCampaignWeaponProficiencies();
+}
+
+function removeCampaignWeaponProficiency(index) {
+    if (index < 0 || index >= campaignCharData.proficiencies.weapons.length) return;
+    campaignCharData.proficiencies.weapons.splice(index, 1);
+    renderCampaignWeaponProficiencies();
+}
+
+function updateCampaignWeaponSlots(index, value) {
+    if (index < 0 || index >= campaignCharData.proficiencies.weapons.length) return;
+    campaignCharData.proficiencies.weapons[index].slots = Math.max(1, parseInt(value, 10) || 1);
+}
+
+function addCampaignNwp() {
+    const name = document.getElementById('camp-nwp-choice').value;
+    if (!name) return;
+    campaignCharData.proficiencies.nwps.push({ name, slots: 1, ability: 'INT', checkMod: 0, category: 'General' });
+    renderCampaignWeaponProficiencies();
+}
+
+function removeCampaignNwp(index) {
+    if (index < 0 || index >= campaignCharData.proficiencies.nwps.length) return;
+    campaignCharData.proficiencies.nwps.splice(index, 1);
+    renderCampaignWeaponProficiencies();
+}
+
+function updateCampaignNwpField(index, field, value) {
+    if (index < 0 || index >= campaignCharData.proficiencies.nwps.length) return;
+    if (field === 'slots') {
+        campaignCharData.proficiencies.nwps[index].slots = Math.max(1, parseInt(value, 10) || 1);
+    } else if (field === 'checkMod') {
+        campaignCharData.proficiencies.nwps[index].checkMod = parseInt(value, 10) || 0;
+    } else if (field === 'ability') {
+        campaignCharData.proficiencies.nwps[index].ability = String(value || 'INT').toUpperCase();
+    }
+}
+
+function saveCampaignProficiencies() {
+    localStorage.setItem('adnd_char_data', JSON.stringify(campaignCharData));
+    document.getElementById('camp-wp-msg').textContent = 'Weapon and non-weapon proficiencies saved to character data.';
+}
+
+function load(){const s=localStorage.getItem('campaignNotes');if(s)document.getElementById('camp-notes').value=s;loadCampaignWeaponProficiencies();}
 function save(){localStorage.setItem('campaignNotes',document.getElementById('camp-notes').value);alert('Campaign notes saved!');}
 function loadFromStore(){load();alert('Campaign notes loaded from browser cache.');}
 function refreshPage(){location.reload();}
+document.addEventListener('change', (ev) => {
+    if (ev && ev.target && ev.target.id === 'camp-char-race') {
+        onCampaignRaceChanged();
+    }
+});
 load();
 </script>
 </body>
