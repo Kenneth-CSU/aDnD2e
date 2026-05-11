@@ -15,7 +15,7 @@ const EQUIP_SLOT_DEFS = [
     { slotKey: 'feet', label: 'Feet', capacitySlots: 1 }
 ];
 
-const EQUIP_SLOT_GROUPS = [
+const DEFAULT_EQUIP_SLOT_GROUPS = [
     { label: 'Weapons', slots: ['rightArm', 'leftArm'] },
     { label: 'Shield', slots: ['shield'] },
     { label: 'Body', slots: ['body'] },
@@ -25,6 +25,8 @@ const EQUIP_SLOT_GROUPS = [
     { label: 'Legs', slots: ['legs'] },
     { label: 'Feet', slots: ['feet'] }
 ];
+
+let EQUIP_SLOT_GROUPS = DEFAULT_EQUIP_SLOT_GROUPS.map(group => ({ ...group }));
 
 const SLOT_ALLOWED_ITEM_TYPES = {
     rightArm: ['weapon', 'tool', 'equipment', 'miscellaneous'],
@@ -46,7 +48,7 @@ const CONTAINER_TYPE_PRESETS = {
     Pouch: { capacitySlots: 5, baseWeight: 0.5 }
 };
 
-const CONTAINER_TYPE_OPTIONS = Object.keys(CONTAINER_TYPE_PRESETS);
+let CONTAINER_TYPE_OPTIONS = Object.keys(CONTAINER_TYPE_PRESETS);
 const ROOT_INVENTORY_CONTAINER_ID = 'inventory-root';
 
 let activeContainerId = '';
@@ -59,6 +61,68 @@ function createUniqueId(prefix) {
         return `${prefix}-${crypto.randomUUID()}`;
     }
     return `${prefix}-${Date.now()}-${Math.floor(Math.random() * 1e9)}`;
+}
+
+function parseAdminOptionList(storageKey, fallback) {
+    if (typeof parseAdminList === 'function') {
+        return parseAdminList(storageKey, fallback);
+    }
+
+    const raw = localStorage.getItem(storageKey);
+    if (!raw) return [...fallback];
+
+    try {
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return [...fallback];
+        const unique = [];
+        const seen = new Set();
+        parsed.forEach(entry => {
+            const value = String(entry || '').trim();
+            if (!value) return;
+            const key = value.toLowerCase();
+            if (seen.has(key)) return;
+            seen.add(key);
+            unique.push(value);
+        });
+        return unique.length ? unique : [...fallback];
+    } catch (error) {
+        console.error(`Failed parsing ${storageKey}:`, error);
+        return [...fallback];
+    }
+}
+
+function setSelectOptions(selectId, values, labelBuilder) {
+    const select = document.getElementById(selectId);
+    if (!select) return;
+
+    const previous = select.value;
+    select.innerHTML = '';
+    values.forEach(value => {
+        const label = labelBuilder ? labelBuilder(value) : value;
+        select.add(new Option(label, value));
+    });
+
+    if (values.includes(previous)) {
+        select.value = previous;
+    }
+}
+
+function applyAdminManagedItemOptions() {
+    ITEM_TYPE_ENUM = parseAdminOptionList('admin_item_types', ['weapon', 'shield', 'armor', 'container', 'tool', 'consumable', 'component', 'equipment', 'treasure', 'mount', 'miscellaneous']);
+    CONTAINER_TYPE_OPTIONS = parseAdminOptionList('admin_container_types', Object.keys(CONTAINER_TYPE_PRESETS));
+
+    const slotLabels = parseAdminOptionList('admin_wear_slots', DEFAULT_EQUIP_SLOT_GROUPS.map(group => group.label));
+    EQUIP_SLOT_GROUPS = DEFAULT_EQUIP_SLOT_GROUPS.map((group, index) => ({
+        ...group,
+        label: slotLabels[index] || group.label
+    }));
+
+    setSelectOptions('new-item-type', ITEM_TYPE_ENUM);
+    setSelectOptions('container-modal-type', CONTAINER_TYPE_OPTIONS);
+
+    if (typeof renderWearSlots === 'function') {
+        renderWearSlots();
+    }
 }
 
 function escapeHtml(value) {

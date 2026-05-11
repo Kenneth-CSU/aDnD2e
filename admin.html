@@ -345,6 +345,8 @@
 <script>
 const APP_KEYS = [
     'adnd_char_data',
+    'adnd_char_roster',
+    'adnd_active_char_id',
     'adsheet_autosave',
     'combatNotes',
     'craftingNotes',
@@ -431,6 +433,24 @@ const CONTROL_CONFIGS = [
         fieldLabel: 'Sort mode value'
     },
     {
+        id: 'item-types',
+        title: 'Item Type Options',
+        description: 'Item type dropdown options used by item editors.',
+        kind: 'string-list',
+        storageKey: 'admin_item_types',
+        defaults: ['weapon', 'shield', 'armor', 'container', 'tool', 'consumable', 'component', 'equipment', 'treasure', 'mount', 'miscellaneous'],
+        fieldLabel: 'Item type value'
+    },
+    {
+        id: 'container-types',
+        title: 'Container Type Options',
+        description: 'Container type dropdown options used by inventory editors.',
+        kind: 'string-list',
+        storageKey: 'admin_container_types',
+        defaults: ['Bag', 'Backpack', 'Quiver', 'Case', 'Pouch'],
+        fieldLabel: 'Container type'
+    },
+    {
         id: 'filter-source',
         title: 'Item Mechanics Source Filter',
         description: 'Function filter options in Item Mechanics.',
@@ -442,11 +462,11 @@ const CONTROL_CONFIGS = [
     {
         id: 'wear-slots',
         title: 'Wear Slot Labels',
-        description: 'Named slot list for wearable slot displays.',
+        description: 'Wear-slot group labels for the equipment panel.',
         kind: 'string-list',
         storageKey: 'admin_wear_slots',
-        defaults: ['body', 'shield', 'head', 'hands', 'feet', 'cloak', 'belt', 'neck', 'ring_left', 'ring_right'],
-        fieldLabel: 'Slot key'
+        defaults: ['Weapons', 'Shield', 'Body', 'Head', 'Hands', 'Belt', 'Legs', 'Feet'],
+        fieldLabel: 'Slot label'
     }
 ];
 
@@ -477,7 +497,12 @@ function refreshStatus() {
 
 function resetCharacterData() {
     localStorage.removeItem('adnd_char_data');
-    setStatus('status-msg', 'Character save removed.');
+    localStorage.removeItem('adnd_char_roster');
+    localStorage.removeItem('adnd_active_char_id');
+    Object.keys(localStorage).forEach(key => {
+        if (key.startsWith('adnd_char_data_')) localStorage.removeItem(key);
+    });
+    setStatus('status-msg', 'Character roster and saves removed.');
     refreshStatus();
 }
 

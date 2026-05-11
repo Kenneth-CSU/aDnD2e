@@ -62,7 +62,8 @@
             z-index: 100;
         }
         h1 { margin: 0; font-size: 1.4rem; letter-spacing: 1px; text-transform: uppercase; }
-        .top-controls { display: flex; gap: 10px; }
+        .top-controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+        .char-status { font-size: 0.78rem; color: #f9e7b0; min-width: 180px; }
         
         button {
             background: var(--parchment-dark);
@@ -327,6 +328,10 @@
 <header>
     <h1>AD&D 2nd Ed. Sheet</h1>
     <div class="top-controls">
+        <label for="char-select" style="font-size:0.8rem; font-weight:bold;">Character:</label>
+        <select id="char-select" onchange="changeActiveCharacter(this.value)" style="min-width:170px; font-size:0.8rem;"></select>
+        <span id="char-switch-status" class="char-status"></span>
+        <button onclick="window.location.href='campaign.html'">Manage</button>
         <button onclick="saveCharacter()">Save</button>
         <button onclick="loadCharacter()">Load</button>
         <button onclick="location.reload()">Refresh</button>

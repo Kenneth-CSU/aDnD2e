@@ -4,6 +4,7 @@ async function init() {
     await loadWeaponProficiencyData();
     try {
         applyAdminManagedSelectOptions();
+        applyAdminManagedItemOptions();
         populateDropdowns();
         renderAbilities();
         loadCharacter();

@@ -23,16 +23,35 @@
         .form-grid input, .form-grid select { width:100%; }
         .stats-grid { display:grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap:6px; margin-top:8px; }
         .stats-grid label { font-size:0.72rem; font-weight:bold; display:block; margin-bottom:2px; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); display: none; align-items: center; justify-content: center; z-index: 1300; padding: 14px; }
+        .modal-content-box { width: min(680px, 96vw); max-height: 92vh; overflow: auto; background: var(--parchment); border: 4px double var(--border); padding: 12px; }
+        .modal-form-grid { display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap:8px; }
+        .modal-form-grid > div { display:flex; flex-direction:column; gap:3px; }
+        .modal-form-grid label { font-size:0.75rem; font-weight:bold; }
         @media (max-width: 920px) {
             .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
             .stats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+            .modal-form-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-<nav><a href="index.html">Character</a><a href="races.html">Races</a><a href="classes.html">Classes</a><a href="wizardSpells.html">Wizard Spells</a><a href="clericSpells.html">Cleric Spells</a><a href="weapons.html">Weapons</a><a href="armour.html">Armour</a><a href="items.html">Items</a><a href="proficiencies.html">Proficiencies</a><a href="combat.html">Combat</a><a href="crafting.html">Crafting</a><a href="campaign.html" class="current">Campaign</a></nav>
+<nav><a href="index.html">Character</a><a href="races.html">Races</a><a href="classes.html">Classes</a><a href="wizardSpells.html">Wizard Spells</a><a href="clericSpells.html">Cleric Spells</a><a href="weapons.html">Weapons</a><a href="armour.html">Armour</a><a href="items.html">Items</a><a href="itemMechanics.html">Item Mechanics</a><a href="proficiencies.html">Proficiencies</a><a href="combat.html">Combat</a><a href="crafting.html">Crafting</a><a href="campaign.html" class="current">Campaign</a><a href="admin.html">Admin</a></nav>
 <header><h1>Campaign Journal & DM Notes</h1><div><button onclick="save()">Save</button><button onclick="loadFromStore()">Load</button><button onclick="refreshPage()">Refresh</button></div></header>
 <div id="content">
+    <section class="panel">
+        <h2 style="margin:0 0 8px; font-size:1rem;">Character Manager</h2>
+        <div class="small-note">Character sheet uses this roster. Select active character here, and use popups for add/edit/delete.</div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; align-items:center;">
+            <label style="font-size:0.8rem; font-weight:bold;">Active Character</label>
+            <select id="camp-character-select" onchange="selectCampaignCharacter(this.value)" style="min-width:240px;"></select>
+            <button type="button" onclick="openCampaignCharacterModal('add')">+ Add</button>
+            <button type="button" onclick="openCampaignCharacterModal('edit')">Edit</button>
+            <button type="button" class="danger" onclick="deleteCampaignCharacter()">Delete</button>
+            <span id="camp-char-msg" class="small-note"></span>
+        </div>
+    </section>
+
     <section class="panel">
         <h2 style="margin:0 0 8px; font-size:1rem;">Character Progression Editor</h2>
         <div class="small-note">Edit class/race/kit/level and ability scores here. Character sheet displays these values read-only.</div>
@@ -86,6 +105,28 @@
     </section>
     <textarea id="camp-notes" placeholder="Session logs, NPC details, plot hooks, world lore..."></textarea>
 </div>
+
+<div id="camp-character-modal" class="modal-overlay" onclick="if(event.target===this) closeCampaignCharacterModal()">
+    <div class="modal-content-box">
+        <h2 id="camp-character-modal-title" style="margin:0 0 8px; font-size:1rem;">Character</h2>
+        <input id="camp-character-modal-id" type="hidden">
+        <div class="modal-form-grid">
+            <div style="grid-column:1 / -1;"><label>Character ID</label><input id="camp-character-modal-id-display" type="text" readonly></div>
+            <div style="grid-column:1 / -1;"><label>Name</label><input id="camp-character-modal-name" type="text"></div>
+            <div><label>Race</label><select id="camp-character-modal-race"></select></div>
+            <div><label>Class</label><select id="camp-character-modal-class"></select></div>
+            <div><label>Kit</label><input id="camp-character-modal-kit" type="text"></div>
+            <div><label>Level</label><input id="camp-character-modal-level" type="number" min="1" max="30" value="1"></div>
+            <div><label>HP Current</label><input id="camp-character-modal-hp-cur" type="number" min="0" value="10"></div>
+            <div><label>Gold (GP)</label><input id="camp-character-modal-gp" type="number" min="0" value="0"></div>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;">
+            <button type="button" onclick="saveCampaignCharacterModal()">Save</button>
+            <button id="camp-character-modal-delete" type="button" class="danger" onclick="deleteCampaignCharacterFromModal()">Delete</button>
+            <button type="button" onclick="closeCampaignCharacterModal()">Cancel</button>
+        </div>
+    </div>
+</div>
 <script>
 let campaignCharData = null;
 let campaignWeaponChoices = [];
@@ -93,6 +134,115 @@ let campaignNwpChoices = [];
 let campaignRaces = ['Human', 'Elf', 'Half-Elf', 'Dwarf', 'Gnome', 'Halfling', 'Half-Orc'];
 let campaignClasses = ['Fighter', 'Paladin', 'Ranger', 'Mage', 'Cleric', 'Druid', 'Thief', 'Bard'];
 let campaignRaceClassMap = {};
+const CAMP_CHAR_ROSTER_KEY = 'adnd_char_roster';
+const CAMP_CHAR_ACTIVE_ID_KEY = 'adnd_active_char_id';
+const CAMP_CHAR_DATA_PREFIX = 'adnd_char_data_';
+const CAMP_CHAR_LEGACY_KEY = 'adnd_char_data';
+
+function campaignGenerateId() {
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+        return `char-${crypto.randomUUID()}`;
+    }
+    return `char-${Date.now()}-${Math.floor(Math.random() * 1000000)}`;
+}
+
+function campaignStorageKey(charId) {
+    return `${CAMP_CHAR_DATA_PREFIX}${charId}`;
+}
+
+function campaignReadRoster() {
+    const raw = localStorage.getItem(CAMP_CHAR_ROSTER_KEY);
+    if (!raw) return [];
+    try {
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return [];
+        return parsed
+            .filter(entry => entry && typeof entry.id === 'string')
+            .map(entry => ({ id: String(entry.id), name: String(entry.name || '') }));
+    } catch (e) {
+        return [];
+    }
+}
+
+function campaignWriteRoster(roster) {
+    localStorage.setItem(CAMP_CHAR_ROSTER_KEY, JSON.stringify(Array.isArray(roster) ? roster : []));
+}
+
+function campaignEnsureId(data) {
+    if (!data || typeof data !== 'object') return '';
+    if (!data.id || typeof data.id !== 'string') data.id = campaignGenerateId();
+    return data.id;
+}
+
+function campaignDefaultCharacter() {
+    return {
+        id: campaignGenerateId(),
+        name: '',
+        race: 'Human',
+        class: 'Fighter',
+        kit: '',
+        level: 1,
+        hp: { cur: 10, max: 10 },
+        gp: 0,
+        stats: { STR: 10, DEX: 10, CON: 10, INT: 10, WIS: 10, CHA: 10, STR_Pct: 0 },
+        proficiencies: { weapons: [], nwps: [] }
+    };
+}
+
+function campaignGetSelectedCharacterId() {
+    const sel = document.getElementById('camp-character-select');
+    if (sel && sel.value) return sel.value;
+    return localStorage.getItem(CAMP_CHAR_ACTIVE_ID_KEY) || '';
+}
+
+function campaignEnsureRosterMigration() {
+    let roster = campaignReadRoster();
+    if (roster.length === 0) {
+        const legacyRaw = localStorage.getItem(CAMP_CHAR_LEGACY_KEY);
+        let seed = null;
+        if (legacyRaw) {
+            try {
+                seed = JSON.parse(legacyRaw);
+            } catch (e) {}
+        }
+        if (!seed || typeof seed !== 'object') seed = campaignDefaultCharacter();
+        const id = campaignEnsureId(seed);
+        localStorage.setItem(campaignStorageKey(id), JSON.stringify(seed));
+        localStorage.setItem(CAMP_CHAR_ACTIVE_ID_KEY, id);
+        roster = [{ id, name: String(seed.name || '') }];
+        campaignWriteRoster(roster);
+    }
+    let activeId = localStorage.getItem(CAMP_CHAR_ACTIVE_ID_KEY);
+    if (!activeId || !roster.some(entry => entry.id === activeId)) {
+        activeId = roster[0].id;
+        localStorage.setItem(CAMP_CHAR_ACTIVE_ID_KEY, activeId);
+    }
+    renderCampaignCharacterSelect(roster, activeId);
+    return { roster, activeId };
+}
+
+function renderCampaignCharacterSelect(roster, activeId) {
+    const sel = document.getElementById('camp-character-select');
+    if (!sel) return;
+    sel.innerHTML = (roster || []).map(entry => {
+        const label = (entry.name && entry.name.trim()) ? entry.name.trim() : `Unnamed (${entry.id.slice(0, 8)})`;
+        return `<option value="${entry.id}">${label}</option>`;
+    }).join('');
+    if (activeId) sel.value = activeId;
+}
+
+function campaignUpsertRosterFromCurrent() {
+    const id = campaignEnsureId(campaignCharData);
+    let roster = campaignReadRoster();
+    const existing = roster.find(entry => entry.id === id);
+    const name = String(campaignCharData.name || '').trim();
+    if (existing) existing.name = name;
+    else roster.push({ id, name });
+    campaignWriteRoster(roster);
+    localStorage.setItem(CAMP_CHAR_ACTIVE_ID_KEY, id);
+    renderCampaignCharacterSelect(roster, id);
+    return id;
+}
 
 function normalizeProfShape() {
     if (!campaignCharData.proficiencies || typeof campaignCharData.proficiencies !== 'object') {
@@ -120,6 +270,7 @@ function normalizeCharacterShape() {
     if (!campaignCharData || typeof campaignCharData !== 'object') {
         campaignCharData = {};
     }
+    campaignEnsureId(campaignCharData);
     campaignCharData.name = String(campaignCharData.name || '');
     campaignCharData.race = String(campaignCharData.race || 'Human');
     campaignCharData.class = String(campaignCharData.class || 'Fighter');
@@ -223,8 +374,20 @@ async function loadReferenceLists() {
 }
 
 async function loadCampaignWeaponProficiencies() {
-    const raw = localStorage.getItem('adnd_char_data');
-    campaignCharData = raw ? JSON.parse(raw) : { name: '', class: 'Fighter', level: 1, proficiencies: { weapons: [], nwps: [] } };
+    const { activeId } = campaignEnsureRosterMigration();
+    const selectedId = campaignGetSelectedCharacterId() || activeId;
+    localStorage.setItem(CAMP_CHAR_ACTIVE_ID_KEY, selectedId);
+    const raw = localStorage.getItem(campaignStorageKey(selectedId)) || localStorage.getItem(CAMP_CHAR_LEGACY_KEY);
+    if (raw) {
+        try {
+            campaignCharData = JSON.parse(raw);
+        } catch (e) {
+            campaignCharData = campaignDefaultCharacter();
+        }
+    } else {
+        campaignCharData = campaignDefaultCharacter();
+    }
+    campaignCharData.id = selectedId;
     normalizeCharacterShape();
     normalizeProfShape();
     await loadReferenceLists();
@@ -297,12 +460,16 @@ function saveCampaignProgression() {
     campaignCharData.stats.CHA = Math.max(1, Math.min(25, parseInt(document.getElementById('camp-cha').value, 10) || 10));
     campaignCharData.stats.STR_Pct = Math.max(0, Math.min(100, parseInt(document.getElementById('camp-str-pct').value, 10) || 0));
 
-    localStorage.setItem('adnd_char_data', JSON.stringify(campaignCharData));
+    const id = campaignUpsertRosterFromCurrent();
+    localStorage.setItem(campaignStorageKey(id), JSON.stringify(campaignCharData));
+    localStorage.setItem(CAMP_CHAR_LEGACY_KEY, JSON.stringify(campaignCharData));
     document.getElementById('camp-prog-msg').textContent = 'Progression saved to character data.';
 }
 
 function splitCampaignHoards() {
-    const raw = localStorage.getItem('adnd_char_data');
+    const { activeId } = campaignEnsureRosterMigration();
+    const selectedId = campaignGetSelectedCharacterId() || activeId;
+    const raw = localStorage.getItem(campaignStorageKey(selectedId));
     if (!raw) {
         document.getElementById('camp-prog-msg').textContent = 'No character data found to split.';
         return;
@@ -352,10 +519,13 @@ function splitCampaignHoards() {
         return;
     }
 
-    localStorage.setItem('adnd_char_data', JSON.stringify(data));
+    data.id = selectedId;
+    localStorage.setItem(campaignStorageKey(selectedId), JSON.stringify(data));
+    localStorage.setItem(CAMP_CHAR_LEGACY_KEY, JSON.stringify(data));
     campaignCharData = data;
     normalizeCharacterShape();
     normalizeProfShape();
+    campaignUpsertRosterFromCurrent();
     renderCampaignProgression();
     renderCampaignWeaponProficiencies();
     document.getElementById('camp-prog-msg').textContent = `Split hoards complete (${splitCount} extra item records created).`;
@@ -468,8 +638,135 @@ function updateCampaignNwpField(index, field, value) {
 }
 
 function saveCampaignProficiencies() {
-    localStorage.setItem('adnd_char_data', JSON.stringify(campaignCharData));
+    const id = campaignUpsertRosterFromCurrent();
+    localStorage.setItem(campaignStorageKey(id), JSON.stringify(campaignCharData));
+    localStorage.setItem(CAMP_CHAR_LEGACY_KEY, JSON.stringify(campaignCharData));
     document.getElementById('camp-wp-msg').textContent = 'Weapon and non-weapon proficiencies saved to character data.';
+}
+
+function selectCampaignCharacter(charId) {
+    if (!charId) return;
+    localStorage.setItem(CAMP_CHAR_ACTIVE_ID_KEY, charId);
+    loadCampaignWeaponProficiencies();
+    document.getElementById('camp-char-msg').textContent = 'Active character changed.';
+}
+
+function fillCampaignCharacterModalSelects() {
+    const raceSel = document.getElementById('camp-character-modal-race');
+    const classSel = document.getElementById('camp-character-modal-class');
+    raceSel.innerHTML = campaignRaces.map(r => `<option value="${r}">${r}</option>`).join('');
+    classSel.innerHTML = campaignClasses.map(c => `<option value="${c}">${c}</option>`).join('');
+}
+
+function openCampaignCharacterModal(mode) {
+    fillCampaignCharacterModalSelects();
+    const isAdd = mode === 'add';
+    const modal = document.getElementById('camp-character-modal');
+    const delBtn = document.getElementById('camp-character-modal-delete');
+    const title = document.getElementById('camp-character-modal-title');
+    let data = null;
+
+    if (isAdd) {
+        data = campaignDefaultCharacter();
+        title.textContent = 'Add Character';
+        delBtn.style.display = 'none';
+    } else {
+        const selectedId = campaignGetSelectedCharacterId();
+        const raw = localStorage.getItem(campaignStorageKey(selectedId));
+        if (!raw) return;
+        try {
+            data = JSON.parse(raw);
+        } catch (e) {
+            return;
+        }
+        campaignEnsureId(data);
+        title.textContent = 'Edit Character';
+        delBtn.style.display = 'inline-block';
+    }
+
+    if (!data.hp || typeof data.hp !== 'object') data.hp = { cur: 10, max: 10 };
+    if (!data.stats || typeof data.stats !== 'object') data.stats = { STR: 10, DEX: 10, CON: 10, INT: 10, WIS: 10, CHA: 10, STR_Pct: 0 };
+    data.level = Math.max(1, Math.min(30, parseInt(data.level, 10) || 1));
+    data.hp.cur = Math.max(0, parseInt(data.hp.cur, 10) || 10);
+    data.gp = Math.max(0, parseInt(data.gp, 10) || 0);
+    document.getElementById('camp-character-modal-id').value = data.id;
+    document.getElementById('camp-character-modal-id-display').value = data.id;
+    document.getElementById('camp-character-modal-name').value = data.name || '';
+    document.getElementById('camp-character-modal-race').value = data.race || 'Human';
+    document.getElementById('camp-character-modal-class').value = data.class || 'Fighter';
+    document.getElementById('camp-character-modal-kit').value = data.kit || '';
+    document.getElementById('camp-character-modal-level').value = data.level || 1;
+    document.getElementById('camp-character-modal-hp-cur').value = (data.hp && data.hp.cur) || 10;
+    document.getElementById('camp-character-modal-gp').value = data.gp || 0;
+    modal.style.display = 'flex';
+}
+
+function closeCampaignCharacterModal() {
+    document.getElementById('camp-character-modal').style.display = 'none';
+}
+
+function saveCampaignCharacterModal() {
+    const id = String(document.getElementById('camp-character-modal-id').value || '').trim() || campaignGenerateId();
+    const raw = localStorage.getItem(campaignStorageKey(id));
+    let data = campaignDefaultCharacter();
+    if (raw) {
+        try {
+            data = JSON.parse(raw);
+        } catch (e) {
+            data = campaignDefaultCharacter();
+        }
+    }
+    data.id = id;
+    data.name = String(document.getElementById('camp-character-modal-name').value || '').trim();
+    data.race = String(document.getElementById('camp-character-modal-race').value || 'Human');
+    data.class = String(document.getElementById('camp-character-modal-class').value || 'Fighter');
+    data.kit = String(document.getElementById('camp-character-modal-kit').value || '').trim();
+    data.level = Math.max(1, Math.min(30, parseInt(document.getElementById('camp-character-modal-level').value, 10) || 1));
+    data.hp = data.hp && typeof data.hp === 'object' ? data.hp : { cur: 10, max: 10 };
+    data.hp.cur = Math.max(0, parseInt(document.getElementById('camp-character-modal-hp-cur').value, 10) || 0);
+    if (!Number.isFinite(data.hp.max) || data.hp.max < data.hp.cur) data.hp.max = data.hp.cur;
+    data.gp = Math.max(0, parseInt(document.getElementById('camp-character-modal-gp').value, 10) || 0);
+    data.stats = data.stats && typeof data.stats === 'object' ? data.stats : { STR: 10, DEX: 10, CON: 10, INT: 10, WIS: 10, CHA: 10, STR_Pct: 0 };
+    if (!data.proficiencies || typeof data.proficiencies !== 'object') data.proficiencies = { weapons: [], nwps: [] };
+    if (!Array.isArray(data.proficiencies.weapons)) data.proficiencies.weapons = [];
+    if (!Array.isArray(data.proficiencies.nwps)) data.proficiencies.nwps = [];
+
+    localStorage.setItem(campaignStorageKey(id), JSON.stringify(data));
+
+    const roster = campaignReadRoster();
+    const existing = roster.find(entry => entry.id === id);
+    if (existing) existing.name = data.name;
+    else roster.push({ id, name: data.name });
+    campaignWriteRoster(roster);
+    localStorage.setItem(CAMP_CHAR_ACTIVE_ID_KEY, id);
+    renderCampaignCharacterSelect(roster, id);
+
+    closeCampaignCharacterModal();
+    loadCampaignWeaponProficiencies();
+    document.getElementById('camp-char-msg').textContent = existing ? 'Character updated.' : 'Character added.';
+}
+
+function deleteCampaignCharacter() {
+    const selectedId = campaignGetSelectedCharacterId();
+    if (!selectedId) return;
+    if (!confirm('Delete selected character?')) return;
+    localStorage.removeItem(campaignStorageKey(selectedId));
+    let roster = campaignReadRoster().filter(entry => entry.id !== selectedId);
+    if (roster.length === 0) {
+        const seed = campaignDefaultCharacter();
+        localStorage.setItem(campaignStorageKey(seed.id), JSON.stringify(seed));
+        roster = [{ id: seed.id, name: seed.name }];
+    }
+    campaignWriteRoster(roster);
+    localStorage.setItem(CAMP_CHAR_ACTIVE_ID_KEY, roster[0].id);
+    renderCampaignCharacterSelect(roster, roster[0].id);
+    loadCampaignWeaponProficiencies();
+    document.getElementById('camp-char-msg').textContent = 'Character deleted.';
+}
+
+function deleteCampaignCharacterFromModal() {
+    closeCampaignCharacterModal();
+    deleteCampaignCharacter();
 }
 
 function load(){const s=localStorage.getItem('campaignNotes');if(s)document.getElementById('camp-notes').value=s;loadCampaignWeaponProficiencies();}

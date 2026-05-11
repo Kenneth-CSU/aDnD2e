@@ -94,7 +94,7 @@ const SHIELD_NAME_MAP = {
     "shield, body": "Body Shield (Tower)"
 };
 
-const ITEM_TYPE_ENUM = Object.freeze([
+let ITEM_TYPE_ENUM = [
     'weapon',
     'shield',
     'armor',
@@ -106,7 +106,7 @@ const ITEM_TYPE_ENUM = Object.freeze([
     'treasure',
     'mount',
     'miscellaneous'
-]);
+];
 
 const DAMAGE_TYPE_ENUM = Object.freeze([
     'bludgeoning',
@@ -344,6 +344,7 @@ const THIEF_INCREASE = {
 
 // State
 let charData = {
+    id: "",
     name: "", race: "Human", class: "Fighter", kit: "", level: 1,
     stats: { STR: 10, DEX: 10, CON: 10, INT: 10, WIS: 10, CHA: 10, STR_Pct: 0 },
     hp: { cur: 10, max: 10 },

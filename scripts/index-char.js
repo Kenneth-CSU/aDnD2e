@@ -194,7 +194,7 @@ function populateDropdowns() {
 
 function applyCharacterSheetReadOnlyMode() {
     if (!CHARACTER_SHEET_READ_ONLY) return;
-    ['char-race', 'char-class', 'char-kit', 'char-level'].forEach(id => {
+    ['char-name', 'char-race', 'char-class', 'char-kit', 'char-level'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.disabled = true;
     });
