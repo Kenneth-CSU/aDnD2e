@@ -76,4 +76,9 @@ htmlcov/
 *.bmp
 *.gif
 *.webm
+
+# Source books corpus
+books/
+books/pageindex.json
+books/FullTextSearch.txt
 ```

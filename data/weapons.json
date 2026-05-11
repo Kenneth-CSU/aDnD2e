@@ -1,57 +1,1356 @@
-[
-  {"name": "Dagger", "damageSM": "1d4", "damageL": "1d3", "speedFactor": 2, "size": "S", "type": "Piercing", "weight": 1, "costGP": 2, "proficiencyGroup": "Dagger"},
-  {"name": "Knife", "damageSM": "1d3", "damageL": "1d2", "speedFactor": 2, "size": "S", "type": "Piercing/Slashing", "weight": 0.5, "costGP": 1, "proficiencyGroup": "Dagger"},
-  {"name": "Short Sword", "damageSM": "1d6", "damageL": "1d8", "speedFactor": 3, "size": "S", "type": "Piercing", "weight": 2, "costGP": 10, "proficiencyGroup": "Short Sword"},
-  {"name": "Long Sword", "damageSM": "1d8", "damageL": "1d12", "speedFactor": 5, "size": "M", "type": "Slashing", "weight": 4, "costGP": 15, "proficiencyGroup": "Long Sword"},
-  {"name": "Bastard Sword", "damageSM": "1d8", "damageL": "1d12", "speedFactor": 6, "size": "M", "type": "Slashing", "weight": 5, "costGP": 20, "proficiencyGroup": "Bastard Sword"},
-  {"name": "Two-Handed Sword", "damageSM": "1d10", "damageL": "3d6", "speedFactor": 8, "size": "L", "type": "Slashing", "weight": 8, "costGP": 30, "proficiencyGroup": "Two-Handed Sword"},
-  {"name": "War Hammer", "damageSM": "1d4+1", "damageL": "1d4+1", "speedFactor": 4, "size": "S", "type": "Bludgeoning", "weight": 3, "costGP": 5, "proficiencyGroup": "War Hammer"},
-  {"name": "Light Hammer", "damageSM": "1d4", "damageL": "1d3", "speedFactor": 3, "size": "S", "type": "Bludgeoning", "weight": 2, "costGP": 3, "proficiencyGroup": "War Hammer"},
-  {"name": "Mace", "damageSM": "1d6", "damageL": "1d6", "speedFactor": 4, "size": "M", "type": "Bludgeoning", "weight": 5, "costGP": 5, "proficiencyGroup": "Mace"},
-  {"name": "Footman's Mace", "damageSM": "1d6+1", "damageL": "2d4", "speedFactor": 7, "size": "L", "type": "Bludgeoning", "weight": 7, "costGP": 10, "proficiencyGroup": "Mace"},
-  {"name": "Morning Star", "damageSM": "1d6", "damageL": "1d6", "speedFactor": 5, "size": "M", "type": "Bludgeoning/Piercing", "weight": 5, "costGP": 8, "proficiencyGroup": "Mace"},
-  {"name": "Flail", "damageSM": "1d4+1", "damageL": "1d4+1", "speedFactor": 7, "size": "M", "type": "Bludgeoning", "weight": 5, "costGP": 8, "proficiencyGroup": "Flail"},
-  {"name": "Footman's Flail", "damageSM": "1d6+1", "damageL": "2d4", "speedFactor": 9, "size": "L", "type": "Bludgeoning", "weight": 8, "costGP": 12, "proficiencyGroup": "Flail"},
-  {"name": "Club", "damageSM": "1d6", "damageL": "1d3", "speedFactor": 4, "size": "M", "type": "Bludgeoning", "weight": 3, "costGP": 0, "proficiencyGroup": "Club"},
-  {"name": "Quarterstaff", "damageSM": "1d6", "damageL": "1d6", "speedFactor": 4, "size": "L", "type": "Bludgeoning", "weight": 4, "costGP": 0, "proficiencyGroup": "Staff"},
-  {"name": "Spear", "damageSM": "1d6", "damageL": "1d8", "speedFactor": 6, "size": "L", "type": "Piercing", "weight": 5, "costGP": 3, "proficiencyGroup": "Spear"},
-  {"name": "Short Bow", "damageSM": "1d6", "damageL": "1d6", "speedFactor": 7, "size": "M", "type": "Piercing", "weight": 2, "costGP": 20, "proficiencyGroup": "Bow"},
-  {"name": "Long Bow", "damageSM": "1d6", "damageL": "1d6", "speedFactor": 8, "size": "L", "type": "Piercing", "weight": 3, "costGP": 40, "proficiencyGroup": "Bow"},
-  {"name": "Composite Short Bow", "damageSM": "1d6", "damageL": "1d6", "speedFactor": 7, "size": "M", "type": "Piercing", "weight": 2, "costGP": 50, "proficiencyGroup": "Bow"},
-  {"name": "Composite Long Bow", "damageSM": "1d6", "damageL": "1d6", "speedFactor": 8, "size": "L", "type": "Piercing", "weight": 3, "costGP": 75, "proficiencyGroup": "Bow"},
-  {"name": "Arrow (20)", "damageSM": "Special", "damageL": "Special", "speedFactor": 0, "size": "S", "type": "Ammunition", "weight": 1, "costGP": 2, "proficiencyGroup": "Bow"},
-  {"name": "Light Crossbow", "damageSM": "1d6+1", "damageL": "1d8+1", "speedFactor": 7, "size": "M", "type": "Piercing", "weight": 5, "costGP": 25, "proficiencyGroup": "Crossbow"},
-  {"name": "Heavy Crossbow", "damageSM": "1d8", "damageL": "1d10", "speedFactor": 10, "size": "L", "type": "Piercing", "weight": 10, "costGP": 50, "proficiencyGroup": "Crossbow"},
-  {"name": "Quarrel/Bolt (20)", "damageSM": "Special", "damageL": "Special", "speedFactor": 0, "size": "S", "type": "Ammunition", "weight": 2, "costGP": 4, "proficiencyGroup": "Crossbow"},
-  {"name": "Hand Axe", "damageSM": "1d6", "damageL": "1d4", "speedFactor": 4, "size": "S", "type": "Slashing", "weight": 3, "costGP": 3, "proficiencyGroup": "Axe"},
-  {"name": "Battle Axe", "damageSM": "1d8", "damageL": "1d10", "speedFactor": 6, "size": "M", "type": "Slashing", "weight": 5, "costGP": 10, "proficiencyGroup": "Axe"},
-  {"name": "Great Axe", "damageSM": "1d10", "damageL": "2d6", "speedFactor": 9, "size": "L", "type": "Slashing", "weight": 10, "costGP": 20, "proficiencyGroup": "Axe"},
-  {"name": "Halberd", "damageSM": "1d10", "damageL": "2d6", "speedFactor": 9, "size": "L", "type": "Piercing/Slashing", "weight": 10, "costGP": 15, "proficiencyGroup": "Halberd"},
-  {"name": "Glaive", "damageSM": "1d6", "damageL": "1d10", "speedFactor": 8, "size": "L", "type": "Slashing", "weight": 8, "costGP": 10, "proficiencyGroup": "Polearm"},
-  {"name": "Bill-Guisarme", "damageSM": "1d8", "damageL": "2d6", "speedFactor": 10, "size": "L", "type": "Slashing/Piercing", "weight": 12, "costGP": 15, "proficiencyGroup": "Polearm"},
-  {"name": "Partisan", "damageSM": "1d6", "damageL": "1d8", "speedFactor": 8, "size": "L", "type": "Piercing", "weight": 8, "costGP": 12, "proficiencyGroup": "Polearm"},
-  {"name": "Fauchard", "damageSM": "1d6", "damageL": "1d8", "speedFactor": 7, "size": "L", "type": "Slashing", "weight": 7, "costGP": 10, "proficiencyGroup": "Polearm"},
-  {"name": "Scythe", "damageSM": "1d4", "damageL": "1d6", "speedFactor": 8, "size": "L", "type": "Slashing", "weight": 6, "costGP": 5, "proficiencyGroup": "Scythe"},
-  {"name": "Sickle", "damageSM": "1d4", "damageL": "1d3", "speedFactor": 3, "size": "S", "type": "Slashing", "weight": 2, "costGP": 3, "proficiencyGroup": "Sickle"},
-  {"name": "Trident", "damageSM": "1d6", "damageL": "3d4", "speedFactor": 7, "size": "L", "type": "Piercing", "weight": 5, "costGP": 10, "proficiencyGroup": "Trident"},
-  {"name": "Javelin", "damageSM": "1d6", "damageL": "1d6", "speedFactor": 4, "size": "M", "type": "Piercing", "weight": 2, "costGP": 1, "proficiencyGroup": "Javelin"},
-  {"name": "Lance", "damageSM": "1d6", "damageL": "1d8", "speedFactor": 8, "size": "L", "type": "Piercing", "weight": 8, "costGP": 10, "proficiencyGroup": "Lance"},
-  {"name": "Sling", "damageSM": "1d4", "damageL": "1d6", "speedFactor": 6, "size": "S", "type": "Bludgeoning", "weight": 0.5, "costGP": 0, "proficiencyGroup": "Sling"},
-  {"name": "Bullet/Sling Stone (20)", "damageSM": "Special", "damageL": "Special", "speedFactor": 0, "size": "S", "type": "Ammunition", "weight": 2, "costGP": 0, "proficiencyGroup": "Sling"},
-  {"name": "Dart", "damageSM": "1d3", "damageL": "1d2", "speedFactor": 2, "size": "S", "type": "Piercing", "weight": 0.25, "costGP": 0, "proficiencyGroup": "Dart"},
-  {"name": "Blowgun", "damageSM": "1", "damageL": "1", "speedFactor": 2, "size": "M", "type": "Piercing", "weight": 1, "costGP": 5, "proficiencyGroup": "Blowgun"},
-  {"name": "Needle (20)", "damageSM": "Special", "damageL": "Special", "speedFactor": 0, "size": "S", "type": "Ammunition", "weight": 0.5, "costGP": 2, "proficiencyGroup": "Blowgun"},
-  {"name": "Stiletto", "damageSM": "1d4", "damageL": "1d3", "speedFactor": 2, "size": "S", "type": "Piercing", "weight": 1, "costGP": 5, "proficiencyGroup": "Dagger"},
-  {"name": "Main-Gauche", "damageSM": "1d4", "damageL": "1d3", "speedFactor": 3, "size": "S", "type": "Piercing", "weight": 1.5, "costGP": 8, "proficiencyGroup": "Short Sword"},
-  {"name": "Rapier", "damageSM": "1d6", "damageL": "1d8", "speedFactor": 4, "size": "M", "type": "Piercing", "weight": 3, "costGP": 15, "proficiencyGroup": "Short Sword"},
-  {"name": "Cutlass", "damageSM": "1d6", "damageL": "1d8", "speedFactor": 4, "size": "M", "type": "Slashing", "weight": 3, "costGP": 12, "proficiencyGroup": "Short Sword"},
-  {"name": "Scimitar", "damageSM": "1d8", "damageL": "1d12", "speedFactor": 5, "size": "M", "type": "Slashing", "weight": 4, "costGP": 20, "proficiencyGroup": "Scimitar"},
-  {"name": "Khopesh", "damageSM": "1d8", "damageL": "1d10", "speedFactor": 6, "size": "M", "type": "Slashing", "weight": 5, "costGP": 25, "proficiencyGroup": "Scimitar"},
-  {"name": "Katana", "damageSM": "1d8", "damageL": "1d10", "speedFactor": 4, "size": "M", "type": "Slashing", "weight": 3, "costGP": 50, "proficiencyGroup": "Katana"},
-  {"name": "Wakizashi", "damageSM": "1d6", "damageL": "1d8", "speedFactor": 3, "size": "S", "type": "Slashing", "weight": 2, "costGP": 30, "proficiencyGroup": "Short Sword"},
-  {"name": "Hand Crossbow", "damageSM": "1d3", "damageL": "1d2", "speedFactor": 7, "size": "S", "type": "Piercing", "weight": 3, "costGP": 200, "proficiencyGroup": "Crossbow"},
-  {"name": "Sling Staff", "damageSM": "1d4+1", "damageL": "1d6+1", "speedFactor": 8, "size": "L", "type": "Bludgeoning", "weight": 3, "costGP": 5, "proficiencyGroup": "Sling"},
-  {"name": "Pick, Horseman's", "damageSM": "1d6", "damageL": "1d4", "speedFactor": 7, "size": "M", "type": "Piercing", "weight": 4, "costGP": 5, "proficiencyGroup": "Pick"},
-  {"name": "Pick, Military", "damageSM": "1d8", "damageL": "1d6", "speedFactor": 7, "size": "M", "type": "Piercing", "weight": 6, "costGP": 8, "proficiencyGroup": "Pick"},
-  {"name": "Truncheon", "damageSM": "1d2", "damageL": "1", "speedFactor": 2, "size": "S", "type": "Bludgeoning", "weight": 1, "costGP": 1, "proficiencyGroup": "Club"}
+﻿[
+    {
+        "name":  "Dagger",
+        "damageSM":  "1d4",
+        "damageL":  "1d3",
+        "speedFactor":  2,
+        "size":  "S",
+        "type":  "Piercing",
+        "weight":  1,
+        "costGP":  2,
+        "proficiencyGroup":  "Dagger",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense",
+                            "utility"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Knife",
+        "damageSM":  "1d3",
+        "damageL":  "1d2",
+        "speedFactor":  2,
+        "size":  "S",
+        "type":  "Piercing/Slashing",
+        "weight":  0.5,
+        "costGP":  1,
+        "proficiencyGroup":  "Dagger",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense",
+                            "utility"
+                        ],
+        "damageTypes":  [
+                            "piercing",
+                            "slashing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Short Sword",
+        "damageSM":  "1d6",
+        "damageL":  "1d8",
+        "speedFactor":  3,
+        "size":  "S",
+        "type":  "Piercing",
+        "weight":  2,
+        "costGP":  10,
+        "proficiencyGroup":  "Short Sword",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Long Sword",
+        "damageSM":  "1d8",
+        "damageL":  "1d12",
+        "speedFactor":  5,
+        "size":  "M",
+        "type":  "Slashing",
+        "weight":  4,
+        "costGP":  15,
+        "proficiencyGroup":  "Long Sword",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "slashing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Bastard Sword",
+        "damageSM":  "1d8",
+        "damageL":  "1d12",
+        "speedFactor":  6,
+        "size":  "M",
+        "type":  "Slashing",
+        "weight":  5,
+        "costGP":  20,
+        "proficiencyGroup":  "Bastard Sword",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "slashing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Two-Handed Sword",
+        "damageSM":  "1d10",
+        "damageL":  "3d6",
+        "speedFactor":  8,
+        "size":  "L",
+        "type":  "Slashing",
+        "weight":  8,
+        "costGP":  30,
+        "proficiencyGroup":  "Two-Handed Sword",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense",
+                            "defense"
+                        ],
+        "damageTypes":  [
+                            "slashing"
+                        ],
+        "handedness":  "two-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "War Hammer",
+        "damageSM":  "1d4+1",
+        "damageL":  "1d4+1",
+        "speedFactor":  4,
+        "size":  "S",
+        "type":  "Bludgeoning",
+        "weight":  3,
+        "costGP":  5,
+        "proficiencyGroup":  "War Hammer",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "bludgeoning"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Light Hammer",
+        "damageSM":  "1d4",
+        "damageL":  "1d3",
+        "speedFactor":  3,
+        "size":  "S",
+        "type":  "Bludgeoning",
+        "weight":  2,
+        "costGP":  3,
+        "proficiencyGroup":  "War Hammer",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "bludgeoning"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Mace",
+        "damageSM":  "1d6",
+        "damageL":  "1d6",
+        "speedFactor":  4,
+        "size":  "M",
+        "type":  "Bludgeoning",
+        "weight":  5,
+        "costGP":  5,
+        "proficiencyGroup":  "Mace",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "bludgeoning"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Footman\u0027s Mace",
+        "damageSM":  "1d6+1",
+        "damageL":  "2d4",
+        "speedFactor":  7,
+        "size":  "L",
+        "type":  "Bludgeoning",
+        "weight":  7,
+        "costGP":  10,
+        "proficiencyGroup":  "Mace",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "bludgeoning"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Morning Star",
+        "damageSM":  "1d6",
+        "damageL":  "1d6",
+        "speedFactor":  5,
+        "size":  "M",
+        "type":  "Bludgeoning/Piercing",
+        "weight":  5,
+        "costGP":  8,
+        "proficiencyGroup":  "Mace",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "bludgeoning",
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Flail",
+        "damageSM":  "1d4+1",
+        "damageL":  "1d4+1",
+        "speedFactor":  7,
+        "size":  "M",
+        "type":  "Bludgeoning",
+        "weight":  5,
+        "costGP":  8,
+        "proficiencyGroup":  "Flail",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "bludgeoning"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Footman\u0027s Flail",
+        "damageSM":  "1d6+1",
+        "damageL":  "2d4",
+        "speedFactor":  9,
+        "size":  "L",
+        "type":  "Bludgeoning",
+        "weight":  8,
+        "costGP":  12,
+        "proficiencyGroup":  "Flail",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "bludgeoning"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Club",
+        "damageSM":  "1d6",
+        "damageL":  "1d3",
+        "speedFactor":  4,
+        "size":  "M",
+        "type":  "Bludgeoning",
+        "weight":  3,
+        "costGP":  0,
+        "proficiencyGroup":  "Club",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "bludgeoning"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Quarterstaff",
+        "damageSM":  "1d6",
+        "damageL":  "1d6",
+        "speedFactor":  4,
+        "size":  "L",
+        "type":  "Bludgeoning",
+        "weight":  4,
+        "costGP":  0,
+        "proficiencyGroup":  "Staff",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "bludgeoning"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Spear",
+        "damageSM":  "1d6",
+        "damageL":  "1d8",
+        "speedFactor":  6,
+        "size":  "L",
+        "type":  "Piercing",
+        "weight":  5,
+        "costGP":  3,
+        "proficiencyGroup":  "Spear",
+        "weaponCategory":  "thrown",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  10,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Short Bow",
+        "damageSM":  "1d6",
+        "damageL":  "1d6",
+        "speedFactor":  7,
+        "size":  "M",
+        "type":  "Piercing",
+        "weight":  2,
+        "costGP":  20,
+        "proficiencyGroup":  "Bow",
+        "weaponCategory":  "ranged",
+        "weaponRoles":  [
+                            "offense",
+                            "support"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Long Bow",
+        "damageSM":  "1d6",
+        "damageL":  "1d6",
+        "speedFactor":  8,
+        "size":  "L",
+        "type":  "Piercing",
+        "weight":  3,
+        "costGP":  40,
+        "proficiencyGroup":  "Bow",
+        "weaponCategory":  "ranged",
+        "weaponRoles":  [
+                            "offense",
+                            "support"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Composite Short Bow",
+        "damageSM":  "1d6",
+        "damageL":  "1d6",
+        "speedFactor":  7,
+        "size":  "M",
+        "type":  "Piercing",
+        "weight":  2,
+        "costGP":  50,
+        "proficiencyGroup":  "Bow",
+        "weaponCategory":  "ranged",
+        "weaponRoles":  [
+                            "offense",
+                            "support"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Composite Long Bow",
+        "damageSM":  "1d6",
+        "damageL":  "1d6",
+        "speedFactor":  8,
+        "size":  "L",
+        "type":  "Piercing",
+        "weight":  3,
+        "costGP":  75,
+        "proficiencyGroup":  "Bow",
+        "weaponCategory":  "ranged",
+        "weaponRoles":  [
+                            "offense",
+                            "support"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Arrow (20)",
+        "damageSM":  "Special",
+        "damageL":  "Special",
+        "speedFactor":  0,
+        "size":  "S",
+        "type":  "Ammunition",
+        "weight":  1,
+        "costGP":  2,
+        "proficiencyGroup":  "Bow",
+        "weaponCategory":  "ammunition",
+        "weaponRoles":  [
+                            "offense",
+                            "support",
+                            "survival"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Light Crossbow",
+        "damageSM":  "1d6+1",
+        "damageL":  "1d8+1",
+        "speedFactor":  7,
+        "size":  "M",
+        "type":  "Piercing",
+        "weight":  5,
+        "costGP":  25,
+        "proficiencyGroup":  "Crossbow",
+        "weaponCategory":  "ranged",
+        "weaponRoles":  [
+                            "offense",
+                            "support"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Heavy Crossbow",
+        "damageSM":  "1d8",
+        "damageL":  "1d10",
+        "speedFactor":  10,
+        "size":  "L",
+        "type":  "Piercing",
+        "weight":  10,
+        "costGP":  50,
+        "proficiencyGroup":  "Crossbow",
+        "weaponCategory":  "ranged",
+        "weaponRoles":  [
+                            "offense",
+                            "support"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Quarrel/Bolt (20)",
+        "damageSM":  "Special",
+        "damageL":  "Special",
+        "speedFactor":  0,
+        "size":  "S",
+        "type":  "Ammunition",
+        "weight":  2,
+        "costGP":  4,
+        "proficiencyGroup":  "Crossbow",
+        "weaponCategory":  "ammunition",
+        "weaponRoles":  [
+                            "offense",
+                            "support",
+                            "survival"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Hand Axe",
+        "damageSM":  "1d6",
+        "damageL":  "1d4",
+        "speedFactor":  4,
+        "size":  "S",
+        "type":  "Slashing",
+        "weight":  3,
+        "costGP":  3,
+        "proficiencyGroup":  "Axe",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "slashing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Battle Axe",
+        "damageSM":  "1d8",
+        "damageL":  "1d10",
+        "speedFactor":  6,
+        "size":  "M",
+        "type":  "Slashing",
+        "weight":  5,
+        "costGP":  10,
+        "proficiencyGroup":  "Axe",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "slashing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Great Axe",
+        "damageSM":  "1d10",
+        "damageL":  "2d6",
+        "speedFactor":  9,
+        "size":  "L",
+        "type":  "Slashing",
+        "weight":  10,
+        "costGP":  20,
+        "proficiencyGroup":  "Axe",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense",
+                            "defense"
+                        ],
+        "damageTypes":  [
+                            "slashing"
+                        ],
+        "handedness":  "two-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Halberd",
+        "damageSM":  "1d10",
+        "damageL":  "2d6",
+        "speedFactor":  9,
+        "size":  "L",
+        "type":  "Piercing/Slashing",
+        "weight":  10,
+        "costGP":  15,
+        "proficiencyGroup":  "Halberd",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense",
+                            "defense"
+                        ],
+        "damageTypes":  [
+                            "piercing",
+                            "slashing"
+                        ],
+        "handedness":  "two-handed",
+        "reachFt":  10,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Glaive",
+        "damageSM":  "1d6",
+        "damageL":  "1d10",
+        "speedFactor":  8,
+        "size":  "L",
+        "type":  "Slashing",
+        "weight":  8,
+        "costGP":  10,
+        "proficiencyGroup":  "Polearm",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "slashing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Bill-Guisarme",
+        "damageSM":  "1d8",
+        "damageL":  "2d6",
+        "speedFactor":  10,
+        "size":  "L",
+        "type":  "Slashing/Piercing",
+        "weight":  12,
+        "costGP":  15,
+        "proficiencyGroup":  "Polearm",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense",
+                            "defense"
+                        ],
+        "damageTypes":  [
+                            "piercing",
+                            "slashing"
+                        ],
+        "handedness":  "two-handed",
+        "reachFt":  10,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Partisan",
+        "damageSM":  "1d6",
+        "damageL":  "1d8",
+        "speedFactor":  8,
+        "size":  "L",
+        "type":  "Piercing",
+        "weight":  8,
+        "costGP":  12,
+        "proficiencyGroup":  "Polearm",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  10,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Fauchard",
+        "damageSM":  "1d6",
+        "damageL":  "1d8",
+        "speedFactor":  7,
+        "size":  "L",
+        "type":  "Slashing",
+        "weight":  7,
+        "costGP":  10,
+        "proficiencyGroup":  "Polearm",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "slashing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  10,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Scythe",
+        "damageSM":  "1d4",
+        "damageL":  "1d6",
+        "speedFactor":  8,
+        "size":  "L",
+        "type":  "Slashing",
+        "weight":  6,
+        "costGP":  5,
+        "proficiencyGroup":  "Scythe",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "slashing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Sickle",
+        "damageSM":  "1d4",
+        "damageL":  "1d3",
+        "speedFactor":  3,
+        "size":  "S",
+        "type":  "Slashing",
+        "weight":  2,
+        "costGP":  3,
+        "proficiencyGroup":  "Sickle",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "slashing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Trident",
+        "damageSM":  "1d6",
+        "damageL":  "3d4",
+        "speedFactor":  7,
+        "size":  "L",
+        "type":  "Piercing",
+        "weight":  5,
+        "costGP":  10,
+        "proficiencyGroup":  "Trident",
+        "weaponCategory":  "thrown",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  10,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Javelin",
+        "damageSM":  "1d6",
+        "damageL":  "1d6",
+        "speedFactor":  4,
+        "size":  "M",
+        "type":  "Piercing",
+        "weight":  2,
+        "costGP":  1,
+        "proficiencyGroup":  "Javelin",
+        "weaponCategory":  "thrown",
+        "weaponRoles":  [
+                            "offense",
+                            "support"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Lance",
+        "damageSM":  "1d6",
+        "damageL":  "1d8",
+        "speedFactor":  8,
+        "size":  "L",
+        "type":  "Piercing",
+        "weight":  8,
+        "costGP":  10,
+        "proficiencyGroup":  "Lance",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense",
+                            "defense"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "two-handed",
+        "reachFt":  10,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Sling",
+        "damageSM":  "1d4",
+        "damageL":  "1d6",
+        "speedFactor":  6,
+        "size":  "S",
+        "type":  "Bludgeoning",
+        "weight":  0.5,
+        "costGP":  0,
+        "proficiencyGroup":  "Sling",
+        "weaponCategory":  "ranged",
+        "weaponRoles":  [
+                            "offense",
+                            "support"
+                        ],
+        "damageTypes":  [
+                            "bludgeoning"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Bullet/Sling Stone (20)",
+        "damageSM":  "Special",
+        "damageL":  "Special",
+        "speedFactor":  0,
+        "size":  "S",
+        "type":  "Ammunition",
+        "weight":  2,
+        "costGP":  0,
+        "proficiencyGroup":  "Sling",
+        "weaponCategory":  "ammunition",
+        "weaponRoles":  [
+                            "offense",
+                            "support",
+                            "survival"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Dart",
+        "damageSM":  "1d3",
+        "damageL":  "1d2",
+        "speedFactor":  2,
+        "size":  "S",
+        "type":  "Piercing",
+        "weight":  0.25,
+        "costGP":  0,
+        "proficiencyGroup":  "Dart",
+        "weaponCategory":  "thrown",
+        "weaponRoles":  [
+                            "offense",
+                            "support"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Blowgun",
+        "damageSM":  "1",
+        "damageL":  "1",
+        "speedFactor":  2,
+        "size":  "M",
+        "type":  "Piercing",
+        "weight":  1,
+        "costGP":  5,
+        "proficiencyGroup":  "Blowgun",
+        "weaponCategory":  "ranged",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Needle (20)",
+        "damageSM":  "Special",
+        "damageL":  "Special",
+        "speedFactor":  0,
+        "size":  "S",
+        "type":  "Ammunition",
+        "weight":  0.5,
+        "costGP":  2,
+        "proficiencyGroup":  "Blowgun",
+        "weaponCategory":  "ammunition",
+        "weaponRoles":  [
+                            "offense",
+                            "support",
+                            "survival"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Stiletto",
+        "damageSM":  "1d4",
+        "damageL":  "1d3",
+        "speedFactor":  2,
+        "size":  "S",
+        "type":  "Piercing",
+        "weight":  1,
+        "costGP":  5,
+        "proficiencyGroup":  "Dagger",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense",
+                            "utility"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Main-Gauche",
+        "damageSM":  "1d4",
+        "damageL":  "1d3",
+        "speedFactor":  3,
+        "size":  "S",
+        "type":  "Piercing",
+        "weight":  1.5,
+        "costGP":  8,
+        "proficiencyGroup":  "Short Sword",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense",
+                            "utility"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Rapier",
+        "damageSM":  "1d6",
+        "damageL":  "1d8",
+        "speedFactor":  4,
+        "size":  "M",
+        "type":  "Piercing",
+        "weight":  3,
+        "costGP":  15,
+        "proficiencyGroup":  "Short Sword",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Cutlass",
+        "damageSM":  "1d6",
+        "damageL":  "1d8",
+        "speedFactor":  4,
+        "size":  "M",
+        "type":  "Slashing",
+        "weight":  3,
+        "costGP":  12,
+        "proficiencyGroup":  "Short Sword",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "slashing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Scimitar",
+        "damageSM":  "1d8",
+        "damageL":  "1d12",
+        "speedFactor":  5,
+        "size":  "M",
+        "type":  "Slashing",
+        "weight":  4,
+        "costGP":  20,
+        "proficiencyGroup":  "Scimitar",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "slashing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Khopesh",
+        "damageSM":  "1d8",
+        "damageL":  "1d10",
+        "speedFactor":  6,
+        "size":  "M",
+        "type":  "Slashing",
+        "weight":  5,
+        "costGP":  25,
+        "proficiencyGroup":  "Scimitar",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "slashing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Katana",
+        "damageSM":  "1d8",
+        "damageL":  "1d10",
+        "speedFactor":  4,
+        "size":  "M",
+        "type":  "Slashing",
+        "weight":  3,
+        "costGP":  50,
+        "proficiencyGroup":  "Katana",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "slashing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Wakizashi",
+        "damageSM":  "1d6",
+        "damageL":  "1d8",
+        "speedFactor":  3,
+        "size":  "S",
+        "type":  "Slashing",
+        "weight":  2,
+        "costGP":  30,
+        "proficiencyGroup":  "Short Sword",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense",
+                            "utility"
+                        ],
+        "damageTypes":  [
+                            "slashing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Hand Crossbow",
+        "damageSM":  "1d3",
+        "damageL":  "1d2",
+        "speedFactor":  7,
+        "size":  "S",
+        "type":  "Piercing",
+        "weight":  3,
+        "costGP":  200,
+        "proficiencyGroup":  "Crossbow",
+        "weaponCategory":  "ranged",
+        "weaponRoles":  [
+                            "offense",
+                            "support"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Sling Staff",
+        "damageSM":  "1d4+1",
+        "damageL":  "1d6+1",
+        "speedFactor":  8,
+        "size":  "L",
+        "type":  "Bludgeoning",
+        "weight":  3,
+        "costGP":  5,
+        "proficiencyGroup":  "Sling",
+        "weaponCategory":  "ranged",
+        "weaponRoles":  [
+                            "offense",
+                            "support"
+                        ],
+        "damageTypes":  [
+                            "bludgeoning"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Pick, Horseman\u0027s",
+        "damageSM":  "1d6",
+        "damageL":  "1d4",
+        "speedFactor":  7,
+        "size":  "M",
+        "type":  "Piercing",
+        "weight":  4,
+        "costGP":  5,
+        "proficiencyGroup":  "Pick",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Pick, Military",
+        "damageSM":  "1d8",
+        "damageL":  "1d6",
+        "speedFactor":  7,
+        "size":  "M",
+        "type":  "Piercing",
+        "weight":  6,
+        "costGP":  8,
+        "proficiencyGroup":  "Pick",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense"
+                        ],
+        "damageTypes":  [
+                            "piercing"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Truncheon",
+        "damageSM":  "1d2",
+        "damageL":  "1",
+        "speedFactor":  2,
+        "size":  "S",
+        "type":  "Bludgeoning",
+        "weight":  1,
+        "costGP":  1,
+        "proficiencyGroup":  "Club",
+        "weaponCategory":  "melee",
+        "weaponRoles":  [
+                            "offense",
+                            "utility"
+                        ],
+        "damageTypes":  [
+                            "bludgeoning"
+                        ],
+        "handedness":  "one-handed",
+        "reachFt":  5,
+        "usageRole":  "combat",
+        "modifierProfiles":  [
+
+                             ]
+    }
 ]

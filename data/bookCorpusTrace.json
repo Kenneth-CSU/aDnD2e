@@ -1,0 +1,770 @@
+﻿[
+    {
+        "source":  "armour",
+        "name":  "Banded Mail",
+        "sourceHintCount":  69,
+        "sourceSample":  "l, light crossbow, military fork 91-99 10 cavalry with banded mail, shield, lance, bastard sword, mace; 20 cavalry with scale mail, shield, "
+    },
+    {
+        "source":  "armour",
+        "name":  "Body Shield (Tower)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "armour",
+        "name":  "Bronze Plate Mail",
+        "sourceHintCount":  37,
+        "sourceSample":  "* Banded mail 200 gp 35 Ibs. Brigandine 120 gp 35 Ibs. Bronze plate mail 400 gp 45 Ibs. Chain mail 75 gp AO Ibs. Field plate 2000 gp 60 Ibs."
+    },
+    {
+        "source":  "armour",
+        "name":  "Chainmail",
+        "sourceHintCount":  17,
+        "sourceSample":  "mor Class 0. In combat, Rath, attacking an orc wearing chainmail armor (AC 6), needs to roll an 8 (14-6=8) to hit the orc. An 8 or higher on"
+    },
+    {
+        "source":  "armour",
+        "name":  "Elven Chainmail",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "armour",
+        "name":  "Field Plate",
+        "sourceHintCount":  83,
+        "sourceSample":  "nits 01-10 10 mounted knights; Ist-level fighters with field plate, large shield, lance, broad sword, morning star, and heavy war horse with"
+    },
+    {
+        "source":  "armour",
+        "name":  "Full Plate",
+        "sourceHintCount":  122,
+        "sourceSample":  "eld would require two weeks of work, whereas a suit of full plate armor would require 18 weeks of work. If the proficiency check indicates f"
+    },
+    {
+        "source":  "armour",
+        "name":  "Hide Armor",
+        "sourceHintCount":  59,
+        "sourceSample":  "ther or ring mail + shield, brigandine, scale mail, or hide armor 6 Scale mail or hide + shield, chain mail 5 Chain mail + shield, splint ma"
+    },
+    {
+        "source":  "armour",
+        "name":  "Leather Armor",
+        "sourceHintCount":  167,
+        "sourceSample":  " splint mail, morning star, hand axe; 60 infantry with leather armor, pike, short sword. 76-90 40 infantry with chain mail, heavy crossbow, "
+    },
+    {
+        "source":  "armour",
+        "name":  "Medium Shield",
+        "sourceHintCount":  25,
+        "sourceSample":  "a human\u0027s small shield would have all the effects of a medium shield when used by a gnome. A buckler (or target) is a very small shield that"
+    },
+    {
+        "source":  "armour",
+        "name":  "Padded Armor",
+        "sourceHintCount":  69,
+        "sourceSample":  "pe of Armor AC Rating None 10 Shield only 9 Leather or padded armor 8 Leather or padded armor + shield, studded leather, or ring mail armor "
+    },
+    {
+        "source":  "armour",
+        "name":  "Plate Mail",
+        "sourceHintCount":  234,
+        "sourceSample":  "(and suggested magical items) 01-40 5th-level fighter, plate mail, shield, battle axe +2 41-75 6th-level fighter, plate mail, shield +1, spe"
+    },
+    {
+        "source":  "armour",
+        "name":  "Ring Mail",
+        "sourceHintCount":  58,
+        "sourceSample":  "Troops/Followers (all 0th-level) 01-50 20 cavalry with ring mail, shield, 3 javelins, long sword, hand axe; 100 infantry with scale mail, po"
+    },
+    {
+        "source":  "armour",
+        "name":  "Scale Mail",
+        "sourceHintCount":  84,
+        "sourceSample":  "d, 3 javelins, long sword, hand axe; 100 infantry with scale mail, polearm*, club 51-75 20 infantry with splint mail, morning star, hand axe"
+    },
+    {
+        "source":  "armour",
+        "name":  "Small Shield",
+        "sourceHintCount":  31,
+        "sourceSample":  "relative to the size of the character. Thus, a human\u0027s small shield would have all the effects of a medium shield when used by a gnome. A bu"
+    },
+    {
+        "source":  "armour",
+        "name":  "Splint Mail",
+        "sourceHintCount":  52,
+        "sourceSample":  ", shield, spear +1, dagger +1, plus 3rd-level fighter, splint mail, shield, crossbow of distance 96-99 7th-level fighter, plate mail +1, shi"
+    },
+    {
+        "source":  "armour",
+        "name":  "Studded Leather",
+        "sourceHintCount":  134,
+        "sourceSample":  "mail, shield, lance, long sword, mace; 30 cavalry with studded leather armor, shield, lance, long sword 00 DM\u0027s Option (Barbarians, headhunt"
+    },
+    {
+        "source":  "item",
+        "name":  "Antitoxin Kit",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Backpack",
+        "sourceHintCount":  47,
+        "sourceSample":  "ects. The character can make leather armor, as well as backpacks, saddlebags, saddles, and all sorts of harnesses. Local History: The charac"
+    },
+    {
+        "source":  "item",
+        "name":  "Bag, Coin (1000 coins)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Bedroll",
+        "sourceHintCount":  6,
+        "sourceSample":  "acking and stowing equipment. Blankets are rolled into bedrolls, small items are carefully arranged, rope is properly coiled, weapons are sl"
+    },
+    {
+        "source":  "item",
+        "name":  "Bell, Small",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Blanket",
+        "sourceHintCount":  33,
+        "sourceSample":  " bags -- -- Large 4 gp 8 Ibs. Small 3 gp 5 Ibs. Saddle blanket 3 sp 4 lbs. Yoke -- -- Horse 5 gp 15 Ibs. Ox 3 gp 20 Ibs. * These items weigh"
+    },
+    {
+        "source":  "item",
+        "name":  "Book, Spellbook (blank)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Caltrops (20)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Chalk (1 piece)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Chest, Large",
+        "sourceHintCount":  1,
+        "sourceSample":  "arge 8 lbs. 6\" 8\" 2\" Belt pouch, small 5 Ibs. 4\" 6\"_2\" Chest, large 100 Ibs. 3\u0027.2\u0027 2\u0027 Chest, small AO lbs. 2) 1 1\u0027 Sack, large 30 Ibs. 2\u0027.2\u0027"
+    },
+    {
+        "source":  "item",
+        "name":  "Chest, Small",
+        "sourceHintCount":  1,
+        "sourceSample":  ", small 5 Ibs. 4\" 6\"_2\" Chest, large 100 Ibs. 3\u0027.2\u0027 2\u0027 Chest, small AO lbs. 2) 1 1\u0027 Sack, large 30 Ibs. 2\u0027.2\u0027 1\u0027 Sack, small 15 Ibs. 1\u0027_1\u0027_8"
+    },
+    {
+        "source":  "item",
+        "name":  "Crowbar",
+        "sourceHintCount":  11,
+        "sourceSample":  "acter cannot make armor or most weapons, but can craft crowbars, grappling hooks, horseshoes, nails, hinges, plows, and most other iron obje"
+    },
+    {
+        "source":  "item",
+        "name":  "Crowbar, Heavy",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Dice Set",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Disguise Kit",
+        "sourceHintCount":  1,
+        "sourceSample":  " Lips. e Equipment. Every Infiltrator must have a good disguise kit. Otherwise, they are free to choose whatever equipment they like. e Dist"
+    },
+    {
+        "source":  "item",
+        "name":  "Fishing Tackle",
+        "sourceHintCount":  2,
+        "sourceSample":  "ailable, usually at double or triple the normal price. Fishing Tackle. This meticulously crafted set of polished wooden lures, colorful flie"
+    },
+    {
+        "source":  "item",
+        "name":  "Flask (empty)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Flint and Steel",
+        "sourceHintCount":  12,
+        "sourceSample":  "pieces of tinder, he can start a fire in 2d20 minutes. Flint and steel are not required. Wet wood, high winds, or other adverse conditions i"
+    },
+    {
+        "source":  "item",
+        "name":  "Garlic (bunch)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Grappling Hook",
+        "sourceHintCount":  23,
+        "sourceSample":  "ot make armor or most weapons, but can craft crowbars, grappling hooks, horseshoes, nails, hinges, plows, and most other iron objects. Blind"
+    },
+    {
+        "source":  "item",
+        "name":  "Hammer",
+        "sourceHintCount":  380,
+        "sourceSample":  " Weapon Agriculture Bill, flail, sickle Blacksmith War hammer Death Sickle Disease Scourge, whip Earth Pick Healing Man-catcher, quarterstaf"
+    },
+    {
+        "source":  "item",
+        "name":  "Healer\u0027s Kit",
+        "sourceHintCount":  1,
+        "sourceSample":  "conry Training Equipment 10 gp 1 Fishing Tackle 2 gp 1 Healer\u0027s Kit 25 gp 1 Insect Repellant 5 gp sl Kayak (\u0026 paddle) 35 gp 50 Poncho, Rain "
+    },
+    {
+        "source":  "item",
+        "name":  "Healing Potion",
+        "sourceHintCount":  9,
+        "sourceSample":  ", chaotic battle. Imagine the simple act of imbibing a healing potion. First, a character decides to drink the potion before retiring for th"
+    },
+    {
+        "source":  "item",
+        "name":  "Holy Symbol",
+        "sourceHintCount":  183,
+        "sourceSample":  "nforgiving and very patient. Mistletoe is an important holy symbol to druids and it is a necessary part of some spells (those requiring a ho"
+    },
+    {
+        "source":  "item",
+        "name":  "Holy Water (flask)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Ink (1 oz vial)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Lantern, Bullseye",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Lantern, Hooded",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Mirror, Small",
+        "sourceHintCount":  2,
+        "sourceSample":  "r Magnifying glass Map or scroll case Merchant\u0027s scale Mirror, small metal Musical instrument Oil (per flask) Greek fire Lamp Paper (per she"
+    },
+    {
+        "source":  "item",
+        "name":  "Musical Instrument",
+        "sourceHintCount":  130,
+        "sourceSample":  "ficient singers, chanters, or vocalists and can play a musical instrument of the player\u0027s choice (preferably one that is portable). Addition"
+    },
+    {
+        "source":  "item",
+        "name":  "Oil (1 flask)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Paper (1 sheet)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Parchment (1 sheet)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Playing Cards",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Quill Pen",
+        "sourceHintCount":  1,
+        "sourceSample":  " spell while wearing the ring, a sheaf of papers and a quill pen suddenly appear in his hand. The papers are forms that must be filled out i"
+    },
+    {
+        "source":  "item",
+        "name":  "Rations, Iron (1 week)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Rations, Standard (1 week)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Riding Saddle",
+        "sourceHintCount":  4,
+        "sourceSample":  "Saddles: There are two basic saddles--riding and pack. Riding saddles take many forms, but their basic purpose is to carry a person. If your"
+    },
+    {
+        "source":  "item",
+        "name":  "Robes",
+        "sourceHintCount":  65,
+        "sourceSample":  " Those armors that are a single piece--leather tunics, robes, chain mail--take one round (two for metal items) to don with slight assistance"
+    },
+    {
+        "source":  "item",
+        "name":  "Rope, Hemp (50 ft)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Rope, Silk (50 ft)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Sack, Large",
+        "sourceHintCount":  1,
+        "sourceSample":  ", large 100 Ibs. 3\u0027.2\u0027 2\u0027 Chest, small AO lbs. 2) 1 1\u0027 Sack, large 30 Ibs. 2\u0027.2\u0027 1\u0027 Sack, small 15 Ibs. 1\u0027_1\u0027_8\" Saddle bags, large 30 Ibs. "
+    },
+    {
+        "source":  "item",
+        "name":  "Sack, Small",
+        "sourceHintCount":  1,
+        "sourceSample":  "st, small AO lbs. 2) 1 1\u0027 Sack, large 30 Ibs. 2\u0027.2\u0027 1\u0027 Sack, small 15 Ibs. 1\u0027_1\u0027_8\" Saddle bags, large 30 Ibs. 18\"_1\u0027_6\" Saddle bags, small "
+    },
+    {
+        "source":  "item",
+        "name":  "Scroll Case",
+        "sourceHintCount":  2,
+        "sourceSample":  "Bullseye Hooded Lock Good Poor Magnifying glass Map or scroll case Merchant\u0027s scale Mirror, small metal Musical instrument Oil (per flask) G"
+    },
+    {
+        "source":  "item",
+        "name":  "Silver Mirror",
+        "sourceHintCount":  9,
+        "sourceSample":  " plane The material component for the spell is a small silver mirror. Statue (Alteration) Range: Touch Components: V, S, M Duration: 1 hr./l"
+    },
+    {
+        "source":  "item",
+        "name":  "Spell Component Pouch",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Spellbook",
+        "sourceHintCount":  42,
+        "sourceSample":  "an use them. The exact shape and size of a character\u0027s spellbooks is a detail your DM will provide. They may be thick tomes of carefully ink"
+    },
+    {
+        "source":  "item",
+        "name":  "Spike, Iron (each)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Tent (large)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Tent (small)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "item",
+        "name":  "Thieves\u0027 Picks",
+        "sourceHintCount":  6,
+        "sourceSample":  " gp 20 Ibs. Pavilion 100 gp 50 Ibs. Small 5 gp 10 Ibs. Thieves\u0027 picks 30 gp 1 Ibs. Torch lcp 1 Ibs. Water clock 1,000 gp 200 Ibs. Whetstone "
+    },
+    {
+        "source":  "item",
+        "name":  "Torch",
+        "sourceHintCount":  96,
+        "sourceSample":  "r a branch in the tunnel? DM: Within the range of your torchlight, the tunnel is more or less straight. You don\u0027t see any branches or doorwa"
+    },
+    {
+        "source":  "item",
+        "name":  "Waterskin",
+        "sourceHintCount":  5,
+        "sourceSample":  "ipment such as ropes, pitons, a hammer, food supplies, waterskin, etc. Distinctive Appearance: They usually dress in black leather armor and"
+    },
+    {
+        "source":  "item",
+        "name":  "Whetstone",
+        "sourceHintCount":  3,
+        "sourceSample":  " 1 Ibs. Torch lcp 1 Ibs. Water clock 1,000 gp 200 Ibs. Whetstone 2 cp 1 Ibs. Wineskin 8 sp 1 Ibs. Winter blanket 5 sp 3 Ibs. Writing ink (pe"
+    },
+    {
+        "source":  "item",
+        "name":  "Whistle",
+        "sourceHintCount":  91,
+        "sourceSample":  "mall Sealing/candle wax (per Ib.) Sewing needle Signal whistle Signet ring or personal seal Soap (per Ib.) Spyglass 10 gp Tent -- -- Large 2"
+    },
+    {
+        "source":  "item",
+        "name":  "Wolfbane",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "weapon",
+        "name":  "Arrow (20)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "weapon",
+        "name":  "Bastard Sword",
+        "sourceHintCount":  79,
+        "sourceSample":  "fork 91-99 10 cavalry with banded mail, shield, lance, bastard sword, mace; 20 cavalry with scale mail, shield, lance, long sword, mace; 30 "
+    },
+    {
+        "source":  "weapon",
+        "name":  "Battle Axe",
+        "sourceHintCount":  146,
+        "sourceSample":  "al items) 01-40 5th-level fighter, plate mail, shield, battle axe +2 41-75 6th-level fighter, plate mail, shield +1, spear +1, dagger +1 76-"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Bill-Guisarme",
+        "sourceHintCount":  13,
+        "sourceSample":  "Morning star Polearm Awl pike 5 Bardiche Bec de corbin Bill-guisarme Fauchard Fauchard-fork 8 gp oO WN #W #NW! * #*#N NS mar~TI#e Â¥W *Â¥ wK"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Blowgun",
+        "sourceHintCount":  96,
+        "sourceSample":  " War Battle axe, mace, morning star, spear, sword Wind Blowgun, dart Of course there are many other reasons a deity might be associated with"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Bullet/Sling Stone (20)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "weapon",
+        "name":  "Club",
+        "sourceHintCount":  357,
+        "sourceSample":  "our local hobby store. Role-playing and general gaming clubs are common and are always eager to accept new members. Many hobby stores offer "
+    },
+    {
+        "source":  "weapon",
+        "name":  "Composite Long Bow",
+        "sourceHintCount":  22,
+        "sourceSample":  "L Arquebus 3 Battle axe Blowgun Barbed Dart Needle Bow Composite long bow Composite short bow Flight arrow Long bow Sheaf arrow Short bow Cl"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Composite Short Bow",
+        "sourceHintCount":  28,
+        "sourceSample":  " axe Blowgun Barbed Dart Needle Bow Composite long bow Composite short bow Flight arrow Long bow Sheaf arrow Short bow Club Crossbow Hand qu"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Cutlass",
+        "sourceHintCount":  53,
+        "sourceSample":  "tches. Sailors may be armed with knives, short swords, cutlasses, or belaying pins (1 point of damage). Merchant/Trader Merchants and trader"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Dagger",
+        "sourceHintCount":  633,
+        "sourceSample":  "75 6th-level fighter, plate mail, shield +1, spear +1, dagger +1 76-95 6th-level fighter, plate mail +1, shield, spear +1, dagger +1, plus 3"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Dart",
+        "sourceHintCount":  266,
+        "sourceSample":  "y useful in magical studies. Other weapons allowed are darts, knives, and slings (weapons that require little skill, little strength, or bot"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Fauchard",
+        "sourceHintCount":  52,
+        "sourceSample":  "olearm Awl pike 5 Bardiche Bec de corbin Bill-guisarme Fauchard Fauchard-fork 8 gp oO WN #W #NW! * #*#N NS mar~TI#e Â¥W *Â¥ wK on NADA DND S"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Flail",
+        "sourceHintCount":  164,
+        "sourceSample":  "l word in this matter). Deity Weapon Agriculture Bill, flail, sickle Blacksmith War hammer Death Sickle Disease Scourge, whip Earth Pick Hea"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Footman\u0027s Flail",
+        "sourceHintCount":  21,
+        "sourceSample":  "ssbow Light quarrel Light crossbow Dagger or dirk Dart Footman\u0027s flail Footman\u0027s mace Footman\u0027s pick Hand or throwing axe Harpoon Horseman\u0027s"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Footman\u0027s Mace",
+        "sourceHintCount":  23,
+        "sourceSample":  "me, guisarme-voulge; harpoon, spear, trident, javelin; footman\u0027s mace, horseman\u0027s mace, morning star, flail, hammer, club; military fork, ra"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Glaive",
+        "sourceHintCount":  67,
+        "sourceSample":  "mposite bow; heavy and light crossbows; dagger, knife; glaive, halberd, bardiche, voulge, guisarme, glaive-guisarme, guisarme-voulge; harpoo"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Great Axe",
+        "sourceHintCount":  2,
+        "sourceSample":  "ands. Naturally, many weapons (including polearms, the great axe, the two-handed sword, and others) require two-handed technique. Other weap"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Halberd",
+        "sourceHintCount":  69,
+        "sourceSample":  "bow; heavy and light crossbows; dagger, knife; glaive, halberd, bardiche, voulge, guisarme, glaive-guisarme, guisarme-voulge; harpoon, spear"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Hand Axe",
+        "sourceHintCount":  63,
+        "sourceSample":  "avalry with ring mail, shield, 3 javelins, long sword, hand axe; 100 infantry with scale mail, polearm*, club 51-75 20 infantry with splint "
+    },
+    {
+        "source":  "weapon",
+        "name":  "Hand Crossbow",
+        "sourceHintCount":  42,
+        "sourceSample":  "ng skills. The allowed weapons are club, dagger, dart, hand crossbow, knife, lasso, short bow, sling, broad sword, long sword, short sword, "
+    },
+    {
+        "source":  "weapon",
+        "name":  "Heavy Crossbow",
+        "sourceHintCount":  57,
+        "sourceSample":  " pike, short sword. 76-90 40 infantry with chain mail, heavy crossbow, short sword; 20 infantry with chain mail, light crossbow, military fo"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Javelin",
+        "sourceHintCount":  233,
+        "sourceSample":  " 0th-level) 01-50 20 cavalry with ring mail, shield, 3 javelins, long sword, hand axe; 100 infantry with scale mail, polearm*, club 51-75 20"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Katana",
+        "sourceHintCount":  91,
+        "sourceSample":  "ficiencies. A Samurai wouldn\u0027t be the same without his katana, or a Noble Warrior without his lance, for example. When required to take a sp"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Khopesh",
+        "sourceHintCount":  37,
+        "sourceSample":  "gp 10 M S 8 2d4 2d8 Broad sword 10gp 4 M S 5 2d4 1d6+1 Khopesh 10gp 7 M S 9 2d4 1d6 Long sword ISgp 4 M S 5 1d8 1d12 Scimitar ISgp 4 M S 5 1"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Knife",
+        "sourceHintCount":  314,
+        "sourceSample":  "allowed weapons are club, dagger, dart, hand crossbow, knife, lasso, short bow, sling, broad sword, long sword, short sword, and staff. A th"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Lance",
+        "sourceHintCount":  942,
+        "sourceSample":  "ungeons \u0026 Dragons, AD\u0026D, Dungeon Master, Dragon, Dragonlance, Forgotten Realms, and Ravenloft are registered trademarks of TSR, Inc. Dungeon"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Light Crossbow",
+        "sourceHintCount":  82,
+        "sourceSample":  "vy crossbow, short sword; 20 infantry with chain mail, light crossbow, military fork 91-99 10 cavalry with banded mail, shield, lance, basta"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Light Hammer",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "weapon",
+        "name":  "Long Bow",
+        "sourceHintCount":  117,
+        "sourceSample":  "level elven fighter/mages with chain mail, long sword, long bow, dagger 21-30 15 wardens: Ist-level rangers with scale mail, shield, long sw"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Long Sword",
+        "sourceHintCount":  212,
+        "sourceSample":  "y sort other than a crossbow, or when using a short or long sword, elves gain a bonus of +1 to their attack rolls. An elf can gain a bonus t"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Mace",
+        "sourceHintCount":  301,
+        "sourceSample":  "ken off its hinges. Standing in the doorway, holding a mace in each paw, is the biggest, ugliest wererat you\u0027ve ever seen. A couple more pai"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Main-Gauche",
+        "sourceHintCount":  15,
+        "sourceSample":  "ally well, at no additional cost in proficiency slots. Main-gauche The main- gauche is a large-bladed dagger with a basket hilt (see the des"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Morning Star",
+        "sourceHintCount":  71,
+        "sourceSample":  "il, polearm*, club 51-75 20 infantry with splint mail, morning star, hand axe; 60 infantry with leather armor, pike, short sword. 76-90 40 i"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Needle (20)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "weapon",
+        "name":  "Partisan",
+        "sourceHintCount":  33,
+        "sourceSample":  "s also chaos; where there is neutrality, there is also partisanship. The same is true of good and evil, life and death. What is important is"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Pick, Horseman\u0027s",
+        "sourceHintCount":  8,
+        "sourceSample":  "des: Cutlassâ€, Khopesh, Wakizashi*. Picks: Footman\u0027s pick, Horseman\u0027s pick. Polearms: Awl pike, Bardiche, Bec de corbin, Bill- guisarme, F"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Pick, Military",
+        "sourceHintCount":  1,
+        "sourceSample":  "fense or in a hasty retreat.\" -- Bramm Po, Illusionist Pick, Military The medieval military pick was a specialized weapon. It probably origi"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Quarrel/Bolt (20)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "weapon",
+        "name":  "Quarterstaff",
+        "sourceHintCount":  118,
+        "sourceSample":  " Disease Scourge, whip Earth Pick Healing Man-catcher, quarterstaff Hunt Bow and arrows, javelin, light lance, sling, spear Lightning Dart, "
+    },
+    {
+        "source":  "weapon",
+        "name":  "Rapier",
+        "sourceHintCount":  76,
+        "sourceSample":  "ishop Marshal Cantor Bishop Commander Librarian Abbot Drapier Refectorian Prior Commander of a House Almoner Friar Commander of Knights Hosp"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Scimitar",
+        "sourceHintCount":  111,
+        "sourceSample":  "n, spear Love Bow and arrows, man-catcher Nature Club, scimitar, sickle Oceans Harpoon, spear, trident Peace Quarterstaff Strength Hammer Th"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Scythe",
+        "sourceHintCount":  59,
+        "sourceSample":  " room to use. Fauchard: An outgrowth of the sickle and scythe, the fauchard is a long, inward curving blade mounted on a shaft six to eight "
+    },
+    {
+        "source":  "weapon",
+        "name":  "Short Bow",
+        "sourceHintCount":  132,
+        "sourceSample":  "s are club, dagger, dart, hand crossbow, knife, lasso, short bow, sling, broad sword, long sword, short sword, and staff. A thief can wear l"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Short Sword",
+        "sourceHintCount":  243,
+        "sourceSample":  "ver cause less than | point of damage). For example, a short sword normally causes 1d6 points of damage (a range of | to 6). An attacker wit"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Sickle",
+        "sourceHintCount":  114,
+        "sourceSample":  "ight emphasize weapons derived from farm implements -- sickles and bills, for example. A deity of peace and harmony might grant only the sim"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Sling",
+        "sourceHintCount":  351,
+        "sourceSample":  "stitution score). Halflings have a natural talent with slings and thrown weapons. Rock pitching is a favorite sport of many a halfling child"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Sling Staff",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "source":  "weapon",
+        "name":  "Spear",
+        "sourceHintCount":  658,
+        "sourceSample":  "f Planescape beckon to us, and beyond even that we see spearpoints and banners waving above the gathering armies of Birthright. And, of cour"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Stiletto",
+        "sourceHintCount":  61,
+        "sourceSample":  " weapon proficiency with one of the following weapons: stiletto*, main- gaucheâ€, rapier*, and sabre*. (The \"*\" symbol denotes new weapons "
+    },
+    {
+        "source":  "weapon",
+        "name":  "Trident",
+        "sourceHintCount":  139,
+        "sourceSample":  "r Nature Club, scimitar, sickle Oceans Harpoon, spear, trident Peace Quarterstaff Strength Hammer Thunder Club, mace, war hammer War Battle "
+    },
+    {
+        "source":  "weapon",
+        "name":  "Truncheon",
+        "sourceHintCount":  1,
+        "sourceSample":  "tman\u0027s Mace Footman\u0027s maces originated as heavy wooden truncheons, about two and a half feet in length and covered with iron studs. As time "
+    },
+    {
+        "source":  "weapon",
+        "name":  "Two-Handed Sword",
+        "sourceHintCount":  85,
+        "sourceSample":  "o use weapons that require two hands (such as bows and two-handed swords) while mounted. This feat does not require a proficiency check unle"
+    },
+    {
+        "source":  "weapon",
+        "name":  "Wakizashi",
+        "sourceHintCount":  50,
+        "sourceSample":  " Two-handed sword. Medium Blades: Cutlassâ€, Khopesh, Wakizashi*. Picks: Footman\u0027s pick, Horseman\u0027s pick. Polearms: Awl pike, Bardiche, Bec"
+    },
+    {
+        "source":  "weapon",
+        "name":  "War Hammer",
+        "sourceHintCount":  34,
+        "sourceSample":  "eity Weapon Agriculture Bill, flail, sickle Blacksmith War hammer Death Sickle Disease Scourge, whip Earth Pick Healing Man-catcher, quarter"
+    }
+]

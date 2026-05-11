@@ -3,6 +3,7 @@ async function init() {
     await Promise.all([loadRaceClassRules(), loadArmourData(), loadClassData(), loadItemDatabase(), loadProficiencyData()]);
     await loadWeaponProficiencyData();
     try {
+        applyAdminManagedSelectOptions();
         populateDropdowns();
         renderAbilities();
         loadCharacter();
@@ -20,6 +21,81 @@ async function init() {
         // Continue autosave setup even if one render step throws.
     }
     setInterval(() => { if(localStorage.getItem('adsheet_autosave') === 'true') saveCharacter(); }, 30000);
+}
+
+function parseAdminList(storageKey, fallback) {
+    const raw = localStorage.getItem(storageKey);
+    if (!raw) return [...fallback];
+
+    try {
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return [...fallback];
+        const unique = [];
+        const seen = new Set();
+        parsed.forEach(entry => {
+            const value = String(entry || '').trim();
+            if (!value) return;
+            const key = value.toLowerCase();
+            if (seen.has(key)) return;
+            seen.add(key);
+            unique.push(value);
+        });
+        return unique.length ? unique : [...fallback];
+    } catch (e) {
+        console.error(`Failed parsing ${storageKey}:`, e);
+        return [...fallback];
+    }
+}
+
+function setSelectFromValues(selectId, values, labelBuilder) {
+    const select = document.getElementById(selectId);
+    if (!select) return;
+
+    const previous = select.value;
+    select.innerHTML = '';
+    values.forEach(value => {
+        const label = labelBuilder ? labelBuilder(value) : value;
+        select.add(new Option(label, value));
+    });
+
+    if (values.includes(previous)) {
+        select.value = previous;
+    }
+}
+
+function applyAdminManagedSelectOptions() {
+    const alignments = parseAdminList('admin_char_align_options', ['LG', 'NG', 'CG', 'LN', 'N', 'CN', 'LE', 'NE', 'CE']);
+    setSelectFromValues('char-align', alignments);
+
+    const encumModes = parseAdminList('admin_encum_modes', ['off', 'limited', 'full']);
+    setSelectFromValues('encum-mode', encumModes, value => {
+        if (value === 'off') return 'Off';
+        if (value === 'limited') return 'Limited (Extra Only)';
+        if (value === 'full') return 'Full (All Items)';
+        return value;
+    });
+
+    const invTypes = parseAdminList('admin_inv_filter_types', ['all', 'weapon', 'shield', 'armor', 'container', 'tool', 'consumable', 'component', 'equipment', 'treasure', 'mount', 'miscellaneous']);
+    setSelectFromValues('inv-filter-type', invTypes, value => value === 'all' ? 'All Types' : `${value.charAt(0).toUpperCase()}${value.slice(1)}`);
+
+    const invMagical = parseAdminList('admin_inv_filter_magical', ['all', 'magical', 'mundane']);
+    setSelectFromValues('inv-filter-magical', invMagical, value => {
+        if (value === 'all') return 'Any Magic';
+        if (value === 'magical') return 'Magical Only';
+        if (value === 'mundane') return 'Mundane Only';
+        return value;
+    });
+
+    const invUsable = parseAdminList('admin_inv_filter_usable', ['all', 'usable', 'blocked']);
+    setSelectFromValues('inv-filter-usable', invUsable, value => {
+        if (value === 'all') return 'Any Usability';
+        if (value === 'usable') return 'Usable';
+        if (value === 'blocked') return 'Blocked';
+        return value;
+    });
+
+    const invSort = parseAdminList('admin_inv_sort_modes', ['name', 'type', 'weight', 'magical', 'usability']);
+    setSelectFromValues('inv-sort-mode', invSort, value => `Sort: ${value.charAt(0).toUpperCase()}${value.slice(1)}`);
 }
 
 // Shared loader: check localStorage cache -> fetch file -> validate. Returns data or null.

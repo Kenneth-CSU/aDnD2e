@@ -74,6 +74,44 @@ function escapeAttr(value) {
     return escapeHtml(value).replace(/`/g, '&#96;');
 }
 
+function ensureEnumValue(enumValues, value, fallback) {
+    const normalized = String(value || '').trim().toLowerCase();
+    return enumValues.includes(normalized) ? normalized : fallback;
+}
+
+function parseCsvToEnumArray(value, enumValues) {
+    if (Array.isArray(value)) {
+        return [...new Set(value
+            .map(token => String(token || '').trim().toLowerCase())
+            .filter(token => enumValues.includes(token)))];
+    }
+
+    if (typeof value !== 'string') return [];
+    return [...new Set(value
+        .split(/[;,/|]+/)
+        .map(token => token.trim().toLowerCase())
+        .filter(token => enumValues.includes(token)))];
+}
+
+function ensureEnumArray(enumValues, values, fallbackValues) {
+    const parsed = parseCsvToEnumArray(values, enumValues);
+    if (parsed.length > 0) return parsed;
+    const fallbackParsed = parseCsvToEnumArray(fallbackValues, enumValues);
+    return fallbackParsed.length > 0 ? fallbackParsed : [];
+}
+
+function ensureModifierList(value, fallbackValue) {
+    const fromValue = Array.isArray(value)
+        ? value
+        : (value && typeof value === 'object' ? [value] : []);
+    if (fromValue.length > 0) return fromValue.map(normalizeModifier);
+
+    const fromFallback = Array.isArray(fallbackValue)
+        ? fallbackValue
+        : (fallbackValue && typeof fallbackValue === 'object' ? [fallbackValue] : []);
+    return fromFallback.map(normalizeModifier);
+}
+
 function ensureItemType(type) {
     const value = String(type || '').trim().toLowerCase();
     if (ITEM_TYPE_ENUM.includes(value)) return value;
@@ -144,17 +182,43 @@ function buildItemDisplayName(item) {
 
 function normalizeModifier(modifier) {
     if (typeof modifier === 'number') {
-        return { id: createUniqueId('mod'), value: modifier, note: '' };
+        return {
+            id: createUniqueId('mod'),
+            value: modifier,
+            note: '',
+            modifierType: 'other',
+            target: 'self',
+            role: 'utility',
+            stackingRule: 'stack',
+            condition: '',
+            source: ''
+        };
     }
 
     if (!modifier || typeof modifier !== 'object') {
-        return { id: createUniqueId('mod'), value: 0, note: '' };
+        return {
+            id: createUniqueId('mod'),
+            value: 0,
+            note: '',
+            modifierType: 'other',
+            target: 'self',
+            role: 'utility',
+            stackingRule: 'stack',
+            condition: '',
+            source: ''
+        };
     }
 
     return {
         id: modifier.id || createUniqueId('mod'),
         value: parseInt(modifier.value, 10) || 0,
-        note: String(modifier.note || '').trim()
+        note: String(modifier.note || '').trim(),
+        modifierType: ensureEnumValue(MODIFIER_TYPE_ENUM, modifier.modifierType, 'other'),
+        target: ensureEnumValue(MODIFIER_TARGET_ENUM, modifier.target, 'self'),
+        role: ensureEnumValue(ITEM_ROLE_ENUM, modifier.role, 'utility'),
+        stackingRule: String(modifier.stackingRule || 'stack').trim().toLowerCase() || 'stack',
+        condition: String(modifier.condition || '').trim(),
+        source: String(modifier.source || '').trim()
     };
 }
 
@@ -163,11 +227,31 @@ function normalizeDbItem(entry) {
     const name = String(entry.name).trim();
     if (!name) return null;
     const type = guessItemTypeByName(name, entry.type || 'equipment');
+    const roles = ensureEnumArray(ITEM_ROLE_ENUM, entry.roles, entry.itemRoles);
+    const damageTypes = ensureEnumArray(DAMAGE_TYPE_ENUM, entry.damageTypes, entry.type === 'weapon' ? entry.damageType : []);
     return {
         ...entry,
         name,
         weight: typeof entry.weight === 'number' ? entry.weight : (parseFloat(entry.weight) || 0),
         type,
+        itemCategory: String(entry.itemCategory || type).trim().toLowerCase() || type,
+        itemSubcategory: String(entry.itemSubcategory || '').trim(),
+        roles,
+        damageTypes,
+        modifierProfiles: ensureModifierList(entry.modifierProfiles),
+        usage: entry && typeof entry.usage === 'object' ? {
+            activation: String(entry.usage.activation || 'action').trim().toLowerCase() || 'action',
+            duration: String(entry.usage.duration || '').trim(),
+            charges: Math.max(0, parseInt(entry.usage.charges, 10) || 0),
+            recharge: String(entry.usage.recharge || '').trim(),
+            consumableKind: String(entry.usage.consumableKind || '').trim().toLowerCase()
+        } : {
+            activation: 'action',
+            duration: '',
+            charges: 0,
+            recharge: '',
+            consumableKind: ''
+        },
         isMagical: !!entry.isMagical,
         isCursed: !!entry.isCursed,
         isClassUsable: entry.isClassUsable !== false,
@@ -307,6 +391,26 @@ function normalizeItemInstance(item, fallbackName, options = {}) {
         notes: String(item.notes || '').trim(),
         weight: typeof item.weight === 'number' ? item.weight : (parseFloat(item.weight) || (base ? base.weight || 0 : 0)),
         type: chosenType,
+        itemCategory: String(item.itemCategory || (base && base.itemCategory) || chosenType).trim().toLowerCase() || chosenType,
+        itemSubcategory: String(item.itemSubcategory || (base && base.itemSubcategory) || '').trim(),
+        roles: ensureEnumArray(ITEM_ROLE_ENUM, item.roles, base && base.roles),
+        damageTypes: ensureEnumArray(DAMAGE_TYPE_ENUM, item.damageTypes, base && base.damageTypes),
+        modifierProfiles: ensureModifierList(item.modifierProfiles, base && base.modifierProfiles),
+        usage: item && typeof item.usage === 'object'
+            ? {
+                activation: String(item.usage.activation || 'action').trim().toLowerCase() || 'action',
+                duration: String(item.usage.duration || '').trim(),
+                charges: Math.max(0, parseInt(item.usage.charges, 10) || 0),
+                recharge: String(item.usage.recharge || '').trim(),
+                consumableKind: String(item.usage.consumableKind || '').trim().toLowerCase()
+            }
+            : {
+                activation: String((base && base.usage && base.usage.activation) || 'action').trim().toLowerCase() || 'action',
+                duration: String((base && base.usage && base.usage.duration) || '').trim(),
+                charges: Math.max(0, parseInt((base && base.usage && base.usage.charges), 10) || 0),
+                recharge: String((base && base.usage && base.usage.recharge) || '').trim(),
+                consumableKind: String((base && base.usage && base.usage.consumableKind) || '').trim().toLowerCase()
+            },
         isMagical: item.isMagical != null ? !!item.isMagical : defaults.isMagical,
         isCursed: item.isCursed != null ? !!item.isCursed : defaults.isCursed,
         isClassUsable: item.isClassUsable != null ? !!item.isClassUsable : defaults.isClassUsable,
@@ -905,7 +1009,10 @@ function getItemModifierSummary(item) {
     return modifiers.map(modifier => {
         const value = parseInt(modifier.value, 10) || 0;
         const sign = value >= 0 ? '+' : '';
-        return `${sign}${value}${modifier.note ? ` ${modifier.note}` : ''}`.trim();
+        const type = ensureEnumValue(MODIFIER_TYPE_ENUM, modifier.modifierType, 'other');
+        const target = ensureEnumValue(MODIFIER_TARGET_ENUM, modifier.target, 'self');
+        const note = modifier.note ? ` ${modifier.note}` : '';
+        return `${sign}${value} ${type}@${target}${note}`.trim();
     }).join(', ');
 }
 
@@ -1115,6 +1222,12 @@ function persistItemDatabase() {
             name: normalized.name,
             weight: normalized.weight,
             type: normalized.type,
+            itemCategory: normalized.itemCategory,
+            itemSubcategory: normalized.itemSubcategory,
+            roles: normalized.roles,
+            damageTypes: normalized.damageTypes,
+            modifierProfiles: normalized.modifierProfiles,
+            usage: normalized.usage,
             isMagical: normalized.isMagical,
             isCursed: normalized.isCursed,
             isClassUsable: normalized.isClassUsable,
@@ -1420,7 +1533,13 @@ function readItemModalModifiers() {
     return rows.map(row => ({
         id: createUniqueId('mod'),
         value: parseInt(row.querySelector('.modifier-value')?.value, 10) || 0,
-        note: String(row.querySelector('.modifier-note')?.value || '').trim()
+        note: String(row.querySelector('.modifier-note')?.value || '').trim(),
+        modifierType: 'other',
+        target: 'self',
+        role: 'utility',
+        stackingRule: 'stack',
+        condition: '',
+        source: ''
     })).filter(modifier => modifier.value !== 0 || modifier.note);
 }
 
@@ -1659,8 +1778,11 @@ function openItemDetailModal(containerId, itemId) {
         <div style="font-size:0.78rem; color:#5d463a; display:grid; grid-template-columns: 1fr 1fr; gap:6px;">
             <div><strong>Name:</strong> ${escapeHtml(buildItemDisplayName(item))}</div>
             <div><strong>Type:</strong> ${escapeHtml(item.type)}</div>
+            <div><strong>Category:</strong> ${escapeHtml(item.itemCategory || item.type)}</div>
             <div><strong>Quantity:</strong> ${escapeHtml(item.quantity)}</div>
             <div><strong>Weight:</strong> ${escapeHtml(item.weight)}</div>
+            <div><strong>Roles:</strong> ${escapeHtml((Array.isArray(item.roles) ? item.roles : []).join(', ') || 'None')}</div>
+            <div><strong>Damage Types:</strong> ${escapeHtml((Array.isArray(item.damageTypes) ? item.damageTypes : []).join(', ') || 'None')}</div>
             <div><strong>Magical:</strong> ${item.isMagical ? 'Yes' : 'No'}</div>
             <div><strong>Cursed:</strong> ${escapeHtml(curseText)}</div>
             <div><strong>Identified:</strong> ${item.isIdentified ? 'Yes' : 'No'}</div>

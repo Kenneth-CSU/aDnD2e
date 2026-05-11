@@ -1,58 +1,1447 @@
-[
-  {"name": "Backpack", "weight": 2, "costGP": 2, "description": "Leather satchel for carrying gear; holds about 60 lbs of equipment."},
-  {"name": "Rations, Iron (1 week)", "weight": 14, "costGP": 5, "description": "Dried meat, hardtack, and preserved food; lasts one week."},
-  {"name": "Rations, Standard (1 week)", "weight": 7, "costGP": 3, "description": "Basic trail rations including dried fruit and nuts."},
-  {"name": "Waterskin", "weight": 1, "costGP": 1, "description": "Holds about 1 quart of liquid."},
-  {"name": "Flask (empty)", "weight": 0.5, "costGP": 0.5, "description": "Glass container for liquids; holds about 1 pint."},
-  {"name": "Torch", "weight": 1, "costGP": 0.1, "description": "Burns for 1 hour; provides light in darkness."},
-  {"name": "Lantern, Hooded", "weight": 2, "costGP": 7, "description": "Oil-burning lamp with adjustable shutter; burns 1 hour per pint."},
-  {"name": "Lantern, Bullseye", "weight": 3, "costGP": 10, "description": "Focused beam lantern; illuminates cone 60 ft long."},
-  {"name": "Oil (1 flask)", "weight": 1, "costGP": 0.2, "description": "Lamp oil or Greek fire (if special); burns 1 hour per flask."},
-  {"name": "Rope, Hemp (50 ft)", "weight": 5, "costGP": 1, "description": "Strong rope; can hold up to 300 lbs safely."},
-  {"name": "Rope, Silk (50 ft)", "weight": 2, "costGP": 10, "description": "Light but strong; holds 400 lbs."},
-  {"name": "Bedroll", "weight": 3, "costGP": 1, "description": "Blanket roll for sleeping outdoors."},
-  {"name": "Blanket", "weight": 2, "costGP": 0.5, "description": "Warm woolen blanket."},
-  {"name": "Tent (small)", "weight": 10, "costGP": 5, "description": "Canvas shelter for 1-2 people."},
-  {"name": "Tent (large)", "weight": 20, "costGP": 15, "description": "Canvas pavilion for 4-6 people."},
-  {"name": "Flint and Steel", "weight": 0.25, "costGP": 3, "description": "Fire-starting tools."},
-  {"name": "Mirror, Small", "weight": 0.5, "costGP": 5, "description": "Polished silver mirror; useful for signaling."},
-  {"name": "Chalk (1 piece)", "weight": 0.1, "costGP": 0.01, "description": "For marking passages and walls."},
-  {"name": "Ink (1 oz vial)", "weight": 0.25, "costGP": 8, "description": "Writing ink for scrolls and documents."},
-  {"name": "Parchment (1 sheet)", "weight": 0.1, "costGP": 0.2, "description": "Writing surface for scrolls and notes."},
-  {"name": "Paper (1 sheet)", "weight": 0.05, "costGP": 0.5, "description": "Fine writing paper."},
-  {"name": "Quill Pen", "weight": 0.05, "costGP": 0.1, "description": "Feather pen for writing."},
-  {"name": "Book, Spellbook (blank)", "weight": 2, "costGP": 15, "description": "Bound tome for recording spells; 100 pages."},
-  {"name": "Scroll Case", "weight": 0.5, "costGP": 1, "description": "Waterproof tube for storing scrolls."},
-  {"name": "Sack, Small", "weight": 0.5, "costGP": 0.2, "description": "Holds about 20 lbs."},
-  {"name": "Sack, Large", "weight": 1, "costGP": 0.5, "description": "Holds about 60 lbs."},
-  {"name": "Chest, Small", "weight": 5, "costGP": 5, "description": "Wooden lockbox; holds about 30 lbs."},
-  {"name": "Chest, Large", "weight": 15, "costGP": 15, "description": "Reinforced chest; holds about 100 lbs."},
-  {"name": "Bag, Coin (1000 coins)", "weight": 10, "costGP": 1, "description": "Heavy sack designed for coin storage."},
-  {"name": "Crowbar", "weight": 5, "costGP": 2, "description": "Iron bar for prying open doors and lids."},
-  {"name": "Hammer", "weight": 2, "costGP": 1, "description": "Standard carpenter's hammer."},
-  {"name": "Spike, Iron (each)", "weight": 1, "costGP": 0.1, "description": "Large nail for securing doors or climbing."},
-  {"name": "Grappling Hook", "weight": 2, "costGP": 2, "description": "Three-pronged hook for climbing."},
-  {"name": "Whetstone", "weight": 1, "costGP": 0.1, "description": "Sharpening stone for blades."},
-  {"name": "Whistle", "weight": 0.1, "costGP": 0.5, "description": "Signal whistle; audible up to 1/2 mile."},
-  {"name": "Bell, Small", "weight": 0.25, "costGP": 1, "description": "Handbell or alarm bell."},
-  {"name": "Caltrops (20)", "weight": 2, "costGP": 2, "description": "Spiked balls to slow pursuers."},
-  {"name": "Holy Symbol", "weight": 1, "costGP": 5, "description": "Sacred emblem for clerics and paladins."},
-  {"name": "Holy Water (flask)", "weight": 1, "costGP": 25, "description": "Blessed water; damages undead on contact."},
-  {"name": "Garlic (bunch)", "weight": 0.25, "costGP": 0.1, "description": "Repels vampires when worn visibly."},
-  {"name": "Silver Mirror", "weight": 1, "costGP": 10, "description": "Used to detect shapeshifters and vampires."},
-  {"name": "Wolfbane", "weight": 0.1, "costGP": 5, "description": "Herb that repels lycanthropes."},
-  {"name": "Antitoxin Kit", "weight": 1, "costGP": 10, "description": "Contains remedies for common poisons."},
-  {"name": "Healing Potion", "weight": 0.5, "costGP": 50, "description": "Restores 2d4+1 hit points when consumed."},
-  {"name": "Thieves' Picks", "weight": 0.5, "costGP": 30, "description": "Lockpicks and tools for thieves."},
-  {"name": "Disguise Kit", "weight": 2, "costGP": 15, "description": "Makeup, false facial hair, and clothing accents."},
-  {"name": "Musical Instrument", "weight": 3, "costGP": 5, "description": "Lute, flute, or similar instrument."},
-  {"name": "Playing Cards", "weight": 0.25, "costGP": 1, "description": "Deck of cards for gambling."},
-  {"name": "Dice Set", "weight": 0.25, "costGP": 0.5, "description": "Polyhedral dice for gaming."},
-  {"name": "Fishing Tackle", "weight": 2, "costGP": 3, "description": "Line, hooks, and sinkers."},
-  {"name": "Spell Component Pouch", "weight": 2, "costGP": 5, "description": "Pouch containing common material components for arcane spells."},
-  {"name": "Healer's Kit", "weight": 3, "costGP": 10, "description": "Bandages, salves, and basic medical tools for first aid."},
-  {"name": "Spellbook", "weight": 3, "costGP": 50, "description": "Bound magical text used by wizards to record known spells."},
-  {"name": "Robes", "weight": 4, "costGP": 2, "description": "Simple layered robes favored by mages and scholars."},
-  {"name": "Riding Saddle", "weight": 25, "costGP": 10, "description": "Standard riding saddle with straps and saddlebags."},
-  {"name": "Crowbar, Heavy", "weight": 8, "costGP": 4, "description": "Long iron bar for forcing doors, chests, and stonework."}
+﻿[
+    {
+        "name":  "Backpack",
+        "weight":  2,
+        "costGP":  2,
+        "description":  "Leather satchel for carrying gear; holds about 60 lbs of equipment.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Rations, Iron (1 week)",
+        "weight":  14,
+        "costGP":  5,
+        "description":  "Dried meat, hardtack, and preserved food; lasts one week.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Rations, Standard (1 week)",
+        "weight":  7,
+        "costGP":  3,
+        "description":  "Basic trail rations including dried fruit and nuts.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Waterskin",
+        "weight":  1,
+        "costGP":  1,
+        "description":  "Holds about 1 quart of liquid.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Flask (empty)",
+        "weight":  0.5,
+        "costGP":  0.5,
+        "description":  "Glass container for liquids; holds about 1 pint.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Torch",
+        "weight":  1,
+        "costGP":  0.1,
+        "description":  "Burns for 1 hour; provides light in darkness.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "exploration"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Lantern, Hooded",
+        "weight":  2,
+        "costGP":  7,
+        "description":  "Oil-burning lamp with adjustable shutter; burns 1 hour per pint.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "exploration"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Lantern, Bullseye",
+        "weight":  3,
+        "costGP":  10,
+        "description":  "Focused beam lantern; illuminates cone 60 ft long.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "exploration"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Oil (1 flask)",
+        "weight":  1,
+        "costGP":  0.2,
+        "description":  "Lamp oil or Greek fire (if special); burns 1 hour per flask.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Rope, Hemp (50 ft)",
+        "weight":  5,
+        "costGP":  1,
+        "description":  "Strong rope; can hold up to 300 lbs safely.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "exploration"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Rope, Silk (50 ft)",
+        "weight":  2,
+        "costGP":  10,
+        "description":  "Light but strong; holds 400 lbs.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "exploration"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Bedroll",
+        "weight":  3,
+        "costGP":  1,
+        "description":  "Blanket roll for sleeping outdoors.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Blanket",
+        "weight":  2,
+        "costGP":  0.5,
+        "description":  "Warm woolen blanket.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Tent (small)",
+        "weight":  10,
+        "costGP":  5,
+        "description":  "Canvas shelter for 1-2 people.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "exploration"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Tent (large)",
+        "weight":  20,
+        "costGP":  15,
+        "description":  "Canvas pavilion for 4-6 people.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "exploration"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Flint and Steel",
+        "weight":  0.25,
+        "costGP":  3,
+        "description":  "Fire-starting tools.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "exploration"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Mirror, Small",
+        "weight":  0.5,
+        "costGP":  5,
+        "description":  "Polished silver mirror; useful for signaling.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "exploration"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Chalk (1 piece)",
+        "weight":  0.1,
+        "costGP":  0.01,
+        "description":  "For marking passages and walls.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "exploration"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Ink (1 oz vial)",
+        "weight":  0.25,
+        "costGP":  8,
+        "description":  "Writing ink for scrolls and documents.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Parchment (1 sheet)",
+        "weight":  0.1,
+        "costGP":  0.2,
+        "description":  "Writing surface for scrolls and notes.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Paper (1 sheet)",
+        "weight":  0.05,
+        "costGP":  0.5,
+        "description":  "Fine writing paper.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Quill Pen",
+        "weight":  0.05,
+        "costGP":  0.1,
+        "description":  "Feather pen for writing.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Book, Spellbook (blank)",
+        "weight":  2,
+        "costGP":  15,
+        "description":  "Bound tome for recording spells; 100 pages.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "support"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Scroll Case",
+        "weight":  0.5,
+        "costGP":  1,
+        "description":  "Waterproof tube for storing scrolls.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "support"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Sack, Small",
+        "weight":  0.5,
+        "costGP":  0.2,
+        "description":  "Holds about 20 lbs.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Sack, Large",
+        "weight":  1,
+        "costGP":  0.5,
+        "description":  "Holds about 60 lbs.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Chest, Small",
+        "weight":  5,
+        "costGP":  5,
+        "description":  "Wooden lockbox; holds about 30 lbs.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Chest, Large",
+        "weight":  15,
+        "costGP":  15,
+        "description":  "Reinforced chest; holds about 100 lbs.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Bag, Coin (1000 coins)",
+        "weight":  10,
+        "costGP":  1,
+        "description":  "Heavy sack designed for coin storage.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Crowbar",
+        "weight":  5,
+        "costGP":  2,
+        "description":  "Iron bar for prying open doors and lids.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "exploration"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Hammer",
+        "weight":  2,
+        "costGP":  1,
+        "description":  "Standard carpenter\u0027s hammer.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "exploration"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Spike, Iron (each)",
+        "weight":  1,
+        "costGP":  0.1,
+        "description":  "Large nail for securing doors or climbing.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Grappling Hook",
+        "weight":  2,
+        "costGP":  2,
+        "description":  "Three-pronged hook for climbing.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "exploration"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Whetstone",
+        "weight":  1,
+        "costGP":  0.1,
+        "description":  "Sharpening stone for blades.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Whistle",
+        "weight":  0.1,
+        "costGP":  0.5,
+        "description":  "Signal whistle; audible up to 1/2 mile.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Bell, Small",
+        "weight":  0.25,
+        "costGP":  1,
+        "description":  "Handbell or alarm bell.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Caltrops (20)",
+        "weight":  2,
+        "costGP":  2,
+        "description":  "Spiked balls to slow pursuers.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Holy Symbol",
+        "weight":  1,
+        "costGP":  5,
+        "description":  "Sacred emblem for clerics and paladins.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "divine"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Holy Water (flask)",
+        "weight":  1,
+        "costGP":  25,
+        "description":  "Blessed water; damages undead on contact.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "divine"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-holy-water",
+                                     "value":  1,
+                                     "note":  "Effective vs undead",
+                                     "modifierType":  "damage",
+                                     "target":  "vsUndead",
+                                     "role":  "divine",
+                                     "stackingRule":  "stack",
+                                     "condition":  "on hit",
+                                     "source":  "Items table"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Garlic (bunch)",
+        "weight":  0.25,
+        "costGP":  0.1,
+        "description":  "Repels vampires when worn visibly.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "divine"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Silver Mirror",
+        "weight":  1,
+        "costGP":  10,
+        "description":  "Used to detect shapeshifters and vampires.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "exploration"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Wolfbane",
+        "weight":  0.1,
+        "costGP":  5,
+        "description":  "Herb that repels lycanthropes.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "divine"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Antitoxin Kit",
+        "weight":  1,
+        "costGP":  10,
+        "description":  "Contains remedies for common poisons.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "healing"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Healing Potion",
+        "weight":  0.5,
+        "costGP":  50,
+        "description":  "Restores 2d4+1 hit points when consumed.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "healing"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-heal-potion",
+                                     "value":  1,
+                                     "note":  "2d4+1 HP restored",
+                                     "modifierType":  "hitPoints",
+                                     "target":  "self",
+                                     "role":  "healing",
+                                     "stackingRule":  "stack",
+                                     "condition":  "on consume",
+                                     "source":  "Items table"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Thieves\u0027 Picks",
+        "weight":  0.5,
+        "costGP":  30,
+        "description":  "Lockpicks and tools for thieves.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Disguise Kit",
+        "weight":  2,
+        "costGP":  15,
+        "description":  "Makeup, false facial hair, and clothing accents.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Musical Instrument",
+        "weight":  3,
+        "costGP":  5,
+        "description":  "Lute, flute, or similar instrument.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Playing Cards",
+        "weight":  0.25,
+        "costGP":  1,
+        "description":  "Deck of cards for gambling.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Dice Set",
+        "weight":  0.25,
+        "costGP":  0.5,
+        "description":  "Polyhedral dice for gaming.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Fishing Tackle",
+        "weight":  2,
+        "costGP":  3,
+        "description":  "Line, hooks, and sinkers.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Spell Component Pouch",
+        "weight":  2,
+        "costGP":  5,
+        "description":  "Pouch containing common material components for arcane spells.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "support"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Healer\u0027s Kit",
+        "weight":  3,
+        "costGP":  10,
+        "description":  "Bandages, salves, and basic medical tools for first aid.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Spellbook",
+        "weight":  3,
+        "costGP":  50,
+        "description":  "Bound magical text used by wizards to record known spells.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "support"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Robes",
+        "weight":  4,
+        "costGP":  2,
+        "description":  "Simple layered robes favored by mages and scholars.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Riding Saddle",
+        "weight":  25,
+        "costGP":  10,
+        "description":  "Standard riding saddle with straps and saddlebags.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    },
+    {
+        "name":  "Crowbar, Heavy",
+        "weight":  8,
+        "costGP":  4,
+        "description":  "Long iron bar for forcing doors, chests, and stonework.",
+        "type":  "equipment",
+        "itemCategory":  "equipment",
+        "itemSubcategory":  "",
+        "roles":  [
+                      "utility",
+                      "exploration"
+                  ],
+        "damageTypes":  [
+
+                        ],
+        "usage":  {
+                      "activation":  "action",
+                      "duration":  "",
+                      "charges":  0,
+                      "recharge":  "",
+                      "consumableKind":  ""
+                  },
+        "modifierProfiles":  [
+
+                             ]
+    }
 ]

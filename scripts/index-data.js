@@ -108,6 +108,72 @@ const ITEM_TYPE_ENUM = Object.freeze([
     'miscellaneous'
 ]);
 
+const DAMAGE_TYPE_ENUM = Object.freeze([
+    'bludgeoning',
+    'piercing',
+    'slashing',
+    'fire',
+    'cold',
+    'lightning',
+    'acid',
+    'poison',
+    'necrotic',
+    'radiant',
+    'force',
+    'psychic',
+    'thunder',
+    'special'
+]);
+
+const ITEM_ROLE_ENUM = Object.freeze([
+    'offense',
+    'defense',
+    'exploration',
+    'survival',
+    'mobility',
+    'social',
+    'utility',
+    'healing',
+    'support',
+    'arcane',
+    'divine',
+    'crafting',
+    'economy'
+]);
+
+const MODIFIER_TYPE_ENUM = Object.freeze([
+    'attack',
+    'damage',
+    'armorClass',
+    'thac0',
+    'savingThrow',
+    'abilityScore',
+    'hitPoints',
+    'movement',
+    'skillCheck',
+    'initiative',
+    'encumbrance',
+    'resource',
+    'resistance',
+    'other'
+]);
+
+const MODIFIER_TARGET_ENUM = Object.freeze([
+    'self',
+    'mainHand',
+    'offHand',
+    'melee',
+    'ranged',
+    'missile',
+    'armor',
+    'shield',
+    'vsUndead',
+    'vsHumanoid',
+    'vsGiant',
+    'vsDragon',
+    'all'
+]);
+
 const ITEM_FLAG_KEYS = Object.freeze([
     'isMagical',
     'isCursed',

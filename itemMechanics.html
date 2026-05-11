@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AD&D 2e - Item Mechanics</title>
+    <style>
+        :root { --parchment: #f4e4bc; --parchment-dark: #e6d2a0; --ink: #2b2b2b; --border: #5c4033; }
+        * { box-sizing: border-box; }
+        body { margin: 0; font-family: Georgia, serif; background: var(--parchment); color: var(--ink); min-height: 100vh; }
+        nav { background: var(--border); padding: 8px 15px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+        nav a { color: var(--parchment); text-decoration: none; font-size: 0.88rem; padding: 4px 8px; border: 1px solid transparent; }
+        nav a:hover, nav a.current { border-color: var(--parchment); background: rgba(255,255,255,0.12); }
+        main { padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+        .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+        button { background: var(--parchment-dark); border: 2px solid var(--ink); color: var(--ink); padding: 5px 10px; cursor: pointer; font-weight: bold; }
+        button.danger { background: #b85c4a; color: #fff; border-color: #6f2719; }
+        input, select, textarea { padding: 4px; border: 1px solid var(--border); background: rgba(255,255,255,0.75); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.76rem; }
+        th, td { border: 1px solid var(--border); padding: 4px; vertical-align: top; }
+        th { background: var(--parchment-dark); position: sticky; top: 0; z-index: 1; }
+        #grid-wrap { max-height: calc(100vh - 200px); overflow: auto; border: 1px solid var(--border); background: rgba(255,255,255,0.4); }
+        .mono { font-family: Consolas, monospace; }
+        .status { font-size: 0.82rem; min-height: 1.1em; }
+        .modal-overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); z-index: 2000; padding: 16px; }
+        .modal-content { background: var(--parchment); border: 4px double var(--border); width: min(980px, 96vw); max-height: 92vh; overflow: auto; padding: 18px; box-shadow: 0 18px 60px rgba(0,0,0,0.35); }
+        .modal-content h2 { margin: 0 0 12px; }
+        .close-btn { float: right; font-size: 1.5rem; cursor: pointer; line-height: 1; }
+        .modal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 12px; }
+        .field { display: flex; flex-direction: column; gap: 4px; }
+        .field label { font-size: 0.72rem; font-weight: bold; }
+        .field input, .field select, .field textarea { width: 100%; }
+        .span-2 { grid-column: 1 / -1; }
+        .modal-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+        @media (max-width: 920px) {
+            .modal-grid { grid-template-columns: 1fr; }
+            .span-2 { grid-column: auto; }
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="index.html">Character</a>
+    <a href="races.html">Races</a>
+    <a href="classes.html">Classes</a>
+    <a href="wizardSpells.html">Wizard Spells</a>
+    <a href="clericSpells.html">Cleric Spells</a>
+    <a href="weapons.html">Weapons</a>
+    <a href="armour.html">Armour</a>
+    <a href="items.html">Items</a>
+    <a href="itemMechanics.html" class="current">Item Mechanics</a>
+    <a href="proficiencies.html">Proficiencies</a>
+    <a href="combat.html">Combat</a>
+    <a href="crafting.html">Crafting</a>
+    <a href="campaign.html">Campaign</a>
+    <a href="admin.html">Admin</a>
+</nav>
+
+<main>
+    <h1 style="margin: 0;">Item Mechanics Catalog</h1>
+    <div style="font-size:0.86rem;">Static catalog view. Use Edit to open a popup CRUD form for source function, type, sub type, modifier details, and notes. Names must be unique.</div>
+
+    <div class="toolbar">
+        <button onclick="loadData()">Load</button>
+        <button onclick="saveData()">Save</button>
+        <button onclick="validateAndFixShapes()">Validate/Fix Shapes</button>
+        <button onclick="openEntryModal()">Add Entry</button>
+        <button onclick="importBookCorpus()">Import Book Corpus</button>
+        <button onclick="refreshDefaults()">Refresh Defaults</button>
+        <button onclick="exportClassifications()">Export Classifications JSON</button>
+        <label>Function
+            <select id="filter-source" onchange="renderGrid()">
+                <option value="all">all</option>
+                <option value="armour">armour</option>
+                <option value="weapon">weapon</option>
+                <option value="consumable">consumable</option>
+                <option value="tool">tool</option>
+                <option value="magical">magical</option>
+                <option value="equipment">equipment</option>
+                <option value="spell component">spell component</option>
+                <option value="shield">shield</option>
+                <option value="clothing">clothing</option>
+                <option value="ammo">ammo</option>
+            </select>
+        </label>
+        <label>Search <input id="filter-text" type="text" oninput="renderGrid()" placeholder="name contains..."></label>
+    </div>
+
+    <div id="grid-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Source Function</th>
+                    <th>Type</th>
+                    <th>Sub Types</th>
+                    <th>Mod Type</th>
+                    <th>Mod Sub Types</th>
+                    <th>Dice Roll</th>
+                    <th>Modifier</th>
+                    <th>Mod Target</th>
+                    <th>Mod Role</th>
+                    <th>Applied To</th>
+                    <th>Note</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="mech-body"></tbody>
+        </table>
+    </div>
+    <div id="status" class="status"></div>
+</main>
+
+<div id="editor-modal" class="modal-overlay" onclick="if(event.target===this) closeEditor()">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeEditor()">&times;</span>
+        <h2 id="modal-title">Add Entry</h2>
+        <input type="hidden" id="edit-idx">
+        <div class="modal-grid">
+            <div class="field span-2">
+                <label>Name</label>
+                <input id="edit-name" type="text" placeholder="Unique item name">
+            </div>
+            <div class="field">
+                <label>Source Function</label>
+                <select id="edit-sourceFunction"></select>
+            </div>
+            <div class="field">
+                <label>Type</label>
+                <select id="edit-typeGroup"></select>
+            </div>
+            <div class="field span-2">
+                <label>Sub Type(s)</label>
+                <textarea id="edit-subTypes" rows="2" placeholder="Comma-separated, e.g. long sword, 1h, martial"></textarea>
+            </div>
+            <div class="field">
+                <label>Mod Type</label>
+                <select id="edit-modType"></select>
+            </div>
+            <div class="field span-2">
+                <label>Mod Sub Type(s)</label>
+                <textarea id="edit-modSubTypes" rows="2" placeholder="Comma-separated, e.g. cold damage, protection from missiles"></textarea>
+            </div>
+            <div class="field">
+                <label>Dice Roll</label>
+                <input id="edit-diceRoll" type="text" placeholder="1d6">
+            </div>
+            <div class="field">
+                <label>Modifier</label>
+                <input id="edit-modifierValue" type="number" step="1" placeholder="+3">
+            </div>
+            <div class="field">
+                <label>Mod Target</label>
+                <select id="edit-modTarget"></select>
+            </div>
+            <div class="field">
+                <label>Mod Role</label>
+                <select id="edit-modRole"></select>
+            </div>
+            <div class="field span-2">
+                <label>Applied To</label>
+                <input id="edit-appliedTo" type="text" placeholder="ac, damage given, damage received, container capacity...">
+            </div>
+            <div class="field span-2">
+                <label>Note</label>
+                <textarea id="edit-note" rows="4" placeholder="Short notes, exceptions, or book references"></textarea>
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button onclick="saveEntry()">Save</button>
+            <button class="danger" onclick="deleteEntry()" id="delete-entry-btn">Delete</button>
+            <button onclick="closeEditor()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const KEYS = {
+    items: 'itemsDB',
+    weapons: 'weaponsDB',
+    armour: 'armourDB',
+    classifications: 'itemClassificationsDB'
+};
+
+const PATHS = {
+    items: 'data/items.json',
+    weapons: 'data/weapons.json',
+    armour: 'data/armour.json',
+    classifications: 'data/itemClassifications.json'
+};
+
+const ROLE_OPTIONS = ['offense', 'defense', 'exploration', 'survival', 'mobility', 'social', 'utility', 'healing', 'support', 'arcane', 'divine', 'crafting', 'economy'];
+let SOURCE_FUNCTION_OPTIONS = ['armour', 'weapon', 'consumable', 'tool', 'magical', 'equipment', 'spell component', 'shield', 'clothing', 'ammo'];
+const TYPE_OPTIONS = ['melee', 'missile', 'ammo', 'spell component', 'armour', 'shield', 'clothing', 'equipment', 'consumable', 'tool', 'magical'];
+const MOD_TYPE_OPTIONS = ['damage', 'armor class', 'container', 'protection', 'attack', 'healing', 'movement', 'resource', 'other'];
+const MOD_TARGET_OPTIONS = ['self', 'main hand', 'off hand', 'melee', 'ranged', 'missile', 'armor', 'shield', 'wearer', 'attacker', 'defender', 'all'];
+
+const BASELINE_ROWS = [
+    {
+        name: 'Dagger',
+        sourceFunction: 'weapon',
+        typeGroup: 'melee',
+        subTypes: ['dagger'],
+        modType: 'damage',
+        modSubTypes: ['piercing'],
+        diceRoll: '1d4',
+        modifierValue: 0,
+        modTarget: 'main hand',
+        modRole: 'offense',
+        appliedTo: 'damage given',
+        note: 'Fallback blade entry.',
+        dataset: 'weapons',
+        baseEntry: { name: 'Dagger', type: 'weapon', weaponCategory: 'melee', weaponRoles: ['offense', 'utility'], damageTypes: ['piercing'], modifierProfiles: [] }
+    },
+    {
+        name: 'Leather Armor',
+        sourceFunction: 'armour',
+        typeGroup: 'armour',
+        subTypes: ['light'],
+        modType: 'armor class',
+        modSubTypes: ['physical'],
+        diceRoll: '',
+        modifierValue: 3,
+        modTarget: 'wearer',
+        modRole: 'defense',
+        appliedTo: 'ac',
+        note: 'Fallback armour entry.',
+        dataset: 'armour',
+        baseEntry: { name: 'Leather Armor', baseAC: 8, weight: 15, costGP: 5, category: 'Leather', isShield: false, armourType: 'light', equipSlot: 'body', armourRoles: ['defense', 'mobility'], damageTypes: ['special'], modifierProfiles: [] }
+    },
+    {
+        name: 'Backpack',
+        sourceFunction: 'equipment',
+        typeGroup: 'equipment',
+        subTypes: ['container'],
+        modType: 'container',
+        modSubTypes: ['capacity'],
+        diceRoll: '',
+        modifierValue: 0,
+        modTarget: 'self',
+        modRole: 'utility',
+        appliedTo: 'container capacity',
+        note: 'Fallback equipment entry.',
+        dataset: 'items',
+        baseEntry: { name: 'Backpack', weight: 2, costGP: 2, description: 'Carries gear and supplies.', type: 'equipment', itemCategory: 'equipment', itemSubcategory: '', roles: ['utility'], damageTypes: [], usage: { activation: 'action', duration: '', charges: 0, recharge: '', consumableKind: '' }, modifierProfiles: [] }
+    }
+];
+
+let db = { items: [], weapons: [], armour: [], classifications: [] };
+let rows = [];
+let nextRowId = 1;
+let editingIndex = -1;
+
+function parseAdminSourceOptions() {
+    const fallback = ['armour', 'weapon', 'consumable', 'tool', 'magical', 'equipment', 'spell component', 'shield', 'clothing', 'ammo'];
+    const raw = localStorage.getItem('admin_item_mech_sources');
+    if (!raw) return fallback;
+
+    try {
+        const parsed = JSON.parse(raw);
+        if (!Array.isArray(parsed)) return fallback;
+        const cleaned = [];
+        const seen = new Set();
+        parsed.forEach(entry => {
+            const value = String(entry || '').trim();
+            if (!value) return;
+            const key = value.toLowerCase();
+            if (key === 'all' || seen.has(key)) return;
+            seen.add(key);
+            cleaned.push(value);
+        });
+        return cleaned.length ? cleaned : fallback;
+    } catch (e) {
+        console.error('Invalid admin_item_mech_sources list:', e);
+        return fallback;
+    }
+}
+
+function applySourceFilterOptions() {
+    SOURCE_FUNCTION_OPTIONS = parseAdminSourceOptions();
+    const select = document.getElementById('filter-source');
+    if (!select) return;
+
+    const previous = select.value || 'all';
+    select.innerHTML = ['<option value="all">all</option>']
+        .concat(SOURCE_FUNCTION_OPTIONS.map(value => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`))
+        .join('');
+
+    const valid = ['all'].concat(SOURCE_FUNCTION_OPTIONS);
+    select.value = valid.includes(previous) ? previous : 'all';
+}
+
+function setStatus(text, isErr) {
+    const el = document.getElementById('status');
+    el.textContent = text;
+    el.style.color = isErr ? '#8b0000' : '#2b2b2b';
+}
+
+function escapeHtml(value) {
+    return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function deepClone(value) {
+    return value && typeof value === 'object' ? JSON.parse(JSON.stringify(value)) : value;
+}
+
+function parseList(value) {
+    if (!value) return [];
+    const source = Array.isArray(value) ? value : String(value).split(/[;,/|]+/);
+    const seen = new Set();
+    const result = [];
+    source.forEach(item => {
+        const text = String(item || '').trim();
+        if (!text) return;
+        const key = text.toLowerCase();
+        if (seen.has(key)) return;
+        seen.add(key);
+        result.push(text);
+    });
+    return result;
+}
+
+function joinList(value) {
+    return parseList(value).join(', ');
+}
+
+function objectList(value) {
+    if (Array.isArray(value)) return value.filter(item => item && typeof item === 'object');
+    if (value && typeof value === 'object') return [value];
+    return [];
+}
+
+function normalizeChoice(value, options, fallback) {
+    const raw = String(value || '').trim().toLowerCase();
+    const match = options.find(option => String(option).toLowerCase() === raw);
+    return match || fallback;
+}
+
+function renderOptions(options, selectedValue) {
+    return options.map(option => {
+        const value = String(option);
+        const selected = String(selectedValue || '').toLowerCase() === value.toLowerCase() ? ' selected' : '';
+        const label = value.replace(/\b\w/g, letter => letter.toUpperCase());
+        return `<option value="${escapeHtml(value)}"${selected}>${escapeHtml(label)}</option>`;
+    }).join('');
+}
+
+function normalizeModifierProfiles(value) {
+    return objectList(value).map(profile => ({
+        id: String(profile.id || ''),
+        value: parseInt(profile.value, 10) || 0,
+        note: String(profile.note || '').trim(),
+        modifierType: String(profile.modifierType || '').trim().toLowerCase(),
+        target: String(profile.target || '').trim().toLowerCase(),
+        role: String(profile.role || '').trim().toLowerCase(),
+        stackingRule: String(profile.stackingRule || '').trim(),
+        condition: String(profile.condition || '').trim(),
+        source: String(profile.source || '').trim(),
+        diceRoll: String(profile.diceRoll || '').trim(),
+        subTypes: parseList(profile.subTypes),
+        appliedTo: String(profile.appliedTo || '').trim()
+    })).filter(profile => profile.value !== 0 || !!profile.id || !!profile.note || !!profile.modifierType || !!profile.target || !!profile.role || !!profile.stackingRule || !!profile.condition || !!profile.source || !!profile.diceRoll || profile.subTypes.length > 0 || !!profile.appliedTo);
+}
+
+function usageObject(value) {
+    if (!value || typeof value !== 'object') {
+        return { activation: 'action', duration: '', charges: 0, recharge: '', consumableKind: '' };
+    }
+    return {
+        activation: String(value.activation || 'action').trim().toLowerCase() || 'action',
+        duration: String(value.duration || '').trim(),
+        charges: Math.max(0, parseInt(value.charges, 10) || 0),
+        recharge: String(value.recharge || '').trim(),
+        consumableKind: String(value.consumableKind || '').trim()
+    };
+}
+
+function datasetForSourceFunction(sourceFunction) {
+    const value = String(sourceFunction || '').trim().toLowerCase();
+    if (value === 'weapon' || value === 'ammo') return 'weapons';
+    if (value === 'armour' || value === 'shield') return 'armour';
+    return 'items';
+}
+
+function inferSourceFunction(entry, dataset) {
+    const existing = String(entry && entry.sourceFunction || '').trim().toLowerCase();
+    if (existing) return normalizeChoice(existing, SOURCE_FUNCTION_OPTIONS, 'equipment');
+    if (dataset === 'weapons') return 'weapon';
+    if (dataset === 'armour') return entry && entry.isShield ? 'shield' : 'armour';
+
+    const category = String(entry && (entry.itemCategory || entry.weaponCategory || entry.armourType || entry.type) || '').trim().toLowerCase();
+    if (category === 'weapon' || category === 'melee' || category === 'missile') return 'weapon';
+    if (category === 'ammo' || category === 'ammunition') return 'ammo';
+    if (category === 'armor' || category === 'armour' || category === 'shield') return category === 'shield' ? 'shield' : 'armour';
+    if (category === 'consumable' || category === 'tool' || category === 'magical' || category === 'equipment' || category === 'clothing' || category === 'spell component') return category;
+    return 'equipment';
+}
+
+function inferTypeGroup(entry, dataset, sourceFunction) {
+    const current = String(entry && (entry.typeGroup || entry.itemCategory || entry.weaponCategory || entry.armourType || entry.type) || '').trim().toLowerCase();
+    if (current) {
+        if (current === 'armor') return 'armour';
+        if (current === 'ammunition') return 'ammo';
+        if (current === 'ranged') return 'missile';
+        return normalizeChoice(current, TYPE_OPTIONS, current);
+    }
+    if (dataset === 'weapons') return 'melee';
+    if (dataset === 'armour') return entry && entry.isShield ? 'shield' : 'armour';
+    return normalizeChoice(sourceFunction, TYPE_OPTIONS, 'equipment');
+}
+
+function inferSubTypes(entry, classification) {
+    return parseList((classification && classification.subTypes) || (entry && entry.subTypes) || (entry && entry.itemSubcategory) || (entry && entry.category) || '');
+}
+
+function inferModType(entry, classification, profile) {
+    const current = String((classification && classification.modType) || (entry && entry.modType) || (profile && profile.modifierType) || '').trim().toLowerCase();
+    return normalizeChoice(current, MOD_TYPE_OPTIONS, current || 'other');
+}
+
+function inferModSubTypes(entry, classification, profile) {
+    return parseList((classification && classification.modSubTypes) || (entry && entry.modSubTypes) || (profile && profile.subTypes) || '');
+}
+
+function inferDiceRoll(entry, classification, profile) {
+    return String((classification && classification.diceRoll) || (entry && entry.diceRoll) || (profile && profile.diceRoll) || '').trim();
+}
+
+function inferModifierValue(entry, classification, profile) {
+    const value = (classification && classification.modifierValue) || (entry && entry.modifierValue) || (profile && profile.value) || 0;
+    return parseInt(value, 10) || 0;
+}
+
+function inferModTarget(entry, classification, profile) {
+    const current = String((classification && classification.modTarget) || (entry && entry.modTarget) || (profile && profile.target) || 'self').trim().toLowerCase();
+    return normalizeChoice(current, MOD_TARGET_OPTIONS, current || 'self');
+}
+
+function inferModRole(entry, classification, profile) {
+    const current = String((classification && classification.modRole) || (entry && entry.modRole) || (profile && profile.role) || 'utility').trim().toLowerCase();
+    return normalizeChoice(current, ROLE_OPTIONS, current || 'utility');
+}
+
+function inferAppliedTo(entry, classification, profile) {
+    return String((classification && classification.appliedTo) || (entry && entry.appliedTo) || (profile && profile.appliedTo) || '').trim();
+}
+
+function inferNote(entry, classification, profile) {
+    return String((classification && classification.note) || (entry && entry.note) || (profile && profile.note) || '').trim();
+}
+
+function inferBookSourceType(name) {
+    const text = String(name || '').toLowerCase();
+    if (/arrow|bolt|dart|stone|quarrel|bullet/.test(text)) return 'ammo';
+    if (/bow|crossbow|sling/.test(text)) return 'missile';
+    if (/shield|buckler|target/.test(text)) return 'shield';
+    if (/armor|mail|plate|leather|studded|splint|ring|padded|brigandine|chain/.test(text)) return 'armour';
+    if (/potion|oil|holy water|antitoxin|salve|ink|scroll|wine|rations|food|foodstuff|fruit/.test(text)) return 'consumable';
+    if (/spellbook|book|holy symbol|wand|ring|staff|relic|amulet|gem|rod/.test(text)) return 'magical';
+    if (/robe|cloak|clothing|garment|garments|boots|glove|hat|cap/.test(text)) return 'clothing';
+    if (/kit|tool|hammer|crowbar|hook|rope|pouch|bag|sack|chest|box|ladder|lantern|torch|flint|steel|mirror|bell|chalk|dice|ink|needle|thread|tackle|tinder|blanket|bedroll|manacle|chains?/.test(text)) return 'tool';
+    return 'equipment';
+}
+
+function inferBookTypeGroup(sourceFunction, name) {
+    const text = String(name || '').toLowerCase();
+    if (sourceFunction === 'armour') return 'armour';
+    if (sourceFunction === 'shield') return 'shield';
+    if (sourceFunction === 'ammo') return 'ammo';
+    if (sourceFunction === 'weapon') {
+        if (/bow|crossbow|sling/.test(text)) return 'missile';
+        return 'melee';
+    }
+    if (sourceFunction === 'consumable') return 'consumable';
+    if (sourceFunction === 'tool') return 'tool';
+    if (sourceFunction === 'magical') return 'magical';
+    if (sourceFunction === 'clothing') return 'clothing';
+    return 'equipment';
+}
+
+function inferBookSubTypes(name, sourceSample) {
+    const parts = [];
+    String(name || '')
+        .split(/[(),]/)
+        .map(part => part.trim())
+        .filter(Boolean)
+        .forEach(part => {
+            if (part.length > 1 && !/^(the|a|an)$/i.test(part)) parts.push(part);
+        });
+    if (sourceSample) parts.push('book trace');
+    return parseList(parts);
+}
+
+function createBookTraceRow(entry) {
+    const sourceFunction = inferBookSourceType(entry.name);
+    const typeGroup = inferBookTypeGroup(sourceFunction, entry.name);
+    const note = String(entry.sourceHintCount || 0) > 0
+        ? `Book trace hits: ${entry.sourceHintCount}`
+        : 'Book trace entry';
+
+    return {
+        rowId: nextRowId++,
+        dataset: datasetForSourceFunction(sourceFunction),
+        baseEntry: {},
+        name: String(entry.name || '').trim(),
+        sourceFunction,
+        typeGroup,
+        subTypes: inferBookSubTypes(entry.name, entry.sourceSample),
+        modType: sourceFunction === 'armour' || sourceFunction === 'shield' ? 'armor class' : sourceFunction === 'weapon' || sourceFunction === 'ammo' ? 'damage' : 'other',
+        modSubTypes: [],
+        diceRoll: '',
+        modifierValue: sourceFunction === 'armour' || sourceFunction === 'shield' ? 1 : 0,
+        modTarget: sourceFunction === 'armour' || sourceFunction === 'shield' ? 'wearer' : sourceFunction === 'weapon' || sourceFunction === 'ammo' ? 'main hand' : 'self',
+        modRole: sourceFunction === 'armour' || sourceFunction === 'shield' ? 'defense' : sourceFunction === 'weapon' || sourceFunction === 'ammo' ? 'offense' : 'utility',
+        appliedTo: sourceFunction === 'armour' || sourceFunction === 'shield' ? 'ac' : sourceFunction === 'weapon' || sourceFunction === 'ammo' ? 'damage given' : 'other',
+        note,
+        roles: [],
+        damageTypes: []
+    };
+}
+
+async function importBookCorpus() {
+    try {
+        const trace = await fetchJsonArray('data/bookCorpusTrace.json');
+        if (!Array.isArray(trace) || trace.length === 0) {
+            setStatus('No book corpus trace entries were found.', true);
+            return;
+        }
+
+        const byName = new Map(rows.map(row => [String(row.name || '').trim().toLowerCase(), row]));
+        let imported = 0;
+
+        trace.forEach(entry => {
+            if (!entry || typeof entry.name !== 'string') return;
+            const key = entry.name.trim().toLowerCase();
+            const existing = byName.get(key);
+            if (existing) {
+                if (!existing.note) existing.note = `Book trace hits: ${entry.sourceHintCount || 0}`;
+                if (!existing.subTypes || existing.subTypes.length === 0) existing.subTypes = inferBookSubTypes(entry.name, entry.sourceSample);
+                if (!existing.sourceFunction || existing.sourceFunction === 'equipment') existing.sourceFunction = inferBookSourceType(entry.name);
+                if (!existing.typeGroup || existing.typeGroup === 'equipment') existing.typeGroup = inferBookTypeGroup(existing.sourceFunction, entry.name);
+                return;
+            }
+
+            const row = createBookTraceRow(entry);
+            rows.push(row);
+            byName.set(key, row);
+            imported += 1;
+        });
+
+        sortRows();
+        renderGrid();
+        setStatus(`Imported ${imported} book-corpus entries from DMG/PHB/class-book traces.`);
+    } catch (error) {
+        console.error('Failed to import book corpus trace:', error);
+        setStatus('Failed to import book corpus trace.', true);
+    }
+}
+
+function buildProfile(row) {
+    return {
+        id: `mod-${row.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`,
+        value: parseInt(row.modifierValue, 10) || 0,
+        note: String(row.note || '').trim(),
+        modifierType: normalizeChoice(row.modType, MOD_TYPE_OPTIONS, 'other'),
+        target: normalizeChoice(row.modTarget, MOD_TARGET_OPTIONS, 'self'),
+        role: normalizeChoice(row.modRole, ROLE_OPTIONS, 'utility'),
+        stackingRule: 'stack',
+        condition: '',
+        source: 'Item Mechanics Editor',
+        diceRoll: String(row.diceRoll || '').trim(),
+        subTypes: parseList(row.modSubTypes),
+        appliedTo: String(row.appliedTo || '').trim()
+    };
+}
+
+function buildClassificationFromRow(row) {
+    const profile = buildProfile(row);
+    const modType = normalizeChoice(row.modType, MOD_TYPE_OPTIONS, 'other');
+    const modTarget = normalizeChoice(row.modTarget, MOD_TARGET_OPTIONS, 'self');
+    return {
+        name: row.name,
+        sourceFunction: normalizeChoice(row.sourceFunction, SOURCE_FUNCTION_OPTIONS, 'equipment'),
+        typeGroup: normalizeChoice(row.typeGroup, TYPE_OPTIONS, 'equipment'),
+        subTypes: parseList(row.subTypes),
+        modType,
+        modSubTypes: parseList(row.modSubTypes),
+        diceRoll: String(row.diceRoll || '').trim(),
+        modifierValue: parseInt(row.modifierValue, 10) || 0,
+        modTarget,
+        modRole: normalizeChoice(row.modRole, ROLE_OPTIONS, 'utility'),
+        appliedTo: String(row.appliedTo || '').trim(),
+        note: String(row.note || '').trim(),
+        roles: parseList(row.roles),
+        damageTypes: parseList(row.damageTypes),
+        modifierTypes: [modType],
+        modifierTargets: [modTarget],
+        modifierProfiles: (profile.value !== 0 || profile.note || profile.diceRoll || profile.subTypes.length > 0 || profile.appliedTo) ? [profile] : [],
+        tags: []
+    };
+}
+
+function hydrateRow(entry, classification, dataset) {
+    const profile = objectList(classification && classification.modifierProfiles)[0] || objectList(entry && entry.modifierProfiles)[0] || null;
+    const sourceFunction = inferSourceFunction(classification && classification.name ? classification : entry, dataset);
+    return {
+        rowId: nextRowId++,
+        dataset,
+        baseEntry: deepClone(entry || {}),
+        name: String((classification && classification.name) || (entry && entry.name) || '').trim(),
+        sourceFunction,
+        typeGroup: inferTypeGroup(entry, dataset, sourceFunction),
+        subTypes: inferSubTypes(entry, classification),
+        modType: inferModType(entry, classification, profile),
+        modSubTypes: inferModSubTypes(entry, classification, profile),
+        diceRoll: inferDiceRoll(entry, classification, profile),
+        modifierValue: inferModifierValue(entry, classification, profile),
+        modTarget: inferModTarget(entry, classification, profile),
+        modRole: inferModRole(entry, classification, profile),
+        appliedTo: inferAppliedTo(entry, classification, profile),
+        note: inferNote(entry, classification, profile),
+        roles: parseList((classification && classification.roles) || (entry && (entry.roles || entry.weaponRoles || entry.armourRoles)) || []),
+        damageTypes: parseList((classification && classification.damageTypes) || (entry && entry.damageTypes) || [])
+    };
+}
+
+function sortRows() {
+    rows.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function buildRows() {
+    const baseByName = new Map();
+    ['items', 'weapons', 'armour'].forEach(dataset => {
+        (Array.isArray(db[dataset]) ? db[dataset] : []).forEach(entry => {
+            if (!entry || typeof entry.name !== 'string') return;
+            const key = entry.name.trim().toLowerCase();
+            if (!baseByName.has(key)) baseByName.set(key, { dataset, entry });
+        });
+    });
+
+    const classificationByName = new Map((Array.isArray(db.classifications) ? db.classifications : [])
+        .filter(entry => entry && typeof entry.name === 'string')
+        .map(entry => [entry.name.trim().toLowerCase(), entry]));
+
+    const names = new Set([...baseByName.keys(), ...classificationByName.keys()]);
+    const next = [];
+
+    names.forEach(key => {
+        const base = baseByName.get(key);
+        const classification = classificationByName.get(key);
+        const entry = base ? base.entry : (classification || {});
+        const dataset = base ? base.dataset : datasetForSourceFunction((classification && classification.sourceFunction) || inferSourceFunction(entry, 'items'));
+        next.push(hydrateRow(entry, classification, dataset));
+    });
+
+    rows = next;
+    sortRows();
+}
+
+function validateAndFixShapes() {
+    let issues = 0;
+
+    (Array.isArray(db.items) ? db.items : []).forEach(entry => {
+        if (!Array.isArray(entry.roles)) issues += 1;
+        if (!Array.isArray(entry.damageTypes)) issues += 1;
+        if (!Array.isArray(entry.modifierProfiles)) issues += 1;
+        if (!entry.usage || typeof entry.usage !== 'object') issues += 1;
+        entry.roles = parseList(entry.roles);
+        entry.damageTypes = parseList(entry.damageTypes);
+        entry.modifierProfiles = normalizeModifierProfiles(entry.modifierProfiles);
+        entry.usage = usageObject(entry.usage);
+    });
+
+    (Array.isArray(db.weapons) ? db.weapons : []).forEach(entry => {
+        if (!Array.isArray(entry.weaponRoles)) issues += 1;
+        if (!Array.isArray(entry.damageTypes)) issues += 1;
+        if (!Array.isArray(entry.modifierProfiles)) issues += 1;
+        entry.weaponRoles = parseList(entry.weaponRoles);
+        entry.damageTypes = parseList(entry.damageTypes);
+        entry.modifierProfiles = normalizeModifierProfiles(entry.modifierProfiles);
+    });
+
+    (Array.isArray(db.armour) ? db.armour : []).forEach(entry => {
+        if (!Array.isArray(entry.armourRoles)) issues += 1;
+        if (!Array.isArray(entry.damageTypes)) issues += 1;
+        if (!Array.isArray(entry.modifierProfiles)) issues += 1;
+        entry.armourRoles = parseList(entry.armourRoles);
+        entry.damageTypes = parseList(entry.damageTypes);
+        entry.modifierProfiles = normalizeModifierProfiles(entry.modifierProfiles);
+    });
+
+    (Array.isArray(db.classifications) ? db.classifications : []).forEach(entry => {
+        ['subTypes', 'modSubTypes', 'roles', 'damageTypes', 'modifierTypes', 'modifierTargets', 'modifierProfiles'].forEach(field => {
+            if (!Array.isArray(entry[field])) issues += 1;
+        });
+        entry.sourceFunction = normalizeChoice(entry.sourceFunction, SOURCE_FUNCTION_OPTIONS, 'equipment');
+        entry.typeGroup = normalizeChoice(entry.typeGroup, TYPE_OPTIONS, 'equipment');
+        entry.modType = normalizeChoice(entry.modType, MOD_TYPE_OPTIONS, 'other');
+        entry.modTarget = normalizeChoice(entry.modTarget, MOD_TARGET_OPTIONS, 'self');
+        entry.modRole = normalizeChoice(entry.modRole, ROLE_OPTIONS, 'utility');
+        entry.subTypes = parseList(entry.subTypes);
+        entry.modSubTypes = parseList(entry.modSubTypes);
+        entry.roles = parseList(entry.roles);
+        entry.damageTypes = parseList(entry.damageTypes);
+        entry.modifierTypes = parseList(entry.modifierTypes);
+        entry.modifierTargets = parseList(entry.modifierTargets);
+        entry.modifierProfiles = normalizeModifierProfiles(entry.modifierProfiles);
+        entry.appliedTo = String(entry.appliedTo || '').trim();
+        entry.note = String(entry.note || '').trim();
+        entry.diceRoll = String(entry.diceRoll || '').trim();
+        entry.modifierValue = parseInt(entry.modifierValue, 10) || 0;
+    });
+
+    buildRows();
+    renderGrid();
+    setStatus(`Validated schema and corrected ${issues} shape issue${issues === 1 ? '' : 's'}.`);
+}
+
+function renderGrid() {
+    const src = document.getElementById('filter-source').value;
+    const term = String(document.getElementById('filter-text').value || '').trim().toLowerCase();
+    const visible = rows.filter(row => {
+        if (src !== 'all' && row.sourceFunction !== src) return false;
+        if (term && !row.name.toLowerCase().includes(term)) return false;
+        return true;
+    });
+
+    const body = document.getElementById('mech-body');
+    body.innerHTML = visible.map(row => {
+        const rowIndex = rows.indexOf(row);
+        return `<tr data-idx="${rowIndex}">
+            <td>${escapeHtml(row.name)}</td>
+            <td class="mono">${escapeHtml(row.sourceFunction)}</td>
+            <td>${escapeHtml(row.typeGroup)}</td>
+            <td>${escapeHtml(joinList(row.subTypes))}</td>
+            <td>${escapeHtml(row.modType)}</td>
+            <td>${escapeHtml(joinList(row.modSubTypes))}</td>
+            <td>${escapeHtml(row.diceRoll)}</td>
+            <td>${escapeHtml(row.modifierValue)}</td>
+            <td>${escapeHtml(row.modTarget)}</td>
+            <td>${escapeHtml(row.modRole)}</td>
+            <td>${escapeHtml(row.appliedTo)}</td>
+            <td>${escapeHtml(row.note)}</td>
+            <td>
+                <button type="button" class="edit-entry-btn">Edit</button>
+            </td>
+        </tr>`;
+    }).join('');
+
+    Array.from(body.querySelectorAll('tr')).forEach(tr => {
+        const idx = parseInt(tr.getAttribute('data-idx'), 10);
+        const editBtn = tr.querySelector('.edit-entry-btn');
+        if (editBtn) editBtn.addEventListener('click', () => openEntryModal(idx));
+    });
+
+    setStatus(`Showing ${visible.length} of ${rows.length} entries.`);
+}
+
+function openEditor() {
+    document.getElementById('editor-modal').style.display = 'flex';
+}
+
+function closeEditor() {
+    document.getElementById('editor-modal').style.display = 'none';
+}
+
+function setModalSelect(id, options, value) {
+    document.getElementById(id).innerHTML = renderOptions(options, value);
+}
+
+function fillModalFromRow(row) {
+    document.getElementById('edit-name').value = row.name || '';
+    setModalSelect('edit-sourceFunction', SOURCE_FUNCTION_OPTIONS, row.sourceFunction);
+    setModalSelect('edit-typeGroup', TYPE_OPTIONS, row.typeGroup);
+    document.getElementById('edit-subTypes').value = joinList(row.subTypes);
+    setModalSelect('edit-modType', MOD_TYPE_OPTIONS, row.modType);
+    document.getElementById('edit-modSubTypes').value = joinList(row.modSubTypes);
+    document.getElementById('edit-diceRoll').value = row.diceRoll || '';
+    document.getElementById('edit-modifierValue').value = row.modifierValue ?? 0;
+    setModalSelect('edit-modTarget', MOD_TARGET_OPTIONS, row.modTarget);
+    setModalSelect('edit-modRole', ROLE_OPTIONS, row.modRole);
+    document.getElementById('edit-appliedTo').value = row.appliedTo || '';
+    document.getElementById('edit-note').value = row.note || '';
+}
+
+function getModalRowFromInputs(baseRow) {
+    return {
+        rowId: baseRow ? baseRow.rowId : nextRowId++,
+        dataset: datasetForSourceFunction(document.getElementById('edit-sourceFunction').value),
+        baseEntry: baseRow ? deepClone(baseRow.baseEntry || {}) : {},
+        name: String(document.getElementById('edit-name').value || '').trim(),
+        sourceFunction: normalizeChoice(document.getElementById('edit-sourceFunction').value, SOURCE_FUNCTION_OPTIONS, 'equipment'),
+        typeGroup: normalizeChoice(document.getElementById('edit-typeGroup').value, TYPE_OPTIONS, 'equipment'),
+        subTypes: parseList(document.getElementById('edit-subTypes').value),
+        modType: normalizeChoice(document.getElementById('edit-modType').value, MOD_TYPE_OPTIONS, 'other'),
+        modSubTypes: parseList(document.getElementById('edit-modSubTypes').value),
+        diceRoll: String(document.getElementById('edit-diceRoll').value || '').trim(),
+        modifierValue: parseInt(document.getElementById('edit-modifierValue').value, 10) || 0,
+        modTarget: normalizeChoice(document.getElementById('edit-modTarget').value, MOD_TARGET_OPTIONS, 'self'),
+        modRole: normalizeChoice(document.getElementById('edit-modRole').value, ROLE_OPTIONS, 'utility'),
+        appliedTo: String(document.getElementById('edit-appliedTo').value || '').trim(),
+        note: String(document.getElementById('edit-note').value || '').trim(),
+        roles: baseRow ? deepClone(baseRow.roles || []) : [],
+        damageTypes: baseRow ? deepClone(baseRow.damageTypes || []) : []
+    };
+}
+
+function openEntryModal(index) {
+    editingIndex = typeof index === 'number' && index >= 0 ? index : -1;
+    const row = editingIndex >= 0 ? rows[editingIndex] : {
+        name: '',
+        sourceFunction: 'equipment',
+        typeGroup: 'equipment',
+        subTypes: [],
+        modType: 'other',
+        modSubTypes: [],
+        diceRoll: '',
+        modifierValue: 0,
+        modTarget: 'self',
+        modRole: 'utility',
+        appliedTo: '',
+        note: ''
+    };
+
+    document.getElementById('modal-title').textContent = editingIndex >= 0 ? 'Edit Entry' : 'Add Entry';
+    document.getElementById('delete-entry-btn').style.display = editingIndex >= 0 ? 'inline-block' : 'none';
+    document.getElementById('edit-idx').value = editingIndex >= 0 ? String(editingIndex) : '';
+    fillModalFromRow(row);
+    openEditor();
+}
+
+function validateRowsForCrud(skipIndex) {
+    const seen = new Set();
+    for (let i = 0; i < rows.length; i += 1) {
+        if (skipIndex === i) continue;
+        const name = String(rows[i].name || '').trim();
+        if (!name) return 'Name is required.';
+        const key = name.toLowerCase();
+        if (seen.has(key)) return `Name must be unique: ${name}`;
+        seen.add(key);
+    }
+    return '';
+}
+
+function saveEntry() {
+    const nextRow = getModalRowFromInputs(editingIndex >= 0 ? rows[editingIndex] : null);
+    if (!nextRow.name) {
+        setStatus('Name is required.', true);
+        return;
+    }
+
+    const duplicate = rows.some((row, index) => index !== editingIndex && String(row.name || '').trim().toLowerCase() === nextRow.name.toLowerCase());
+    if (duplicate) {
+        setStatus(`Name must be unique: ${nextRow.name}`, true);
+        return;
+    }
+
+    if (editingIndex >= 0) rows[editingIndex] = nextRow;
+    else rows.push(nextRow);
+
+    sortRows();
+    renderGrid();
+    closeEditor();
+    setStatus(`Saved ${nextRow.name}.`);
+}
+
+function deleteEntry(index) {
+    const row = rows[index];
+    if (!row) return;
+    if (!confirm(`Delete ${row.name}?`)) return;
+    rows.splice(index, 1);
+    renderGrid();
+    closeEditor();
+    setStatus(`Deleted ${row.name}. Save to persist.`);
+}
+
+function applyRowsToDb() {
+    const nextItems = [];
+    const nextWeapons = [];
+    const nextArmour = [];
+    const classificationMap = new Map();
+
+    rows.forEach(row => {
+        const classification = buildClassificationFromRow(row);
+        classificationMap.set(row.name.toLowerCase(), classification);
+
+        const base = deepClone(row.baseEntry || {});
+        base.name = row.name;
+        base.sourceFunction = classification.sourceFunction;
+        base.typeGroup = classification.typeGroup;
+        base.subTypes = classification.subTypes;
+        base.modType = classification.modType;
+        base.modSubTypes = classification.modSubTypes;
+        base.diceRoll = classification.diceRoll;
+        base.modifierValue = classification.modifierValue;
+        base.modTarget = classification.modTarget;
+        base.modRole = classification.modRole;
+        base.appliedTo = classification.appliedTo;
+        base.note = classification.note;
+        base.modifierProfiles = classification.modifierProfiles;
+
+        const dataset = datasetForSourceFunction(classification.sourceFunction);
+        if (dataset === 'weapons') {
+            if (!base.weaponCategory) base.weaponCategory = classification.typeGroup;
+            base.weaponRoles = parseList(base.weaponRoles || row.roles);
+            base.damageTypes = parseList(base.damageTypes || row.damageTypes);
+            nextWeapons.push(base);
+        } else if (dataset === 'armour') {
+            base.isShield = classification.sourceFunction === 'shield';
+            if (!base.armourType) base.armourType = classification.typeGroup;
+            base.armourRoles = parseList(base.armourRoles || row.roles);
+            base.damageTypes = parseList(base.damageTypes || row.damageTypes);
+            nextArmour.push(base);
+        } else {
+            if (!base.type) base.type = classification.sourceFunction === 'weapon' ? 'weapon' : classification.sourceFunction === 'armour' ? 'armor' : 'equipment';
+            base.itemCategory = classification.sourceFunction;
+            base.itemSubcategory = joinList(classification.subTypes);
+            base.roles = parseList(base.roles || row.roles);
+            base.damageTypes = parseList(base.damageTypes || row.damageTypes);
+            if (!base.usage || typeof base.usage !== 'object') base.usage = usageObject(base.usage);
+            nextItems.push(base);
+        }
+    });
+
+    db.items = nextItems;
+    db.weapons = nextWeapons;
+    db.armour = nextArmour;
+    db.classifications = [...classificationMap.values()].sort((a, b) => a.name.localeCompare(b.name));
+}
+
+async function fetchJsonArray(path) {
+    const response = await fetch(path);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const parsed = await response.json();
+    return Array.isArray(parsed) ? parsed : null;
+}
+
+function xhrJsonArray(path) {
+    try {
+        const req = new XMLHttpRequest();
+        req.open('GET', path, false);
+        req.send(null);
+        if (req.status && req.status !== 200) return null;
+        const parsed = JSON.parse(req.responseText);
+        return Array.isArray(parsed) ? parsed : null;
+    } catch (_) {
+        return null;
+    }
+}
+
+async function loadJson(storageKey, path, fallback) {
+    const local = localStorage.getItem(storageKey);
+    if (local) {
+        try {
+            const parsed = JSON.parse(local);
+            if (Array.isArray(parsed)) return parsed;
+        } catch (e) {
+            console.error(`Invalid ${storageKey} cache:`, e);
+        }
+    }
+
+    const pathsToTry = [...new Set([
+        path,
+        `./${path.replace(/^\.\//, '')}`,
+        new URL(path, window.location.href).toString()
+    ])];
+
+    for (const candidate of pathsToTry) {
+        try {
+            const parsed = await fetchJsonArray(candidate);
+            if (parsed) return parsed;
+        } catch (e) {
+            console.warn(`Fetch failed for ${candidate}:`, e);
+        }
+    }
+
+    for (const candidate of pathsToTry) {
+        const parsed = xhrJsonArray(candidate);
+        if (parsed) return parsed;
+    }
+
+    return fallback;
+}
+
+async function loadData() {
+    db.items = await loadJson(KEYS.items, PATHS.items, []);
+    db.weapons = await loadJson(KEYS.weapons, PATHS.weapons, []);
+    db.armour = await loadJson(KEYS.armour, PATHS.armour, []);
+    db.classifications = await loadJson(KEYS.classifications, PATHS.classifications, []);
+    validateAndFixShapes();
+    await importBookCorpus();
+
+    if (rows.length === 0) {
+        rows = BASELINE_ROWS.map((entry, index) => ({
+            rowId: index + 1,
+            dataset: entry.dataset,
+            baseEntry: deepClone(entry.baseEntry || {}),
+            name: entry.name,
+            sourceFunction: entry.sourceFunction,
+            typeGroup: entry.typeGroup,
+            subTypes: parseList(entry.subTypes),
+            modType: entry.modType,
+            modSubTypes: parseList(entry.modSubTypes),
+            diceRoll: entry.diceRoll,
+            modifierValue: entry.modifierValue,
+            modTarget: entry.modTarget,
+            modRole: entry.modRole,
+            appliedTo: entry.appliedTo,
+            note: entry.note,
+            roles: [],
+            damageTypes: []
+        }));
+        renderGrid();
+        setStatus('Loaded built-in fallback entries because data/*.json could not be read.');
+        return;
+    }
+
+    renderGrid();
+    setStatus(`Loaded ${rows.length} catalog entries.`);
+}
+
+function saveData() {
+    const duplicateError = validateRowsForCrud(-1);
+    if (duplicateError) {
+        setStatus(duplicateError, true);
+        return;
+    }
+
+    applyRowsToDb();
+    localStorage.setItem(KEYS.items, JSON.stringify(db.items));
+    localStorage.setItem(KEYS.weapons, JSON.stringify(db.weapons));
+    localStorage.setItem(KEYS.armour, JSON.stringify(db.armour));
+    localStorage.setItem(KEYS.classifications, JSON.stringify(db.classifications));
+    setStatus(`Saved ${rows.length} catalog entries to localStorage.`);
+}
+
+async function refreshDefaults() {
+    localStorage.removeItem(KEYS.items);
+    localStorage.removeItem(KEYS.weapons);
+    localStorage.removeItem(KEYS.armour);
+    localStorage.removeItem(KEYS.classifications);
+    await loadData();
+}
+
+function exportClassifications() {
+    applyRowsToDb();
+    const payload = JSON.stringify(db.classifications, null, 2);
+    const blob = new Blob([payload], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'itemClassifications.enriched.json';
+    link.click();
+    URL.revokeObjectURL(url);
+    setStatus('Classification export downloaded.');
+}
+
+applySourceFilterOptions();
+loadData();
+</script>
+</body>
+</html>

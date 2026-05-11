@@ -5,26 +5,262 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AD&D 2e - Admin</title>
     <style>
-        :root { --parchment: #f4e4bc; --parchment-dark: #e6d2a0; --ink: #2b2b2b; --border: #5c4033; }
+        :root {
+            --parchment: #f4e4bc;
+            --parchment-dark: #e6d2a0;
+            --ink: #2b2b2b;
+            --border: #5c4033;
+            --panel: rgba(255,255,255,0.45);
+            --panel-strong: rgba(255,255,255,0.68);
+        }
+
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: Georgia, serif; background: var(--parchment); color: var(--ink); min-height: 100vh; }
-        nav { background: var(--border); padding: 8px 15px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-        nav a { color: var(--parchment); text-decoration: none; font-size: 0.9rem; padding: 4px 8px; border: 1px solid transparent; }
-        nav a:hover, nav a.current { border-color: var(--parchment); background: rgba(255,255,255,0.12); }
-        main { max-width: 1000px; margin: 0 auto; padding: 16px; }
-        h1 { margin: 0 0 8px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .card { border: 2px solid var(--border); background: rgba(255,255,255,0.45); padding: 12px; }
-        .card h2 { margin-top: 0; font-size: 1.1rem; }
-        button { background: var(--parchment-dark); border: 2px solid var(--ink); color: var(--ink); padding: 6px 10px; cursor: pointer; font-weight: bold; margin: 4px 6px 4px 0; }
-        button.danger { background: #d9534f; color: #fff; border-color: #8b0000; }
-        textarea { width: 100%; min-height: 220px; resize: vertical; padding: 8px; border: 1px solid var(--border); background: rgba(255,255,255,0.7); font-family: Consolas, monospace; font-size: 0.8rem; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
-        th, td { border: 1px solid var(--border); padding: 6px; text-align: left; }
+        body {
+            margin: 0;
+            font-family: Georgia, serif;
+            background: radial-gradient(circle at 18% 12%, #fff2c9 0%, var(--parchment) 36%, #ead3a2 100%);
+            color: var(--ink);
+            min-height: 100vh;
+        }
+
+        nav {
+            background: var(--border);
+            padding: 8px 15px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--parchment);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 4px 8px;
+            border: 1px solid transparent;
+        }
+
+        nav a:hover,
+        nav a.current {
+            border-color: var(--parchment);
+            background: rgba(255,255,255,0.12);
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 16px;
+            padding: 16px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .left-panel {
+            border: 2px solid var(--border);
+            background: var(--panel);
+            padding: 12px;
+            max-height: calc(100vh - 94px);
+            overflow: auto;
+        }
+
+        .left-panel h2 {
+            margin: 0 0 6px;
+            font-size: 1.1rem;
+        }
+
+        .left-panel .hint {
+            margin: 0 0 10px;
+            font-size: 0.8rem;
+            color: #4f3f33;
+        }
+
+        .control-box {
+            border: 1px solid var(--border);
+            background: var(--panel-strong);
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        .control-box h3 {
+            margin: 0 0 3px;
+            font-size: 0.92rem;
+        }
+
+        .control-box p {
+            margin: 0 0 7px;
+            font-size: 0.74rem;
+            color: #4e3f34;
+        }
+
+        .control-actions {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+
+        .control-actions input {
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .entry-list {
+            border: 1px solid var(--border);
+            background: #fff;
+            max-height: 130px;
+            overflow: auto;
+            padding: 6px;
+        }
+
+        .entry-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 0;
+            border-bottom: 1px dotted #ccb991;
+            font-size: 0.78rem;
+        }
+
+        .entry-row:last-child { border-bottom: none; }
+
+        .entry-label {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .right-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .card {
+            border: 2px solid var(--border);
+            background: var(--panel);
+            padding: 12px;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.05rem;
+        }
+
+        button {
+            background: var(--parchment-dark);
+            border: 2px solid var(--ink);
+            color: var(--ink);
+            padding: 6px 10px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.78rem;
+        }
+
+        button.danger {
+            background: #c85e48;
+            border-color: #7c1807;
+            color: #fff;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 220px;
+            resize: vertical;
+            padding: 8px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.7);
+            font-family: Consolas, monospace;
+            font-size: 0.8rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--border);
+            padding: 6px;
+            text-align: left;
+        }
+
         th { background: var(--parchment-dark); }
-        .status { font-size: 0.85rem; min-height: 1.2em; margin-top: 8px; }
+
+        .status {
+            font-size: 0.85rem;
+            min-height: 1.2em;
+            margin-top: 8px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 16px;
+        }
+
+        .modal {
+            background: var(--parchment);
+            border: 4px double var(--border);
+            width: min(540px, 96vw);
+            max-height: 92vh;
+            overflow: auto;
+            padding: 14px;
+        }
+
+        .modal h2 {
+            margin: 0 0 10px;
+            font-size: 1.02rem;
+        }
+
+        .form-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin: 8px 0;
+        }
+
+        .form-row label {
+            font-size: 0.76rem;
+            font-weight: bold;
+        }
+
+        .form-row input,
+        .form-row textarea,
+        .form-row select {
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.84);
+            padding: 6px;
+            font-family: inherit;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 1080px) {
+            main { grid-template-columns: 1fr; }
+            .left-panel { max-height: none; }
+        }
+
         @media (max-width: 900px) {
-            .grid { grid-template-columns: 1fr; }
+            .card-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -38,42 +274,73 @@
     <a href="weapons.html">Weapons</a>
     <a href="armour.html">Armour</a>
     <a href="items.html">Items</a>
+    <a href="itemMechanics.html">Item Mechanics</a>
     <a href="proficiencies.html">Proficiencies</a>
     <a href="combat.html">Combat</a>
     <a href="crafting.html">Crafting</a>
     <a href="campaign.html">Campaign</a>
     <a href="admin.html" class="current">Admin</a>
 </nav>
+
 <main>
-    <h1>Admin Console</h1>
-    <p style="margin-top:0;">Manage saved localStorage data for this AD&D 2e app.</p>
+    <aside class="left-panel">
+        <h2>Missing-Add Control Manager</h2>
+        <p class="hint">Each box maps to a dropdown/list that did not have direct add behavior. Edit opens popup, and delete is only inside popup.</p>
+        <div id="control-boxes"></div>
+    </aside>
 
-    <div class="grid">
-        <section class="card">
-            <h2>Storage Status</h2>
-            <table>
-                <thead><tr><th>Key</th><th>Bytes</th></tr></thead>
-                <tbody id="status-table"></tbody>
-            </table>
-            <div style="margin-top:8px;">
-                <button onclick="refreshStatus()">Refresh</button>
-                <button onclick="resetCharacterData()">Reset Character Only</button>
-                <button class="danger" onclick="clearAllAppData()">Clear All App Data</button>
-            </div>
-            <div id="status-msg" class="status"></div>
-        </section>
+    <section class="right-panel">
+        <h1 style="margin:0;">Admin Console</h1>
+        <p style="margin:0; font-size:0.9rem;">Manage saved localStorage data and backups for this AD&D 2e app.</p>
+
+        <div class="card-grid">
+            <section class="card">
+                <h2>Storage Status</h2>
+                <table>
+                    <thead><tr><th>Key</th><th>Bytes</th></tr></thead>
+                    <tbody id="status-table"></tbody>
+                </table>
+                <div style="margin-top:8px;">
+                    <button onclick="refreshStatus()">Refresh</button>
+                    <button onclick="resetCharacterData()">Reset Character Only</button>
+                    <button class="danger" onclick="clearAllAppData()">Clear All App Data</button>
+                </div>
+                <div id="status-msg" class="status"></div>
+            </section>
+
+            <section class="card">
+                <h2>Backup / Restore</h2>
+                <textarea id="backup-json" placeholder="Exported JSON appears here..."></textarea>
+                <div style="margin-top:8px;">
+                    <button onclick="exportData()">Export</button>
+                    <button onclick="importData()">Import</button>
+                </div>
+                <div id="backup-msg" class="status"></div>
+            </section>
+        </div>
 
         <section class="card">
-            <h2>Backup / Restore</h2>
-            <textarea id="backup-json" placeholder="Exported JSON appears here..."></textarea>
-            <div style="margin-top:8px;">
-                <button onclick="exportData()">Export</button>
-                <button onclick="importData()">Import</button>
-            </div>
-            <div id="backup-msg" class="status"></div>
+            <h2>Classification Tools</h2>
+            <p style="margin-top:0; margin-bottom:8px; font-size:0.9rem;">Open the Character sheet directly into the batch classification editor.</p>
+            <button onclick="openBatchClassifier()">Open Batch Classifier</button>
+            <div id="classify-msg" class="status"></div>
         </section>
-    </div>
+    </section>
 </main>
+
+<div id="crud-modal-overlay" class="modal-overlay" onclick="if(event.target===this) closeCrudModal()">
+    <div class="modal">
+        <h2 id="crud-modal-title">Edit Entry</h2>
+        <input id="crud-control-id" type="hidden">
+        <input id="crud-entry-index" type="hidden">
+        <div id="crud-fields"></div>
+        <div class="modal-actions">
+            <button onclick="saveCrudEntry()">Save</button>
+            <button id="crud-delete-btn" class="danger" onclick="deleteCrudEntry()">Delete</button>
+            <button onclick="closeCrudModal()">Cancel</button>
+        </div>
+    </div>
+</div>
 
 <script>
 const APP_KEYS = [
@@ -90,11 +357,110 @@ const APP_KEYS = [
     'clericSpellsDB',
     'weaponsDB',
     'armourDB',
-    'itemsDB'
+    'itemsDB',
+    'itemClassificationsDB',
+    'admin_char_align_options',
+    'admin_encum_modes',
+    'admin_inv_filter_types',
+    'admin_inv_filter_magical',
+    'admin_inv_filter_usable',
+    'admin_inv_sort_modes',
+    'admin_item_mech_sources',
+    'admin_wear_slots'
 ];
+
+const CONTROL_CONFIGS = [
+    {
+        id: 'char-kit',
+        title: 'Character Kit (by class)',
+        description: 'Source for character kit dropdown entries.',
+        kind: 'class-kits'
+    },
+    {
+        id: 'char-align',
+        title: 'Alignment Options',
+        description: 'Alignment dropdown options.',
+        kind: 'string-list',
+        storageKey: 'admin_char_align_options',
+        defaults: ['LG', 'NG', 'CG', 'LN', 'N', 'CN', 'LE', 'NE', 'CE'],
+        fieldLabel: 'Alignment code'
+    },
+    {
+        id: 'encum-mode',
+        title: 'Encumbrance Modes',
+        description: 'Encumbrance mode dropdown options.',
+        kind: 'string-list',
+        storageKey: 'admin_encum_modes',
+        defaults: ['off', 'limited', 'full'],
+        fieldLabel: 'Mode value'
+    },
+    {
+        id: 'inv-filter-type',
+        title: 'Inventory Type Filter',
+        description: 'Inventory type filter dropdown options.',
+        kind: 'string-list',
+        storageKey: 'admin_inv_filter_types',
+        defaults: ['all', 'weapon', 'shield', 'armor', 'container', 'tool', 'consumable', 'component', 'equipment', 'treasure', 'mount', 'miscellaneous'],
+        fieldLabel: 'Type value'
+    },
+    {
+        id: 'inv-filter-magical',
+        title: 'Inventory Magic Filter',
+        description: 'Inventory magical filter options.',
+        kind: 'string-list',
+        storageKey: 'admin_inv_filter_magical',
+        defaults: ['all', 'magical', 'mundane'],
+        fieldLabel: 'Magic filter value'
+    },
+    {
+        id: 'inv-filter-usable',
+        title: 'Inventory Usability Filter',
+        description: 'Inventory usability filter options.',
+        kind: 'string-list',
+        storageKey: 'admin_inv_filter_usable',
+        defaults: ['all', 'usable', 'blocked'],
+        fieldLabel: 'Usability filter value'
+    },
+    {
+        id: 'inv-sort-mode',
+        title: 'Inventory Sort Modes',
+        description: 'Inventory sort dropdown options.',
+        kind: 'string-list',
+        storageKey: 'admin_inv_sort_modes',
+        defaults: ['name', 'type', 'weight', 'magical', 'usability'],
+        fieldLabel: 'Sort mode value'
+    },
+    {
+        id: 'filter-source',
+        title: 'Item Mechanics Source Filter',
+        description: 'Function filter options in Item Mechanics.',
+        kind: 'string-list',
+        storageKey: 'admin_item_mech_sources',
+        defaults: ['all', 'armour', 'weapon', 'consumable', 'tool', 'magical', 'equipment', 'spell component', 'shield', 'clothing', 'ammo'],
+        fieldLabel: 'Source function'
+    },
+    {
+        id: 'wear-slots',
+        title: 'Wear Slot Labels',
+        description: 'Named slot list for wearable slot displays.',
+        kind: 'string-list',
+        storageKey: 'admin_wear_slots',
+        defaults: ['body', 'shield', 'head', 'hands', 'feet', 'cloak', 'belt', 'neck', 'ring_left', 'ring_right'],
+        fieldLabel: 'Slot key'
+    }
+];
+
+const controlState = {};
 
 function getKeySize(value) {
     return new Blob([String(value || '')]).size;
+}
+
+function setStatus(id, text, isError) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = text;
+    el.style.color = isError ? '#8b0000' : '#2b2b2b';
 }
 
 function refreshStatus() {
@@ -103,7 +469,7 @@ function refreshStatus() {
     APP_KEYS.forEach(key => {
         const value = localStorage.getItem(key);
         const bytes = value === null ? 0 : getKeySize(value);
-        rows += `<tr><td>${key}</td><td>${bytes}</td></tr>`;
+        rows += `<tr><td>${escapeHtml(key)}</td><td>${bytes}</td></tr>`;
     });
     tbody.innerHTML = rows;
     setStatus('status-msg', 'Status refreshed.');
@@ -120,6 +486,10 @@ function clearAllAppData() {
     APP_KEYS.forEach(key => localStorage.removeItem(key));
     setStatus('status-msg', 'All app keys cleared.');
     refreshStatus();
+    initControlData().catch(err => {
+        console.error(err);
+        setStatus('status-msg', 'Control panel reload failed after clear.', true);
+    });
 }
 
 function exportData() {
@@ -137,8 +507,7 @@ function exportData() {
     setStatus('backup-msg', 'Export complete.');
 }
 
-        'itemsDB',
-        'itemClassificationsDB'
+function importData() {
     const raw = document.getElementById('backup-json').value.trim();
     if (!raw) {
         setStatus('backup-msg', 'Paste exported JSON before importing.', true);
@@ -149,12 +518,6 @@ function exportData() {
     try {
         parsed = JSON.parse(raw);
     } catch (e) {
-            <section class="card" style="grid-column: 1 / -1;">
-                <h2>Classification Tools</h2>
-                <p style="margin-top:0; margin-bottom:8px; font-size:0.9rem;">Open the Character sheet directly into the batch classification editor.</p>
-                <button onclick="openBatchClassifier()">Open Batch Classifier</button>
-                <div id="classify-msg" class="status"></div>
-            </section>
         setStatus('backup-msg', 'Invalid JSON.', true);
         return;
     }
@@ -172,12 +535,10 @@ function exportData() {
 
     setStatus('backup-msg', 'Import complete.');
     refreshStatus();
-}
-
-function setStatus(id, text, isError) {
-    const el = document.getElementById(id);
-    el.textContent = text;
-    el.style.color = isError ? '#8b0000' : '#2b2b2b';
+    initControlData().catch(err => {
+        console.error(err);
+        setStatus('backup-msg', 'Control panel reload failed after import.', true);
+    });
 }
 
 function openBatchClassifier() {
@@ -185,7 +546,332 @@ function openBatchClassifier() {
     window.location.href = 'index.html#batch-classify';
 }
 
-refreshStatus();
+function escapeHtml(value) {
+    return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
+function normalizeStringList(values, defaults) {
+    const source = Array.isArray(values) ? values : defaults;
+    const normalized = source
+        .map(v => String(v || '').trim())
+        .filter(Boolean);
+    const unique = [];
+    const seen = new Set();
+    normalized.forEach(entry => {
+        const key = entry.toLowerCase();
+        if (seen.has(key)) return;
+        seen.add(key);
+        unique.push(entry);
+    });
+    return unique;
+}
+
+async function fetchClassesData() {
+    const cached = localStorage.getItem('classesDB');
+    if (cached) {
+        try {
+            const parsed = JSON.parse(cached);
+            if (Array.isArray(parsed)) return parsed;
+        } catch (e) {
+            console.error('Invalid classesDB cache:', e);
+        }
+    }
+
+    try {
+        const res = await fetch('data/classes.json');
+        if (!res.ok) throw new Error('HTTP ' + res.status + ' loading classes');
+        const parsed = await res.json();
+        return Array.isArray(parsed) ? parsed : [];
+    } catch (e) {
+        console.error('Failed to fetch classes.json:', e);
+        return [];
+    }
+}
+
+function normalizeKitList(classesData) {
+    const flat = [];
+    classesData.forEach((cls, clsIndex) => {
+        const className = String((cls && cls.name) || '').trim();
+        if (!className) return;
+        const kits = Array.isArray(cls.kits) ? cls.kits : [];
+        kits.forEach((kitEntry, kitIndex) => {
+            const name = typeof kitEntry === 'string'
+                ? kitEntry.trim()
+                : String((kitEntry && kitEntry.name) || '').trim();
+            if (!name) return;
+            flat.push({
+                id: `${clsIndex}:${kitIndex}:${className}:${name}`,
+                className,
+                kitName: name
+            });
+        });
+    });
+    return flat;
+}
+
+async function loadControlEntries(cfg) {
+    if (cfg.kind === 'class-kits') {
+        const classesData = await fetchClassesData();
+        controlState[cfg.id] = {
+            config: cfg,
+            classesData,
+            entries: normalizeKitList(classesData)
+        };
+        return;
+    }
+
+    const raw = localStorage.getItem(cfg.storageKey);
+    let parsed = null;
+    if (raw) {
+        try {
+            parsed = JSON.parse(raw);
+        } catch (e) {
+            console.error('Invalid list for', cfg.storageKey, e);
+        }
+    }
+
+    const entries = normalizeStringList(parsed, cfg.defaults).map((value, index) => ({
+        id: `${cfg.id}:${index}:${value}`,
+        value
+    }));
+
+    controlState[cfg.id] = {
+        config: cfg,
+        entries
+    };
+}
+
+function createControlBox(cfg) {
+    const box = document.createElement('section');
+    box.className = 'control-box';
+    box.id = `box-${cfg.id}`;
+    box.innerHTML = `
+        <h3>${escapeHtml(cfg.title)}</h3>
+        <p>${escapeHtml(cfg.description)}</p>
+        <div class="control-actions">
+            <button type="button" onclick="openCrudModal('${cfg.id}')">Add Entry</button>
+            <input id="search-${cfg.id}" type="text" placeholder="Search..." oninput="renderControlEntries('${cfg.id}')">
+        </div>
+        <div id="list-${cfg.id}" class="entry-list"></div>
+    `;
+    return box;
+}
+
+function renderControlEntries(controlId) {
+    const state = controlState[controlId];
+    if (!state) return;
+
+    const target = document.getElementById(`list-${controlId}`);
+    if (!target) return;
+
+    const searchEl = document.getElementById(`search-${controlId}`);
+    const query = searchEl ? String(searchEl.value || '').trim().toLowerCase() : '';
+
+    const rows = state.entries.filter(entry => {
+        const label = state.config.kind === 'class-kits'
+            ? `${entry.className} :: ${entry.kitName}`
+            : entry.value;
+        return !query || label.toLowerCase().includes(query);
+    });
+
+    if (rows.length === 0) {
+        target.innerHTML = '<div style="font-size:0.76rem; color:#5d463a;">No entries.</div>';
+        return;
+    }
+
+    target.innerHTML = rows.map(entry => {
+        const label = state.config.kind === 'class-kits'
+            ? `${entry.className} :: ${entry.kitName}`
+            : entry.value;
+        const index = state.entries.indexOf(entry);
+        return `
+            <div class="entry-row">
+                <span class="entry-label" title="${escapeHtml(label)}">${escapeHtml(label)}</span>
+                <button type="button" onclick="openCrudModal('${controlId}', ${index})">Edit</button>
+            </div>
+        `;
+    }).join('');
+}
+
+async function initControlData() {
+    const boxesHost = document.getElementById('control-boxes');
+    boxesHost.innerHTML = '';
+
+    for (const cfg of CONTROL_CONFIGS) {
+        await loadControlEntries(cfg);
+        boxesHost.appendChild(createControlBox(cfg));
+        renderControlEntries(cfg.id);
+    }
+}
+
+function openCrudModal(controlId, entryIndex) {
+    const state = controlState[controlId];
+    if (!state) return;
+
+    const isNew = typeof entryIndex !== 'number' || entryIndex < 0;
+    const entry = isNew ? null : state.entries[entryIndex];
+
+    document.getElementById('crud-control-id').value = controlId;
+    document.getElementById('crud-entry-index').value = isNew ? '-1' : String(entryIndex);
+    document.getElementById('crud-modal-title').textContent = `${isNew ? 'Add' : 'Edit'}: ${state.config.title}`;
+
+    const fields = document.getElementById('crud-fields');
+    if (state.config.kind === 'class-kits') {
+        fields.innerHTML = `
+            <div class="form-row">
+                <label>Class Name</label>
+                <input id="crud-class-name" type="text" value="${escapeHtml(entry ? entry.className : '')}" placeholder="Fighter">
+            </div>
+            <div class="form-row">
+                <label>Kit Name</label>
+                <input id="crud-kit-name" type="text" value="${escapeHtml(entry ? entry.kitName : '')}" placeholder="Berserker">
+            </div>
+        `;
+    } else {
+        fields.innerHTML = `
+            <div class="form-row">
+                <label>${escapeHtml(state.config.fieldLabel || 'Value')}</label>
+                <input id="crud-value" type="text" value="${escapeHtml(entry ? entry.value : '')}">
+            </div>
+        `;
+    }
+
+    document.getElementById('crud-delete-btn').style.display = isNew ? 'none' : 'inline-block';
+    document.getElementById('crud-modal-overlay').style.display = 'flex';
+}
+
+function closeCrudModal() {
+    document.getElementById('crud-modal-overlay').style.display = 'none';
+}
+
+function dedupeKitEntries(entries) {
+    const output = [];
+    const seen = new Set();
+    entries.forEach(entry => {
+        const className = String((entry && entry.className) || '').trim();
+        const kitName = String((entry && entry.kitName) || '').trim();
+        if (!className || !kitName) return;
+        const key = `${className.toLowerCase()}::${kitName.toLowerCase()}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+        output.push({ id: `${className}:${kitName}`, className, kitName });
+    });
+    return output.sort((a, b) => {
+        const clsCmp = a.className.localeCompare(b.className);
+        return clsCmp !== 0 ? clsCmp : a.kitName.localeCompare(b.kitName);
+    });
+}
+
+function saveKitEntriesToClasses(state) {
+    const byClass = new Map();
+    state.entries.forEach(entry => {
+        if (!byClass.has(entry.className)) byClass.set(entry.className, []);
+        byClass.get(entry.className).push({ name: entry.kitName });
+    });
+
+    const classesData = Array.isArray(state.classesData) ? state.classesData : [];
+    const used = new Set();
+
+    classesData.forEach(cls => {
+        const className = String((cls && cls.name) || '').trim();
+        if (!className) return;
+        used.add(className.toLowerCase());
+        cls.kits = byClass.has(className) ? byClass.get(className) : [];
+    });
+
+    byClass.forEach((kits, className) => {
+        if (used.has(className.toLowerCase())) return;
+        classesData.push({
+            name: className,
+            startingGold: '0',
+            allowedArmour: 'all',
+            thac0: [20],
+            saves: {},
+            kits
+        });
+    });
+
+    localStorage.setItem('classesDB', JSON.stringify(classesData));
+}
+
+function saveStringEntries(state) {
+    const payload = state.entries.map(e => e.value);
+    localStorage.setItem(state.config.storageKey, JSON.stringify(payload));
+}
+
+function saveCrudEntry() {
+    const controlId = document.getElementById('crud-control-id').value;
+    const index = parseInt(document.getElementById('crud-entry-index').value, 10);
+    const state = controlState[controlId];
+    if (!state) return;
+
+    if (state.config.kind === 'class-kits') {
+        const className = String(document.getElementById('crud-class-name').value || '').trim();
+        const kitName = String(document.getElementById('crud-kit-name').value || '').trim();
+        if (!className || !kitName) {
+            alert('Class and kit are required.');
+            return;
+        }
+
+        const next = { id: `${className}:${kitName}`, className, kitName };
+        if (index >= 0 && index < state.entries.length) state.entries[index] = next;
+        else state.entries.push(next);
+        state.entries = dedupeKitEntries(state.entries);
+        saveKitEntriesToClasses(state);
+    } else {
+        const value = String(document.getElementById('crud-value').value || '').trim();
+        if (!value) {
+            alert('Value is required.');
+            return;
+        }
+
+        const next = { id: `${controlId}:${Date.now()}:${value}`, value };
+        if (index >= 0 && index < state.entries.length) state.entries[index] = next;
+        else state.entries.push(next);
+        state.entries = normalizeStringList(state.entries.map(e => e.value), state.config.defaults)
+            .map((val, i) => ({ id: `${controlId}:${i}:${val}`, value: val }));
+        saveStringEntries(state);
+    }
+
+    renderControlEntries(controlId);
+    closeCrudModal();
+    refreshStatus();
+    setStatus('status-msg', `Saved changes for ${state.config.title}.`);
+}
+
+function deleteCrudEntry() {
+    const controlId = document.getElementById('crud-control-id').value;
+    const index = parseInt(document.getElementById('crud-entry-index').value, 10);
+    const state = controlState[controlId];
+
+    if (!state || index < 0 || index >= state.entries.length) return;
+    if (!confirm('Delete this entry?')) return;
+
+    state.entries.splice(index, 1);
+
+    if (state.config.kind === 'class-kits') {
+        state.entries = dedupeKitEntries(state.entries);
+        saveKitEntriesToClasses(state);
+    } else {
+        state.entries = normalizeStringList(state.entries.map(e => e.value), state.config.defaults)
+            .map((val, i) => ({ id: `${controlId}:${i}:${val}`, value: val }));
+        saveStringEntries(state);
+    }
+
+    renderControlEntries(controlId);
+    closeCrudModal();
+    refreshStatus();
+    setStatus('status-msg', `Deleted entry from ${state.config.title}.`);
+}
+
+(async function bootstrapAdmin() {
+    refreshStatus();
+    await initControlData();
+})();
 </script>
 </body>
 </html>

@@ -67,6 +67,7 @@
             <div class="form-group" style="grid-column: span 3;"><label>Description</label><textarea id="inp-desc" rows="2"></textarea></div>
         </div>
         <button onclick="saveRace()">Save</button>
+        <button class="danger" id="del-btn" onclick="modalDel()" style="display:none">Delete</button>
     </div>
 </div>
 <script>
@@ -120,7 +121,7 @@ function render() {
             <td>${r.strAdj>=0?'+':''}${r.strAdj}</td><td>${r.dexAdj>=0?'+':''}${r.dexAdj}</td><td>${r.conAdj>=0?'+':''}${r.conAdj}</td>
             <td>${r.intAdj>=0?'+':''}${r.intAdj}</td><td>${r.wisAdj>=0?'+':''}${r.wisAdj}</td><td>${r.chaAdj>=0?'+':''}${r.chaAdj}</td>
             <td>${r.infravision}'</td><td>${r.allowedClasses.join(', ')}</td>
-            <td class="actions"><button onclick="edit(${i})">Edit</button><button class="danger" onclick="del(${i})">Del</button></td>
+            <td class="actions"><button onclick="edit(${i})">Edit</button></td>
         </tr>
     `).join('');
 }
@@ -129,6 +130,7 @@ function openModal() { document.getElementById('modal').style.display='flex'; do
 function closeModal() { document.getElementById('modal').style.display='none'; }
 function clearForm() {
     document.getElementById('edit-index').value = '';
+    document.getElementById('del-btn').style.display='none';
     ['name','strAdj','dexAdj','conAdj','intAdj','wisAdj','chaAdj','infra','desc'].forEach(id => {
         const el = document.getElementById('inp-'+id);
         if(el) el.value = el.type==='number' ? 0 : '';
@@ -149,6 +151,7 @@ function edit(i) {
     document.getElementById('inp-infra').value = r.infravision;
     document.getElementById('inp-desc').value = r.description || '';
     document.getElementById('modal').style.display = 'flex';
+    document.getElementById('del-btn').style.display = 'inline-block';
 }
 
 function saveRace() {
@@ -171,7 +174,8 @@ function saveRace() {
     closeModal(); render();
 }
 
-function del(i) { if(confirm('Delete this race?')) { data.splice(i,1); localStorage.setItem(DB_KEY, JSON.stringify(data)); render(); } }
+function del(i) { if(confirm('Delete this race?')) { data.splice(i,1); localStorage.setItem(DB_KEY, JSON.stringify(data)); closeModal(); render(); } }
+function modalDel(){const i=document.getElementById('edit-index').value;if(i==='')return;del(+i);}
 function saveLocal() { localStorage.setItem(DB_KEY, JSON.stringify(data)); alert('Races saved to browser cache.'); }
 function loadLocal() {
     const s = localStorage.getItem(DB_KEY);

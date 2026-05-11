@@ -1,19 +1,526 @@
-[
-  {"name": "Leather Armor", "baseAC": 8, "maxDexBonus": null, "weight": 15, "costGP": 5, "category": "Leather", "isShield": false},
-  {"name": "Studded Leather", "baseAC": 7, "maxDexBonus": null, "weight": 20, "costGP": 15, "category": "Leather", "isShield": false},
-  {"name": "Hide Armor", "baseAC": 6, "maxDexBonus": null, "weight": 35, "costGP": 10, "category": "Leather", "isShield": false},
-  {"name": "Padded Armor", "baseAC": 8, "maxDexBonus": null, "weight": 10, "costGP": 4, "category": "Leather", "isShield": false},
-  {"name": "Ring Mail", "baseAC": 7, "maxDexBonus": null, "weight": 30, "costGP": 20, "category": "Chain", "isShield": false},
-  {"name": "Scale Mail", "baseAC": 6, "maxDexBonus": null, "weight": 40, "costGP": 25, "category": "Chain", "isShield": false},
-  {"name": "Chainmail", "baseAC": 5, "maxDexBonus": null, "weight": 40, "costGP": 75, "category": "Chain", "isShield": false},
-  {"name": "Elven Chainmail", "baseAC": 5, "maxDexBonus": null, "weight": 20, "costGP": 500, "category": "Chain", "isShield": false},
-  {"name": "Splint Mail", "baseAC": 4, "maxDexBonus": null, "weight": 50, "costGP": 60, "category": "Plate", "isShield": false},
-  {"name": "Banded Mail", "baseAC": 4, "maxDexBonus": null, "weight": 45, "costGP": 50, "category": "Plate", "isShield": false},
-  {"name": "Bronze Plate Mail", "baseAC": 4, "maxDexBonus": null, "weight": 55, "costGP": 100, "category": "Plate", "isShield": false},
-  {"name": "Plate Mail", "baseAC": 3, "maxDexBonus": null, "weight": 70, "costGP": 400, "category": "Plate", "isShield": false},
-  {"name": "Field Plate", "baseAC": 2, "maxDexBonus": null, "weight": 60, "costGP": 1000, "category": "Plate", "isShield": false},
-  {"name": "Full Plate", "baseAC": 1, "maxDexBonus": null, "weight": 70, "costGP": 2000, "category": "Plate", "isShield": false},
-  {"name": "Small Shield", "baseAC": 1, "maxDexBonus": null, "weight": 5, "costGP": 5, "category": "Shield", "isShield": true},
-  {"name": "Medium Shield", "baseAC": 1, "maxDexBonus": null, "weight": 10, "costGP": 10, "category": "Shield", "isShield": true},
-  {"name": "Body Shield (Tower)", "baseAC": 1, "maxDexBonus": null, "weight": 15, "costGP": 15, "category": "Shield", "isShield": true}
+﻿[
+    {
+        "name":  "Leather Armor",
+        "baseAC":  8,
+        "maxDexBonus":  null,
+        "weight":  15,
+        "costGP":  5,
+        "category":  "Leather",
+        "isShield":  false,
+        "armourType":  "light",
+        "equipSlot":  "body",
+        "armourRoles":  [
+                            "defense",
+                            "mobility"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-leather-armor",
+                                     "value":  3,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Studded Leather",
+        "baseAC":  7,
+        "maxDexBonus":  null,
+        "weight":  20,
+        "costGP":  15,
+        "category":  "Leather",
+        "isShield":  false,
+        "armourType":  "light",
+        "equipSlot":  "body",
+        "armourRoles":  [
+                            "defense",
+                            "mobility"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-studded-leather",
+                                     "value":  4,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Hide Armor",
+        "baseAC":  6,
+        "maxDexBonus":  null,
+        "weight":  35,
+        "costGP":  10,
+        "category":  "Leather",
+        "isShield":  false,
+        "armourType":  "light",
+        "equipSlot":  "body",
+        "armourRoles":  [
+                            "defense",
+                            "mobility"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-hide-armor",
+                                     "value":  5,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Padded Armor",
+        "baseAC":  8,
+        "maxDexBonus":  null,
+        "weight":  10,
+        "costGP":  4,
+        "category":  "Leather",
+        "isShield":  false,
+        "armourType":  "light",
+        "equipSlot":  "body",
+        "armourRoles":  [
+                            "defense",
+                            "mobility"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-padded-armor",
+                                     "value":  3,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Ring Mail",
+        "baseAC":  7,
+        "maxDexBonus":  null,
+        "weight":  30,
+        "costGP":  20,
+        "category":  "Chain",
+        "isShield":  false,
+        "armourType":  "medium",
+        "equipSlot":  "body",
+        "armourRoles":  [
+                            "defense"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-ring-mail",
+                                     "value":  4,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Scale Mail",
+        "baseAC":  6,
+        "maxDexBonus":  null,
+        "weight":  40,
+        "costGP":  25,
+        "category":  "Chain",
+        "isShield":  false,
+        "armourType":  "medium",
+        "equipSlot":  "body",
+        "armourRoles":  [
+                            "defense"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-scale-mail",
+                                     "value":  5,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Chainmail",
+        "baseAC":  5,
+        "maxDexBonus":  null,
+        "weight":  40,
+        "costGP":  75,
+        "category":  "Chain",
+        "isShield":  false,
+        "armourType":  "medium",
+        "equipSlot":  "body",
+        "armourRoles":  [
+                            "defense"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-chainmail",
+                                     "value":  6,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Elven Chainmail",
+        "baseAC":  5,
+        "maxDexBonus":  null,
+        "weight":  20,
+        "costGP":  500,
+        "category":  "Chain",
+        "isShield":  false,
+        "armourType":  "medium",
+        "equipSlot":  "body",
+        "armourRoles":  [
+                            "defense",
+                            "mobility"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-elven-chainmail",
+                                     "value":  6,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Splint Mail",
+        "baseAC":  4,
+        "maxDexBonus":  null,
+        "weight":  50,
+        "costGP":  60,
+        "category":  "Plate",
+        "isShield":  false,
+        "armourType":  "heavy",
+        "equipSlot":  "body",
+        "armourRoles":  [
+                            "defense",
+                            "survival"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-splint-mail",
+                                     "value":  7,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Banded Mail",
+        "baseAC":  4,
+        "maxDexBonus":  null,
+        "weight":  45,
+        "costGP":  50,
+        "category":  "Plate",
+        "isShield":  false,
+        "armourType":  "heavy",
+        "equipSlot":  "body",
+        "armourRoles":  [
+                            "defense",
+                            "survival"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-banded-mail",
+                                     "value":  7,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Bronze Plate Mail",
+        "baseAC":  4,
+        "maxDexBonus":  null,
+        "weight":  55,
+        "costGP":  100,
+        "category":  "Plate",
+        "isShield":  false,
+        "armourType":  "heavy",
+        "equipSlot":  "body",
+        "armourRoles":  [
+                            "defense",
+                            "survival"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-bronze-plate-mail",
+                                     "value":  7,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Plate Mail",
+        "baseAC":  3,
+        "maxDexBonus":  null,
+        "weight":  70,
+        "costGP":  400,
+        "category":  "Plate",
+        "isShield":  false,
+        "armourType":  "heavy",
+        "equipSlot":  "body",
+        "armourRoles":  [
+                            "defense",
+                            "survival"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-plate-mail",
+                                     "value":  8,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Field Plate",
+        "baseAC":  2,
+        "maxDexBonus":  null,
+        "weight":  60,
+        "costGP":  1000,
+        "category":  "Plate",
+        "isShield":  false,
+        "armourType":  "heavy",
+        "equipSlot":  "body",
+        "armourRoles":  [
+                            "defense",
+                            "survival"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-field-plate",
+                                     "value":  9,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Full Plate",
+        "baseAC":  1,
+        "maxDexBonus":  null,
+        "weight":  70,
+        "costGP":  2000,
+        "category":  "Plate",
+        "isShield":  false,
+        "armourType":  "heavy",
+        "equipSlot":  "body",
+        "armourRoles":  [
+                            "defense",
+                            "survival"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-full-plate",
+                                     "value":  10,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Small Shield",
+        "baseAC":  1,
+        "maxDexBonus":  null,
+        "weight":  5,
+        "costGP":  5,
+        "category":  "Shield",
+        "isShield":  true,
+        "armourType":  "shield",
+        "equipSlot":  "shield",
+        "armourRoles":  [
+                            "defense",
+                            "support"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-small-shield",
+                                     "value":  10,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Medium Shield",
+        "baseAC":  1,
+        "maxDexBonus":  null,
+        "weight":  10,
+        "costGP":  10,
+        "category":  "Shield",
+        "isShield":  true,
+        "armourType":  "shield",
+        "equipSlot":  "shield",
+        "armourRoles":  [
+                            "defense",
+                            "support"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-medium-shield",
+                                     "value":  10,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    },
+    {
+        "name":  "Body Shield (Tower)",
+        "baseAC":  1,
+        "maxDexBonus":  null,
+        "weight":  15,
+        "costGP":  15,
+        "category":  "Shield",
+        "isShield":  true,
+        "armourType":  "shield",
+        "equipSlot":  "shield",
+        "armourRoles":  [
+                            "defense",
+                            "support"
+                        ],
+        "damageTypes":  [
+                            "special"
+                        ],
+        "modifierProfiles":  [
+                                 {
+                                     "id":  "mod-ac-body-shield-tower",
+                                     "value":  10,
+                                     "note":  "AC adjustment",
+                                     "modifierType":  "armorClass",
+                                     "target":  "self",
+                                     "role":  "defense",
+                                     "stackingRule":  "best-only",
+                                     "condition":  "while equipped",
+                                     "source":  "Armour profile"
+                                 }
+                             ]
+    }
 ]
