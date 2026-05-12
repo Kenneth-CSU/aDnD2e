@@ -4,131 +4,651 @@
     <meta charset="UTF-8">
     <title>AD&D 2e - Classes Database</title>
     <style>
-        :root { --parchment: #f4e4bc; --parchment-dark: #e6d2a0; --ink: #2b2b2b; --border: #5c4033; }
+        :root {
+            --parchment: #f4e4bc;
+            --parchment-dark: #e6d2a0;
+            --ink: #2b2b2b;
+            --border: #5c4033;
+            --highlight: #8b0000;
+        }
+
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: Georgia, serif; background: var(--parchment); color: var(--ink); height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
-        nav { background: var(--border); padding: 8px 15px; display: flex; gap: 15px; flex-wrap: wrap; }
-        nav a { color: var(--parchment); text-decoration: none; font-size: 0.85rem; padding: 3px 8px; border: 1px solid transparent; }
-        nav a:hover, nav a.current { border-color: var(--parchment); background: rgba(255,255,255,0.12); }
-        header { height: 50px; background: var(--border); color: var(--parchment); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+
+        body {
+            margin: 0;
+            font-family: Georgia, serif;
+            background: var(--parchment);
+            color: var(--ink);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav {
+            background: var(--border);
+            padding: 8px 15px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--parchment);
+            text-decoration: none;
+            font-size: 0.85rem;
+            padding: 3px 8px;
+            border: 1px solid transparent;
+        }
+
+        nav a:hover,
+        nav a.current {
+            border-color: var(--parchment);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        header {
+            height: 50px;
+            background: var(--border);
+            color: var(--parchment);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
         h1 { margin: 0; font-size: 1.2rem; }
-        button { background: var(--parchment-dark); border: 2px solid var(--ink); color: var(--ink); padding: 5px 12px; cursor: pointer; font-weight: bold; }
+
+        button {
+            background: var(--parchment-dark);
+            border: 2px solid var(--ink);
+            color: var(--ink);
+            padding: 5px 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: inherit;
+        }
+
         button.danger { background: #d9534f; color: white; }
-        button:disabled { opacity: 0.45; cursor: not-allowed; }
-        #content { flex: 1; padding: 15px; overflow-y: auto; }
-        table { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
-        th, td { border: 1px solid var(--border); padding: 6px; text-align: left; vertical-align: top; }
-        th { background: var(--parchment-dark); position: sticky; top: 0; }
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 12px; }
-        .modal-content { background: var(--parchment); border: 4px double var(--border); padding: 16px; width: 1100px; max-width: 98vw; max-height: 92vh; overflow-y: auto; }
-        .close-btn { float: right; font-size: 1.5rem; cursor: pointer; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .save-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
-        .thief-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
-        .section { margin-top: 12px; border: 1px solid var(--border); background: rgba(255,255,255,0.25); padding: 10px; }
-        .section h3 { margin: 0 0 8px; font-size: 0.85rem; text-transform: uppercase; }
+
+        button:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        #content {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .manager-shell {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .editor-panel {
+            border: 2px solid var(--border);
+            background: rgba(255, 255, 255, 0.28);
+            padding: 12px;
+        }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .section-head h2 {
+            margin: 0;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .tab-strip {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .tab-button {
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.65);
+            color: var(--ink);
+            padding: 6px 10px;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .tab-button.active {
+            background: var(--parchment-dark);
+            box-shadow: inset 0 0 0 1px var(--border);
+        }
+
+        .record-banner {
+            margin-bottom: 10px;
+            padding: 6px 8px;
+            background: rgba(255, 255, 255, 0.45);
+            border: 1px solid var(--border);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .summary-card {
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.45);
+            padding: 8px;
+            font-size: 0.74rem;
+        }
+
+        .summary-card strong {
+            display: block;
+            font-size: 0.8rem;
+            margin-bottom: 3px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .save-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .thief-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .section {
+            margin-top: 12px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.25);
+            padding: 10px;
+        }
+
+        .section h3 {
+            margin: 0 0 8px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
         .form-group { margin: 10px 0; }
-        .form-group label { font-size: 0.7rem; font-weight: bold; display: block; }
-        .form-group input, .form-group textarea { width: 100%; padding: 5px; border: 1px solid var(--border); }
+
+        .form-group label {
+            font-size: 0.7rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid var(--border);
+            font-family: inherit;
+        }
+
         .tiny { font-size: 0.72rem; }
-        .action-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-        .trait-list, .kit-list { display: flex; flex-direction: column; gap: 8px; }
-        .trait-row, .kit-card { border: 1px solid var(--border); background: rgba(255,255,255,0.45); padding: 8px; }
-        .trait-row { display: grid; grid-template-columns: 120px 1fr 120px 100px 1fr auto; gap: 8px; align-items: start; }
+
+        .action-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .trait-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .trait-row {
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.45);
+            padding: 8px;
+            display: grid;
+          grid-template-columns: 120px 1fr 120px 90px 1fr 90px auto auto;
+            gap: 8px;
+            align-items: start;
+        }
+
+        .trait-status-badge {
+          display: inline-block;
+          padding: 2px 6px;
+          border: 1px solid var(--border);
+          font-size: 0.68rem;
+          font-weight: bold;
+          text-transform: uppercase;
+          width: fit-content;
+        }
+
+        .trait-status-canon { background: #d9ead3; }
+        .trait-status-edited { background: #fff2cc; }
+        .trait-status-new { background: #cfe2f3; }
+
         .trait-row textarea { min-height: 54px; }
-        .kit-card { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: start; }
-        .kit-summary { font-size: 0.75rem; margin-top: 4px; }
-        .modal-overlay.nested { z-index: 1100; }
+
+        .trait-row input[readonly],
+        .trait-row textarea[readonly] {
+          background: rgba(255, 255, 255, 0.7);
+          color: #4f4f4f;
+          cursor: default;
+        }
+
+        .current-note {
+            font-size: 0.74rem;
+            color: #5d463a;
+            margin-top: 3px;
+        }
+
+          /* NEW: Sidebar table layout */
+          .content-wrapper {
+            display: flex;
+            gap: 15px;
+            height: 100%;
+            overflow: hidden;
+            min-height: 0;
+          }
+
+          .content-main {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            min-height: 0;
+          }
+
+          .sidebar {
+            flex: 0 0 420px;
+            width: 420px;
+            min-width: 320px;
+            border: 2px solid var(--border);
+            background: rgba(255, 255, 255, 0.28);
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+          }
+
+          .sidebar-header {
+            padding: 10px;
+            background: var(--border);
+            color: var(--parchment);
+            font-weight: bold;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            border-bottom: 2px solid var(--border);
+          }
+
+          .level-controls {
+            padding: 8px;
+            display: flex;
+            gap: 6px;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+          }
+
+          .level-controls button {
+            padding: 3px 8px;
+            font-size: 0.75rem;
+          }
+
+          .level-display {
+            font-size: 0.75rem;
+            font-weight: bold;
+            min-width: 80px;
+            text-align: center;
+          }
+
+          .table-scroll-container {
+            flex: 1;
+            overflow-x: auto;
+            overflow-y: auto;
+            padding: 8px;
+          }
+
+          .level-table {
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            min-width: 100%;
+          }
+
+          .level-table thead {
+            position: sticky;
+            top: 0;
+            background: var(--parchment-dark);
+            border-bottom: 2px solid var(--border);
+          }
+
+          .level-table th {
+            border: 1px solid var(--border);
+            padding: 6px 4px;
+            text-align: left;
+            font-weight: bold;
+            white-space: nowrap;
+            background: var(--parchment-dark);
+          }
+
+          .level-table td {
+            border: 1px solid var(--border);
+            padding: 4px;
+            text-align: center;
+            white-space: nowrap;
+          }
+
+          .level-table th:first-child,
+          .level-table td:first-child {
+            text-align: left;
+            min-width: 100px;
+            position: sticky;
+            left: 0;
+            background: rgba(255, 255, 255, 0.45);
+          }
+
+          .level-table thead th:first-child {
+            background: var(--parchment-dark);
+          }
+
+          .level-empty {
+            padding: 20px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #666;
+            }
+
+          .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+          }
+
+          .modal-panel {
+            width: min(760px, 92vw);
+            max-height: 82vh;
+            overflow-y: auto;
+            background: var(--parchment);
+            border: 3px solid var(--border);
+            padding: 12px;
+          }
+
+          .modal-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+          }
+
+          .modal-section {
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.35);
+            padding: 8px;
+            margin-bottom: 8px;
+          }
+
+          @media (max-width: 1200px) {
+            .content-wrapper {
+              flex-direction: column;
+            }
+
+            .sidebar {
+              width: 100%;
+              flex-basis: auto;
+              min-width: 0;
+              order: 2;
+            }
+
+            .content-main {
+              order: 1;
+            }
+          }
     </style>
 </head>
 <body>
 <nav><a href="index.html">Character</a><a href="races.html">Races</a><a href="classes.html" class="current">Classes</a><a href="wizardSpells.html">Wizard Spells</a><a href="clericSpells.html">Cleric Spells</a><a href="weapons.html">Weapons</a><a href="armour.html">Armour</a><a href="items.html">Items</a><a href="itemMechanics.html">Item Mechanics</a><a href="proficiencies.html">Proficiencies</a><a href="combat.html">Combat</a><a href="crafting.html">Crafting</a><a href="campaign.html">Campaign</a><a href="admin.html">Admin</a></nav>
-<header><h1>Classes & Kits Database</h1><div><button onclick="saveLocal()">Save</button><button onclick="loadLocal()">Load</button><button onclick="refreshDefaults()">Refresh</button><button onclick="openModal()">+ Add Class</button></div></header>
-<div id="content"><table><thead><tr><th>Class</th><th>Kits</th><th>Class Traits</th><th>Kit Traits</th><th>THAC0</th><th>Saves</th><th>Spell Rows</th><th>Turn</th><th>Thief</th><th>Weapon Groups</th><th>Kit 0 Note</th><th>Actions</th></tr></thead><tbody id="class-table"></tbody></table></div>
+<header><h1>Classes & Kits Database</h1><div><button onclick="saveLocal()">Save</button><button onclick="loadLocal()">Load</button><button onclick="refreshDefaults()">Refresh</button><button onclick="openClassModal('add')">+ Add Sub-Class</button></div></header>
+<div id="content">
+  <div class="manager-shell">
+    <div class="content-wrapper">
+      <div class="sidebar">
+        <div class="sidebar-header">Class Tables</div>
+        <div class="level-controls">
+          <button type="button" aria-label="Show previous level range" onclick="scrollTableLeft()">← Prev</button>
+          <div class="level-display" id="level-display">Lv 1-5</div>
+          <button type="button" aria-label="Show next level range" onclick="scrollTableRight()">Next →</button>
+        </div>
+        <div class="table-scroll-container" id="table-scroll-container">
+          <div class="level-empty">Select a class to view tables</div>
+        </div>
+      </div>
+      <div class="content-main">
+        <section class="editor-panel">
+          <div class="section-head">
+            <div>
+              <h2>Classes</h2>
+              <div class="tiny">Canonical classes are tabbed and read-only. Select a sub-class to edit.</div>
+            </div>
+            <div class="action-row">
+              <button type="button" id="btn-save-class" onclick="openClassModal('edit')">Edit Class</button>
+            </div>
+          </div>
 
-<div id="modal" class="modal-overlay" onclick="if(event.target===this)closeModal()">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <h2 id="modal-title">Add Class</h2>
-    <input type="hidden" id="edit-idx">
+          <input type="hidden" id="edit-idx">
+          <div id="class-tabs" class="tab-strip"></div>
+          <div class="action-row">
+            <label for="subclass-select" class="tiny" style="align-self:center;">Sub-Class:</label>
+            <select id="subclass-select" onchange="selectSubClass(this.value)"></select>
+            <button type="button" onclick="openClassModal('add')">+ Add Sub-Class</button>
+          </div>
+          <div class="record-banner" id="class-record-label">No class selected.</div>
+
+      <div class="summary-grid">
+        <div class="summary-card"><strong>Kits</strong><span id="summary-kits">0</span></div>
+        <div class="summary-card"><strong>Class Traits</strong><span id="summary-class-traits">0</span></div>
+        <div class="summary-card"><strong>THAC0 Rows</strong><span id="summary-thac0">0</span></div>
+        <div class="summary-card"><strong>Save Rows</strong><span id="summary-saves">0</span></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="form-group"><label>Name</label><input type="text" id="inp-name"></div>
+        <div class="form-group"><label>Starting Gold</label><input type="text" id="inp-gold"></div>
+        <div class="form-group"><label>Allowed Armour</label><input type="text" id="inp-armour"></div>
+        <div class="form-group"><label>Weapon Groups</label><input type="text" id="inp-weapon-groups" placeholder="all, bludgeoning"></div>
+      </div>
+
+      <div class="section">
+        <h3>Class Tables</h3>
+        <div class="grid-2">
+          <div class="form-group"><label>THAC0</label><input type="text" id="inp-thac0" placeholder="20, 19, 18, ..."></div>
+          <div class="form-group"><label>Spell Slots</label><textarea id="inp-spell-slots" rows="3" placeholder="1 | 2,1 | 2,2"></textarea></div>
+        </div>
+        <div class="grid-2">
+          <div class="form-group"><label>Weapon Proficiencies</label><input type="text" id="inp-weapon-profs" placeholder="1, 1, 1, ..."></div>
+          <div class="form-group"><label>Nonweapon Proficiencies</label><input type="text" id="inp-nonweapon-profs" placeholder="3, 3, 3, ..."></div>
+        </div>
+        <div class="grid-2">
+          <div class="form-group"><label>Turn Undead</label><input type="text" id="inp-turn-table" placeholder="-, -, T, T, D, ..."></div>
+          <div class="form-group"><label>Class Traits</label><div id="class-traits-list" class="trait-list"></div></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Saves</h3>
+        <div class="save-grid">
+          <div class="form-group"><label>Paralyze / Poison / Death</label><input type="text" id="inp-save-ppd"></div>
+          <div class="form-group"><label>Rod / Staff / Wand</label><input type="text" id="inp-save-rsw"></div>
+          <div class="form-group"><label>Petrification / Polymorph</label><input type="text" id="inp-save-pp"></div>
+          <div class="form-group"><label>Breath Weapon</label><input type="text" id="inp-save-bw"></div>
+          <div class="form-group"><label>Spell</label><input type="text" id="inp-save-spell"></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Thief Base</h3>
+        <div class="thief-grid">
+          <div class="form-group"><label>PP</label><input type="text" id="inp-thief-pp"></div>
+          <div class="form-group"><label>OL</label><input type="text" id="inp-thief-ol"></div>
+          <div class="form-group"><label>FRT</label><input type="text" id="inp-thief-frt"></div>
+          <div class="form-group"><label>MS</label><input type="text" id="inp-thief-ms"></div>
+          <div class="form-group"><label>HS</label><input type="text" id="inp-thief-hs"></div>
+          <div class="form-group"><label>DN</label><input type="text" id="inp-thief-dn"></div>
+          <div class="form-group"><label>CW</label><input type="text" id="inp-thief-cw"></div>
+          <div class="form-group"><label>RL</label><input type="text" id="inp-thief-rl"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="editor-panel">
+      <div class="section-head">
+        <div>
+          <h2>Kits</h2>
+          <div class="tiny">Kits follow the selected class and stay editable below the class pane.</div>
+        </div>
+        <div class="action-row">
+          <button type="button" id="btn-add-kit" onclick="openKitModal('add')">+ Add Kit</button>
+          <button type="button" id="btn-save-kit" onclick="openKitModal('edit')">Edit Kit</button>
+        </div>
+      </div>
+
+      <input type="hidden" id="kit-edit-idx">
+      <div id="kit-tabs" class="tab-strip"></div>
+      <div class="record-banner" id="kit-record-label">No kit selected.</div>
+
+      <div class="grid-2">
+        <div class="form-group"><label>Name</label><input type="text" id="kit-name"></div>
+        <div class="form-group"><label>Note</label><input type="text" id="kit-note"></div>
+        <div class="form-group"><label>Benefits</label><textarea id="kit-benefits" rows="4"></textarea></div>
+        <div class="form-group"><label>Restrictions</label><textarea id="kit-restrictions" rows="4"></textarea></div>
+        <div class="form-group"><label>Special Abilities</label><textarea id="kit-special" rows="4"></textarea></div>
+        <div class="form-group"><label>Kit Traits</label><div id="kit-traits-list" class="trait-list"></div></div>
+      </div>
+    </section>
+  </div>
+</div>
+  </div>
+</div>
+
+<div id="trait-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="trait-modal-title" onclick="if(event.target===this) closeTraitDetail()">
+  <div class="modal-panel" tabindex="-1">
+    <div class="modal-head">
+      <h3 id="trait-modal-title">Trait Details</h3>
+      <button type="button" aria-label="Close trait details" onclick="closeTraitDetail()">Close</button>
+    </div>
+    <div id="trait-modal-content"></div>
+  </div>
+</div>
+
+<div id="trait-edit-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="trait-edit-title" onclick="if(event.target===this) closeTraitEditModal()">
+  <div class="modal-panel" tabindex="-1">
+    <div class="modal-head">
+      <h3 id="trait-edit-title">Edit Trait</h3>
+      <button type="button" aria-label="Close trait editor" onclick="closeTraitEditModal()">Close</button>
+    </div>
     <div class="grid-2">
-      <div class="form-group"><label>Name</label><input type="text" id="inp-name"></div>
-      <div class="form-group"><label>Starting Gold</label><input type="text" id="inp-gold"></div>
-      <div class="form-group"><label>Allowed Armour</label><input type="text" id="inp-armour"></div>
-      <div class="form-group"><label>Weapon Groups</label><input type="text" id="inp-weapon-groups" placeholder="all, bludgeoning"></div>
+      <div class="form-group"><label>Tag</label><input type="text" id="te-tag"></div>
+      <div class="form-group"><label>Status</label><select id="te-status"><option value="canon">canon</option><option value="edited">edited</option><option value="new">new</option></select></div>
+      <div class="form-group"><label>Text</label><textarea id="te-text" rows="4"></textarea></div>
+      <div class="form-group"><label>Source Book</label><input type="text" id="te-source-book"></div>
+      <div class="form-group"><label>Source Page</label><input type="text" id="te-source-page"></div>
+      <div class="form-group"><label>Source Snippet</label><textarea id="te-source-snippet" rows="4"></textarea></div>
     </div>
-
-    <div class="section">
-      <h3>Class Tables</h3>
-      <div class="grid-2">
-        <div class="form-group"><label>THAC0</label><input type="text" id="inp-thac0" placeholder="20, 19, 18, ..."></div>
-        <div class="form-group"><label>Spell Slots</label><textarea id="inp-spell-slots" rows="3" placeholder="1 | 2,1 | 2,2"></textarea></div>
-      </div>
-      <div class="grid-2">
-        <div class="form-group"><label>Weapon Proficiencies</label><input type="text" id="inp-weapon-profs" placeholder="1, 1, 1, ..."></div>
-        <div class="form-group"><label>Nonweapon Proficiencies</label><input type="text" id="inp-nonweapon-profs" placeholder="3, 3, 3, ..."></div>
-      </div>
-      <div class="grid-2">
-        <div class="form-group"><label>Turn Undead</label><input type="text" id="inp-turn-table" placeholder="-, -, T, T, D, ..."></div>
-        <div class="form-group"><label>Class Traits</label><div id="class-traits-list" class="trait-list"></div><div class="action-row"><button type="button" onclick="addClassTraitRow()">+ Add Trait</button></div></div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h3>Saves</h3>
-      <div class="save-grid">
-        <div class="form-group"><label>Paralyze / Poison / Death</label><input type="text" id="inp-save-ppd"></div>
-        <div class="form-group"><label>Rod / Staff / Wand</label><input type="text" id="inp-save-rsw"></div>
-        <div class="form-group"><label>Petrification / Polymorph</label><input type="text" id="inp-save-pp"></div>
-        <div class="form-group"><label>Breath Weapon</label><input type="text" id="inp-save-bw"></div>
-        <div class="form-group"><label>Spell</label><input type="text" id="inp-save-spell"></div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h3>Thief Base</h3>
-      <div class="thief-grid">
-        <div class="form-group"><label>PP</label><input type="text" id="inp-thief-pp"></div>
-        <div class="form-group"><label>OL</label><input type="text" id="inp-thief-ol"></div>
-        <div class="form-group"><label>FRT</label><input type="text" id="inp-thief-frt"></div>
-        <div class="form-group"><label>MS</label><input type="text" id="inp-thief-ms"></div>
-        <div class="form-group"><label>HS</label><input type="text" id="inp-thief-hs"></div>
-        <div class="form-group"><label>DN</label><input type="text" id="inp-thief-dn"></div>
-        <div class="form-group"><label>CW</label><input type="text" id="inp-thief-cw"></div>
-        <div class="form-group"><label>RL</label><input type="text" id="inp-thief-rl"></div>
-      </div>
-    </div>
-
-    <div class="section">
-      <h3>Kits</h3>
-      <div id="kits-list" class="kit-list"></div>
-      <div class="action-row"><button type="button" onclick="addKit()">+ Add Kit</button></div>
-    </div>
-
     <div class="action-row">
-      <button onclick="saveClass()">Save</button>
-      <button class="danger" id="del-btn" onclick="modalDel()" style="display:none">Delete</button>
+      <button type="button" id="trait-edit-save" onclick="saveTraitEditModal()">Save</button>
+      <button type="button" id="trait-edit-delete" class="danger" onclick="deleteTraitEditModal()">Delete</button>
     </div>
   </div>
 </div>
 
-<div id="kit-modal" class="modal-overlay nested" onclick="if(event.target===this)closeKitModal()">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeKitModal()">&times;</span>
-    <h2 id="kit-modal-title">Kit</h2>
-    <input type="hidden" id="kit-edit-idx">
+<div id="class-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="class-modal-title" onclick="if(event.target===this) closeClassModal()">
+  <div class="modal-panel" tabindex="-1">
+    <div class="modal-head">
+      <h3 id="class-modal-title">Edit Class</h3>
+      <button type="button" aria-label="Close class editor" onclick="closeClassModal()">Close</button>
+    </div>
+    <div class="modal-section tiny" id="class-modal-note">Canonical classes are read-only. Sub-classes are editable.</div>
     <div class="grid-2">
-      <div class="form-group"><label>Name</label><input type="text" id="kit-name"></div>
-      <div class="form-group"><label>Note</label><input type="text" id="kit-note"></div>
-      <div class="form-group"><label>Benefits</label><textarea id="kit-benefits" rows="4"></textarea></div>
-      <div class="form-group"><label>Restrictions</label><textarea id="kit-restrictions" rows="4"></textarea></div>
-      <div class="form-group"><label>Special Abilities</label><textarea id="kit-special" rows="4"></textarea></div>
-      <div class="form-group"><label>Kit Traits</label><div id="kit-traits-list" class="trait-list"></div><div class="action-row"><button type="button" onclick="addKitTraitRow()">+ Add Trait</button></div></div>
+      <div class="form-group"><label>Name</label><input type="text" id="cm-name"></div>
+      <div class="form-group"><label>Starting Gold</label><input type="text" id="cm-gold"></div>
+      <div class="form-group"><label>Allowed Armour</label><input type="text" id="cm-armour"></div>
+      <div class="form-group"><label>Weapon Groups</label><input type="text" id="cm-weapon-groups"></div>
+    </div>
+    <div class="grid-2">
+      <div class="form-group"><label>THAC0</label><textarea id="cm-thac0" rows="3"></textarea></div>
+      <div class="form-group"><label>Spell Slots</label><textarea id="cm-spell-slots" rows="3"></textarea></div>
+    </div>
+    <div class="grid-2">
+      <div class="form-group"><label>Weapon Proficiencies</label><input type="text" id="cm-weapon-profs"></div>
+      <div class="form-group"><label>Nonweapon Proficiencies</label><input type="text" id="cm-nonweapon-profs"></div>
+    </div>
+    <div class="grid-2">
+      <div class="form-group"><label>Turn Undead</label><input type="text" id="cm-turn-table"></div>
+      <div class="form-group"><label>Class Traits</label><div id="cm-class-traits" class="trait-list"></div><div class="action-row"><button type="button" onclick="addModalClassTraitRow()">+ Add Trait</button></div></div>
+    </div>
+    <div class="grid-2">
+      <div class="form-group"><label>Paralyze / Poison / Death</label><input type="text" id="cm-save-ppd"></div>
+      <div class="form-group"><label>Rod / Staff / Wand</label><input type="text" id="cm-save-rsw"></div>
+      <div class="form-group"><label>Petrification / Polymorph</label><input type="text" id="cm-save-pp"></div>
+      <div class="form-group"><label>Breath Weapon</label><input type="text" id="cm-save-bw"></div>
+      <div class="form-group"><label>Spell</label><input type="text" id="cm-save-spell"></div>
+    </div>
+    <div class="grid-2">
+      <div class="form-group"><label>PP</label><input type="text" id="cm-thief-pp"></div>
+      <div class="form-group"><label>OL</label><input type="text" id="cm-thief-ol"></div>
+      <div class="form-group"><label>FRT</label><input type="text" id="cm-thief-frt"></div>
+      <div class="form-group"><label>MS</label><input type="text" id="cm-thief-ms"></div>
+      <div class="form-group"><label>HS</label><input type="text" id="cm-thief-hs"></div>
+      <div class="form-group"><label>DN</label><input type="text" id="cm-thief-dn"></div>
+      <div class="form-group"><label>CW</label><input type="text" id="cm-thief-cw"></div>
+      <div class="form-group"><label>RL</label><input type="text" id="cm-thief-rl"></div>
     </div>
     <div class="action-row">
-      <button onclick="saveKit()">Save Kit</button>
-      <button class="danger" id="delete-kit-btn" onclick="deleteKit()">Delete Kit</button>
-      <button onclick="closeKitModal()">Cancel</button>
+      <button type="button" id="class-modal-save" onclick="saveClassModal()">Save</button>
+      <button type="button" id="class-modal-delete" class="danger" onclick="deleteClassModal()">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div id="kit-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="kit-modal-title" onclick="if(event.target===this) closeKitModal()">
+  <div class="modal-panel" tabindex="-1">
+    <div class="modal-head">
+      <h3 id="kit-modal-title">Edit Kit</h3>
+      <button type="button" aria-label="Close kit editor" onclick="closeKitModal()">Close</button>
+    </div>
+    <div class="modal-section tiny" id="kit-modal-note">Kit changes apply to the selected class or sub-class.</div>
+    <div class="grid-2">
+      <div class="form-group"><label>Name</label><input type="text" id="km-name"></div>
+      <div class="form-group"><label>Note</label><input type="text" id="km-note"></div>
+      <div class="form-group"><label>Benefits</label><textarea id="km-benefits" rows="4"></textarea></div>
+      <div class="form-group"><label>Restrictions</label><textarea id="km-restrictions" rows="4"></textarea></div>
+      <div class="form-group"><label>Special Abilities</label><textarea id="km-special" rows="4"></textarea></div>
+      <div class="form-group"><label>Kit Traits</label><div id="km-kit-traits" class="trait-list"></div><div class="action-row"><button type="button" onclick="addModalKitTraitRow()">+ Add Trait</button></div></div>
+    </div>
+    <div class="action-row">
+      <button type="button" id="kit-modal-save" onclick="saveKitModal()">Save</button>
+      <button type="button" id="kit-modal-delete" class="danger" onclick="deleteKitModal()">Delete</button>
     </div>
   </div>
 </div>
@@ -141,50 +661,715 @@ const DEFAULT_KIT = { name: 'Kit 0', parentClass: '', benefits: 'No effect.', re
 let data = [];
 let currentClassTraits = [];
 let currentKits = [];
+let currentClassIndex = 0;
+let currentSubClassIndex = -1;
+let currentKitIndex = 0;
 
 function escapeHtml(v) { return String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
 function numListToText(list) { return Array.isArray(list) ? list.join(', ') : ''; }
+// NEW: Level-dependent table system
+let currentLevelStart = 0; // tracks which level window is displayed (0-based, shows levels 1-5 initially)
+
+function traitSignature(trait) {
+  return [trait?.tag || '', trait?.text || '', trait?.sourceBook || '', trait?.sourcePage || '', trait?.sourceSnippet || ''].join('||');
+}
+
+function normalizeTrait(trait) {
+  return {
+    tag: String(trait?.tag || '').trim(),
+    text: String(trait?.text || '').trim(),
+    sourceBook: String(trait?.sourceBook || '').trim(),
+    sourcePage: String(trait?.sourcePage || '').trim(),
+    sourceSnippet: String(trait?.sourceSnippet || '').trim(),
+    status: String(trait?.status || 'canon').trim()
+  };
+}
+
+function classifyTraits(nextTraits, baseTraits = []) {
+  const baseList = Array.isArray(baseTraits) ? baseTraits.map(normalizeTrait) : [];
+  return (Array.isArray(nextTraits) ? nextTraits : [])
+    .map(normalizeTrait)
+    .map((trait, index) => {
+      if (trait.status === 'new') return { ...trait, status: 'new' };
+      const base = baseList[index];
+      if (!base) return { ...trait, status: trait.status === 'canon' ? 'canon' : 'new' };
+      return traitSignature(trait) === traitSignature(base)
+        ? { ...trait, status: base.status || 'canon' }
+        : { ...trait, status: 'edited' };
+    });
+}
+
+function preserveTraitStatus(traits) {
+  return (Array.isArray(traits) ? traits : []).map(normalizeTrait);
+}
+
+function collectLevelData(classRecord) {
+  if (!classRecord) return { rows: [] };
+  
+  const maxLevels = Math.max(
+    classRecord.thac0?.length || 0,
+    classRecord.weaponProficiencies?.length || 0,
+    classRecord.nonweaponProficiencies?.length || 0,
+    Object.values(classRecord.saves || {}).reduce((max, arr) => Math.max(max, arr?.length || 0), 0),
+    classRecord.turnTable?.length || 0,
+    classRecord.spellSlots?.length || 0,
+    classRecord.thiefBase ? Object.values(classRecord.thiefBase).reduce((max, arr) => Math.max(max, arr?.length || 0), 0) : 0
+  );
+
+  const rows = [
+    { label: 'THAC0', data: classRecord.thac0 || [] },
+    { label: 'Paralyze/Poison/Death', data: classRecord.saves?.paralyzePoisonDeath || [] },
+    { label: 'Rod/Staff/Wand', data: classRecord.saves?.rodStaffWand || [] },
+    { label: 'Petrification/Polymorph', data: classRecord.saves?.petrificationPolymorph || [] },
+    { label: 'Breath Weapon', data: classRecord.saves?.breathWeapon || [] },
+    { label: 'Spell', data: classRecord.saves?.spell || [] },
+    { label: 'Weapon Prof', data: classRecord.weaponProficiencies || [] },
+    { label: 'Nonweapon Prof', data: classRecord.nonweaponProficiencies || [] },
+    { label: 'Turn Undead', data: classRecord.turnTable || [] }
+  ];
+
+  if (classRecord.thiefBase && typeof classRecord.thiefBase === 'object') {
+    rows.push(
+      { label: 'PP (Pick Pockets)', data: classRecord.thiefBase.pickPockets || [] },
+      { label: 'OL (Open Locks)', data: classRecord.thiefBase.openLocks || [] },
+      { label: 'FRT (Find/Remove Traps)', data: classRecord.thiefBase.findTraps || [] },
+      { label: 'MS (Move Silently)', data: classRecord.thiefBase.moveSilently || [] },
+      { label: 'HS (Hide in Shadows)', data: classRecord.thiefBase.hideShadows || [] },
+      { label: 'DN (Detect Noise)', data: classRecord.thiefBase.detectNoise || [] },
+      { label: 'CW (Climb Walls)', data: classRecord.thiefBase.climbWalls || [] },
+      { label: 'RL (Read Languages)', data: classRecord.thiefBase.readLanguages || [] }
+    );
+  }
+
+  return { maxLevels, rows: rows.filter(r => r.data.length > 0) };
+}
+
+function renderLevelTable() {
+  const classRecord = getClassRecord();
+  const container = document.getElementById('table-scroll-container');
+  
+  if (!classRecord) {
+    container.innerHTML = '<div class="level-empty">Select a class to view tables</div>';
+    return;
+  }
+
+  const { maxLevels, rows } = collectLevelData(classRecord);
+  
+  if (maxLevels === 0 || rows.length === 0) {
+    container.innerHTML = '<div class="level-empty">No level-dependent data for this class</div>';
+    return;
+  }
+
+  // Calculate level window (show 5 levels at a time)
+  const levelWindow = 5;
+  const maxStart = Math.max(0, maxLevels - levelWindow);
+  currentLevelStart = Math.min(currentLevelStart, maxStart);
+
+  const startLevel = currentLevelStart;
+  const endLevel = Math.min(startLevel + levelWindow, maxLevels);
+  const displayLevels = Array.from({ length: endLevel - startLevel }, (_, i) => startLevel + i + 1);
+
+  // Build table
+  let html = '<table class="level-table"><thead><tr><th>Ability</th>';
+  displayLevels.forEach(lv => html += `<th>${lv}</th>`);
+  html += '</tr></thead><tbody>';
+
+  rows.forEach(row => {
+    html += '<tr><td>' + escapeHtml(row.label) + '</td>';
+    displayLevels.forEach((_, i) => {
+      const idx = startLevel + i;
+      const val = row.data[idx] !== undefined ? row.data[idx] : '-';
+      html += `<td>${escapeHtml(String(val))}</td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += '</tbody></table>';
+  container.innerHTML = html;
+
+  // Update level display
+  const displayText = maxLevels <= levelWindow ? `Lv 1-${maxLevels}` : `Lv ${startLevel + 1}-${endLevel}`;
+  document.getElementById('level-display').textContent = displayText;
+}
+
+function scrollTableLeft() {
+  currentLevelStart = Math.max(0, currentLevelStart - 1);
+  renderLevelTable();
+}
+
+function scrollTableRight() {
+  const classRecord = getClassRecord();
+  if (!classRecord) return;
+  const { maxLevels } = collectLevelData(classRecord);
+  const levelWindow = 5;
+  const maxStart = Math.max(0, maxLevels - levelWindow);
+  currentLevelStart = Math.min(currentLevelStart + 1, maxStart);
+  renderLevelTable();
+}
 function textListToArray(text) { return String(text || '').split(/[,;|]+/).map(v => v.trim()).filter(Boolean); }
 function numTextToArray(text) { return String(text || '').split(/[,;|]+/).map(v => parseInt(v.trim(), 10)).filter(v => Number.isFinite(v)); }
 function matrixToText(matrix) { return Array.isArray(matrix) ? matrix.map(row => Array.isArray(row) ? row.join(', ') : '').filter(Boolean).join(' | ') : ''; }
 function textToMatrix(text) { const raw = String(text || '').trim(); if (!raw) return []; return raw.split('|').map(row => row.split(',').map(v => parseInt(v.trim(), 10)).filter(v => Number.isFinite(v))).filter(row => row.length > 0); }
 
-function normalizeTrait(trait) {
-  return { tag: String(trait?.tag || '').trim(), text: String(trait?.text || '').trim(), sourceBook: String(trait?.sourceBook || '').trim(), sourcePage: String(trait?.sourcePage || '').trim(), sourceSnippet: String(trait?.sourceSnippet || '').trim() };
+function normalizeTraits(traits, baseTraits = []) {
+  return classifyTraits(traits, baseTraits).filter(t => t.tag || t.text || t.sourceBook || t.sourcePage || t.sourceSnippet);
 }
-function normalizeTraits(traits) { return Array.isArray(traits) ? traits.map(normalizeTrait).filter(t => t.tag || t.text || t.sourceBook || t.sourcePage || t.sourceSnippet) : []; }
-function normalizeKit(kit, parentClass) { return { name: String(kit?.name || '').trim(), parentClass: String(kit?.parentClass || parentClass || '').trim(), benefits: String(kit?.benefits || '').trim(), restrictions: String(kit?.restrictions || '').trim(), specialAbilities: String(kit?.specialAbilities || '').trim(), note: String(kit?.note || '').trim(), kitTraits: normalizeTraits(kit?.kitTraits) }; }
-function ensureDefaultKitList(kits, parentClass) { const list = Array.isArray(kits) ? kits.filter(Boolean).map(k => normalizeKit(k, parentClass)) : []; if (!list.some(k => k.name === 'Kit 0')) list.unshift(normalizeKit(DEFAULT_KIT, parentClass)); return list; }
-function normalizeClassRecord(rec) { const name = String(rec?.name || '').trim(); return { ...rec, name, startingGold: String(rec?.startingGold || ''), allowedArmour: String(rec?.allowedArmour || ''), weaponGroups: Array.isArray(rec?.weaponGroups) ? rec.weaponGroups.map(v => String(v)) : [], thac0: Array.isArray(rec?.thac0) ? rec.thac0 : [], saves: rec?.saves && typeof rec.saves === 'object' && !Array.isArray(rec.saves) ? rec.saves : {}, weaponProficiencies: Array.isArray(rec?.weaponProficiencies) ? rec.weaponProficiencies : [], nonweaponProficiencies: Array.isArray(rec?.nonweaponProficiencies) ? rec.nonweaponProficiencies : [], spellSlots: Array.isArray(rec?.spellSlots) ? rec.spellSlots : [], turnTable: Array.isArray(rec?.turnTable) ? rec.turnTable : null, thiefBase: rec?.thiefBase && typeof rec.thiefBase === 'object' && !Array.isArray(rec.thiefBase) ? rec.thiefBase : null, classTraits: normalizeTraits(rec?.classTraits), kits: ensureDefaultKitList(rec?.kits, name) }; }
 
-function readTraitRows(containerId) { return [...document.querySelectorAll(`#${containerId} .trait-row`)].map(row => ({ tag: row.querySelector('[data-field="tag"]').value, text: row.querySelector('[data-field="text"]').value, sourceBook: row.querySelector('[data-field="sourceBook"]').value, sourcePage: row.querySelector('[data-field="sourcePage"]').value, sourceSnippet: row.querySelector('[data-field="sourceSnippet"]').value })).map(normalizeTrait).filter(t => t.tag || t.text || t.sourceBook || t.sourcePage || t.sourceSnippet); }
-function renderTraitRows(containerId, traits) { const container = document.getElementById(containerId); const rows = Array.isArray(traits) ? traits : []; if (rows.length === 0) { container.innerHTML = '<div class="tiny">No traits yet.</div>'; return; } container.innerHTML = rows.map((trait, idx) => `<div class="trait-row"><input data-field="tag" type="text" placeholder="tag" value="${escapeHtml(trait.tag || '')}"><textarea data-field="text" rows="2" placeholder="trait text">${escapeHtml(trait.text || '')}</textarea><input data-field="sourceBook" type="text" placeholder="book" value="${escapeHtml(trait.sourceBook || '')}"><input data-field="sourcePage" type="text" placeholder="page" value="${escapeHtml(trait.sourcePage || '')}"><textarea data-field="sourceSnippet" rows="2" placeholder="source snippet">${escapeHtml(trait.sourceSnippet || '')}</textarea><button type="button" class="danger" onclick="removeTraitRow('${containerId}', ${idx})">Delete</button></div>`).join(''); }
-function removeTraitRow(containerId, index) { const traits = readTraitRows(containerId); traits.splice(index, 1); renderTraitRows(containerId, traits); }
-function addClassTraitRow() { const traits = readTraitRows('class-traits-list'); traits.push({ tag: '', text: '', sourceBook: '', sourcePage: '', sourceSnippet: '' }); renderTraitRows('class-traits-list', traits); }
-function addKitTraitRow() { const traits = readTraitRows('kit-traits-list'); traits.push({ tag: '', text: '', sourceBook: '', sourcePage: '', sourceSnippet: '' }); renderTraitRows('kit-traits-list', traits); }
+function normalizeKit(kit, parentClass, parentKit = null) {
+  return {
+    name: String(kit?.name || '').trim(),
+    parentClass: String(kit?.parentClass || parentClass || '').trim(),
+    benefits: String(kit?.benefits || '').trim(),
+    restrictions: String(kit?.restrictions || '').trim(),
+    specialAbilities: String(kit?.specialAbilities || '').trim(),
+    note: String(kit?.note || '').trim(),
+    isCanonical: kit?.isCanonical === true,  // NEW: marks canonical kits
+    kitTraits: normalizeTraits(kit?.kitTraits, parentKit?.kitTraits || [])
+  };
+}
 
-function render() {
-  document.getElementById('class-table').innerHTML = data.map((c, i) => {
-    const kits = Array.isArray(c.kits) ? c.kits : [];
-    const kit0 = kits.find(k => k && k.name === 'Kit 0');
-    return `<tr><td>${escapeHtml(c.name)}</td><td>${kits.length}</td><td>${Array.isArray(c.classTraits) ? c.classTraits.length : 0}</td><td>${kits.reduce((sum, kit) => sum + (Array.isArray(kit?.kitTraits) ? kit.kitTraits.length : 0), 0)}</td><td>${Array.isArray(c.thac0) ? c.thac0.length : 0}</td><td>${Object.keys(c.saves || {}).length}</td><td>${Array.isArray(c.spellSlots) ? c.spellSlots.length : 0}</td><td>${Array.isArray(c.turnTable) ? 'Yes' : '-'}</td><td>${c.thiefBase ? 'Yes' : '-'}</td><td>${escapeHtml(Array.isArray(c.weaponGroups) && c.weaponGroups.length ? c.weaponGroups.join(', ') : '-')}</td><td>${escapeHtml(kit0?.note || '-')}</td><td><button onclick="edit(${i})">Edit</button></td></tr>`;
+function ensureDefaultKitList(kits, parentClass) {
+  const list = Array.isArray(kits) ? kits.filter(Boolean).map(k => normalizeKit(k, parentClass)) : [];
+  if (!list.some(k => k.name === 'Kit 0')) list.unshift(normalizeKit(DEFAULT_KIT, parentClass));
+  return list;
+}
+
+function normalizeClassRecord(rec) {
+  const name = String(rec?.name || '').trim();
+  return {
+    ...rec,
+    name,
+    isCanonical: rec?.isCanonical === true,  // NEW: marks canonical classes from classes.json
+    startingGold: String(rec?.startingGold || ''),
+    allowedArmour: String(rec?.allowedArmour || ''),
+    weaponGroups: Array.isArray(rec?.weaponGroups) ? rec.weaponGroups.map(v => String(v)) : [],
+    thac0: Array.isArray(rec?.thac0) ? rec.thac0 : [],
+    saves: rec?.saves && typeof rec.saves === 'object' && !Array.isArray(rec.saves) ? rec.saves : {},
+    weaponProficiencies: Array.isArray(rec?.weaponProficiencies) ? rec.weaponProficiencies : [],
+    nonweaponProficiencies: Array.isArray(rec?.nonweaponProficiencies) ? rec.nonweaponProficiencies : [],
+    spellSlots: Array.isArray(rec?.spellSlots) ? rec.spellSlots : [],
+    turnTable: Array.isArray(rec?.turnTable) ? rec.turnTable : [],
+    thiefBase: rec?.thiefBase && typeof rec.thiefBase === 'object' && !Array.isArray(rec.thiefBase) ? rec.thiefBase : null,
+    classTraits: normalizeTraits(rec?.classTraits),
+    kits: ensureDefaultKitList(rec?.kits, name),
+    subClasses: Array.isArray(rec?.subClasses) ? rec.subClasses.map(sc => normalizeSubClass(sc, rec)) : []
+  };
+}
+
+function normalizeSubClass(subRec, parentName) {
+  const parentRecord = typeof parentName === 'object' ? parentName : null;
+  const parentClassName = String(parentRecord?.name || parentName || '').trim();
+  const parentTraits = Array.isArray(parentRecord?.classTraits) ? parentRecord.classTraits : [];
+  const parentKits = Array.isArray(parentRecord?.kits) ? parentRecord.kits : [];
+  const name = String(subRec?.name || '').trim();
+  return {
+    ...subRec,
+    name,
+    isCanonical: false,  // Sub-classes are never canonical
+    parentClass: parentClassName,  // Track parent class
+    startingGold: String(subRec?.startingGold || ''),
+    allowedArmour: String(subRec?.allowedArmour || ''),
+    weaponGroups: Array.isArray(subRec?.weaponGroups) ? subRec.weaponGroups.map(v => String(v)) : [],
+    thac0: Array.isArray(subRec?.thac0) ? subRec.thac0 : [],
+    saves: subRec?.saves && typeof subRec.saves === 'object' && !Array.isArray(subRec.saves) ? subRec.saves : {},
+    weaponProficiencies: Array.isArray(subRec?.weaponProficiencies) ? subRec.weaponProficiencies : [],
+    nonweaponProficiencies: Array.isArray(subRec?.nonweaponProficiencies) ? subRec.nonweaponProficiencies : [],
+    spellSlots: Array.isArray(subRec?.spellSlots) ? subRec.spellSlots : [],
+    turnTable: Array.isArray(subRec?.turnTable) ? subRec.turnTable : [],
+    thiefBase: subRec?.thiefBase && typeof subRec.thiefBase === 'object' && !Array.isArray(subRec.thiefBase) ? subRec.thiefBase : null,
+    classTraits: normalizeTraits(subRec?.classTraits, parentTraits),
+    kits: ensureDefaultKitList(subRec?.kits, name).map((kit, index) => normalizeKit(kit, name, parentKits[index] || null))
+  };
+}
+function readTraitRows(containerId) {
+  return [...document.querySelectorAll(`#${containerId} .trait-row`)]
+    .map(row => ({
+      tag: row.querySelector('[data-field="tag"]').value,
+      text: row.querySelector('[data-field="text"]').value,
+      sourceBook: row.querySelector('[data-field="sourceBook"]').value,
+      sourcePage: row.querySelector('[data-field="sourcePage"]').value,
+      sourceSnippet: row.querySelector('[data-field="sourceSnippet"]').value,
+      status: row.getAttribute('data-status') || 'canon'  // NEW: preserve status from data attribute
+    }))
+    .map(normalizeTrait)
+    .filter(t => t.tag || t.text || t.sourceBook || t.sourcePage || t.sourceSnippet);
+}
+
+function renderTraitRows(containerId, traits) {
+  const container = document.getElementById(containerId);
+  const rows = Array.isArray(traits) ? traits : [];
+  if (rows.length === 0) {
+    container.innerHTML = '<div class="tiny">No traits yet.</div>';
+    return;
+  }
+  container.innerHTML = rows.map((trait, idx) => {
+    const status = String(trait.status || 'canon');
+    return `<div class="trait-row" data-status="${escapeHtml(status)}"><input data-field="tag" type="text" readonly placeholder="tag" value="${escapeHtml(trait.tag || '')}"><textarea data-field="text" rows="2" readonly placeholder="trait text">${escapeHtml(trait.text || '')}</textarea><input data-field="sourceBook" type="text" readonly placeholder="book" value="${escapeHtml(trait.sourceBook || '')}"><input data-field="sourcePage" type="text" readonly placeholder="page" value="${escapeHtml(trait.sourcePage || '')}"><textarea data-field="sourceSnippet" rows="2" readonly placeholder="source snippet">${escapeHtml(trait.sourceSnippet || '')}</textarea><div><span class="trait-status-badge trait-status-${escapeHtml(status)}">${escapeHtml(status)}</span></div><button type="button" onclick="openTraitDetail('${containerId}', ${idx})">Open</button><button type="button" onclick="openTraitEditModal('${containerId}', ${idx})">Edit</button></div>`;
   }).join('');
 }
 
-function openModal() { document.getElementById('modal-title').textContent = 'Add Class'; clearForm(); document.getElementById('modal').style.display = 'flex'; }
-function closeModal() { document.getElementById('modal').style.display = 'none'; closeKitModal(); }
-
-function clearForm() {
-  document.getElementById('edit-idx').value = '';
-  document.getElementById('del-btn').style.display = 'none';
-  ['inp-name','inp-gold','inp-armour','inp-weapon-groups','inp-thac0','inp-spell-slots','inp-turn-table','inp-save-ppd','inp-save-rsw','inp-save-pp','inp-save-bw','inp-save-spell','inp-thief-pp','inp-thief-ol','inp-thief-frt','inp-thief-ms','inp-thief-hs','inp-thief-dn','inp-thief-cw','inp-thief-rl'].forEach(id => document.getElementById(id).value = '');
-  currentClassTraits = [];
-  currentKits = ensureDefaultKitList([], '');
-  renderTraitRows('class-traits-list', currentClassTraits);
-  renderKitsList();
+function removeTraitRow(containerId, index) {
+  const traits = readTraitRows(containerId);
+  traits.splice(index, 1);
+  renderTraitRows(containerId, traits);
+  if (containerId === 'class-traits-list') syncCurrentClassFromForm();
+  if (containerId === 'kit-traits-list') syncCurrentKitFromForm();
 }
 
-function fillForm(rec) {
+function closeTraitDetail() {
+  const modal = document.getElementById('trait-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function openTraitDetail(containerId, index) {
+  const traits = readTraitRows(containerId);
+  const trait = traits[index];
+  if (!trait) return;
+  const classRecord = getClassRecord();
+  const modal = document.getElementById('trait-modal');
+  const title = document.getElementById('trait-modal-title');
+  const content = document.getElementById('trait-modal-content');
+  if (!modal || !title || !content) return;
+
+  title.textContent = `${trait.tag || 'Trait'} Details`;
+
+  const sections = [];
+  if (trait.text) {
+    sections.push(`<div class="modal-section"><strong>Trait Text</strong><div>${escapeHtml(trait.text)}</div></div>`);
+  }
+  if (trait.sourceSnippet) {
+    sections.push(`<div class="modal-section"><strong>Book Details</strong><div>${escapeHtml(trait.sourceSnippet)}</div></div>`);
+  }
+
+  const tag = String(trait.tag || '').toLowerCase();
+  if (tag.includes('weapon group')) {
+    const groups = Array.isArray(classRecord?.weaponGroups) ? classRecord.weaponGroups : [];
+    sections.push(`<div class="modal-section"><strong>Weapon Groups</strong><div>${groups.length ? escapeHtml(groups.join(', ')) : 'None listed.'}</div></div>`);
+  }
+  if (tag.includes('proficien')) {
+    sections.push(`<div class="modal-section"><strong>Proficiency Progression</strong><div>Weapon: ${escapeHtml(numListToText(classRecord?.weaponProficiencies || [])) || 'n/a'}<br>Nonweapon: ${escapeHtml(numListToText(classRecord?.nonweaponProficiencies || [])) || 'n/a'}</div></div>`);
+  }
+  if (tag.includes('spell')) {
+    sections.push(`<div class="modal-section"><strong>Spell Slot Table</strong><div>${escapeHtml(matrixToText(classRecord?.spellSlots || [])) || 'n/a'}</div></div>`);
+  }
+
+  const sourceParts = [trait.sourceBook, trait.sourcePage].filter(Boolean);
+  sections.push(`<div class="modal-section"><strong>Source</strong><div>${sourceParts.length ? escapeHtml(sourceParts.join(' ')) : 'No source citation.'}</div></div>`);
+
+  content.innerHTML = sections.join('');
+  modal.style.display = 'flex';
+}
+
+let traitEditContext = { containerId: '', index: -1 };
+
+function closeTraitEditModal() {
+  const modal = document.getElementById('trait-edit-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function openTraitEditModal(containerId, index) {
+  const traits = readTraitRows(containerId);
+  const trait = traits[index];
+  if (!trait) return;
+  traitEditContext = { containerId, index };
+  document.getElementById('trait-edit-title').textContent = `${trait.tag || 'Trait'} Editor`;
+  document.getElementById('te-tag').value = trait.tag || '';
+  document.getElementById('te-status').value = trait.status || 'canon';
+  document.getElementById('te-text').value = trait.text || '';
+  document.getElementById('te-source-book').value = trait.sourceBook || '';
+  document.getElementById('te-source-page').value = trait.sourcePage || '';
+  document.getElementById('te-source-snippet').value = trait.sourceSnippet || '';
+  document.getElementById('trait-edit-save').disabled = isActiveCanonical();
+  document.getElementById('trait-edit-delete').disabled = isActiveCanonical();
+  document.getElementById('trait-edit-modal').style.display = 'flex';
+}
+
+function saveTraitEditModal() {
+  const { containerId, index } = traitEditContext;
+  if (!containerId || index < 0) return;
+  const traits = readTraitRows(containerId);
+  traits[index] = normalizeTrait({
+    tag: document.getElementById('te-tag').value,
+    status: document.getElementById('te-status').value,
+    text: document.getElementById('te-text').value,
+    sourceBook: document.getElementById('te-source-book').value,
+    sourcePage: document.getElementById('te-source-page').value,
+    sourceSnippet: document.getElementById('te-source-snippet').value
+  });
+  renderTraitRows(containerId, traits);
+  if (containerId === 'class-traits-list') syncCurrentClassFromForm();
+  if (containerId === 'kit-traits-list') syncCurrentKitFromForm();
+  closeTraitEditModal();
+}
+
+function deleteTraitEditModal() {
+  const { containerId, index } = traitEditContext;
+  if (!containerId || index < 0) return;
+  const traits = readTraitRows(containerId);
+  if (!confirm(`Delete trait ${traits[index]?.tag || ''}?`)) return;
+  traits.splice(index, 1);
+  renderTraitRows(containerId, traits);
+  if (containerId === 'class-traits-list') syncCurrentClassFromForm();
+  if (containerId === 'kit-traits-list') syncCurrentKitFromForm();
+  closeTraitEditModal();
+}
+
+function addClassTraitRow() {
+  const traits = readTraitRows('class-traits-list');
+  traits.push({ tag: '', text: '', sourceBook: '', sourcePage: '', sourceSnippet: '', status: 'new' });  // NEW: mark as new
+  renderTraitRows('class-traits-list', traits);
+  syncCurrentClassFromForm();
+}
+
+function addKitTraitRow() {
+  const traits = readTraitRows('kit-traits-list');
+  traits.push({ tag: '', text: '', sourceBook: '', sourcePage: '', sourceSnippet: '', status: 'new' });  // NEW: mark as new
+  renderTraitRows('kit-traits-list', traits);
+  syncCurrentKitFromForm();
+}
+
+let classModalMode = 'edit';
+let kitModalMode = 'edit';
+
+function setModalVisible(id, visible) {
+  const modal = document.getElementById(id);
+  if (modal) modal.style.display = visible ? 'flex' : 'none';
+}
+
+function readClassForm(prefix) {
+  return {
+    name: document.getElementById(`${prefix}-name`).value.trim(),
+    startingGold: document.getElementById(`${prefix}-gold`).value,
+    allowedArmour: document.getElementById(`${prefix}-armour`).value,
+    weaponGroups: textListToArray(document.getElementById(`${prefix}-weapon-groups`).value),
+    thac0: numTextToArray(document.getElementById(`${prefix}-thac0`).value),
+    saves: {
+      paralyzePoisonDeath: numTextToArray(document.getElementById(`${prefix}-save-ppd`).value),
+      rodStaffWand: numTextToArray(document.getElementById(`${prefix}-save-rsw`).value),
+      petrificationPolymorph: numTextToArray(document.getElementById(`${prefix}-save-pp`).value),
+      breathWeapon: numTextToArray(document.getElementById(`${prefix}-save-bw`).value),
+      spell: numTextToArray(document.getElementById(`${prefix}-save-spell`).value)
+    },
+    weaponProficiencies: numTextToArray(document.getElementById(`${prefix}-weapon-profs`).value),
+    nonweaponProficiencies: numTextToArray(document.getElementById(`${prefix}-nonweapon-profs`).value),
+    spellSlots: textToMatrix(document.getElementById(`${prefix}-spell-slots`).value),
+    turnTable: textListToArray(document.getElementById(`${prefix}-turn-table`).value),
+    thiefBase: {
+      pickPockets: numTextToArray(document.getElementById(`${prefix}-thief-pp`).value),
+      openLocks: numTextToArray(document.getElementById(`${prefix}-thief-ol`).value),
+      findTraps: numTextToArray(document.getElementById(`${prefix}-thief-frt`).value),
+      moveSilently: numTextToArray(document.getElementById(`${prefix}-thief-ms`).value),
+      hideShadows: numTextToArray(document.getElementById(`${prefix}-thief-hs`).value),
+      detectNoise: numTextToArray(document.getElementById(`${prefix}-thief-dn`).value),
+      climbWalls: numTextToArray(document.getElementById(`${prefix}-thief-cw`).value),
+      readLanguages: numTextToArray(document.getElementById(`${prefix}-thief-rl`).value)
+    }
+  };
+}
+
+function writeClassForm(prefix, rec) {
+  document.getElementById(`${prefix}-name`).value = rec?.name || '';
+  document.getElementById(`${prefix}-gold`).value = rec?.startingGold || '';
+  document.getElementById(`${prefix}-armour`).value = rec?.allowedArmour || '';
+  document.getElementById(`${prefix}-weapon-groups`).value = Array.isArray(rec?.weaponGroups) ? rec.weaponGroups.join(', ') : '';
+  document.getElementById(`${prefix}-thac0`).value = numListToText(rec?.thac0 || []);
+  document.getElementById(`${prefix}-spell-slots`).value = matrixToText(rec?.spellSlots || []);
+  document.getElementById(`${prefix}-weapon-profs`).value = numListToText(rec?.weaponProficiencies || []);
+  document.getElementById(`${prefix}-nonweapon-profs`).value = numListToText(rec?.nonweaponProficiencies || []);
+  document.getElementById(`${prefix}-turn-table`).value = Array.isArray(rec?.turnTable) ? rec.turnTable.join(', ') : '';
+  document.getElementById(`${prefix}-save-ppd`).value = numListToText(rec?.saves?.paralyzePoisonDeath || []);
+  document.getElementById(`${prefix}-save-rsw`).value = numListToText(rec?.saves?.rodStaffWand || []);
+  document.getElementById(`${prefix}-save-pp`).value = numListToText(rec?.saves?.petrificationPolymorph || []);
+  document.getElementById(`${prefix}-save-bw`).value = numListToText(rec?.saves?.breathWeapon || []);
+  document.getElementById(`${prefix}-save-spell`).value = numListToText(rec?.saves?.spell || []);
+  document.getElementById(`${prefix}-thief-pp`).value = numListToText(rec?.thiefBase?.pickPockets || []);
+  document.getElementById(`${prefix}-thief-ol`).value = numListToText(rec?.thiefBase?.openLocks || []);
+  document.getElementById(`${prefix}-thief-frt`).value = numListToText(rec?.thiefBase?.findTraps || []);
+  document.getElementById(`${prefix}-thief-ms`).value = numListToText(rec?.thiefBase?.moveSilently || []);
+  document.getElementById(`${prefix}-thief-hs`).value = numListToText(rec?.thiefBase?.hideShadows || []);
+  document.getElementById(`${prefix}-thief-dn`).value = numListToText(rec?.thiefBase?.detectNoise || []);
+  document.getElementById(`${prefix}-thief-cw`).value = numListToText(rec?.thiefBase?.climbWalls || []);
+  document.getElementById(`${prefix}-thief-rl`).value = numListToText(rec?.thiefBase?.readLanguages || []);
+}
+
+function readKitForm(prefix) {
+  return {
+    name: document.getElementById(`${prefix}-name`).value.trim(),
+    note: document.getElementById(`${prefix}-note`).value,
+    benefits: document.getElementById(`${prefix}-benefits`).value,
+    restrictions: document.getElementById(`${prefix}-restrictions`).value,
+    specialAbilities: document.getElementById(`${prefix}-special`).value
+  };
+}
+
+function writeKitForm(prefix, rec) {
+  document.getElementById(`${prefix}-name`).value = rec?.name || '';
+  document.getElementById(`${prefix}-note`).value = rec?.note || '';
+  document.getElementById(`${prefix}-benefits`).value = rec?.benefits || '';
+  document.getElementById(`${prefix}-restrictions`).value = rec?.restrictions || '';
+  document.getElementById(`${prefix}-special`).value = rec?.specialAbilities || '';
+}
+
+function setModalClassFields(prefix, rec, traitContainerId) {
+  writeClassForm(prefix, rec);
+  renderTraitRows(traitContainerId, rec?.classTraits || rec?.kitTraits || []);
+}
+
+function setModalKitFields(prefix, rec, traitContainerId) {
+  writeKitForm(prefix, rec);
+  renderTraitRows(traitContainerId, rec?.kitTraits || []);
+}
+
+function readModalClass(prefix, traitContainerId, baseRec) {
+  const next = normalizeClassRecord({
+    ...(baseRec || {}),
+    ...readClassForm(prefix),
+    classTraits: classifyTraits(readTraitRows(traitContainerId), baseRec?.classTraits || [])
+  });
+  return next;
+}
+
+function readModalKit(prefix, traitContainerId, baseKit, parentClassName) {
+  return normalizeKit({
+    ...(baseKit || DEFAULT_KIT),
+    ...readKitForm(prefix),
+    parentClass: parentClassName,
+    kitTraits: classifyTraits(readTraitRows(traitContainerId), baseKit?.kitTraits || [])
+  }, parentClassName, baseKit);
+}
+
+function openClassModal(mode) {
+  const canonical = getCanonicalClassRecord(currentClassIndex);
+  const active = getClassRecord();
+  classModalMode = mode;
+  const isAdd = mode === 'add';
+  if (!canonical) {
+    alert('Select a canonical class first.');
+    return;
+  }
+  if (!isAdd && (!active || isActiveCanonical())) {
+    alert('Select a sub-class to edit.');
+    return;
+  }
+  const source = isAdd ? normalizeSubClass({
+    ...canonical,
+    name: `${canonical?.name || 'Class'} Sub-Class ${(Array.isArray(canonical?.subClasses) ? canonical.subClasses.length : 0) + 1}`,
+    isCanonical: false
+  }, canonical || active) : active;
+  if (!source) return;
+  document.getElementById('class-modal-title').textContent = isAdd ? 'Add Sub-Class' : 'Edit Class';
+  document.getElementById('class-modal-note').textContent = isAdd ? 'Clone the selected canon class into a new editable sub-class.' : 'Edit the selected sub-class details.';
+  setModalClassFields('cm', source, 'cm-class-traits');
+  setModalVisible('class-modal', true);
+  document.getElementById('class-modal-save').disabled = isActiveCanonical() && !isAdd;
+  document.getElementById('class-modal-delete').disabled = isActiveCanonical() || isAdd;
+}
+
+function closeClassModal() { setModalVisible('class-modal', false); }
+
+function saveClassModal() {
+  const canonical = getCanonicalClassRecord(currentClassIndex);
+  if (!canonical) return;
+  if (isActiveCanonical() && classModalMode !== 'add') return;
+  const baseSubClass = currentSubClassIndex >= 0 ? canonical.subClasses?.[currentSubClassIndex] : null;
+  const next = readModalClass('cm', 'cm-class-traits', baseSubClass || canonical);
+  next.isCanonical = false;
+  next.parentClass = canonical.name;
+  next.kits = ensureDefaultKitList(baseSubClass?.kits || [], next.name).map((kit, idx) => normalizeKit(kit, next.name, (baseSubClass?.kits || [])[idx] || null));
+  canonical.subClasses = Array.isArray(canonical.subClasses) ? canonical.subClasses : [];
+  if (classModalMode === 'add') canonical.subClasses.push(next);
+  else canonical.subClasses[currentSubClassIndex] = next;
+  data[currentClassIndex] = normalizeClassRecord(canonical);
+  currentSubClassIndex = classModalMode === 'add' ? canonical.subClasses.length - 1 : currentSubClassIndex;
+  currentKitIndex = 0;
+  localStorage.setItem(DB, JSON.stringify(data));
+  closeClassModal();
+  render();
+}
+
+function deleteClassModal() {
+  const canonical = getCanonicalClassRecord(currentClassIndex);
+  if (!canonical || currentSubClassIndex < 0) return;
+  const target = canonical.subClasses?.[currentSubClassIndex];
+  if (!confirm(`Delete sub-class ${target?.name || ''}?`)) return;
+  canonical.subClasses.splice(currentSubClassIndex, 1);
+  data[currentClassIndex] = normalizeClassRecord(canonical);
+  currentSubClassIndex = -1;
+  localStorage.setItem(DB, JSON.stringify(data));
+  closeClassModal();
+  render();
+}
+
+function openKitModal(mode) {
+  kitModalMode = mode;
+  const classRecord = getClassRecord();
+  const baseKit = getKitRecord();
+  const isAdd = mode === 'add';
+  if (!classRecord) {
+    alert('Select a class first.');
+    return;
+  }
+  if (!isAdd && (!baseKit || baseKit.isCanonical === true)) {
+    alert('This kit is canonical and cannot be edited.');
+    return;
+  }
+  const source = isAdd ? normalizeKit({ ...DEFAULT_KIT, name: `Kit ${Array.isArray(classRecord?.kits) ? classRecord.kits.length : 0}` }, classRecord?.name || '') : baseKit;
+  if (!source) return;
+  document.getElementById('kit-modal-title').textContent = isAdd ? 'Add Kit' : 'Edit Kit';
+  document.getElementById('kit-modal-note').textContent = isAdd ? 'Create a new editable kit for this class.' : 'Edit the selected non-canonical kit.';
+  setModalKitFields('km', source, 'km-kit-traits');
+  setModalVisible('kit-modal', true);
+  document.getElementById('kit-modal-save').disabled = false;
+  document.getElementById('kit-modal-delete').disabled = isAdd || source.isCanonical === true;
+}
+
+function closeKitModal() { setModalVisible('kit-modal', false); }
+
+function saveKitModal() {
+  const classRecord = getClassRecord();
+  if (!classRecord) return;
+  const kits = Array.isArray(classRecord.kits) ? classRecord.kits : ensureDefaultKitList([], classRecord.name);
+  const baseKit = getKitRecord();
+  if (kitModalMode !== 'add' && (!baseKit || baseKit.isCanonical === true)) return;
+  const next = readModalKit('km', 'km-kit-traits', baseKit, classRecord.name);
+  next.isCanonical = false;
+  if (kitModalMode === 'add') kits.push(next); else kits[currentKitIndex] = next;
+  classRecord.kits = ensureDefaultKitList(kits, classRecord.name);
+  persistActiveClassRecord(classRecord);
+  localStorage.setItem(DB, JSON.stringify(data));
+  closeKitModal();
+  render();
+}
+
+function deleteKitModal() {
+  const classRecord = getClassRecord();
+  if (!classRecord || !Array.isArray(classRecord.kits)) return;
+  const kit = classRecord.kits[currentKitIndex];
+  if (!kit || kit.name === 'Kit 0' || kit.isCanonical === true) return;
+  if (!confirm(`Delete kit ${kit.name}?`)) return;
+  classRecord.kits.splice(currentKitIndex, 1);
+  classRecord.kits = ensureDefaultKitList(classRecord.kits, classRecord.name);
+  persistActiveClassRecord(classRecord);
+  localStorage.setItem(DB, JSON.stringify(data));
+  closeKitModal();
+  render();
+}
+
+function closeAllModals() {
+  closeTraitDetail();
+  closeTraitEditModal();
+  closeClassModal();
+  closeKitModal();
+}
+
+function commitOpenModalEdits() {
+  const classModal = document.getElementById('class-modal');
+  const kitModal = document.getElementById('kit-modal');
+  const traitEditModal = document.getElementById('trait-edit-modal');
+  if (traitEditModal && traitEditModal.style.display === 'flex') saveTraitEditModal();
+  const classTitle = document.getElementById('class-modal-title')?.textContent || '';
+  const kitTitle = document.getElementById('kit-modal-title')?.textContent || '';
+  if (classModal && classModal.style.display === 'flex' && !classTitle.startsWith('Delete')) saveClassModal();
+  if (kitModal && kitModal.style.display === 'flex' && !kitTitle.startsWith('Delete')) saveKitModal();
+}
+
+function addModalClassTraitRow() { addClassTraitRowTo('cm-class-traits'); }
+
+function addModalKitTraitRow() { addKitTraitRowTo('km-kit-traits'); }
+
+function addClassTraitRowTo(containerId) {
+  const traits = readTraitRows(containerId);
+  traits.push({ tag: '', text: '', sourceBook: '', sourcePage: '', sourceSnippet: '', status: 'new' });
+  renderTraitRows(containerId, traits);
+}
+
+function addKitTraitRowTo(containerId) {
+  const traits = readTraitRows(containerId);
+  traits.push({ tag: '', text: '', sourceBook: '', sourcePage: '', sourceSnippet: '', status: 'new' });
+  renderTraitRows(containerId, traits);
+}
+
+function getCanonicalClassRecord(index = currentClassIndex) {
+  if (!Array.isArray(data) || data.length === 0) return null;
+  const safeIndex = Math.max(0, Math.min(index, data.length - 1));
+  return data[safeIndex] || null;
+}
+
+function getClassRecord() {
+  const canonical = getCanonicalClassRecord(currentClassIndex);
+  if (!canonical) return null;
+  if (currentSubClassIndex < 0) return canonical;
+  const subClasses = Array.isArray(canonical.subClasses) ? canonical.subClasses : [];
+  return subClasses[currentSubClassIndex] || canonical;
+}
+
+function getKitRecord(index = currentKitIndex) {
+  const classRecord = getClassRecord();
+  const kits = Array.isArray(classRecord?.kits) ? classRecord.kits : [];
+  if (kits.length === 0) return null;
+  const safeIndex = Math.max(0, Math.min(index, kits.length - 1));
+  return kits[safeIndex] || null;
+}
+
+function isActiveCanonical() {
+  return currentSubClassIndex < 0;
+}
+
+function setEditabilityState() {
+  const classEditable = !isActiveCanonical();
+  const classRecord = getClassRecord();
+  const selectedKit = getKitRecord();
+  const kitEditable = !!selectedKit && selectedKit.isCanonical !== true;
+  const container = document.querySelector('.content-main');
+  if (!container) return;
+  const controls = container.querySelectorAll('input, textarea');
+  controls.forEach(control => {
+    if (control.id === 'edit-idx' || control.id === 'kit-edit-idx' || control.id === 'subclass-select') return;
+    control.disabled = true;
+  });
+  const classEditBtn = document.getElementById('btn-save-class');
+  if (classEditBtn) classEditBtn.disabled = !classEditable;
+  const addKitBtn = document.getElementById('btn-add-kit');
+  if (addKitBtn) addKitBtn.disabled = !classRecord;
+  const editKitBtn = document.getElementById('btn-save-kit');
+  if (editKitBtn) editKitBtn.disabled = !kitEditable;
+  container.querySelectorAll('#class-traits-list .danger, #kit-traits-list .danger').forEach(btn => {
+    btn.disabled = true;
+  });
+}
+
+function renderSubClassSelector() {
+  const select = document.getElementById('subclass-select');
+  const canonical = getCanonicalClassRecord(currentClassIndex);
+  if (!select || !canonical) return;
+  const subClasses = Array.isArray(canonical.subClasses) ? canonical.subClasses : [];
+  const options = ['<option value="-1">Base Canonical Class (Read-Only)</option>']
+    .concat(subClasses.map((sub, idx) => `<option value="${idx}">${escapeHtml(sub.name || `Sub-Class ${idx + 1}`)}</option>`));
+  select.innerHTML = options.join('');
+  select.value = String(currentSubClassIndex);
+}
+
+function clearClassForm() {
+  ['inp-name','inp-gold','inp-armour','inp-weapon-groups','inp-thac0','inp-spell-slots','inp-turn-table','inp-save-ppd','inp-save-rsw','inp-save-pp','inp-save-bw','inp-save-spell','inp-thief-pp','inp-thief-ol','inp-thief-frt','inp-thief-ms','inp-thief-hs','inp-thief-dn','inp-thief-cw','inp-thief-rl'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('class-traits-list').innerHTML = '<div class="tiny">No class selected.</div>';
+  document.getElementById('edit-idx').value = '';
+}
+
+function clearKitForm() {
+  ['kit-name','kit-note','kit-benefits','kit-restrictions','kit-special'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  document.getElementById('kit-traits-list').innerHTML = '<div class="tiny">No kit selected.</div>';
+  document.getElementById('kit-edit-idx').value = '';
+}
+
+function fillClassForm(rec) {
+  if (!rec) { clearClassForm(); return; }
+  document.getElementById('edit-idx').value = String(currentClassIndex);
   document.getElementById('inp-name').value = rec.name || '';
   document.getElementById('inp-gold').value = rec.startingGold || '';
   document.getElementById('inp-armour').value = rec.allowedArmour || '';
@@ -206,146 +1391,351 @@ function fillForm(rec) {
   document.getElementById('inp-thief-dn').value = numListToText(thief.detectNoise || []);
   document.getElementById('inp-thief-cw').value = numListToText(thief.climbWalls || []);
   document.getElementById('inp-thief-rl').value = numListToText(thief.readLanguages || []);
-  currentClassTraits = rec.classTraits || [];
-  currentKits = ensureDefaultKitList(rec.kits, rec.name);
+  currentClassTraits = Array.isArray(rec.classTraits) ? rec.classTraits : [];
   renderTraitRows('class-traits-list', currentClassTraits);
-  renderKitsList();
 }
 
-function edit(i) {
-  const rec = normalizeClassRecord(data[i]);
-  document.getElementById('modal-title').textContent = `Edit ${rec.name}`;
-  document.getElementById('edit-idx').value = i;
-  fillForm(rec);
-  document.getElementById('del-btn').style.display = 'inline-block';
-  document.getElementById('modal').style.display = 'flex';
+function fillKitForm(rec) {
+  if (!rec) { clearKitForm(); return; }
+  document.getElementById('kit-edit-idx').value = String(currentKitIndex);
+  document.getElementById('kit-name').value = rec.name || '';
+  document.getElementById('kit-note').value = rec.note || '';
+  document.getElementById('kit-benefits').value = rec.benefits || '';
+  document.getElementById('kit-restrictions').value = rec.restrictions || '';
+  document.getElementById('kit-special').value = rec.specialAbilities || '';
+  renderTraitRows('kit-traits-list', Array.isArray(rec.kitTraits) ? rec.kitTraits : []);
 }
 
-function renderKitsList() {
-  const container = document.getElementById('kits-list');
-  if (!Array.isArray(currentKits) || currentKits.length === 0) { container.innerHTML = '<div class="tiny">No kits yet.</div>'; return; }
-  container.innerHTML = currentKits.map((kit, idx) => `<div class="kit-card"><div><div><strong>${escapeHtml(kit.name || `Kit ${idx + 1}`)}</strong> ${kit.name === 'Kit 0' ? '<span class="tiny">(default)</span>' : ''}</div><div class="kit-summary">${escapeHtml(kit.note || '')} | traits: ${(kit.kitTraits || []).length}</div></div><div style="display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end;"><button type="button" onclick="openKitModal(${idx})">Edit</button><button type="button" class="danger" onclick="deleteKit(${idx})" ${kit.name === 'Kit 0' ? 'disabled' : ''}>Delete</button></div></div>`).join('');
+function updateSummaries() {
+  const classRecord = getClassRecord();
+  const canonical = getCanonicalClassRecord(currentClassIndex);
+  const kitRecord = getKitRecord();
+  document.getElementById('summary-kits').textContent = String(Array.isArray(classRecord?.kits) ? classRecord.kits.length : 0);
+  document.getElementById('summary-class-traits').textContent = String(Array.isArray(classRecord?.classTraits) ? classRecord.classTraits.length : 0);
+  document.getElementById('summary-thac0').textContent = String(Array.isArray(classRecord?.thac0) ? classRecord.thac0.length : 0);
+  document.getElementById('summary-saves').textContent = String(classRecord?.saves && typeof classRecord.saves === 'object' ? Object.keys(classRecord.saves).length : 0);
+  const mode = isActiveCanonical() ? 'Canonical (read-only)' : 'Sub-Class (editable)';
+  document.getElementById('class-record-label').textContent = classRecord ? `${classRecord.name || 'Unnamed Class'} - ${mode}. Parent: ${canonical?.name || 'N/A'}.` : 'No class selected.';
+  document.getElementById('kit-record-label').textContent = kitRecord ? `${kitRecord.name || 'Unnamed Kit'} belongs to ${classRecord?.name || 'the selected class'}.` : 'No kit selected.';
 }
 
-function openKitModal(index) {
-  const className = document.getElementById('inp-name').value.trim();
-  const kit = index >= 0 && currentKits[index] ? normalizeKit(currentKits[index], className) : normalizeKit(DEFAULT_KIT, className);
-  document.getElementById('kit-edit-idx').value = index >= 0 ? index : currentKits.length;
-  document.getElementById('kit-modal-title').textContent = index >= 0 ? `Edit Kit: ${kit.name}` : 'Add Kit';
-  document.getElementById('kit-name').value = kit.name || '';
-  document.getElementById('kit-note').value = kit.note || '';
-  document.getElementById('kit-benefits').value = kit.benefits || '';
-  document.getElementById('kit-restrictions').value = kit.restrictions || '';
-  document.getElementById('kit-special').value = kit.specialAbilities || '';
-  renderTraitRows('kit-traits-list', kit.kitTraits || []);
-  document.getElementById('delete-kit-btn').style.display = kit.name === 'Kit 0' ? 'none' : 'inline-block';
-  document.getElementById('kit-modal').style.display = 'flex';
+function renderClassTabs() {
+  const container = document.getElementById('class-tabs');
+  if (!Array.isArray(data) || data.length === 0) {
+    container.innerHTML = '<div class="tiny">No class records loaded.</div>';
+    return;
+  }
+  container.innerHTML = data.map((record, index) => {
+    const subCount = Array.isArray(record.subClasses) ? record.subClasses.length : 0;
+    return `<button type="button" class="tab-button ${index === currentClassIndex ? 'active' : ''}" onclick="selectClass(${index})">${escapeHtml(record.name || `Class ${index + 1}`)}${subCount ? ` (${subCount})` : ''}</button>`;
+  }).join('');
 }
 
-function closeKitModal() { document.getElementById('kit-modal').style.display = 'none'; }
-function addKit() { openKitModal(-1); }
-
-function saveKit() {
-  const idx = parseInt(document.getElementById('kit-edit-idx').value, 10);
-  const className = document.getElementById('inp-name').value.trim();
-  const kit = normalizeKit({ name: document.getElementById('kit-name').value.trim(), parentClass: className, note: document.getElementById('kit-note').value, benefits: document.getElementById('kit-benefits').value, restrictions: document.getElementById('kit-restrictions').value, specialAbilities: document.getElementById('kit-special').value, kitTraits: readTraitRows('kit-traits-list') }, className);
-  if (!kit.name) { alert('Kit name is required.'); return; }
-  if (Number.isInteger(idx) && idx >= 0 && idx < currentKits.length) currentKits[idx] = kit; else currentKits.push(kit);
-  currentKits = ensureDefaultKitList(currentKits, className);
-  renderKitsList();
-  closeKitModal();
+function renderKitTabs() {
+  const container = document.getElementById('kit-tabs');
+  const classRecord = getClassRecord();
+  const kits = Array.isArray(classRecord?.kits) ? classRecord.kits : [];
+  if (kits.length === 0) {
+    container.innerHTML = '<div class="tiny">No kits for this class yet.</div>';
+    return;
+  }
+  container.innerHTML = kits.map((kit, index) => `<button type="button" class="tab-button ${index === currentKitIndex ? 'active' : ''}" onclick="selectKit(${index})">${escapeHtml(kit.name || `Kit ${index + 1}`)}</button>`).join('');
 }
 
-function deleteKit(index) {
-  const kit = currentKits[index];
+function render() {
+  if (!Array.isArray(data)) data = [];
+  if (data.length === 0) {
+    currentClassIndex = 0;
+    currentKitIndex = 0;
+    currentKits = [];
+    clearClassForm();
+    clearKitForm();
+    renderClassTabs();
+    renderSubClassSelector();
+    renderKitTabs();
+   renderLevelTable();
+    updateSummaries();
+    return;
+  }
+
+  if (currentClassIndex >= data.length) currentClassIndex = data.length - 1;
+  const classRecord = getClassRecord();
+  currentKits = Array.isArray(classRecord?.kits) ? classRecord.kits : [];
+  if (currentKitIndex >= currentKits.length) currentKitIndex = Math.max(0, currentKits.length - 1);
+
+  currentLevelStart = 0;  // NEW: reset level window when changing classes
+  renderClassTabs();
+  renderSubClassSelector();
+  fillClassForm(classRecord);
+  renderKitTabs();
+  fillKitForm(getKitRecord(currentKitIndex));
+  renderLevelTable();  // NEW: render the level-dependent table
+  updateSummaries();
+  setEditabilityState();
+}
+
+function persistActiveClassRecord(nextRecord) {
+  const canonical = getCanonicalClassRecord(currentClassIndex);
+  if (!canonical || !nextRecord) return;
+  if (isActiveCanonical()) {
+    data[currentClassIndex] = normalizeClassRecord({ ...canonical, ...nextRecord, subClasses: canonical.subClasses || [] });
+    return;
+  }
+  const subClasses = Array.isArray(canonical.subClasses) ? canonical.subClasses : [];
+  subClasses[currentSubClassIndex] = normalizeSubClass(nextRecord, canonical);
+  canonical.subClasses = subClasses;
+  data[currentClassIndex] = normalizeClassRecord(canonical);
+}
+
+function syncCurrentClassFromForm() {
+  const rec = getClassRecord();
+  if (!rec) return null;
+  if (isActiveCanonical()) return rec;
+  const canonical = getCanonicalClassRecord(currentClassIndex);
+  const next = normalizeClassRecord({
+    ...rec,
+    ...readClassForm('inp'),
+    classTraits: classifyTraits(readTraitRows('class-traits-list'), canonical?.classTraits || [])
+  });
+  next.kits = (Array.isArray(rec.kits) ? rec.kits : ensureDefaultKitList([], next.name)).map(kit => normalizeKit({ ...kit, parentClass: next.name }, next.name));
+  persistActiveClassRecord(next);
+  currentKits = next.kits;
+  renderClassTabs();
+  updateSummaries();
+  return next;
+}
+
+function syncCurrentKitFromForm() {
+  const classRecord = getClassRecord();
+  if (!classRecord) return null;
+  if (isActiveCanonical()) return null;
+  const canonical = getCanonicalClassRecord(currentClassIndex);
+  const baseKit = Array.isArray(canonical?.kits) ? canonical.kits[currentKitIndex] : null;
+  const kits = Array.isArray(classRecord.kits) ? classRecord.kits : ensureDefaultKitList([], classRecord.name);
+  const idx = Math.max(0, Math.min(currentKitIndex, kits.length - 1));
+  const kit = normalizeKit({
+    ...(kits[idx] || DEFAULT_KIT),
+    ...readKitForm('kit'),
+    parentClass: classRecord.name,
+    kitTraits: classifyTraits(readTraitRows('kit-traits-list'), baseKit?.kitTraits || [])
+  }, classRecord.name, baseKit);
+  kits[idx] = kit;
+  classRecord.kits = ensureDefaultKitList(kits, classRecord.name);
+  currentKits = classRecord.kits;
+  persistActiveClassRecord(classRecord);
+  renderKitTabs();
+  updateSummaries();
+  return kit;
+}
+
+function selectClass(index) {
+  if (!Array.isArray(data) || data.length === 0) return;
+  syncCurrentClassFromForm();
+  syncCurrentKitFromForm();
+  currentClassIndex = Math.max(0, Math.min(index, data.length - 1));
+  currentSubClassIndex = -1;
+  currentKits = Array.isArray(data[currentClassIndex]?.kits) ? data[currentClassIndex].kits : [];
+  currentKitIndex = 0;
+  render();
+}
+
+function selectSubClass(rawIndex) {
+  syncCurrentClassFromForm();
+  syncCurrentKitFromForm();
+  const nextIndex = parseInt(rawIndex, 10);
+  currentSubClassIndex = Number.isFinite(nextIndex) ? nextIndex : -1;
+  currentKitIndex = 0;
+  render();
+}
+
+function selectKit(index) {
+  const classRecord = getClassRecord();
+  const kits = Array.isArray(classRecord?.kits) ? classRecord.kits : [];
+  if (kits.length === 0) return;
+  syncCurrentClassFromForm();
+  syncCurrentKitFromForm();
+  currentKitIndex = Math.max(0, Math.min(index, kits.length - 1));
+  renderKitTabs();
+  fillKitForm(getKitRecord(currentKitIndex));
+  updateSummaries();
+}
+
+function addSubClass() {
+  const canonical = getCanonicalClassRecord(currentClassIndex);
+  if (!canonical) return;
+  const nextIndex = Array.isArray(canonical.subClasses) ? canonical.subClasses.length : 0;
+  const cloneName = `${canonical.name} Sub-Class ${nextIndex + 1}`;
+  const cloned = normalizeSubClass({
+    ...canonical,
+    name: cloneName,
+    classTraits: normalizeTraits(canonical.classTraits).map(t => ({ ...t, status: 'canon' })),
+    kits: ensureDefaultKitList(canonical.kits, cloneName).map(k => ({ ...normalizeKit(k, cloneName), isCanonical: false, kitTraits: normalizeTraits(k.kitTraits).map(t => ({ ...t, status: 'canon' })) }))
+  }, canonical);
+  canonical.subClasses = Array.isArray(canonical.subClasses) ? canonical.subClasses : [];
+  canonical.subClasses.push(cloned);
+  data[currentClassIndex] = normalizeClassRecord(canonical);
+  currentSubClassIndex = canonical.subClasses.length - 1;
+  currentKitIndex = 0;
+  render();
+}
+
+function addClass() {
+  addSubClass();
+}
+
+function addKit() {
+  const classRecord = syncCurrentClassFromForm();
+  if (!classRecord) return;
+  if (isActiveCanonical()) return;
+  const kits = Array.isArray(classRecord.kits) ? classRecord.kits : ensureDefaultKitList([], classRecord.name);
+  const nextName = kits.some(kit => kit.name === 'Kit 0') ? `Kit ${kits.length}` : 'Kit 0';
+  const newKit = normalizeKit({ 
+    ...DEFAULT_KIT, 
+    name: nextName, 
+    parentClass: classRecord.name,
+    isCanonical: false,  // NEW: mark new kits as non-canonical
+    kitTraits: []
+  }, classRecord.name);
+  kits.push(newKit);
+  classRecord.kits = ensureDefaultKitList(kits, classRecord.name);
+  persistActiveClassRecord(classRecord);
+  currentKits = classRecord.kits;
+  currentKitIndex = currentKits.length - 1;
+  renderKitTabs();
+  fillKitForm(getKitRecord(currentKitIndex));
+  updateSummaries();
+}
+
+function deleteCurrentClass() {
+  if (!Array.isArray(data) || data.length === 0) return;
+  if (isActiveCanonical()) return;
+  const classRecord = syncCurrentClassFromForm();
+  syncCurrentKitFromForm();
+  if (!confirm(`Delete sub-class ${classRecord?.name || ''}?`)) return;
+  const canonical = getCanonicalClassRecord(currentClassIndex);
+  const subClasses = Array.isArray(canonical?.subClasses) ? canonical.subClasses : [];
+  subClasses.splice(currentSubClassIndex, 1);
+  canonical.subClasses = subClasses;
+  data[currentClassIndex] = normalizeClassRecord(canonical);
+  currentSubClassIndex = -1;
+  currentKits = Array.isArray(canonical?.kits) ? canonical.kits : [];
+  currentKitIndex = 0;
+  localStorage.setItem(DB, JSON.stringify(data));
+  render();
+}
+
+function deleteCurrentKit() {
+  if (isActiveCanonical()) return;
+  const classRecord = syncCurrentClassFromForm();
+  if (!classRecord || !Array.isArray(classRecord.kits)) return;
+  const kits = classRecord.kits;
+  const kit = kits[currentKitIndex];
   if (!kit || kit.name === 'Kit 0') return;
   if (!confirm(`Delete kit ${kit.name}?`)) return;
-  currentKits.splice(index, 1);
-  currentKits = ensureDefaultKitList(currentKits, document.getElementById('inp-name').value.trim());
-  renderKitsList();
+  kits.splice(currentKitIndex, 1);
+  classRecord.kits = ensureDefaultKitList(kits, classRecord.name);
+  persistActiveClassRecord(classRecord);
+  currentKits = classRecord.kits;
+  currentKitIndex = Math.max(0, Math.min(currentKitIndex, currentKits.length - 1));
+  localStorage.setItem(DB, JSON.stringify(data));
+  render();
 }
 
 function saveClass() {
-  const idx = document.getElementById('edit-idx').value;
-  const className = document.getElementById('inp-name').value.trim();
-  if (!className) { alert('Class name is required.'); return; }
-  const next = normalizeClassRecord({
-    name: className,
-    startingGold: document.getElementById('inp-gold').value,
-    allowedArmour: document.getElementById('inp-armour').value,
-    weaponGroups: textListToArray(document.getElementById('inp-weapon-groups').value),
-    thac0: numTextToArray(document.getElementById('inp-thac0').value),
-    saves: {
-      paralyzePoisonDeath: numTextToArray(document.getElementById('inp-save-ppd').value),
-      rodStaffWand: numTextToArray(document.getElementById('inp-save-rsw').value),
-      petrificationPolymorph: numTextToArray(document.getElementById('inp-save-pp').value),
-      breathWeapon: numTextToArray(document.getElementById('inp-save-bw').value),
-      spell: numTextToArray(document.getElementById('inp-save-spell').value)
-    },
-    weaponProficiencies: numTextToArray(document.getElementById('inp-weapon-profs').value),
-    nonweaponProficiencies: numTextToArray(document.getElementById('inp-nonweapon-profs').value),
-    spellSlots: textToMatrix(document.getElementById('inp-spell-slots').value),
-    turnTable: textListToArray(document.getElementById('inp-turn-table').value),
-    thiefBase: {
-      pickPockets: numTextToArray(document.getElementById('inp-thief-pp').value),
-      openLocks: numTextToArray(document.getElementById('inp-thief-ol').value),
-      findTraps: numTextToArray(document.getElementById('inp-thief-frt').value),
-      moveSilently: numTextToArray(document.getElementById('inp-thief-ms').value),
-      hideShadows: numTextToArray(document.getElementById('inp-thief-hs').value),
-      detectNoise: numTextToArray(document.getElementById('inp-thief-dn').value),
-      climbWalls: numTextToArray(document.getElementById('inp-thief-cw').value),
-      readLanguages: numTextToArray(document.getElementById('inp-thief-rl').value)
-    },
-    classTraits: readTraitRows('class-traits-list'),
-    kits: ensureDefaultKitList(currentKits, className)
-  });
-  if (idx === '') data.push(next); else data[idx] = next;
+  if (isActiveCanonical()) return;
+  const next = syncCurrentClassFromForm();
+  if (!next) return;
+  if (!String(next.name || '').trim()) { alert('Class name is required.'); return; }
   localStorage.setItem(DB, JSON.stringify(data));
-  closeModal();
   render();
 }
 
-function modalDel() {
-  const idx = document.getElementById('edit-idx').value;
-  if (idx === '') return;
-  if (!confirm('Delete this class?')) return;
-  data.splice(parseInt(idx, 10), 1);
+function saveKit() {
+  if (isActiveCanonical()) return;
+  const kit = syncCurrentKitFromForm();
+  if (!kit) return;
+  if (!String(kit.name || '').trim()) { alert('Kit name is required.'); return; }
   localStorage.setItem(DB, JSON.stringify(data));
-  closeModal();
   render();
 }
 
-function saveLocal() { localStorage.setItem(DB, JSON.stringify(data)); alert('Classes saved to browser cache.'); }
+function saveLocal() {
+  commitOpenModalEdits();
+  syncCurrentClassFromForm();
+  syncCurrentKitFromForm();
+  localStorage.setItem(DB, JSON.stringify(data));
+  alert('Classes saved to browser cache.');
+}
+
 function loadLocal() {
+  closeAllModals();
   const raw = localStorage.getItem(DB);
   if (!raw) { alert('No local classes cache found.'); return; }
-  try { data = (Array.isArray(JSON.parse(raw)) ? JSON.parse(raw) : []).map(normalizeClassRecord); render(); alert('Classes loaded from browser cache.'); }
-  catch (e) { console.error(e); alert('Local classes cache is invalid.'); }
+  try {
+    const parsed = JSON.parse(raw);
+    data = (Array.isArray(parsed) ? parsed : []).map(normalizeClassRecord);
+    currentClassIndex = 0;
+    currentSubClassIndex = -1;
+    currentKitIndex = 0;
+    render();
+    alert('Classes loaded from browser cache.');
+  } catch (e) {
+    console.error(e);
+    alert('Local classes cache is invalid.');
+  }
 }
 
 async function refreshDefaults() {
   try {
+    closeAllModals();
     const r = await fetch(PATH);
     if (!r.ok) throw new Error(`HTTP ${r.status} loading ${PATH}`);
     const loaded = await r.json();
-    data = Array.isArray(loaded) ? loaded.map(normalizeClassRecord) : [];
+    // Mark all classes from JSON as canonical
+    data = Array.isArray(loaded) ? loaded.map(rec => {
+      const normalized = normalizeClassRecord(rec);
+      normalized.isCanonical = true;
+      // Mark all traits as canonical for classes from JSON
+      normalized.classTraits = normalized.classTraits.map(t => ({ ...t, status: 'canon' }));
+      normalized.kits = normalized.kits.map(kit => ({
+        ...kit,
+        isCanonical: true,
+        kitTraits: kit.kitTraits.map(t => ({ ...t, status: 'canon' }))
+      }));
+      normalized.subClasses = [];
+      return normalized;
+    }) : [];
+    currentClassIndex = 0;
+    currentSubClassIndex = -1;
+    currentKitIndex = 0;
     localStorage.setItem(DB, JSON.stringify(data));
     render();
     alert('Classes refreshed from defaults.');
   } catch (e) {
     console.error('Failed to refresh classes defaults:', e);
     data = [];
+    currentClassIndex = 0;
+    currentSubClassIndex = -1;
+    currentKitIndex = 0;
     render();
     alert('Fetch failed.');
   }
 }
 
 async function load() {
+  closeAllModals();
   const raw = localStorage.getItem(DB);
   if (raw) {
     try {
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length > 0) { data = parsed.map(normalizeClassRecord); render(); return; }
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        data = parsed.map(normalizeClassRecord);
+        currentClassIndex = 0;
+        currentSubClassIndex = -1;
+        currentKitIndex = 0;
+        render();
+        return;
+      }
     } catch (e) {
       console.error('Invalid cached classes data, reloading from file:', e);
       localStorage.removeItem(DB);
@@ -355,14 +1745,57 @@ async function load() {
     const r = await fetch(PATH);
     if (!r.ok) throw new Error(`HTTP ${r.status} loading ${PATH}`);
     const loaded = await r.json();
-    data = Array.isArray(loaded) ? loaded.map(normalizeClassRecord) : [];
+    // Mark all classes from JSON as canonical
+    data = Array.isArray(loaded) ? loaded.map(rec => {
+      const normalized = normalizeClassRecord(rec);
+      normalized.isCanonical = true;
+      // Mark all traits as canonical for classes from JSON
+      normalized.classTraits = normalized.classTraits.map(t => ({ ...t, status: 'canon' }));
+      normalized.kits = normalized.kits.map(kit => ({
+        ...kit,
+        isCanonical: true,
+        kitTraits: kit.kitTraits.map(t => ({ ...t, status: 'canon' }))
+      }));
+      normalized.subClasses = [];
+      return normalized;
+    }) : [];
     localStorage.setItem(DB, JSON.stringify(data));
   } catch (e) {
     console.error('Failed to load classes data:', e);
     data = [];
   }
+  currentClassIndex = 0;
+  currentSubClassIndex = -1;
+  currentKitIndex = 0;
   render();
 }
+
+document.addEventListener('input', event => {
+  const target = event.target;
+  if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement)) return;
+  if (target.closest('#class-traits-list')) {
+    syncCurrentClassFromForm();
+    return;
+  }
+  if (target.closest('#kit-traits-list')) {
+    syncCurrentKitFromForm();
+    return;
+  }
+  if (target.id && target.id.startsWith('kit-')) {
+    syncCurrentKitFromForm();
+    return;
+  }
+  if (target.id && target.id.startsWith('inp-')) {
+    syncCurrentClassFromForm();
+  }
+});
+
+document.addEventListener('change', event => {
+  const target = event.target;
+  if (!(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement)) return;
+  if (target.closest('#class-traits-list')) syncCurrentClassFromForm();
+  if (target.closest('#kit-traits-list')) syncCurrentKitFromForm();
+});
 
 load();
 </script>
