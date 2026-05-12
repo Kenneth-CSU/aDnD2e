@@ -128,10 +128,17 @@ function handleClassChange() {
     enforceRaceClassRules(false);
     const cls = document.getElementById('char-class').value;
     const kitSel = document.getElementById('char-kit');
-    kitSel.innerHTML = '<option value="">None</option>';
-    if (kitsByClass[cls]) {
-        kitsByClass[cls].forEach(k => kitSel.add(new Option(k, k)));
-    }
+    const desiredKit = charData.kit || (typeof DEFAULT_KIT_NAME === 'string' ? DEFAULT_KIT_NAME : 'Kit 0');
+    const kitList = typeof withDefaultKit === 'function'
+        ? withDefaultKit(kitsByClass[cls] || [])
+        : ((kitsByClass[cls] || []).includes('Kit 0') ? (kitsByClass[cls] || []) : ['Kit 0'].concat(kitsByClass[cls] || []));
+
+    kitSel.innerHTML = '';
+    kitList.forEach(k => kitSel.add(new Option(k, k)));
+
+    const nextKit = kitList.includes(desiredKit) ? desiredKit : (kitList[0] || (typeof DEFAULT_KIT_NAME === 'string' ? DEFAULT_KIT_NAME : 'Kit 0'));
+    kitSel.value = nextKit;
+    charData.kit = nextKit;
 
     ensureEquipmentInventoryModel();
 

@@ -22,7 +22,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Backpack equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "r objects. The character can make leather armor, as well as backpacks, saddlebags, saddles, and all sorts of harnesses. Local History: The character is a storeh"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 2 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Backpack."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 2 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Backpack."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Leather satchel for carrying gear; holds about 60 lbs of equipment.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Backpack."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Backpack."
+                           }
+                       ]
     },
     {
         "name":  "Rations, Iron (1 week)",
@@ -47,7 +84,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Rations, Iron (1 week) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 14 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Rations, Iron (1 week)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 5 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Rations, Iron (1 week)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Dried meat, hardtack, and preserved food; lasts one week.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Rations, Iron (1 week)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Rations, Iron (1 week)."
+                           }
+                       ]
     },
     {
         "name":  "Rations, Standard (1 week)",
@@ -72,7 +146,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Rations, Standard (1 week) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 7 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Rations, Standard (1 week)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 3 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Rations, Standard (1 week)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Basic trail rations including dried fruit and nuts.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Rations, Standard (1 week)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Rations, Standard (1 week)."
+                           }
+                       ]
     },
     {
         "name":  "Waterskin",
@@ -97,7 +208,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Waterskin equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "l equipment such as ropes, pitons, a hammer, food supplies, waterskin, etc. Distinctive Appearance: They usually dress in black leather armor and carry black sh"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 1 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Waterskin."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 1 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Waterskin."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Holds about 1 quart of liquid.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Waterskin."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Waterskin."
+                           }
+                       ]
     },
     {
         "name":  "Flask (empty)",
@@ -122,7 +270,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Flask (empty) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.5 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Flask (empty)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 0.5 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Flask (empty)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Glass container for liquids; holds about 1 pint.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Flask (empty)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Flask (empty)."
+                           }
+                       ]
     },
     {
         "name":  "Torch",
@@ -148,7 +333,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Torch equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "ay, or a branch in the tunnel? DM: Within the range of your torchlight, the tunnel is more or less straight. You don\u0027t see any branches or doorways. Cleric: The"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 1 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Torch."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 0.1 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Torch."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Burns for 1 hour; provides light in darkness.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Torch."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, exploration.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Torch."
+                           }
+                       ]
     },
     {
         "name":  "Lantern, Hooded",
@@ -174,7 +396,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Lantern, Hooded equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 2 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Lantern, Hooded."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 7 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Lantern, Hooded."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Oil-burning lamp with adjustable shutter; burns 1 hour per pint.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Lantern, Hooded."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, exploration.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Lantern, Hooded."
+                           }
+                       ]
     },
     {
         "name":  "Lantern, Bullseye",
@@ -200,7 +459,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Lantern, Bullseye equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 3 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Lantern, Bullseye."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 10 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Lantern, Bullseye."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Focused beam lantern; illuminates cone 60 ft long.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Lantern, Bullseye."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, exploration.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Lantern, Bullseye."
+                           }
+                       ]
     },
     {
         "name":  "Oil (1 flask)",
@@ -225,7 +521,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Oil (1 flask) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 1 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Oil (1 flask)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 0.2 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Oil (1 flask)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Lamp oil or Greek fire (if special); burns 1 hour per flask.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Oil (1 flask)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Oil (1 flask)."
+                           }
+                       ]
     },
     {
         "name":  "Rope, Hemp (50 ft)",
@@ -251,7 +584,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Rope, Hemp (50 ft) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 5 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Rope, Hemp (50 ft)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 1 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Rope, Hemp (50 ft)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Strong rope; can hold up to 300 lbs safely.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Rope, Hemp (50 ft)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, exploration.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Rope, Hemp (50 ft)."
+                           }
+                       ]
     },
     {
         "name":  "Rope, Silk (50 ft)",
@@ -277,7 +647,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Rope, Silk (50 ft) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 2 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Rope, Silk (50 ft)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 10 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Rope, Silk (50 ft)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Light but strong; holds 400 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Rope, Silk (50 ft)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, exploration.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Rope, Silk (50 ft)."
+                           }
+                       ]
     },
     {
         "name":  "Bedroll",
@@ -302,7 +709,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Bedroll equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "for packing and stowing equipment. Blankets are rolled into bedrolls, small items are carefully arranged, rope is properly coiled, weapons are slung in the most"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 3 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Bedroll."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 1 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Bedroll."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Blanket roll for sleeping outdoors.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Bedroll."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Bedroll."
+                           }
+                       ]
     },
     {
         "name":  "Blanket",
@@ -327,7 +771,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Blanket equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "addle bags -- -- Large 4 gp 8 Ibs. Small 3 gp 5 Ibs. Saddle blanket 3 sp 4 lbs. Yoke -- -- Horse 5 gp 15 Ibs. Ox 3 gp 20 Ibs. * These items weigh little individ"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 2 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Blanket."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 0.5 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Blanket."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Warm woolen blanket.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Blanket."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Blanket."
+                           }
+                       ]
     },
     {
         "name":  "Tent (small)",
@@ -353,7 +834,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Tent (small) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 10 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Tent (small)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 5 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Tent (small)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Canvas shelter for 1-2 people.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Tent (small)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, exploration.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Tent (small)."
+                           }
+                       ]
     },
     {
         "name":  "Tent (large)",
@@ -379,7 +897,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Tent (large) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 20 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Tent (large)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 15 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Tent (large)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Canvas pavilion for 4-6 people.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Tent (large)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, exploration.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Tent (large)."
+                           }
+                       ]
     },
     {
         "name":  "Flint and Steel",
@@ -405,7 +960,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Flint and Steel equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "mall pieces of tinder, he can start a fire in 2d20 minutes. Flint and steel are not required. Wet wood, high winds, or other adverse conditions increase the tim"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.25 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Flint and Steel."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 3 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Flint and Steel."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Fire-starting tools.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Flint and Steel."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, exploration.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Flint and Steel."
+                           }
+                       ]
     },
     {
         "name":  "Mirror, Small",
@@ -431,7 +1023,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Mirror, Small equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "d Poor Magnifying glass Map or scroll case Merchant\u0027s scale Mirror, small metal Musical instrument Oil (per flask) Greek fire Lamp Paper (per sheet) Papyrus (pe"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.5 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Mirror, Small."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 5 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Mirror, Small."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Polished silver mirror; useful for signaling.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Mirror, Small."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, exploration.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Mirror, Small."
+                           }
+                       ]
     },
     {
         "name":  "Chalk (1 piece)",
@@ -457,7 +1086,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Chalk (1 piece) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.1 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Chalk (1 piece)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 0.01 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Chalk (1 piece)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "For marking passages and walls.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Chalk (1 piece)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, exploration.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Chalk (1 piece)."
+                           }
+                       ]
     },
     {
         "name":  "Ink (1 oz vial)",
@@ -482,7 +1148,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Ink (1 oz vial) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.25 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Ink (1 oz vial)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 8 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Ink (1 oz vial)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Writing ink for scrolls and documents.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Ink (1 oz vial)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Ink (1 oz vial)."
+                           }
+                       ]
     },
     {
         "name":  "Parchment (1 sheet)",
@@ -507,7 +1210,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Parchment (1 sheet) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.1 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Parchment (1 sheet)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 0.2 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Parchment (1 sheet)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Writing surface for scrolls and notes.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Parchment (1 sheet)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Parchment (1 sheet)."
+                           }
+                       ]
     },
     {
         "name":  "Paper (1 sheet)",
@@ -532,7 +1272,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Paper (1 sheet) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.05 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Paper (1 sheet)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 0.5 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Paper (1 sheet)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Fine writing paper.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Paper (1 sheet)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Paper (1 sheet)."
+                           }
+                       ]
     },
     {
         "name":  "Quill Pen",
@@ -557,7 +1334,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Quill Pen equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "s any spell while wearing the ring, a sheaf of papers and a quill pen suddenly appear in his hand. The papers are forms that must be filled out in triplicate ex"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.05 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Quill Pen."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 0.1 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Quill Pen."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Feather pen for writing.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Quill Pen."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Quill Pen."
+                           }
+                       ]
     },
     {
         "name":  "Book, Spellbook (blank)",
@@ -583,7 +1397,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Book, Spellbook (blank) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 2 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Book, Spellbook (blank)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 15 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Book, Spellbook (blank)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Bound tome for recording spells; 100 pages.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Book, Spellbook (blank)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, support.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Book, Spellbook (blank)."
+                           }
+                       ]
     },
     {
         "name":  "Scroll Case",
@@ -609,7 +1460,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Scroll Case equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "acon Bullseye Hooded Lock Good Poor Magnifying glass Map or scroll case Merchant\u0027s scale Mirror, small metal Musical instrument Oil (per flask) Greek fire Lamp"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.5 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Scroll Case."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 1 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Scroll Case."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Waterproof tube for storing scrolls.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Scroll Case."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, support.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Scroll Case."
+                           }
+                       ]
     },
     {
         "name":  "Sack, Small",
@@ -634,7 +1522,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Sack, Small equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "\u0027 Chest, small AO lbs. 2) 1 1\u0027 Sack, large 30 Ibs. 2\u0027.2\u0027 1\u0027 Sack, small 15 Ibs. 1\u0027_1\u0027_8\" Saddle bags, large 30 Ibs. 18\"_1\u0027_6\" Saddle bags, small 20 Ibs. 1\u0027_1\u0027_6"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.5 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Sack, Small."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 0.2 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Sack, Small."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Holds about 20 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Sack, Small."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Sack, Small."
+                           }
+                       ]
     },
     {
         "name":  "Sack, Large",
@@ -659,7 +1584,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Sack, Large equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Chest, large 100 Ibs. 3\u0027.2\u0027 2\u0027 Chest, small AO lbs. 2) 1 1\u0027 Sack, large 30 Ibs. 2\u0027.2\u0027 1\u0027 Sack, small 15 Ibs. 1\u0027_1\u0027_8\" Saddle bags, large 30 Ibs. 18\"_1\u0027_6\" Saddl"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 1 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Sack, Large."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 0.5 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Sack, Large."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Holds about 60 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Sack, Large."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Sack, Large."
+                           }
+                       ]
     },
     {
         "name":  "Chest, Small",
@@ -684,7 +1646,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Chest, Small equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "pouch, small 5 Ibs. 4\" 6\"_2\" Chest, large 100 Ibs. 3\u0027.2\u0027 2\u0027 Chest, small AO lbs. 2) 1 1\u0027 Sack, large 30 Ibs. 2\u0027.2\u0027 1\u0027 Sack, small 15 Ibs. 1\u0027_1\u0027_8\" Saddle bags,"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 5 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Chest, Small."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 5 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Chest, Small."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Wooden lockbox; holds about 30 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Chest, Small."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Chest, Small."
+                           }
+                       ]
     },
     {
         "name":  "Chest, Large",
@@ -709,7 +1708,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Chest, Large equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "ch, large 8 lbs. 6\" 8\" 2\" Belt pouch, small 5 Ibs. 4\" 6\"_2\" Chest, large 100 Ibs. 3\u0027.2\u0027 2\u0027 Chest, small AO lbs. 2) 1 1\u0027 Sack, large 30 Ibs. 2\u0027.2\u0027 1\u0027 Sack, small"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 15 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Chest, Large."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 15 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Chest, Large."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Reinforced chest; holds about 100 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Chest, Large."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Chest, Large."
+                           }
+                       ]
     },
     {
         "name":  "Bag, Coin (1000 coins)",
@@ -734,7 +1770,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Bag, Coin (1000 coins) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 10 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Bag, Coin (1000 coins)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 1 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Bag, Coin (1000 coins)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Heavy sack designed for coin storage.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Bag, Coin (1000 coins)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Bag, Coin (1000 coins)."
+                           }
+                       ]
     },
     {
         "name":  "Crowbar",
@@ -760,7 +1833,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Crowbar equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "character cannot make armor or most weapons, but can craft crowbars, grappling hooks, horseshoes, nails, hinges, plows, and most other iron objects. Blind-figh"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 5 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Crowbar."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 2 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Crowbar."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Iron bar for prying open doors and lids.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Crowbar."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, exploration.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Crowbar."
+                           }
+                       ]
     },
     {
         "name":  "Hammer",
@@ -786,7 +1896,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Hammer equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Deity Weapon Agriculture Bill, flail, sickle Blacksmith War hammer Death Sickle Disease Scourge, whip Earth Pick Healing Man-catcher, quarterstaff Hunt Bow and"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 2 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Hammer."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 1 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Hammer."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Standard carpenter\u0027s hammer.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Hammer."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, exploration.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Hammer."
+                           }
+                       ]
     },
     {
         "name":  "Spike, Iron (each)",
@@ -811,7 +1958,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Spike, Iron (each) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 1 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Spike, Iron (each)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 0.1 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Spike, Iron (each)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Large nail for securing doors or climbing.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Spike, Iron (each)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Spike, Iron (each)."
+                           }
+                       ]
     },
     {
         "name":  "Grappling Hook",
@@ -837,7 +2021,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Grappling Hook equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "cannot make armor or most weapons, but can craft crowbars, grappling hooks, horseshoes, nails, hinges, plows, and most other iron objects. Blind-fighting: A ch"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 2 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Grappling Hook."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 2 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Grappling Hook."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Three-pronged hook for climbing.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Grappling Hook."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, exploration.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Grappling Hook."
+                           }
+                       ]
     },
     {
         "name":  "Whetstone",
@@ -862,7 +2083,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Whetstone equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "30 gp 1 Ibs. Torch lcp 1 Ibs. Water clock 1,000 gp 200 Ibs. Whetstone 2 cp 1 Ibs. Wineskin 8 sp 1 Ibs. Winter blanket 5 sp 3 Ibs. Writing ink (per vial) 8 gp ."
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 1 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Whetstone."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 0.1 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Whetstone."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Sharpening stone for blades.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Whetstone."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Whetstone."
+                           }
+                       ]
     },
     {
         "name":  "Whistle",
@@ -887,7 +2145,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Whistle equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "rge Small Sealing/candle wax (per Ib.) Sewing needle Signal whistle Signet ring or personal seal Soap (per Ib.) Spyglass 10 gp Tent -- -- Large 25 gp 20 Ibs. Pa"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.1 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Whistle."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 0.5 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Whistle."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Signal whistle; audible up to 1/2 mile.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Whistle."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Whistle."
+                           }
+                       ]
     },
     {
         "name":  "Bell, Small",
@@ -912,7 +2207,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Bell, Small equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.25 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Bell, Small."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 1 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Bell, Small."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Handbell or alarm bell.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Bell, Small."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Bell, Small."
+                           }
+                       ]
     },
     {
         "name":  "Caltrops (20)",
@@ -937,7 +2269,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Caltrops (20) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 2 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Caltrops (20)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 2 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Caltrops (20)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Spiked balls to slow pursuers.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Caltrops (20)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Caltrops (20)."
+                           }
+                       ]
     },
     {
         "name":  "Holy Symbol",
@@ -963,7 +2332,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Holy Symbol equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "ery unforgiving and very patient. Mistletoe is an important holy symbol to druids and it is a necessary part of some spells (those requiring a holy symbol). To"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 1 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Holy Symbol."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 5 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Holy Symbol."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Sacred emblem for clerics and paladins.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Holy Symbol."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, divine.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Holy Symbol."
+                           }
+                       ]
     },
     {
         "name":  "Holy Water (flask)",
@@ -999,7 +2405,44 @@
                                      "condition":  "on hit",
                                      "source":  "Items table"
                                  }
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Holy Water (flask) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 1 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Holy Water (flask)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 25 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Holy Water (flask)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Blessed water; damages undead on contact.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Holy Water (flask)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, divine.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Holy Water (flask)."
+                           }
+                       ]
     },
     {
         "name":  "Garlic (bunch)",
@@ -1025,7 +2468,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Garlic (bunch) equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.25 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Garlic (bunch)."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 0.1 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Garlic (bunch)."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Repels vampires when worn visibly.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Garlic (bunch)."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, divine.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Garlic (bunch)."
+                           }
+                       ]
     },
     {
         "name":  "Silver Mirror",
@@ -1051,7 +2531,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Silver Mirror equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "nergy plane The material component for the spell is a small silver mirror. Statue (Alteration) Range: Touch Components: V, S, M Duration: 1 hr./level Casting Ti"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 1 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Silver Mirror."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 10 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Silver Mirror."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Used to detect shapeshifters and vampires.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Silver Mirror."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, exploration.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Silver Mirror."
+                           }
+                       ]
     },
     {
         "name":  "Wolfbane",
@@ -1077,7 +2594,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Wolfbane equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.1 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Wolfbane."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 5 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Wolfbane."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Herb that repels lycanthropes.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Wolfbane."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, divine.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Wolfbane."
+                           }
+                       ]
     },
     {
         "name":  "Antitoxin Kit",
@@ -1103,7 +2657,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Antitoxin Kit equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 1 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Antitoxin Kit."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 10 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Antitoxin Kit."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Contains remedies for common poisons.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Antitoxin Kit."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, healing.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Antitoxin Kit."
+                           }
+                       ]
     },
     {
         "name":  "Healing Potion",
@@ -1139,7 +2730,44 @@
                                      "condition":  "on consume",
                                      "source":  "Items table"
                                  }
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Healing Potion equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "rious, chaotic battle. Imagine the simple act of imbibing a healing potion. First, a character decides to drink the potion before retiring for the night. All he"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.5 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Healing Potion."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 50 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Healing Potion."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Restores 2d4+1 hit points when consumed.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Healing Potion."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, healing.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Healing Potion."
+                           }
+                       ]
     },
     {
         "name":  "Thieves\u0027 Picks",
@@ -1164,7 +2792,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Thieves\u0027 Picks equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "ge 25 gp 20 Ibs. Pavilion 100 gp 50 Ibs. Small 5 gp 10 Ibs. Thieves\u0027 picks 30 gp 1 Ibs. Torch lcp 1 Ibs. Water clock 1,000 gp 200 Ibs. Whetstone 2 cp 1 Ibs. Win"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.5 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Thieves\u0027 Picks."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 30 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Thieves\u0027 Picks."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Lockpicks and tools for thieves.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Thieves\u0027 Picks."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Thieves\u0027 Picks."
+                           }
+                       ]
     },
     {
         "name":  "Disguise Kit",
@@ -1189,7 +2854,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Disguise Kit equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "ading Lips. e Equipment. Every Infiltrator must have a good disguise kit. Otherwise, they are free to choose whatever equipment they like. e Distinctive Appeara"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 2 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Disguise Kit."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 15 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Disguise Kit."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Makeup, false facial hair, and clothing accents.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Disguise Kit."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Disguise Kit."
+                           }
+                       ]
     },
     {
         "name":  "Musical Instrument",
@@ -1214,7 +2916,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Musical Instrument equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "e proficient singers, chanters, or vocalists and can play a musical instrument of the player\u0027s choice (preferably one that is portable). Additional instruments"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 3 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Musical Instrument."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 5 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Musical Instrument."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Lute, flute, or similar instrument.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Musical Instrument."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Musical Instrument."
+                           }
+                       ]
     },
     {
         "name":  "Playing Cards",
@@ -1239,7 +2978,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Playing Cards equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.25 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Playing Cards."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 1 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Playing Cards."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Deck of cards for gambling.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Playing Cards."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Playing Cards."
+                           }
+                       ]
     },
     {
         "name":  "Dice Set",
@@ -1264,7 +3040,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Dice Set equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 0.25 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Dice Set."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 0.5 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Dice Set."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Polyhedral dice for gaming.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Dice Set."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Dice Set."
+                           }
+                       ]
     },
     {
         "name":  "Fishing Tackle",
@@ -1289,7 +3102,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Fishing Tackle equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "so available, usually at double or triple the normal price. Fishing Tackle. This meticulously crafted set of polished wooden lures, colorful flies made of feath"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 2 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Fishing Tackle."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 3 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Fishing Tackle."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Line, hooks, and sinkers.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Fishing Tackle."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Fishing Tackle."
+                           }
+                       ]
     },
     {
         "name":  "Spell Component Pouch",
@@ -1315,7 +3165,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Spell Component Pouch equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 2 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Spell Component Pouch."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 5 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Spell Component Pouch."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Pouch containing common material components for arcane spells.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Spell Component Pouch."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, support.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Spell Component Pouch."
+                           }
+                       ]
     },
     {
         "name":  "Healer\u0027s Kit",
@@ -1340,7 +3227,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Healer\u0027s Kit equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "1 Falconry Training Equipment 10 gp 1 Fishing Tackle 2 gp 1 Healer\u0027s Kit 25 gp 1 Insect Repellant 5 gp sl Kayak (\u0026 paddle) 35 gp 50 Poncho, Rain 6 gp 2 Scent Lu"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 3 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Healer\u0027s Kit."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 10 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Healer\u0027s Kit."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Bandages, salves, and basic medical tools for first aid.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Healer\u0027s Kit."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Healer\u0027s Kit."
+                           }
+                       ]
     },
     {
         "name":  "Spellbook",
@@ -1366,7 +3290,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Spellbook equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "he can use them. The exact shape and size of a character\u0027s spellbooks is a detail your DM will provide. They may be thick tomes of carefully inked parchment, c"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 3 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Spellbook."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 50 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Spellbook."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Bound magical text used by wizards to record known spells.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Spellbook."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, support.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Spellbook."
+                           }
+                       ]
     },
     {
         "name":  "Robes",
@@ -1391,7 +3352,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Robes equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "make. Those armors that are a single piece--leather tunics, robes, chain mail--take one round (two for metal items) to don with slight assistance. Without aid,"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 4 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Robes."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 2 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Robes."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Simple layered robes favored by mages and scholars.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Robes."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Robes."
+                           }
+                       ]
     },
     {
         "name":  "Riding Saddle",
@@ -1416,7 +3414,44 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Riding Saddle equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "ght. Saddles: There are two basic saddles--riding and pack. Riding saddles take many forms, but their basic purpose is to carry a person. If your DM has set his"
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 25 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Riding Saddle."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 10 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Riding Saddle."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Standard riding saddle with straps and saddlebags.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Riding Saddle."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Riding Saddle."
+                           }
+                       ]
     },
     {
         "name":  "Crowbar, Heavy",
@@ -1442,6 +3477,43 @@
                   },
         "modifierProfiles":  [
 
-                             ]
+                             ],
+        "itemTraits":  [
+                           {
+                               "tag":  "identity",
+                               "text":  "Crowbar, Heavy equipment record with cost and properties.",
+                               "sourceBook":  "books/FullTextSearch.txt",
+                               "sourcePage":  "",
+                               "sourceSnippet":  ""
+                           },
+                           {
+                               "tag":  "weight",
+                               "text":  "Weight: 8 lbs.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Weight record for Crowbar, Heavy."
+                           },
+                           {
+                               "tag":  "cost",
+                               "text":  "Cost: 4 GP.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Cost record for Crowbar, Heavy."
+                           },
+                           {
+                               "tag":  "description",
+                               "text":  "Long iron bar for forcing doors, chests, and stonework.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Description for Crowbar, Heavy."
+                           },
+                           {
+                               "tag":  "roles",
+                               "text":  "Roles: utility, exploration.",
+                               "sourceBook":  "data/items.json",
+                               "sourcePage":  "",
+                               "sourceSnippet":  "Role classifications for Crowbar, Heavy."
+                           }
+                       ]
     }
 ]

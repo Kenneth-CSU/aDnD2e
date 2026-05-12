@@ -28,7 +28,51 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Leather Armor armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "with splint mail, morning star, hand axe; 60 infantry with leather armor, pike, short sword. 76-90 40 infantry with chain mail, heavy crossbow, short sword; 20"
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 8.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Leather Armor."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 15 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Leather Armor."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 5 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Leather Armor."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: light.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Leather Armor."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense, mobility.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Leather Armor."
+                             }
+                         ]
     },
     {
         "name":  "Studded Leather",
@@ -59,7 +103,51 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Studded Leather armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "cale mail, shield, lance, long sword, mace; 30 cavalry with studded leather armor, shield, lance, long sword 00 DM\u0027s Option (Barbarians, headhunters, armed peas"
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 7.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Studded Leather."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 20 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Studded Leather."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 15 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Studded Leather."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: light.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Studded Leather."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense, mobility.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Studded Leather."
+                             }
+                         ]
     },
     {
         "name":  "Hide Armor",
@@ -90,7 +178,51 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Hide Armor armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "d leather or ring mail + shield, brigandine, scale mail, or hide armor 6 Scale mail or hide + shield, chain mail 5 Chain mail + shield, splint mail, banded mail"
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 6.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Hide Armor."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 35 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Hide Armor."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 10 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Hide Armor."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: light.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Hide Armor."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense, mobility.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Hide Armor."
+                             }
+                         ]
     },
     {
         "name":  "Padded Armor",
@@ -121,7 +253,51 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Padded Armor armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "gs Type of Armor AC Rating None 10 Shield only 9 Leather or padded armor 8 Leather or padded armor + shield, studded leather, or ring mail armor f Studded leath"
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 8.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Padded Armor."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 10 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Padded Armor."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 4 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Padded Armor."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: light.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Padded Armor."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense, mobility.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Padded Armor."
+                             }
+                         ]
     },
     {
         "name":  "Ring Mail",
@@ -151,7 +327,51 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Ring Mail armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Roll Troops/Followers (all 0th-level) 01-50 20 cavalry with ring mail, shield, 3 javelins, long sword, hand axe; 100 infantry with scale mail, polearm*, club 51"
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 7.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Ring Mail."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 30 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Ring Mail."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 20 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Ring Mail."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: medium.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Ring Mail."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Ring Mail."
+                             }
+                         ]
     },
     {
         "name":  "Scale Mail",
@@ -181,7 +401,51 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Scale Mail armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "shield, 3 javelins, long sword, hand axe; 100 infantry with scale mail, polearm*, club 51-75 20 infantry with splint mail, morning star, hand axe; 60 infantry w"
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 6.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Scale Mail."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 40 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Scale Mail."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 25 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Scale Mail."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: medium.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Scale Mail."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Scale Mail."
+                             }
+                         ]
     },
     {
         "name":  "Chainmail",
@@ -211,7 +475,51 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Chainmail armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "of Armor Class 0. In combat, Rath, attacking an orc wearing chainmail armor (AC 6), needs to roll an 8 (14-6=8) to hit the orc. An 8 or higher on 1d20 will hit"
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 5.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Chainmail."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 40 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Chainmail."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 75 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Chainmail."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: medium.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Chainmail."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Chainmail."
+                             }
+                         ]
     },
     {
         "name":  "Elven Chainmail",
@@ -242,7 +550,51 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Elven Chainmail armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  ""
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 5.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Elven Chainmail."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 20 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Elven Chainmail."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 500 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Elven Chainmail."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: medium.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Elven Chainmail."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense, mobility.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Elven Chainmail."
+                             }
+                         ]
     },
     {
         "name":  "Splint Mail",
@@ -273,7 +625,51 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Splint Mail armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "il +1, shield, spear +1, dagger +1, plus 3rd-level fighter, splint mail, shield, crossbow of distance 96-99 7th-level fighter, plate mail +1, shield +1, broad s"
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 4.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Splint Mail."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 50 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Splint Mail."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 60 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Splint Mail."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: heavy.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Splint Mail."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense, survival.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Splint Mail."
+                             }
+                         ]
     },
     {
         "name":  "Banded Mail",
@@ -304,7 +700,51 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Banded Mail armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "n mail, light crossbow, military fork 91-99 10 cavalry with banded mail, shield, lance, bastard sword, mace; 20 cavalry with scale mail, shield, lance, long swo"
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 4.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Banded Mail."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 45 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Banded Mail."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 50 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Banded Mail."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: heavy.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Banded Mail."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense, survival.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Banded Mail."
+                             }
+                         ]
     },
     {
         "name":  "Bronze Plate Mail",
@@ -335,7 +775,51 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Bronze Plate Mail armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "rmor * Banded mail 200 gp 35 Ibs. Brigandine 120 gp 35 Ibs. Bronze plate mail 400 gp 45 Ibs. Chain mail 75 gp AO Ibs. Field plate 2000 gp 60 Ibs. Full plate 4,0"
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 4.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Bronze Plate Mail."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 55 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Bronze Plate Mail."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 100 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Bronze Plate Mail."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: heavy.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Bronze Plate Mail."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense, survival.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Bronze Plate Mail."
+                             }
+                         ]
     },
     {
         "name":  "Plate Mail",
@@ -366,7 +850,51 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Plate Mail armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "ader (and suggested magical items) 01-40 5th-level fighter, plate mail, shield, battle axe +2 41-75 6th-level fighter, plate mail, shield +1, spear +1, dagger +"
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 3.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Plate Mail."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 70 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Plate Mail."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 400 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Plate Mail."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: heavy.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Plate Mail."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense, survival.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Plate Mail."
+                             }
+                         ]
     },
     {
         "name":  "Field Plate",
@@ -397,7 +925,51 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Field Plate armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "ite Units 01-10 10 mounted knights; Ist-level fighters with field plate, large shield, lance, broad sword, morning star, and heavy war horse with full barding 1"
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 2.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Field Plate."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 60 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Field Plate."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 1000 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Field Plate."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: heavy.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Field Plate."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense, survival.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Field Plate."
+                             }
+                         ]
     },
     {
         "name":  "Full Plate",
@@ -428,7 +1000,51 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Full Plate armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "a shield would require two weeks of work, whereas a suit of full plate armor would require 18 weeks of work. If the proficiency check indicates failure but is w"
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 1.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Full Plate."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 70 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Full Plate."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 2000 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Full Plate."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: heavy.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Full Plate."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense, survival.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Full Plate."
+                             }
+                         ]
     },
     {
         "name":  "Small Shield",
@@ -459,7 +1075,58 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Small Shield armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "d is relative to the size of the character. Thus, a human\u0027s small shield would have all the effects of a medium shield when used by a gnome. A buckler (or targe"
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 1.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Small Shield."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 5 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Small Shield."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 5 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Small Shield."
+                             },
+                             {
+                                 "tag":  "shield-flag",
+                                 "text":  "This item is equipped as a shield.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Shield record for Small Shield."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: shield.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Small Shield."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense, support.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Small Shield."
+                             }
+                         ]
     },
     {
         "name":  "Medium Shield",
@@ -490,7 +1157,58 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Medium Shield armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "hus, a human\u0027s small shield would have all the effects of a medium shield when used by a gnome. A buckler (or target) is a very small shield that fastens on the"
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 1.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Medium Shield."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 10 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Medium Shield."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 10 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Medium Shield."
+                             },
+                             {
+                                 "tag":  "shield-flag",
+                                 "text":  "This item is equipped as a shield.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Shield record for Medium Shield."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: shield.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Medium Shield."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense, support.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Medium Shield."
+                             }
+                         ]
     },
     {
         "name":  "Body Shield (Tower)",
@@ -521,6 +1239,57 @@
                                      "condition":  "while equipped",
                                      "source":  "Armour profile"
                                  }
-                             ]
+                             ],
+        "armourTraits":  [
+                             {
+                                 "tag":  "identity",
+                                 "text":  "Body Shield (Tower) armour or shield with AC and encumbrance properties.",
+                                 "sourceBook":  "books/FullTextSearch.txt",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  ""
+                             },
+                             {
+                                 "tag":  "armor-class",
+                                 "text":  "Base AC: 1.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "AC record for Body Shield (Tower)."
+                             },
+                             {
+                                 "tag":  "weight",
+                                 "text":  "Weight: 15 lbs.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Weight record for Body Shield (Tower)."
+                             },
+                             {
+                                 "tag":  "cost",
+                                 "text":  "Cost: 15 GP.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Cost record for Body Shield (Tower)."
+                             },
+                             {
+                                 "tag":  "shield-flag",
+                                 "text":  "This item is equipped as a shield.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Shield record for Body Shield (Tower)."
+                             },
+                             {
+                                 "tag":  "armor-type",
+                                 "text":  "Armour type: shield.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Type record for Body Shield (Tower)."
+                             },
+                             {
+                                 "tag":  "roles",
+                                 "text":  "Roles: defense, support.",
+                                 "sourceBook":  "data/armour.json",
+                                 "sourcePage":  "",
+                                 "sourceSnippet":  "Role classifications for Body Shield (Tower)."
+                             }
+                         ]
     }
 ]

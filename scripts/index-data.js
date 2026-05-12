@@ -3,6 +3,8 @@
  */
 
 const CHARACTER_SHEET_READ_ONLY = true;
+const DEFAULT_KIT_NAME = 'Kit 0';
+const DEFAULT_KIT_NOTE = 'Default fallback kit. No mechanical effects.';
 
 // --- DATABASES ---
 
@@ -24,6 +26,16 @@ const CORE_KITS = {
     "Thief": ["Swashbuckler", "Investigator", "Acrobat", "Beggar"],
     "Bard": ["Gallant", "Blade", "Skald", "Herald"]
 };
+
+function withDefaultKit(kits) {
+    const list = Array.isArray(kits) ? kits.filter(Boolean) : [];
+    if (list.includes(DEFAULT_KIT_NAME)) return list;
+    return [DEFAULT_KIT_NAME, ...list];
+}
+
+Object.keys(CORE_KITS).forEach(clsName => {
+    CORE_KITS[clsName] = withDefaultKit(CORE_KITS[clsName]);
+});
 
 let raceList = [...CORE_RACES];
 let classList = [...CORE_CLASSES];
@@ -345,7 +357,7 @@ const THIEF_INCREASE = {
 // State
 let charData = {
     id: "",
-    name: "", race: "Human", class: "Fighter", kit: "", level: 1,
+    name: "", race: "Human", class: "Fighter", kit: DEFAULT_KIT_NAME, level: 1,
     stats: { STR: 10, DEX: 10, CON: 10, INT: 10, WIS: 10, CHA: 10, STR_Pct: 0 },
     hp: { cur: 10, max: 10 },
     equipment: {
@@ -353,7 +365,6 @@ let charData = {
         worn: {}, containers: [], loose: []
     },
     henchmen: [],
-    familiars: [],
     companions: [],
     stronghold: { storage: { containers: [] } },
     treasureHoards: [{ id: 'hoard-default', name: 'Main Hoard', containers: [] }],

@@ -1,0 +1,282 @@
+﻿[
+    {
+        "item":  "Backpack",
+        "sourceHintCount":  47,
+        "sourceSample":  "r objects. The character can make leather armor, as well as backpacks, saddlebags, saddles, and all sorts of harnesses. Local History: The character is a storeh"
+    },
+    {
+        "item":  "Rations, Iron (1 week)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Rations, Standard (1 week)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Waterskin",
+        "sourceHintCount":  5,
+        "sourceSample":  "l equipment such as ropes, pitons, a hammer, food supplies, waterskin, etc. Distinctive Appearance: They usually dress in black leather armor and carry black sh"
+    },
+    {
+        "item":  "Flask (empty)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Torch",
+        "sourceHintCount":  96,
+        "sourceSample":  "ay, or a branch in the tunnel? DM: Within the range of your torchlight, the tunnel is more or less straight. You don\u0027t see any branches or doorways. Cleric: The"
+    },
+    {
+        "item":  "Lantern, Hooded",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Lantern, Bullseye",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Oil (1 flask)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Rope, Hemp (50 ft)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Rope, Silk (50 ft)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Bedroll",
+        "sourceHintCount":  6,
+        "sourceSample":  "for packing and stowing equipment. Blankets are rolled into bedrolls, small items are carefully arranged, rope is properly coiled, weapons are slung in the most"
+    },
+    {
+        "item":  "Blanket",
+        "sourceHintCount":  33,
+        "sourceSample":  "addle bags -- -- Large 4 gp 8 Ibs. Small 3 gp 5 Ibs. Saddle blanket 3 sp 4 lbs. Yoke -- -- Horse 5 gp 15 Ibs. Ox 3 gp 20 Ibs. * These items weigh little individ"
+    },
+    {
+        "item":  "Tent (small)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Tent (large)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Flint and Steel",
+        "sourceHintCount":  12,
+        "sourceSample":  "mall pieces of tinder, he can start a fire in 2d20 minutes. Flint and steel are not required. Wet wood, high winds, or other adverse conditions increase the tim"
+    },
+    {
+        "item":  "Mirror, Small",
+        "sourceHintCount":  2,
+        "sourceSample":  "d Poor Magnifying glass Map or scroll case Merchant\u0027s scale Mirror, small metal Musical instrument Oil (per flask) Greek fire Lamp Paper (per sheet) Papyrus (pe"
+    },
+    {
+        "item":  "Chalk (1 piece)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Ink (1 oz vial)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Parchment (1 sheet)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Paper (1 sheet)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Quill Pen",
+        "sourceHintCount":  1,
+        "sourceSample":  "s any spell while wearing the ring, a sheaf of papers and a quill pen suddenly appear in his hand. The papers are forms that must be filled out in triplicate ex"
+    },
+    {
+        "item":  "Book, Spellbook (blank)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Scroll Case",
+        "sourceHintCount":  2,
+        "sourceSample":  "acon Bullseye Hooded Lock Good Poor Magnifying glass Map or scroll case Merchant\u0027s scale Mirror, small metal Musical instrument Oil (per flask) Greek fire Lamp "
+    },
+    {
+        "item":  "Sack, Small",
+        "sourceHintCount":  1,
+        "sourceSample":  "\u0027 Chest, small AO lbs. 2) 1 1\u0027 Sack, large 30 Ibs. 2\u0027.2\u0027 1\u0027 Sack, small 15 Ibs. 1\u0027_1\u0027_8\" Saddle bags, large 30 Ibs. 18\"_1\u0027_6\" Saddle bags, small 20 Ibs. 1\u0027_1\u0027_6"
+    },
+    {
+        "item":  "Sack, Large",
+        "sourceHintCount":  1,
+        "sourceSample":  "Chest, large 100 Ibs. 3\u0027.2\u0027 2\u0027 Chest, small AO lbs. 2) 1 1\u0027 Sack, large 30 Ibs. 2\u0027.2\u0027 1\u0027 Sack, small 15 Ibs. 1\u0027_1\u0027_8\" Saddle bags, large 30 Ibs. 18\"_1\u0027_6\" Saddl"
+    },
+    {
+        "item":  "Chest, Small",
+        "sourceHintCount":  1,
+        "sourceSample":  "pouch, small 5 Ibs. 4\" 6\"_2\" Chest, large 100 Ibs. 3\u0027.2\u0027 2\u0027 Chest, small AO lbs. 2) 1 1\u0027 Sack, large 30 Ibs. 2\u0027.2\u0027 1\u0027 Sack, small 15 Ibs. 1\u0027_1\u0027_8\" Saddle bags, "
+    },
+    {
+        "item":  "Chest, Large",
+        "sourceHintCount":  1,
+        "sourceSample":  "ch, large 8 lbs. 6\" 8\" 2\" Belt pouch, small 5 Ibs. 4\" 6\"_2\" Chest, large 100 Ibs. 3\u0027.2\u0027 2\u0027 Chest, small AO lbs. 2) 1 1\u0027 Sack, large 30 Ibs. 2\u0027.2\u0027 1\u0027 Sack, small"
+    },
+    {
+        "item":  "Bag, Coin (1000 coins)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Crowbar",
+        "sourceHintCount":  11,
+        "sourceSample":  " character cannot make armor or most weapons, but can craft crowbars, grappling hooks, horseshoes, nails, hinges, plows, and most other iron objects. Blind-figh"
+    },
+    {
+        "item":  "Hammer",
+        "sourceHintCount":  380,
+        "sourceSample":  "Deity Weapon Agriculture Bill, flail, sickle Blacksmith War hammer Death Sickle Disease Scourge, whip Earth Pick Healing Man-catcher, quarterstaff Hunt Bow and "
+    },
+    {
+        "item":  "Spike, Iron (each)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Grappling Hook",
+        "sourceHintCount":  23,
+        "sourceSample":  " cannot make armor or most weapons, but can craft crowbars, grappling hooks, horseshoes, nails, hinges, plows, and most other iron objects. Blind-fighting: A ch"
+    },
+    {
+        "item":  "Whetstone",
+        "sourceHintCount":  3,
+        "sourceSample":  "30 gp 1 Ibs. Torch lcp 1 Ibs. Water clock 1,000 gp 200 Ibs. Whetstone 2 cp 1 Ibs. Wineskin 8 sp 1 Ibs. Winter blanket 5 sp 3 Ibs. Writing ink (per vial) 8 gp . "
+    },
+    {
+        "item":  "Whistle",
+        "sourceHintCount":  91,
+        "sourceSample":  "rge Small Sealing/candle wax (per Ib.) Sewing needle Signal whistle Signet ring or personal seal Soap (per Ib.) Spyglass 10 gp Tent -- -- Large 25 gp 20 Ibs. Pa"
+    },
+    {
+        "item":  "Bell, Small",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Caltrops (20)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Holy Symbol",
+        "sourceHintCount":  183,
+        "sourceSample":  "ery unforgiving and very patient. Mistletoe is an important holy symbol to druids and it is a necessary part of some spells (those requiring a holy symbol). To "
+    },
+    {
+        "item":  "Holy Water (flask)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Garlic (bunch)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Silver Mirror",
+        "sourceHintCount":  9,
+        "sourceSample":  "nergy plane The material component for the spell is a small silver mirror. Statue (Alteration) Range: Touch Components: V, S, M Duration: 1 hr./level Casting Ti"
+    },
+    {
+        "item":  "Wolfbane",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Antitoxin Kit",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Healing Potion",
+        "sourceHintCount":  9,
+        "sourceSample":  "rious, chaotic battle. Imagine the simple act of imbibing a healing potion. First, a character decides to drink the potion before retiring for the night. All he"
+    },
+    {
+        "item":  "Thieves\u0027 Picks",
+        "sourceHintCount":  6,
+        "sourceSample":  "ge 25 gp 20 Ibs. Pavilion 100 gp 50 Ibs. Small 5 gp 10 Ibs. Thieves\u0027 picks 30 gp 1 Ibs. Torch lcp 1 Ibs. Water clock 1,000 gp 200 Ibs. Whetstone 2 cp 1 Ibs. Win"
+    },
+    {
+        "item":  "Disguise Kit",
+        "sourceHintCount":  1,
+        "sourceSample":  "ading Lips. e Equipment. Every Infiltrator must have a good disguise kit. Otherwise, they are free to choose whatever equipment they like. e Distinctive Appeara"
+    },
+    {
+        "item":  "Musical Instrument",
+        "sourceHintCount":  130,
+        "sourceSample":  "e proficient singers, chanters, or vocalists and can play a musical instrument of the player\u0027s choice (preferably one that is portable). Additional instruments "
+    },
+    {
+        "item":  "Playing Cards",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Dice Set",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Fishing Tackle",
+        "sourceHintCount":  2,
+        "sourceSample":  "so available, usually at double or triple the normal price. Fishing Tackle. This meticulously crafted set of polished wooden lures, colorful flies made of feath"
+    },
+    {
+        "item":  "Spell Component Pouch",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "item":  "Healer\u0027s Kit",
+        "sourceHintCount":  1,
+        "sourceSample":  "1 Falconry Training Equipment 10 gp 1 Fishing Tackle 2 gp 1 Healer\u0027s Kit 25 gp 1 Insect Repellant 5 gp sl Kayak (\u0026 paddle) 35 gp 50 Poncho, Rain 6 gp 2 Scent Lu"
+    },
+    {
+        "item":  "Spellbook",
+        "sourceHintCount":  42,
+        "sourceSample":  " he can use them. The exact shape and size of a character\u0027s spellbooks is a detail your DM will provide. They may be thick tomes of carefully inked parchment, c"
+    },
+    {
+        "item":  "Robes",
+        "sourceHintCount":  65,
+        "sourceSample":  "make. Those armors that are a single piece--leather tunics, robes, chain mail--take one round (two for metal items) to don with slight assistance. Without aid, "
+    },
+    {
+        "item":  "Riding Saddle",
+        "sourceHintCount":  4,
+        "sourceSample":  "ght. Saddles: There are two basic saddles--riding and pack. Riding saddles take many forms, but their basic purpose is to carry a person. If your DM has set his"
+    },
+    {
+        "item":  "Crowbar, Heavy",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    }
+]

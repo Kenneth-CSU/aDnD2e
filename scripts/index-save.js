@@ -219,7 +219,7 @@ function resetCharacter() {
         charData.name = '';
         charData.race = 'Human';
         charData.class = 'Fighter';
-        charData.kit = '';
+        charData.kit = (typeof DEFAULT_KIT_NAME === 'string' ? DEFAULT_KIT_NAME : 'Kit 0');
         charData.level = 1;
         localStorage.setItem(getCharacterStorageKey(charData.id), JSON.stringify(charData));
         writeCharacterRoster([{ id: charData.id, name: '' }]);

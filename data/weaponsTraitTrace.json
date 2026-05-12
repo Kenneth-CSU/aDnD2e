@@ -1,0 +1,277 @@
+﻿[
+    {
+        "weapon":  "Dagger",
+        "sourceHintCount":  633,
+        "sourceSample":  "2 41-75 6th-level fighter, plate mail, shield +1, spear +1, dagger +1 76-95 6th-level fighter, plate mail +1, shield, spear +1, dagger +1, plus 3rd-level fighte"
+    },
+    {
+        "weapon":  "Knife",
+        "sourceHintCount":  314,
+        "sourceSample":  " The allowed weapons are club, dagger, dart, hand crossbow, knife, lasso, short bow, sling, broad sword, long sword, short sword, and staff. A thief can wear le"
+    },
+    {
+        "weapon":  "Short Sword",
+        "sourceHintCount":  243,
+        "sourceSample":  "an never cause less than | point of damage). For example, a short sword normally causes 1d6 points of damage (a range of | to 6). An attacker with Strength 17 c"
+    },
+    {
+        "weapon":  "Long Sword",
+        "sourceHintCount":  212,
+        "sourceSample":  "of any sort other than a crossbow, or when using a short or long sword, elves gain a bonus of +1 to their attack rolls. An elf can gain a bonus to surprise oppo"
+    },
+    {
+        "weapon":  "Bastard Sword",
+        "sourceHintCount":  79,
+        "sourceSample":  "tary fork 91-99 10 cavalry with banded mail, shield, lance, bastard sword, mace; 20 cavalry with scale mail, shield, lance, long sword, mace; 30 cavalry with st"
+    },
+    {
+        "weapon":  "Two-Handed Sword",
+        "sourceHintCount":  85,
+        "sourceSample":  "him to use weapons that require two hands (such as bows and two-handed swords) while mounted. This feat does not require a proficiency check unless the characte"
+    },
+    {
+        "weapon":  "War Hammer",
+        "sourceHintCount":  34,
+        "sourceSample":  "r). Deity Weapon Agriculture Bill, flail, sickle Blacksmith War hammer Death Sickle Disease Scourge, whip Earth Pick Healing Man-catcher, quarterstaff Hunt Bow "
+    },
+    {
+        "weapon":  "Light Hammer",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "weapon":  "Mace",
+        "sourceHintCount":  301,
+        "sourceSample":  "s broken off its hinges. Standing in the doorway, holding a mace in each paw, is the biggest, ugliest wererat you\u0027ve ever seen. A couple more pairs of red eyes "
+    },
+    {
+        "weapon":  "Footman\u0027s Mace",
+        "sourceHintCount":  23,
+        "sourceSample":  "uisarme, guisarme-voulge; harpoon, spear, trident, javelin; footman\u0027s mace, horseman\u0027s mace, morning star, flail, hammer, club; military fork, ranseur, spetum, "
+    },
+    {
+        "weapon":  "Morning Star",
+        "sourceHintCount":  71,
+        "sourceSample":  "le mail, polearm*, club 51-75 20 infantry with splint mail, morning star, hand axe; 60 infantry with leather armor, pike, short sword. 76-90 40 infantry with ch"
+    },
+    {
+        "weapon":  "Flail",
+        "sourceHintCount":  164,
+        "sourceSample":  " final word in this matter). Deity Weapon Agriculture Bill, flail, sickle Blacksmith War hammer Death Sickle Disease Scourge, whip Earth Pick Healing Man-catche"
+    },
+    {
+        "weapon":  "Footman\u0027s Flail",
+        "sourceHintCount":  21,
+        "sourceSample":  "y crossbow Light quarrel Light crossbow Dagger or dirk Dart Footman\u0027s flail Footman\u0027s mace Footman\u0027s pick Hand or throwing axe Harpoon Horseman\u0027s flail Horseman"
+    },
+    {
+        "weapon":  "Club",
+        "sourceHintCount":  357,
+        "sourceSample":  "ugh your local hobby store. Role-playing and general gaming clubs are common and are always eager to accept new members. Many hobby stores offer a bulletin boar"
+    },
+    {
+        "weapon":  "Quarterstaff",
+        "sourceHintCount":  118,
+        "sourceSample":  "ickle Disease Scourge, whip Earth Pick Healing Man-catcher, quarterstaff Hunt Bow and arrows, javelin, light lance, sling, spear Lightning Dart, javelin, spear "
+    },
+    {
+        "weapon":  "Spear",
+        "sourceHintCount":  658,
+        "sourceSample":  "ons of Planescape beckon to us, and beyond even that we see spearpoints and banners waving above the gathering armies of Birthright. And, of course, presiding o"
+    },
+    {
+        "weapon":  "Short Bow",
+        "sourceHintCount":  132,
+        "sourceSample":  "eapons are club, dagger, dart, hand crossbow, knife, lasso, short bow, sling, broad sword, long sword, short sword, and staff. A thief can wear leather, studded"
+    },
+    {
+        "weapon":  "Long Bow",
+        "sourceHintCount":  117,
+        "sourceSample":  " Ist-level elven fighter/mages with chain mail, long sword, long bow, dagger 21-30 15 wardens: Ist-level rangers with scale mail, shield, long sword, spear, lon"
+    },
+    {
+        "weapon":  "Composite Short Bow",
+        "sourceHintCount":  28,
+        "sourceSample":  "attle axe Blowgun Barbed Dart Needle Bow Composite long bow Composite short bow Flight arrow Long bow Sheaf arrow Short bow Club Crossbow Hand quarrel Hand cros"
+    },
+    {
+        "weapon":  "Composite Long Bow",
+        "sourceHintCount":  22,
+        "sourceSample":  " S-M L Arquebus 3 Battle axe Blowgun Barbed Dart Needle Bow Composite long bow Composite short bow Flight arrow Long bow Sheaf arrow Short bow Club Crossbow Han"
+    },
+    {
+        "weapon":  "Arrow (20)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "weapon":  "Light Crossbow",
+        "sourceHintCount":  82,
+        "sourceSample":  ", heavy crossbow, short sword; 20 infantry with chain mail, light crossbow, military fork 91-99 10 cavalry with banded mail, shield, lance, bastard sword, mace;"
+    },
+    {
+        "weapon":  "Heavy Crossbow",
+        "sourceHintCount":  57,
+        "sourceSample":  "rmor, pike, short sword. 76-90 40 infantry with chain mail, heavy crossbow, short sword; 20 infantry with chain mail, light crossbow, military fork 91-99 10 cav"
+    },
+    {
+        "weapon":  "Quarrel/Bolt (20)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "weapon":  "Hand Axe",
+        "sourceHintCount":  63,
+        "sourceSample":  " 20 cavalry with ring mail, shield, 3 javelins, long sword, hand axe; 100 infantry with scale mail, polearm*, club 51-75 20 infantry with splint mail, morning s"
+    },
+    {
+        "weapon":  "Battle Axe",
+        "sourceHintCount":  146,
+        "sourceSample":  "magical items) 01-40 5th-level fighter, plate mail, shield, battle axe +2 41-75 6th-level fighter, plate mail, shield +1, spear +1, dagger +1 76-95 6th-level fi"
+    },
+    {
+        "weapon":  "Great Axe",
+        "sourceHintCount":  2,
+        "sourceSample":  "oth hands. Naturally, many weapons (including polearms, the great axe, the two-handed sword, and others) require two-handed technique. Other weapons (such as ba"
+    },
+    {
+        "weapon":  "Halberd",
+        "sourceHintCount":  69,
+        "sourceSample":  "site bow; heavy and light crossbows; dagger, knife; glaive, halberd, bardiche, voulge, guisarme, glaive-guisarme, guisarme-voulge; harpoon, spear, trident, jave"
+    },
+    {
+        "weapon":  "Glaive",
+        "sourceHintCount":  67,
+        "sourceSample":  "w, composite bow; heavy and light crossbows; dagger, knife; glaive, halberd, bardiche, voulge, guisarme, glaive-guisarme, guisarme-voulge; harpoon, spear, tride"
+    },
+    {
+        "weapon":  "Bill-Guisarme",
+        "sourceHintCount":  13,
+        "sourceSample":  "er 2 Morning star Polearm Awl pike 5 Bardiche Bec de corbin Bill-guisarme Fauchard Fauchard-fork 8 gp oO WN #W #NW! * #*#N NS mar~TI#e Â¥W *Â¥ wK on NADA DND SK"
+    },
+    {
+        "weapon":  "Partisan",
+        "sourceHintCount":  33,
+        "sourceSample":  "ere is also chaos; where there is neutrality, there is also partisanship. The same is true of good and evil, life and death. What is important is that all these"
+    },
+    {
+        "weapon":  "Fauchard",
+        "sourceHintCount":  52,
+        "sourceSample":  "tar Polearm Awl pike 5 Bardiche Bec de corbin Bill-guisarme Fauchard Fauchard-fork 8 gp oO WN #W #NW! * #*#N NS mar~TI#e Â¥W *Â¥ wK on NADA DND SK! 423 5.5. Soa"
+    },
+    {
+        "weapon":  "Scythe",
+        "sourceHintCount":  59,
+        "sourceSample":  "ts of room to use. Fauchard: An outgrowth of the sickle and scythe, the fauchard is a long, inward curving blade mounted on a shaft six to eight feet long. It c"
+    },
+    {
+        "weapon":  "Sickle",
+        "sourceHintCount":  114,
+        "sourceSample":  "ity might emphasize weapons derived from farm implements -- sickles and bills, for example. A deity of peace and harmony might grant only the simplest and least"
+    },
+    {
+        "weapon":  "Trident",
+        "sourceHintCount":  139,
+        "sourceSample":  "atcher Nature Club, scimitar, sickle Oceans Harpoon, spear, trident Peace Quarterstaff Strength Hammer Thunder Club, mace, war hammer War Battle axe, mace, morn"
+    },
+    {
+        "weapon":  "Javelin",
+        "sourceHintCount":  233,
+        "sourceSample":  " (all 0th-level) 01-50 20 cavalry with ring mail, shield, 3 javelins, long sword, hand axe; 100 infantry with scale mail, polearm*, club 51-75 20 infantry with "
+    },
+    {
+        "weapon":  "Lance",
+        "sourceHintCount":  942,
+        "sourceSample":  "ced Dungeons \u0026 Dragons, AD\u0026D, Dungeon Master, Dragon, Dragonlance, Forgotten Realms, and Ravenloft are registered trademarks of TSR, Inc. Dungeon Master, DM, an"
+    },
+    {
+        "weapon":  "Sling",
+        "sourceHintCount":  351,
+        "sourceSample":  "n Constitution score). Halflings have a natural talent with slings and thrown weapons. Rock pitching is a favorite sport of many a halfling child. All halflings"
+    },
+    {
+        "weapon":  "Bullet/Sling Stone (20)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "weapon":  "Dart",
+        "sourceHintCount":  266,
+        "sourceSample":  "onally useful in magical studies. Other weapons allowed are darts, knives, and slings (weapons that require little skill, little strength, or both). Wizards can"
+    },
+    {
+        "weapon":  "Blowgun",
+        "sourceHintCount":  96,
+        "sourceSample":  "ammer War Battle axe, mace, morning star, spear, sword Wind Blowgun, dart Of course there are many other reasons a deity might be associated with a particular w"
+    },
+    {
+        "weapon":  "Needle (20)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "weapon":  "Stiletto",
+        "sourceHintCount":  61,
+        "sourceSample":  "ed to weapon proficiency with one of the following weapons: stiletto*, main- gaucheâ€, rapier*, and sabre*. (The \"*\" symbol denotes new weapons to be found in "
+    },
+    {
+        "weapon":  "Main-Gauche",
+        "sourceHintCount":  15,
+        "sourceSample":  "r equally well, at no additional cost in proficiency slots. Main-gauche The main- gauche is a large-bladed dagger with a basket hilt (see the description of Cut"
+    },
+    {
+        "weapon":  "Rapier",
+        "sourceHintCount":  76,
+        "sourceSample":  "Archbishop Marshal Cantor Bishop Commander Librarian Abbot Drapier Refectorian Prior Commander of a House Almoner Friar Commander of Knights Hospitaler Knight B"
+    },
+    {
+        "weapon":  "Cutlass",
+        "sourceHintCount":  53,
+        "sourceSample":  "ir catches. Sailors may be armed with knives, short swords, cutlasses, or belaying pins (1 point of damage). Merchant/Trader Merchants and traders deal in goods"
+    },
+    {
+        "weapon":  "Scimitar",
+        "sourceHintCount":  111,
+        "sourceSample":  "avelin, spear Love Bow and arrows, man-catcher Nature Club, scimitar, sickle Oceans Harpoon, spear, trident Peace Quarterstaff Strength Hammer Thunder Club, mac"
+    },
+    {
+        "weapon":  "Khopesh",
+        "sourceHintCount":  37,
+        "sourceSample":  "ded 2gp 10 M S 8 2d4 2d8 Broad sword 10gp 4 M S 5 2d4 1d6+1 Khopesh 10gp 7 M S 9 2d4 1d6 Long sword ISgp 4 M S 5 1d8 1d12 Scimitar ISgp 4 M S 5 1d8 1d8 Short sw"
+    },
+    {
+        "weapon":  "Katana",
+        "sourceHintCount":  91,
+        "sourceSample":  "n proficiencies. A Samurai wouldn\u0027t be the same without his katana, or a Noble Warrior without his lance, for example. When required to take a specific Weapon P"
+    },
+    {
+        "weapon":  "Wakizashi",
+        "sourceHintCount":  50,
+        "sourceSample":  "itar, Two-handed sword. Medium Blades: Cutlassâ€, Khopesh, Wakizashi*. Picks: Footman\u0027s pick, Horseman\u0027s pick. Polearms: Awl pike, Bardiche, Bec de corbin, Bil"
+    },
+    {
+        "weapon":  "Hand Crossbow",
+        "sourceHintCount":  42,
+        "sourceSample":  "hieving skills. The allowed weapons are club, dagger, dart, hand crossbow, knife, lasso, short bow, sling, broad sword, long sword, short sword, and staff. A th"
+    },
+    {
+        "weapon":  "Sling Staff",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "weapon":  "Pick, Horseman\u0027s",
+        "sourceHintCount":  8,
+        "sourceSample":  "m Blades: Cutlassâ€, Khopesh, Wakizashi*. Picks: Footman\u0027s pick, Horseman\u0027s pick. Polearms: Awl pike, Bardiche, Bec de corbin, Bill- guisarme, Fauchard, Faucha"
+    },
+    {
+        "weapon":  "Pick, Military",
+        "sourceHintCount":  1,
+        "sourceSample":  "or defense or in a hasty retreat.\" -- Bramm Po, Illusionist Pick, Military The medieval military pick was a specialized weapon. It probably originated from the "
+    },
+    {
+        "weapon":  "Truncheon",
+        "sourceHintCount":  1,
+        "sourceSample":  ". Footman\u0027s Mace Footman\u0027s maces originated as heavy wooden truncheons, about two and a half feet in length and covered with iron studs. As time went by, flange"
+    }
+]

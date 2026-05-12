@@ -1,0 +1,87 @@
+﻿[
+    {
+        "armour":  "Leather Armor",
+        "sourceHintCount":  167,
+        "sourceSample":  " with splint mail, morning star, hand axe; 60 infantry with leather armor, pike, short sword. 76-90 40 infantry with chain mail, heavy crossbow, short sword; 20"
+    },
+    {
+        "armour":  "Studded Leather",
+        "sourceHintCount":  134,
+        "sourceSample":  "cale mail, shield, lance, long sword, mace; 30 cavalry with studded leather armor, shield, lance, long sword 00 DM\u0027s Option (Barbarians, headhunters, armed peas"
+    },
+    {
+        "armour":  "Hide Armor",
+        "sourceHintCount":  59,
+        "sourceSample":  "d leather or ring mail + shield, brigandine, scale mail, or hide armor 6 Scale mail or hide + shield, chain mail 5 Chain mail + shield, splint mail, banded mail"
+    },
+    {
+        "armour":  "Padded Armor",
+        "sourceHintCount":  69,
+        "sourceSample":  "gs Type of Armor AC Rating None 10 Shield only 9 Leather or padded armor 8 Leather or padded armor + shield, studded leather, or ring mail armor f Studded leath"
+    },
+    {
+        "armour":  "Ring Mail",
+        "sourceHintCount":  58,
+        "sourceSample":  "Roll Troops/Followers (all 0th-level) 01-50 20 cavalry with ring mail, shield, 3 javelins, long sword, hand axe; 100 infantry with scale mail, polearm*, club 51"
+    },
+    {
+        "armour":  "Scale Mail",
+        "sourceHintCount":  84,
+        "sourceSample":  "shield, 3 javelins, long sword, hand axe; 100 infantry with scale mail, polearm*, club 51-75 20 infantry with splint mail, morning star, hand axe; 60 infantry w"
+    },
+    {
+        "armour":  "Chainmail",
+        "sourceHintCount":  17,
+        "sourceSample":  "of Armor Class 0. In combat, Rath, attacking an orc wearing chainmail armor (AC 6), needs to roll an 8 (14-6=8) to hit the orc. An 8 or higher on 1d20 will hit "
+    },
+    {
+        "armour":  "Elven Chainmail",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "armour":  "Splint Mail",
+        "sourceHintCount":  52,
+        "sourceSample":  "il +1, shield, spear +1, dagger +1, plus 3rd-level fighter, splint mail, shield, crossbow of distance 96-99 7th-level fighter, plate mail +1, shield +1, broad s"
+    },
+    {
+        "armour":  "Banded Mail",
+        "sourceHintCount":  69,
+        "sourceSample":  "n mail, light crossbow, military fork 91-99 10 cavalry with banded mail, shield, lance, bastard sword, mace; 20 cavalry with scale mail, shield, lance, long swo"
+    },
+    {
+        "armour":  "Bronze Plate Mail",
+        "sourceHintCount":  37,
+        "sourceSample":  "rmor * Banded mail 200 gp 35 Ibs. Brigandine 120 gp 35 Ibs. Bronze plate mail 400 gp 45 Ibs. Chain mail 75 gp AO Ibs. Field plate 2000 gp 60 Ibs. Full plate 4,0"
+    },
+    {
+        "armour":  "Plate Mail",
+        "sourceHintCount":  234,
+        "sourceSample":  "ader (and suggested magical items) 01-40 5th-level fighter, plate mail, shield, battle axe +2 41-75 6th-level fighter, plate mail, shield +1, spear +1, dagger +"
+    },
+    {
+        "armour":  "Field Plate",
+        "sourceHintCount":  83,
+        "sourceSample":  "ite Units 01-10 10 mounted knights; Ist-level fighters with field plate, large shield, lance, broad sword, morning star, and heavy war horse with full barding 1"
+    },
+    {
+        "armour":  "Full Plate",
+        "sourceHintCount":  122,
+        "sourceSample":  "a shield would require two weeks of work, whereas a suit of full plate armor would require 18 weeks of work. If the proficiency check indicates failure but is w"
+    },
+    {
+        "armour":  "Small Shield",
+        "sourceHintCount":  31,
+        "sourceSample":  "d is relative to the size of the character. Thus, a human\u0027s small shield would have all the effects of a medium shield when used by a gnome. A buckler (or targe"
+    },
+    {
+        "armour":  "Medium Shield",
+        "sourceHintCount":  25,
+        "sourceSample":  "hus, a human\u0027s small shield would have all the effects of a medium shield when used by a gnome. A buckler (or target) is a very small shield that fastens on the"
+    },
+    {
+        "armour":  "Body Shield (Tower)",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    }
+]

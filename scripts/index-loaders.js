@@ -173,6 +173,11 @@ async function loadClassData() {
             loadedKits[clsName] = Array.isArray(rec.kits)
                 ? rec.kits.map(k => (k && k.name ? k.name : null)).filter(Boolean)
                 : [];
+            if (typeof withDefaultKit === 'function') {
+                loadedKits[clsName] = withDefaultKit(loadedKits[clsName]);
+            } else if (!loadedKits[clsName].includes('Kit 0')) {
+                loadedKits[clsName].unshift('Kit 0');
+            }
         });
         kitsByClass = loadedKits;
     }

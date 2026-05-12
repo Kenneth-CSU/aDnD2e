@@ -1,0 +1,260 @@
+﻿[
+    {
+        "class":  "Fighter",
+        "kit":  "Kit 0",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "class":  "Fighter",
+        "kit":  "Myrmidon",
+        "sourceHintCount":  33,
+        "sourceSample":  " Amazon Barbarian Beast- Rider Berserker Cavalier Gladiator Myrmidon Noble Warrior Peasant Hero Pirate/Outlaw Samurai Savage Swashbuckler Wilderness Warrior Rec"
+    },
+    {
+        "class":  "Fighter",
+        "kit":  "Swashbuckler",
+        "sourceHintCount":  106,
+        "sourceSample":  "l character kits that work very well for elves (such as the Swashbuckler and the Cavalier), suiting elf temperaments and preferences. Other kits are less elven,"
+    },
+    {
+        "class":  "Fighter",
+        "kit":  "Gladiator",
+        "sourceHintCount":  141,
+        "sourceSample":  "inflict pain on their captives and force slaves to fight in gladiatorial games. Mind flayers are arrogant, viewing all other species only as cattle to be fed up"
+    },
+    {
+        "class":  "Fighter",
+        "kit":  "Cavalier",
+        "sourceHintCount":  87,
+        "sourceSample":  " work very well for elves (such as the Swashbuckler and the Cavalier), suiting elf temperaments and preferences. Other kits are less elven, but still offer inte"
+    },
+    {
+        "class":  "Fighter",
+        "kit":  "Berserker",
+        "sourceHintCount":  118,
+        "sourceSample":  "th scale mail, shield, long sword, spear, long bow 31-40 20 berserkers: 2nd-level fighters with leather armor, shield, battle axe, broad sword, dagger (berserke"
+    },
+    {
+        "class":  "Paladin",
+        "kit":  "Kit 0",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "class":  "Paladin",
+        "kit":  "Inquisitor",
+        "sourceHintCount":  25,
+        "sourceSample":  "on outweigh any moral questions raised by their actions. An inquisitor determined to ferret out traitors at any cost or a soldier who never questions his orders"
+    },
+    {
+        "class":  "Paladin",
+        "kit":  "Cavalier",
+        "sourceHintCount":  87,
+        "sourceSample":  " work very well for elves (such as the Swashbuckler and the Cavalier), suiting elf temperaments and preferences. Other kits are less elven, but still offer inte"
+    },
+    {
+        "class":  "Paladin",
+        "kit":  "Enforcer",
+        "sourceHintCount":  19,
+        "sourceSample":  " groups throughout the universe as mercenaries, bodyguards, enforcers, and general legbreakers. The giff is humanoid, with stocky, flat, cylindrical legs and a "
+    },
+    {
+        "class":  "Ranger",
+        "kit":  "Kit 0",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "class":  "Ranger",
+        "kit":  "Archer",
+        "sourceHintCount":  207,
+        "sourceSample":  "eceive +1 bonus to attack and damage rolls) 41-65 20 expert archers: Ist-level fighters with studded leather armor, long bows or crossbows (+2 to hit, or bow sp"
+    },
+    {
+        "class":  "Ranger",
+        "kit":  "Beastmaster",
+        "sourceHintCount":  35,
+        "sourceSample":  "ts Acquiring Kits DM Decisions Kit Subsections List of Kits Beastmaster Explorer Falconer Feralan Forest Runner Giant Killer Greenwood Ranger Guardian Justifier"
+    },
+    {
+        "class":  "Ranger",
+        "kit":  "Mountain Man",
+        "sourceHintCount":  54,
+        "sourceSample":  "est Runner Giant Killer Greenwood Ranger Guardian Justifier Mountain Man Pathfinder Sea Ranger Seeker Stalker Warden Abandoning Kits Creating New Kits Demi-Rang"
+    },
+    {
+        "class":  "Ranger",
+        "kit":  "Stalker",
+        "sourceHintCount":  155,
+        "sourceSample":  " and disappears forever or is spirited away by an invisible stalker, the party has not lost everything. To illustrate another consideration, you are better off "
+    },
+    {
+        "class":  "Mage",
+        "kit":  "Kit 0",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "class":  "Mage",
+        "kit":  "Abjurer",
+        "sourceHintCount":  67,
+        "sourceSample":  "m Ability Specialist School Race Score Opposition School(s) Abjurer Abjuration H 15 Wis Alteration \u0026 Ilusion Conjurer Conj./Summ. H,_E 15 Con Gr. Divin. \u0026 Invoc"
+    },
+    {
+        "class":  "Mage",
+        "kit":  "Conjurer",
+        "sourceHintCount":  79,
+        "sourceSample":  " School(s) Abjurer Abjuration H 15 Wis Alteration \u0026 Ilusion Conjurer Conj./Summ. H,_E 15 Con Gr. Divin. \u0026 Invocation Diviner Gr. Divin. H,_E,E 16 Wis Conj./Summ"
+    },
+    {
+        "class":  "Mage",
+        "kit":  "Diviner",
+        "sourceHintCount":  95,
+        "sourceSample":  "on Conjurer Conj./Summ. H,_E 15 Con Gr. Divin. \u0026 Invocation Diviner Gr. Divin. H,_E,E 16 Wis Conj./Summ. Enchanter Ench./Charm H,_E,E 16 Cha Invoc./Evoc. \u0026 Necr"
+    },
+    {
+        "class":  "Mage",
+        "kit":  "Enchanter",
+        "sourceHintCount":  66,
+        "sourceSample":  ". \u0026 Invocation Diviner Gr. Divin. H,_E,E 16 Wis Conj./Summ. Enchanter Ench./Charm H,_E,E 16 Cha Invoc./Evoc. \u0026 Necromancy Illusionist Illusion H, G 16 Dex Necro"
+    },
+    {
+        "class":  "Mage",
+        "kit":  "Illusionist",
+        "sourceHintCount":  229,
+        "sourceSample":  "adin Ranger Wizard Mage Schools of Magic Specialist Wizards Illusionist Priest Cleric Priests of Specific Mythoi Requirements Weapons Allowed Spells Allowed (Sp"
+    },
+    {
+        "class":  "Mage",
+        "kit":  "Invoker",
+        "sourceHintCount":  66,
+        "sourceSample":  "lusionist Illusion H, G 16 Dex Necro., Invoc./Evoc., Abjur. Invoker Invoc./Evoc. H 16 Con Ench./Charm Conj./Summ. Necromancer Necromancy H 16 Wis Illusion \u0026 Enc"
+    },
+    {
+        "class":  "Mage",
+        "kit":  "Necromancer",
+        "sourceHintCount":  651,
+        "sourceSample":  "bjur. Invoker Invoc./Evoc. H 16 Con Ench./Charm Conj./Summ. Necromancer Necromancy H 16 Wis Illusion \u0026 Ench./Charm Transmuter Alteration H,_E 15 Dex Abjuration "
+    },
+    {
+        "class":  "Mage",
+        "kit":  "Transmuter",
+        "sourceHintCount":  66,
+        "sourceSample":  "umm. Necromancer Necromancy H 16 Wis Illusion \u0026 Ench./Charm Transmuter Alteration H,_E 15 Dex Abjuration \u0026 Necromancy This diagram illustrates the schools that "
+    },
+    {
+        "class":  "Mage",
+        "kit":  "Elementalist",
+        "sourceHintCount":  52,
+        "sourceSample":  "ic in these pages-- wild magic, cooperative magic, focuses, elementalists, and more. In the end, the Tome of Magic offers more than just spells--it gives breadt"
+    },
+    {
+        "class":  "Mage",
+        "kit":  "Wild Mage",
+        "sourceHintCount":  87,
+        "sourceSample":  "wer, just being explored and discovered for the first time. Wild mages are rare and exotic. Long before encountering such a wizard, characters may hear tell of "
+    },
+    {
+        "class":  "Cleric",
+        "kit":  "Kit 0",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "class":  "Cleric",
+        "kit":  "Healer",
+        "sourceHintCount":  208,
+        "sourceSample":  "tends to the needs of a community. He is both protector and healer. He is not purely defensive, however. When evil threatens, the cleric is well-suited to seek "
+    },
+    {
+        "class":  "Cleric",
+        "kit":  "Warrior Priest",
+        "sourceHintCount":  1,
+        "sourceSample":  "h class. Standard Class Limit Table Character Class Subrace Warrior Priest Thief Hill 15 10 12 Mountain 16 10 12 Deep 14 12 10 Duergar 12 12 14 Sundered 14 10 1"
+    },
+    {
+        "class":  "Cleric",
+        "kit":  "Scholar",
+        "sourceHintCount":  141,
+        "sourceSample":  " his faith, but he lacks the time for the contemplative and scholarly training required of a priest. So it is only a fortunate few who have the ability and oppo"
+    },
+    {
+        "class":  "Druid",
+        "kit":  "Kit 0",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "class":  "Druid",
+        "kit":  "Shapeshifter",
+        "sourceHintCount":  19,
+        "sourceSample":  "riginal form. Noncorporeal forms cannot be assumed. Natural shapeshifters (lycanthropes, dopplegangers, higher level druids, etc.) are affected for but one roun"
+    },
+    {
+        "class":  "Druid",
+        "kit":  "Totemic Druid",
+        "sourceHintCount":  15,
+        "sourceSample":  "uid Natural Philosopher Outlaw Pacifist Savage Shapeshifter Totemic Druid Village Druid Wanderer Abandoning Kits Modifying and Creating Kits Chapter 3: The Drui"
+    },
+    {
+        "class":  "Thief",
+        "kit":  "Kit 0",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "class":  "Thief",
+        "kit":  "Swashbuckler",
+        "sourceHintCount":  106,
+        "sourceSample":  "l character kits that work very well for elves (such as the Swashbuckler and the Cavalier), suiting elf temperaments and preferences. Other kits are less elven,"
+    },
+    {
+        "class":  "Thief",
+        "kit":  "Investigator",
+        "sourceHintCount":  39,
+        "sourceSample":  "f defensive or reconnaissance spells might be a good spy or investigator. Although we haven\u0027t yet devised many spells for our transfigurists, it looks like neit"
+    },
+    {
+        "class":  "Thief",
+        "kit":  "Acrobat",
+        "sourceHintCount":  84,
+        "sourceSample":  "rate. Tumbling: The character is practiced in all manner of acrobatics--dives, rolls, somersaults, handstands, flips, etc. Tumbling can only be performed while "
+    },
+    {
+        "class":  "Thief",
+        "kit":  "Beggar",
+        "sourceHintCount":  121,
+        "sourceSample":  "ant, sailor, prince, blacksmith, hermit, navigator, tinker, beggar, gypsy, or clerk classes. These are the things people do, not all- encompassing descriptions."
+    },
+    {
+        "class":  "Bard",
+        "kit":  "Kit 0",
+        "sourceHintCount":  0,
+        "sourceSample":  ""
+    },
+    {
+        "class":  "Bard",
+        "kit":  "Gallant",
+        "sourceHintCount":  69,
+        "sourceSample":  "it from that of a human or elf woman in pain. Many a knight gallant has mistaken the two sounds, and then paid for the mistake with his life. Banshees are excep"
+    },
+    {
+        "class":  "Bard",
+        "kit":  "Blade",
+        "sourceHintCount":  797,
+        "sourceSample":  "ll traps and alarms. These include poisoned needles, spring blades, deadly gases, and warning bells. This skill is not effective for finding deadfall ceilings, "
+    },
+    {
+        "class":  "Bard",
+        "kit":  "Skald",
+        "sourceHintCount":  66,
+        "sourceSample":  "ure has its storyteller or poet, whether he is called bard, skald, fili, jongleur, or something else. To become a bard, a character must have a Dexterity of 12 "
+    },
+    {
+        "class":  "Bard",
+        "kit":  "Herald",
+        "sourceHintCount":  192,
+        "sourceSample":  "y for the winter? Turn flax into linen? Thatch a roof? Read heraldry? You might, but there is no way you can consider these common skills any more. But in a med"
+    }
+]
